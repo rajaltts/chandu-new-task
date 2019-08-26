@@ -1,0 +1,86 @@
+.OptionControl-Container {
+    overflow: hidden;
+}
+
+.OptionControl-ClickableContainer {
+    overflow: hidden;
+    padding: 12.5px 20px 12.5px 40px;
+    width: calc(100% - 70px);
+    float: left;
+}
+
+.OptionControl-ClickableContainer:hover {
+    cursor: pointer;
+}
+
+.OptionControl-MainContainer {
+    overflow: auto;
+    
+}
+
+
+.OptionControl-Checkbox {
+    float: left;
+    padding: 20px;
+
+}
+
+.OptionControl-LabelsContainer{
+    float: left;
+}
+
+.OptionControl-OptName{
+    display: block;
+}
+
+.OptionControl-OptNumber{
+    color: #928c8c;
+}
+
+.OptionControl-ImpactIcon{
+    float: right;
+    margin: 11px 5px;
+}
+
+.OptionControl-InfoIcon {
+    height: 30px;
+    float: right;
+    margin: 21px 20px;
+    cursor: pointer;
+}
+
+.OptionControl-CompIcon {
+    height: 18px;
+    margin: 0px 20px;
+    float: left;
+}
+
+.OptionControl-DetailsContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 6px -6px rgba(41, 41, 41, 0.1) inset,
+                0 -8px 6px -6px rgba(41, 41, 41, 0.1) inset;
+}
+
+.OptionControl-DetailTitle{
+    margin: 20px;
+    font-size: 0.95rem;
+}
+
+.OptionControl-Detail{
+    font-size: 0.90rem;
+    margin: 0 40px;
+    display: block;
+}
+
+.OptionControl-Separator {
+    display: block;
+    height: 1px;
+    background-color: #f1f1f1;
+    width: 95%;
+    margin: 0 2.5%;
+
+}
+
+

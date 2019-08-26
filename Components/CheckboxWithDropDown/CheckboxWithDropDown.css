@@ -1,0 +1,76 @@
+.CBWDD-Container {
+    overflow: hidden;
+}
+
+.CBWDD-ClickableContainer {
+    overflow: hidden;
+    padding: 12.5px 20px 12.5px 40px;
+    width: calc(100% - 70px);
+    float: left;
+}
+
+.CBWDD-ClickableContainer:hover {
+    cursor: pointer;
+}
+
+.CBWDD-MainContainer {
+    overflow: auto;
+}
+
+.CBWDD-Checkbox {
+    float: left;
+    padding: 20px;
+
+}
+
+.CBWDD-LabelsContainer{
+    float: left;
+}
+
+.CBWDD-OptName{
+    display: block;
+}
+
+.CBWDD-InfoIcon {
+    height: 30px;
+    float: right;
+    margin: 21px 20px;
+    cursor: pointer;
+}
+
+.CBWDD-CompIcon {
+    height: 18px;
+    margin: 0px 20px;
+    float: left;
+}
+
+.CBWDD-DetailsContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 6px -6px rgba(41, 41, 41, 0.1) inset,
+                0 -8px 6px -6px rgba(41, 41, 41, 0.1) inset;
+}
+
+.CBWDD-Title{
+    margin: 10px 20px;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.CBWDD-Detail{
+    font-size: 0.90rem;
+    margin: 0 40px;
+    display: block;
+}
+
+.CBWDD-Separator {
+    display: block;
+    height: 1px;
+    background-color: #f1f1f1;
+    width: 95%;
+    margin: 0 2.5%;
+
+}
+
+

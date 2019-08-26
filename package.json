@@ -1,0 +1,25 @@
+{
+  "name": "@carrier/ngecat-reactcomponents",
+  "version": "1.0.0",
+  "description": "React components library used for NGECAT workflow UI apps",
+  "main": "index.js",
+  "publishConfig": {
+    "registry": "https://scejf01.utccgl.com/artifactory/api/npm/npm/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://scegithub.ccs.utc.com/SCE/NGECAT-ReactComponents.git"
+  },
+  "author": "Mathieu Berte",
+  "license": "ISC",
+  "dependencies": {
+    "@carrier/workflowui-globalfunctions": "^1.0.5",
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/styles": "^4.3.3",
+    "bootstrap": "^4.3.1",
+    "react": "^16.9.0"
+  }
+}
