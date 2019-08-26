@@ -2,8 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import './OptionControl.css'
 import { Checkbox } from '@material-ui/core';
-import InfoIcon from './information.svg'
-import IncompIcon from './Incomp.svg'
+import InfoIcon from './images/information.svg'
+import IncompIcon from './images/Incomp.svg'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import Tooltip from '@material-ui/core/Tooltip';
 

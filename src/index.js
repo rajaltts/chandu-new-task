@@ -1,6 +1,6 @@
 import CheckboxWithDropDown from './Components/CheckboxWithDropDown/CheckboxWithDropDown';
 import ImageWithLabelCheckboxGroup from './Components/ImageWithLabelCheckboxGroup/ImageWithLabelCheckboxGroup';
-import OptionControl from './Components/OptionControl';
+import OptionControl from './Components/OptionControl/OptionControl';
 import SimpleCombobox from './Components/SimpleComboBox/SimpleCombobox';
 import SimpleRadioButtonGroup from './Components/SimpleRadioButtonGroup/SimpleRadioButtonGroup';
 import TextBoxWithLabel from './Components/TextBoxWithLabel/TextBoxWithLabel';
