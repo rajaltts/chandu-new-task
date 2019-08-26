@@ -13,7 +13,7 @@ import SimpleCheckbox from './Components/SimpleCheckbox';
 import SimpleImage from './Components/SimpleImage';
 import TableColumn from './Components/TableColumn';
 
-module.export = {
+export {
     CheckboxWithDropDown,
     ImageWithLabelCheckboxGroup,
     OptionControl, SimpleCombobox,
