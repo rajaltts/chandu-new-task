@@ -18,7 +18,7 @@ function SimpleImage(props) {
     }, [])
 
     return (
-        <img alt={SelectedValue}  src={ImagePath}/>
+        <img alt="ImageAlt"  src={ImagePath}/>
     );
 }
 

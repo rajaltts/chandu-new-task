@@ -11,8 +11,6 @@ function TableColumn(props) {
         )
     }else
         return null
-    
-    
 }
 
 export default TableColumn;

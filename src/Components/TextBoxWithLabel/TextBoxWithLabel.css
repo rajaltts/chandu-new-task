@@ -25,20 +25,20 @@
 .TBWLAI-input{
     border: #cccccc solid 1px;
     float: left;
-    width: Calc(100% - 150px);
+    width: Calc(100% - 170px);
     height: 100%;
     margin: 0 0 0 -1px;
-    padding: 5px 20px;
+    padding: 0px 10px;
     font-size: 0.95rem;
 
 }
 .TBWLAI-input-label{
     border: #cccccc solid 1px;
     float: left;
-    width: Calc(100% - 115px);
+    width: Calc(100% - 135px);
     height: 100%;
     margin: 0 0 0 -1px;
-    padding: 5px 20px;
+    padding: 0px 10px;
     font-size: 0.95rem;
 }
 
@@ -48,7 +48,7 @@
     width: Calc(100%);
     height: 100%;
     margin: 0 0 0 -1px;
-    padding: 5px 20px;
+    padding: 0px 10px;
 
 }
 
@@ -65,11 +65,12 @@
 }
 
 .TBWLAI-label{
+    display: block;
+    float: left;
     width: 110px;
-    height: 100%;
+    height: 30px;
     line-height: 30px;
     text-align: center;
-    float: left;
     background-color: #eeeeee;
     border-top: #cccccc solid 1px;
     border-right: #cccccc solid 1px;

@@ -1,3 +1,157 @@
+.SimpleCombobox-Container {
+    height: 32px;
+    border: #cccccc solid 1px;
+    max-width: 290px;
+    width: calc(100% - 6px);
+    padding: 0 10px;
+    cursor: pointer;
+
+}
+
+.SimpleCombobox-Container:disabled {
+    cursor: default;
+
+}
+
+.AllowedValue {
+    color: black;
+    cursor: pointer;
+}
+
+.NotAllowedValue {
+    color: red;
+    cursor: pointer;
+}
+
+
+.SimpleCombobox-Invalid {
+    border-color: red;
+}
+
+.SimpleCombobox-Container:focus{
+    outline: none;
+}
+.TBWLAI-container {
+    
+    max-width: 300px;
+    min-height: 30px;
+}
+
+.TBWLAI-InputContainer {
+    height: 30px;
+    width: 100%;
+}
+
+.TBWLAI-ImageContainer {
+    width: 35px;
+    height: 100%;
+    float: left;
+    background-color: #eeeeee;
+    border: #cccccc solid 1px;
+}
+
+.TBWLAI-Image {
+    width: 20px;
+    margin: 5px;
+}
+
+.TBWLAI-input{
+    border: #cccccc solid 1px;
+    float: left;
+    width: Calc(100% - 170px);
+    height: 100%;
+    margin: 0 0 0 -1px;
+    padding: 0px 10px;
+    font-size: 0.95rem;
+
+}
+.TBWLAI-input-label{
+    border: #cccccc solid 1px;
+    float: left;
+    width: Calc(100% - 135px);
+    height: 100%;
+    margin: 0 0 0 -1px;
+    padding: 0px 10px;
+    font-size: 0.95rem;
+}
+
+.TBWLAI-input-full{
+    border: #cccccc solid 1px;
+    float: left;
+    width: Calc(100%);
+    height: 100%;
+    margin: 0 0 0 -1px;
+    padding: 0px 10px;
+
+}
+
+.TBWLAI-input:focus{
+    outline: none;
+
+}
+
+.TBWLAI-input:invalid, .TBWLAI-input-label:invalid, .TBWLAI-input-full:invalid{
+    border: #c00000 solid 1px;
+    background-color: #ffe9e9;
+    
+
+}
+
+.TBWLAI-label{
+    display: block;
+    float: left;
+    width: 110px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #eeeeee;
+    border-top: #cccccc solid 1px;
+    border-right: #cccccc solid 1px;
+    border-bottom: #cccccc solid 1px;
+}
+
+.TBWLAI-Select {
+    width: 110px;
+    height: 100%;
+    line-height: 30px;
+    text-align-last:center;
+    float: left;
+    background-color: #eeeeee;
+    border-top: #cccccc solid 1px;
+    border-right: #cccccc solid 1px;
+    border-bottom: #cccccc solid 1px;
+    border-left: hidden;
+    cursor: pointer;
+}
+
+.TBWLAI-Select:focus {
+    outline: none;
+}
+
+.TBWLAI-Select:disabled {
+    cursor: default;
+}
+
+.TBWLAI-SelectOption {
+    padding: 5px 10px;
+}
+
+.TBWLAI-footer {
+    font-size: 0.9rem;
+    margin-top: -5px;
+    color: #aaaaaa;
+}
+
+.TBWLAI-CheckBox {
+    margin: 9px 11px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 .OptionControl-Container {
     overflow: hidden;
 }
@@ -5,7 +159,7 @@
 .OptionControl-ClickableContainer {
     overflow: hidden;
     padding: 12.5px 20px 12.5px 40px;
-    width: calc(100% - 70px);
+    width: calc(100% - 130px);
     float: left;
 }
 
@@ -85,6 +239,21 @@
 
 
 
+.SRBG-Label-vertical {
+    margin: 10px;
+    font-size: 0.92rem;
+    display: block;
+}
+
+.SRBG-Label-horizontal {
+    margin: 10px;
+    font-size: 0.92rem;
+
+}
+
+.SRBG-radio {
+    margin-right: 5px;
+}
 .IWLCG-Container {
 
 }
@@ -147,142 +316,6 @@
 .IWLCG-Circle-NotSelected {
     display: none;
 }
-.TBWLAI-container {
-    
-    max-width: 300px;
-    min-height: 30px;
-}
-
-.TBWLAI-InputContainer {
-    height: 30px;
-    width: 100%;
-}
-
-.TBWLAI-ImageContainer {
-    width: 35px;
-    height: 100%;
-    float: left;
-    background-color: #eeeeee;
-    border: #cccccc solid 1px;
-}
-
-.TBWLAI-Image {
-    width: 20px;
-    margin: 5px;
-}
-
-.TBWLAI-input{
-    border: #cccccc solid 1px;
-    float: left;
-    width: Calc(100% - 150px);
-    height: 100%;
-    margin: 0 0 0 -1px;
-    padding: 5px 20px;
-    font-size: 0.95rem;
-
-}
-.TBWLAI-input-label{
-    border: #cccccc solid 1px;
-    float: left;
-    width: Calc(100% - 115px);
-    height: 100%;
-    margin: 0 0 0 -1px;
-    padding: 5px 20px;
-    font-size: 0.95rem;
-}
-
-.TBWLAI-input-full{
-    border: #cccccc solid 1px;
-    float: left;
-    width: Calc(100%);
-    height: 100%;
-    margin: 0 0 0 -1px;
-    padding: 5px 20px;
-
-}
-
-.TBWLAI-input:focus{
-    outline: none;
-
-}
-
-.TBWLAI-input:invalid, .TBWLAI-input-label:invalid, .TBWLAI-input-full:invalid{
-    border: #c00000 solid 1px;
-    background-color: #ffe9e9;
-    
-
-}
-
-.TBWLAI-label{
-    width: 110px;
-    height: 100%;
-    line-height: 30px;
-    text-align: center;
-    float: left;
-    background-color: #eeeeee;
-    border-top: #cccccc solid 1px;
-    border-right: #cccccc solid 1px;
-    border-bottom: #cccccc solid 1px;
-}
-
-.TBWLAI-Select {
-    width: 110px;
-    height: 100%;
-    line-height: 30px;
-    text-align-last:center;
-    float: left;
-    background-color: #eeeeee;
-    border-top: #cccccc solid 1px;
-    border-right: #cccccc solid 1px;
-    border-bottom: #cccccc solid 1px;
-    border-left: hidden;
-    cursor: pointer;
-}
-
-.TBWLAI-Select:focus {
-    outline: none;
-}
-
-.TBWLAI-Select:disabled {
-    cursor: default;
-}
-
-.TBWLAI-SelectOption {
-    padding: 5px 10px;
-}
-
-.TBWLAI-footer {
-    font-size: 0.9rem;
-    margin-top: -5px;
-    color: #aaaaaa;
-}
-
-.TBWLAI-CheckBox {
-    margin: 9px 11px;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-.SRBG-Label-vertical {
-    margin: 10px;
-    font-size: 0.92rem;
-    display: block;
-}
-
-.SRBG-Label-horizontal {
-    margin: 10px;
-    font-size: 0.92rem;
-
-}
-
-.SRBG-radio {
-    margin-right: 5px;
-}
 .CBWDD-Container {
     overflow: hidden;
 }
@@ -290,7 +323,7 @@ input::-webkit-inner-spin-button {
 .CBWDD-ClickableContainer {
     overflow: hidden;
     padding: 12.5px 20px 12.5px 40px;
-    width: calc(100% - 70px);
+    width: calc(100% - 130px);
     float: left;
 }
 
@@ -359,37 +392,3 @@ input::-webkit-inner-spin-button {
 }
 
 
-
-.SimpleCombobox-Container {
-    height: 32px;
-    border: #cccccc solid 1px;
-    max-width: 290px;
-    width: calc(100% - 6px);
-    padding: 0 10px;
-    cursor: pointer;
-
-}
-
-.SimpleCombobox-Container:disabled {
-    cursor: default;
-
-}
-
-.AllowedValue {
-    color: black;
-    cursor: pointer;
-}
-
-.NotAllowedValue {
-    color: red;
-    cursor: pointer;
-}
-
-
-.SimpleCombobox-Invalid {
-    border-color: red;
-}
-
-.SimpleCombobox-Container:focus{
-    outline: none;
-}
