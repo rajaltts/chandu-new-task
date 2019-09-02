@@ -1,17 +1,8 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import './CheckboxWithDropDown.css'
 import { Checkbox } from '@material-ui/core';
-import InfoIcon from './information.svg'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
-
-const OptionCheckbox = withStyles({
-    root: {
-      marginRight: '20px',
-    },
-    checked: {},
-  })(props => <Checkbox color="default" {...props} />);
-
+import {InfoIcon} from '../SvgImages'
 function CheckboxWithDropDown(props) {
   
   const [DisplayDetails, SetDisplayDetails] = React.useState(false)
@@ -46,10 +37,10 @@ function CheckboxWithDropDown(props) {
             <div  className="CBWDD-Container">
             <div className="CBWDD-MainContainer">
                 <div onClick={ValueChanged} className="CBWDD-ClickableContainer">
-                  <OptionCheckbox id={"ctrl"+ props.PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>
+                  <Checkbox id={"ctrl"+ props.PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>
                   <span className="CBWDD-Title">{Title}</span>
                 </div>
-                {props.children ? <img alt="InfoIcon" className="CBWDD-InfoIcon" src={InfoIcon} onClick={onInfoIconClick}/> : null}
+                {props.children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="30px"/></div>:null}
             </div> 
             <span className="CBWDD-Separator"/>
             {DisplayDetails && props.children ? 

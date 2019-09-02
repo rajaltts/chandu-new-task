@@ -1,3 +1,142 @@
+.IWLCG-Container {
+
+}
+
+.IWLCG-tile {
+    width: 218.8px;
+    height: 240px;
+    border: solid 1px lightgrey;
+    margin-left: 20px;
+    margin-top: 20px;
+    display: inline-block;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.IWLCG-tile:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    position: relative;
+    
+}
+
+.IWLCG-ImageContainer {
+    width: 100%;
+    height: 204px;
+    background-color: #fff;
+    
+}
+
+.IWLCG-image {
+    width: 150px;
+    margin: 0 25px;;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.IWLCG-Label {
+    background-color: lightgrey;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    display: block;
+}
+
+.IWLCG-Circle-Selected {
+    height: 25px;
+    width: 25px;
+    border-radius: 12.5px;
+    background-color: green;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+}
+
+.IWLCG-Circle-NotSelected {
+    display: none;
+}
+.CBWDD-Container {
+    overflow: hidden;
+}
+
+.CBWDD-ClickableContainer {
+    overflow: hidden;
+    padding: 12.5px 20px 12.5px 40px;
+    width: calc(100% - 130px);
+    float: left;
+}
+
+.CBWDD-ClickableContainer:hover {
+    cursor: pointer;
+}
+
+.CBWDD-MainContainer {
+    overflow: auto;
+}
+
+.CBWDD-Checkbox {
+    float: left;
+    padding: 20px;
+
+}
+
+.CBWDD-LabelsContainer{
+    float: left;
+}
+
+.CBWDD-OptName{
+    display: block;
+}
+
+.CBWDD-InfoIcon {
+    height: 30px;
+    float: right;
+    margin: 21px 20px;
+    cursor: pointer;
+}
+
+.CBWDD-CompIcon {
+    height: 18px;
+    margin: 0px 20px;
+    float: left;
+}
+
+.CBWDD-DetailsContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 6px -6px rgba(41, 41, 41, 0.1) inset,
+                0 -8px 6px -6px rgba(41, 41, 41, 0.1) inset;
+}
+
+.CBWDD-Title{
+    margin: 10px 60px;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.CBWDD-Detail{
+    font-size: 0.90rem;
+    margin: 0 40px;
+    display: block;
+}
+
+.CBWDD-Separator {
+    display: block;
+    height: 1px;
+    background-color: #f1f1f1;
+    width: 95%;
+    margin: 0 2.5%;
+
+}
+
+
+
 .SimpleCombobox-Container {
     height: 32px;
     border: #cccccc solid 1px;
@@ -152,6 +291,21 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+.SRBG-Label-vertical {
+    margin: 10px;
+    font-size: 0.92rem;
+    display: block;
+}
+
+.SRBG-Label-horizontal {
+    margin: 10px;
+    font-size: 0.92rem;
+
+}
+
+.SRBG-radio {
+    margin-right: 5px;
+}
 .OptionControl-Container {
     overflow: hidden;
 }
@@ -180,6 +334,7 @@ input::-webkit-inner-spin-button {
 }
 
 .OptionControl-LabelsContainer{
+    margin-left: 20px;
     float: left;
 }
 
@@ -229,160 +384,6 @@ input::-webkit-inner-spin-button {
 }
 
 .OptionControl-Separator {
-    display: block;
-    height: 1px;
-    background-color: #f1f1f1;
-    width: 95%;
-    margin: 0 2.5%;
-
-}
-
-
-
-.SRBG-Label-vertical {
-    margin: 10px;
-    font-size: 0.92rem;
-    display: block;
-}
-
-.SRBG-Label-horizontal {
-    margin: 10px;
-    font-size: 0.92rem;
-
-}
-
-.SRBG-radio {
-    margin-right: 5px;
-}
-.IWLCG-Container {
-
-}
-
-.IWLCG-tile {
-    width: 218.8px;
-    height: 240px;
-    border: solid 1px lightgrey;
-    margin-left: 20px;
-    margin-top: 20px;
-    display: inline-block;
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s;
-    position: relative;
-}
-
-.IWLCG-tile:hover {
-    cursor: pointer;
-    transform: translateY(-5px);
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s;
-    position: relative;
-    
-}
-
-.IWLCG-ImageContainer {
-    width: 100%;
-    height: 204px;
-    background-color: #fff;
-    
-}
-
-.IWLCG-image {
-    width: 150px;
-    margin: 0 25px;;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.IWLCG-Label {
-    background-color: lightgrey;
-    text-align: center;
-    height: 35px;
-    line-height: 35px;
-    width: 100%;
-    display: block;
-}
-
-.IWLCG-Circle-Selected {
-    height: 25px;
-    width: 25px;
-    border-radius: 12.5px;
-    background-color: green;
-    position: absolute;
-    top: -10px;
-    left: -10px;
-}
-
-.IWLCG-Circle-NotSelected {
-    display: none;
-}
-.CBWDD-Container {
-    overflow: hidden;
-}
-
-.CBWDD-ClickableContainer {
-    overflow: hidden;
-    padding: 12.5px 20px 12.5px 40px;
-    width: calc(100% - 130px);
-    float: left;
-}
-
-.CBWDD-ClickableContainer:hover {
-    cursor: pointer;
-}
-
-.CBWDD-MainContainer {
-    overflow: auto;
-}
-
-.CBWDD-Checkbox {
-    float: left;
-    padding: 20px;
-
-}
-
-.CBWDD-LabelsContainer{
-    float: left;
-}
-
-.CBWDD-OptName{
-    display: block;
-}
-
-.CBWDD-InfoIcon {
-    height: 30px;
-    float: right;
-    margin: 21px 20px;
-    cursor: pointer;
-}
-
-.CBWDD-CompIcon {
-    height: 18px;
-    margin: 0px 20px;
-    float: left;
-}
-
-.CBWDD-DetailsContainer {
-    background-color: #fafafa;
-    padding: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 6px -6px rgba(41, 41, 41, 0.1) inset,
-                0 -8px 6px -6px rgba(41, 41, 41, 0.1) inset;
-}
-
-.CBWDD-Title{
-    margin: 10px 20px;
-    font-size: 0.95rem;
-    display: block;
-}
-
-.CBWDD-Detail{
-    font-size: 0.90rem;
-    margin: 0 40px;
-    display: block;
-}
-
-.CBWDD-Separator {
     display: block;
     height: 1px;
     background-color: #f1f1f1;
