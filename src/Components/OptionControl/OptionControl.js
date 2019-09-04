@@ -94,17 +94,17 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                 </div>
                 {Allowed?<div className="OptionControl-CompIcon"><Incomp color="#FF9900" width="18px"/></div>:null}
                 <Tooltip title={GetImpactText(MainProp.Values[0].Attributes.SoundImpact, "Sound")} placement="top">
-                  <div className="OptionControl-ImpactIcon"><SoundImpact color={GetImpactIconColor(MainProp.Values[0].Attributes.SoundImpact)} width="28px"/></div>
+                  <div className="OptionControl-ImpactIcon"><SoundImpact color={GetImpactIconColor(MainProp.Values[0].Attributes.SoundImpact)} width="20px"/></div>
                 </Tooltip>
                 <Tooltip title={GetImpactText(MainProp.Values[0].Attributes.EfficiencyImpact, "Efficiency")} placement="top">
-                  <div className="OptionControl-ImpactIcon"><EfficiencyIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.EfficiencyImpact)} width="28px"/></div>
+                  <div className="OptionControl-ImpactIcon"><EfficiencyIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.EfficiencyImpact)} width="20px"/></div>
                 </Tooltip>
                 <Tooltip title={GetImpactText(MainProp.Values[0].Attributes.CapacityImpact, "Capacity")} placement="top">
-                  <div className="OptionControl-ImpactIcon"><CapacityIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)} width="28px"/></div>
+                  <div className="OptionControl-ImpactIcon"><CapacityIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)} width="20px"/></div>
                 </Tooltip>               
               </div>
               <Tooltip title="Click to get more information about this option" placement="top">
-              <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="30px"/></div>
+              <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="26px"/></div>
               </Tooltip>
             </div> 
             <span className="OptionControl-Separator"/>

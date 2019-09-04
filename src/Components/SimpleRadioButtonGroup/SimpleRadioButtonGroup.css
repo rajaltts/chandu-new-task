@@ -6,7 +6,9 @@
 
 .SRBG-Label-horizontal {
     margin: 10px;
-    font-size: 0.92rem;
+    font-size: 14px;
+    display: block;
+    float: left;
 
 }
 

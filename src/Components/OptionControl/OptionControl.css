@@ -4,7 +4,7 @@
 
 .OptionControl-ClickableContainer {
     overflow: hidden;
-    padding: 12.5px 20px 12.5px 40px;
+    padding: 8px 20px 8px 40px;
     width: calc(100% - 130px);
     float: left;
 }
@@ -26,11 +26,12 @@
 }
 
 .OptionControl-LabelsContainer{
-    margin-left: 20px;
+    margin: 5px 0 5px 20px;
     float: left;
 }
 
 .OptionControl-OptName{
+    line-height: 20px;
     display: block;
 }
 
@@ -40,13 +41,13 @@
 
 .OptionControl-ImpactIcon{
     float: right;
-    margin: 11px 5px;
+    margin: 12px 5px;
 }
 
 .OptionControl-InfoIcon {
     height: 30px;
     float: right;
-    margin: 21px 20px;
+    margin: 16px 20px;
     cursor: pointer;
 }
 
