@@ -28,6 +28,8 @@ function SimpleCombobox(props) {
             })
             if(SelectedOption)
                 return SelectedOption.Attributes.Description
+            else
+                return null
         }
     }
     function GetProperty(PropName){

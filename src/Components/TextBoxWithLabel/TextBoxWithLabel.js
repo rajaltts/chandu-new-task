@@ -52,7 +52,7 @@ function TextBoxWithLabel(props) {
                 }else{
                     if(MainProp){
                     
-                        if(props.unitSystem === "metric")
+                        if(props.unitSystem === "Metric")
                         {
                             SetValue(Math.round(GetMetricValue(MainProp.Value,UnitNumber)*100)/100) 
                             SetMin(Math.round(GetMetricValue(GetProperty(props.PropName+".MIN").Value,UnitNumber)*100)/100)
@@ -87,7 +87,7 @@ function TextBoxWithLabel(props) {
     function onInputFocusOut(){
         SetDisplayMinMax(false)
         if(Value>=Min && Value <=Max){
-            if(props.unitSystem === "metric"){
+            if(props.unitSystem === "Metric"){
                 let UnitNumber = GetProperty(props.PropName+".UNIT").Value
                 props.onValueChanged([{Name: props.PropName, Value: GetEnglishValue(Value, UnitNumber).toString().replace(',','.')}])
             }else
@@ -103,7 +103,7 @@ function TextBoxWithLabel(props) {
 
     function onUnitChanged(event){
         let NewValue = Math.round(SameSystemConversion(UnitProp.Value, event.target.value, Value)*100)/100
-        if(props.unitSystem === "metric")
+        if(props.unitSystem === "Metric")
             props.onValueChanged([{Name: UnitProp.Name, Value: event.target.value}, {Name: props.PropName, Value: GetEnglishValue(NewValue, event.target.value).toString().replace(',','.')}])
         else
             props.onValueChanged([{Name: UnitProp.Name, Value: event.target.value}, {Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
