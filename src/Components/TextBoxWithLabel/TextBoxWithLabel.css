@@ -45,7 +45,6 @@
 .TBWLAI-input-full{
     border: #cccccc solid 1px;
     float: left;
-    width: Calc(100%);
     height: 100%;
     margin: 0 0 0 -1px;
     padding: 0px 10px;

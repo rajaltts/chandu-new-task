@@ -119,7 +119,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                 <h3 className="OptionControl-DetailTitle">Conditions</h3>
                 {props.children}
                 {InputBlockComp?
-                  <InputBlockComp RulesJSON={props.RulesJSON} onNewAssignment={props.onNewAssignment} unitSystem={props.unitSystem}/>
+                  <InputBlockComp RulesJSON={props.RulesJSON} onNewAssignment={props.onValueChanged} unitSystem={props.unitSystem}/>
                   :null
                 }
               </div>

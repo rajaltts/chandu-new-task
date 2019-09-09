@@ -4,7 +4,7 @@ function Cell(props) {
 
     if(props.Visible.Value=== "TRUE"){
         return (
-            <div style={{backgroundColor: props.BackgroundColor, padding: "5px", overflow: "hidden", width: '250px'}}>
+            <div style={{backgroundColor: props.BackgroundColor, padding: "5px", overflow: "hidden", width: '240px'}}>
                 {props.children}
             </div>
         )

@@ -46,7 +46,7 @@
 
 .CBWDD-DetailsContainer {
     background-color: #fafafa;
-    padding: 20px;
+    padding: 20px 10px;
     overflow: hidden;
     box-shadow: 0 8px 6px -6px rgba(41, 41, 41, 0.1) inset,
                 0 -8px 6px -6px rgba(41, 41, 41, 0.1) inset;
