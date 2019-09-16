@@ -12,6 +12,7 @@ function TextBoxWithLabel(props) {
     const [Max, SetMax] = React.useState()
     const [Unit, SetUnit] = React.useState()
     const [UnitProp, SetUnitProp] = React.useState()
+    const [Relaxed, SetRelaxed] = React.useState(false)
     const [Enabled, SetEnabled] = React.useState(true)
     const [CheckboxProp, SetCheckboxProp] = React.useState()
 
@@ -62,14 +63,17 @@ function TextBoxWithLabel(props) {
                             SetMin(Math.round(GetProperty(props.PropName+".MIN").Value*100)/100)
                             SetMax(Math.round(GetProperty(props.PropName+".MAX").Value*100)/100)
                         }
-                            
                         SetUnitProp(UnitProp)
                         SetUnit(GetUnitLabel(UnitNumber, props.unitSystem))
                         if(EnabledProp)
-                            SetEnabled(EnabledProp.Value === "FALSE" ? false: true)
+                            SetEnabled(EnabledProp.Value === "TRUE" ? true: false)
                         if(props.CheckboxPropName)
                             SetCheckboxProp(GetProperty(props.CheckboxPropName))
-        
+                        let relaxProp = props.RulesJSON.RelaxedVarNames.find(propNa => propNa === props.PropName)
+                        if(relaxProp)
+                            SetRelaxed(true)
+                        else
+                            SetRelaxed(false)
                     }
                 }
             }
@@ -86,14 +90,16 @@ function TextBoxWithLabel(props) {
     }
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-        if(Value>=Min && Value <=Max){
+        if(Value>=Min && Value <=Max ){
+            let NewValue = Value
+            let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
             if(props.unitSystem === "Metric"){
                 let UnitNumber = GetProperty(props.PropName+".UNIT").Value
-                props.onValueChanged([{Name: props.PropName, Value: GetEnglishValue(Value, UnitNumber).toString().replace(',','.')}])
-            }else
-                props.onValueChanged([{Name: props.PropName, Value: Value.toString().replace(',','.')}])
+                NewValue = GetEnglishValue(Value, UnitNumber)
+            }
+            if(OldValue !== NewValue)
+                props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
         }
-            
     }
 
     function onChange(event){
@@ -134,7 +140,7 @@ function TextBoxWithLabel(props) {
 
     if(Visibility)
      return(
-        <div className={"TBWLAI-container " + props.className}>
+        <div className={"TBWLAI-container "+(Relaxed?"TBWLAI_containerRelaxed ":"")+ props.className}>
             <div className="TBWLAI-InputContainer">
                 {props.Image?
                 <div className="TBWLAI-ImageContainer">

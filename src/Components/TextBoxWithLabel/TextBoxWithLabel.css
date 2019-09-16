@@ -4,13 +4,18 @@
     min-height: 30px;
 }
 
+.TBWLAI_containerRelaxed {
+    border: #c00000 solid 1px;
+    height: 32px;
+}
+
 .TBWLAI-InputContainer {
     height: 30px;
     width: 100%;
 }
 
 .TBWLAI-ImageContainer {
-    width: 35px;
+    width: 33px;
     height: 100%;
     float: left;
     background-color: #eeeeee;
@@ -25,28 +30,28 @@
 .TBWLAI-input{
     border: #cccccc solid 1px;
     float: left;
-    width: Calc(100% - 170px);
+    width: Calc(100% - 160px);
     height: 100%;
-    margin: 0 0 0 -1px;
+    margin: 0px;
     padding: 0px 10px;
-    font-size: 0.95rem;
+    font-size: 14px;
 
 }
 .TBWLAI-input-label{
     border: #cccccc solid 1px;
     float: left;
-    width: Calc(100% - 135px);
+    width: Calc(100% - 125px);
     height: 100%;
-    margin: 0 0 0 -1px;
+    margin: 0px;
     padding: 0px 10px;
-    font-size: 0.95rem;
+    font-size: 14px;
 }
 
 .TBWLAI-input-full{
     border: #cccccc solid 1px;
     float: left;
     height: 100%;
-    margin: 0 0 0 -1px;
+    margin: 0px;
     padding: 0px 10px;
 
 }
@@ -66,9 +71,10 @@
 .TBWLAI-label{
     display: block;
     float: left;
-    width: 110px;
+    width: 100px;
     height: 30px;
     line-height: 30px;
+    font-size: 14px;
     text-align: center;
     background-color: #eeeeee;
     border-top: #cccccc solid 1px;
@@ -77,9 +83,9 @@
 }
 
 .TBWLAI-Select {
-    width: 110px;
-    height: 100%;
-    line-height: 30px;
+    width: 101px;
+    height: 32px;
+    line-height: 32px;
     text-align-last:center;
     float: left;
     background-color: #eeeeee;

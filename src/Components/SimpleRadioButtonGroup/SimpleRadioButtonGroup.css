@@ -12,6 +12,10 @@
 
 }
 
+.SRBG-Label-vertical:hover, .SRBG-Label-horizontal:hover {
+    cursor: pointer;
+}
+
 .SRBG-radio {
     margin-right: 5px;
 }

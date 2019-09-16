@@ -5,8 +5,6 @@ import {GetProp} from '@carrier/workflowui-globalfunctions'
 import Tooltip from '@material-ui/core/Tooltip';
 import {InfoIcon, Incomp, EfficiencyIcon, CapacityIcon, SoundImpact} from '../SvgImages'
 
-const ImageFolderPath = 'Images/'
-
 function OptionControl(props) {
   
   const [DisplayDetails, SetDisplayDetails] = React.useState(false)

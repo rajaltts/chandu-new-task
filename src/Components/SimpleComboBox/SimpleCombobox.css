@@ -29,6 +29,12 @@
 .SimpleCombobox-Invalid {
     border-color: #cc0000;
     background-color: #ffe9e9;
+    color: #cc0000;
+}
+
+.SimpleCombobox-InvalidHidden {
+    border-color: #cc0000;
+    background-color: #ffe9e9;
     color: #ffe9e9;
 }
 
