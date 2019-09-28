@@ -44,7 +44,7 @@ function SimpleCombobox(props) {
                     if(props.HideNotAllowedValues && value.State===2)
                         return null
                     else 
-                        return <option ValueID={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}>{value.Attributes.Description}</option>
+                        return <option valueID={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}>{value.Attributes.Description}</option>
                 }
                 ) : null}
             </select>

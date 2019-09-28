@@ -90,7 +90,6 @@ function TextBoxWithLabel(props) {
     }
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-        if(Value>=Min && Value <=Max ){
             let NewValue = Value
             let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
             if(props.unitSystem === "Metric"){
@@ -99,7 +98,6 @@ function TextBoxWithLabel(props) {
             }
             if(OldValue !== NewValue)
                 props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
-        }
     }
 
     function onChange(event){
