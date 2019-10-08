@@ -6,7 +6,11 @@ function SimpleCombobox(props) {
 
     let VisibleProp = GetProperty(props.PropName+".VISIBLE")
     let prop = GetProperty(props.PropName)
-    let EnabledProp = GetProperty(props.PropName+ ".ENABLED")
+    let EnabledProp
+    if(props.Enabled)
+        EnabledProp = GetProperty(props.Enabled)
+    else
+        EnabledProp = GetProperty(props.PropName+ ".ENABLED")
     let Enabled = true
     if (EnabledProp)
         Enabled = EnabledProp.Value === "TRUE" ? true: false
