@@ -41,7 +41,7 @@ function SimpleRadioButtonGroup(props) {
         return (
             <div id={"ctrl"+ props.PropName}>
                 {Prop ? Prop.Values.map((value, index) => {
-                    return <label   key={index} className={GetClassName()}><input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/>{value.Attributes.Description}</label>
+                    return <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}><input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/>{value.Attributes.Description}</label>
                 }): null}
             </div>
             

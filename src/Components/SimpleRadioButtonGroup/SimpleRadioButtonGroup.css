@@ -19,3 +19,7 @@
 .SRBG-radio {
     margin-right: 5px;
 }
+
+.SRBG-radio-notAllowed {
+    color: #cc0000;
+}
