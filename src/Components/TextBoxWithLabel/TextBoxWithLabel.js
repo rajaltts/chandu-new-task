@@ -150,7 +150,7 @@ function TextBoxWithLabel(props) {
                 <div className="TBWLAI-ImageContainer">
                     <input className="TBWLAI-CheckBox" type="checkbox" name={props.Checkbox} onChange={handleCheckChange} checked={CheckboxProp.Value === "TRUE" ? true: false}/>
                 </div>: null}
-                <input id={"ctrl"+ props.PropName} type="Number" min={Min} max={Max} disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={OutOfRange?"ErrorCss ":"" +(Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full")} value={Value} onChange={onChange} step="any"/>
+                <input id={"ctrl"+ props.PropName} type="Number" min={Min} max={Max} disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={(OutOfRange?"ErrorCss ":"" )+(Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full")} value={Value} onChange={onChange} step="any"/>
                 {PaintLabel()}
             </div>
             {DisplayMinMax?<span className="TBWLAI-footer">(Min:{Min} Max: {Max} )</span>:null}
