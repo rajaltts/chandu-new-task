@@ -14,6 +14,7 @@ function TextBoxWithLabel(props) {
     const [UnitProp, SetUnitProp] = React.useState()
     const [Relaxed, SetRelaxed] = React.useState(false)
     const [Enabled, SetEnabled] = React.useState(true)
+    const [OutOfRange, SetOutOfRange] = React.useState(false)
     const [CheckboxProp, SetCheckboxProp] = React.useState()
 
     React.useEffect(() => {
@@ -83,26 +84,26 @@ function TextBoxWithLabel(props) {
     
     function GetProperty(PropName){
         return GetProp(PropName, props.RulesJSON)
-      }
+    }
 
     function onInputFocus(){
         SetDisplayMinMax(true)
     }
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-            let NewValue = Value
-            let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
-            if(props.unitSystem === "Metric"){
-                let UnitNumber = GetProperty(props.PropName+".UNIT").Value
-                NewValue = GetEnglishValue(Value, UnitNumber)
-            }
-            if(OldValue !== NewValue)
-                props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
+        let NewValue = Value
+        let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
+        if(props.unitSystem === "Metric"){
+            let UnitNumber = GetProperty(props.PropName+".UNIT").Value
+            NewValue = GetEnglishValue(Value, UnitNumber)
+        }
+        if(OldValue !== NewValue)
+            props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
+        SetOutOfRange(Value < Min || Value > Max)
     }
 
     function onChange(event){
         SetValue(event.target.value)
-        
     }
 
     function onUnitChanged(event){
@@ -138,7 +139,7 @@ function TextBoxWithLabel(props) {
 
     if(Visibility)
      return(
-        <div className={"TBWLAI-container "+(Relaxed?"TBWLAI_containerRelaxed ":"")+ props.className}>
+        <div className={"TBWLAI-container "+(Relaxed?"RelaxedHighlight ":"")+ props.className}>
             <div className="TBWLAI-InputContainer">
                 {props.Image?
                 <div className="TBWLAI-ImageContainer">
@@ -149,7 +150,7 @@ function TextBoxWithLabel(props) {
                 <div className="TBWLAI-ImageContainer">
                     <input className="TBWLAI-CheckBox" type="checkbox" name={props.Checkbox} onChange={handleCheckChange} checked={CheckboxProp.Value === "TRUE" ? true: false}/>
                 </div>: null}
-                <input id={"ctrl"+ props.PropName} type="Number" min={Min} max={Max} disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full"} value={Value} onChange={onChange} step="any"/>
+                <input id={"ctrl"+ props.PropName} type="Number" min={Min} max={Max} disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={OutOfRange?"ErrorCss ":"" +(Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full")} value={Value} onChange={onChange} step="any"/>
                 {PaintLabel()}
             </div>
             {DisplayMinMax?<span className="TBWLAI-footer">(Min:{Min} Max: {Max} )</span>:null}

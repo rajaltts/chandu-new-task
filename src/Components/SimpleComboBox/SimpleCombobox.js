@@ -43,7 +43,7 @@ function SimpleCombobox(props) {
     if(Visible === "TRUE"){
         return (
             
-            <select id={"ctrl"+ props.PropName}  className={(prop && prop.IsRelaxed) ? ("SimpleCombobox-Container " + (props.HideNotAllowedValues? "SimpleCombobox-InvalidHidden ":"SimpleCombobox-Invalid ")) + props.className: "SimpleCombobox-Container "+ props.className} disabled={Enabled? false : true } onChange={ValueChanged} value={GetSelectedValue()} >
+            <select id={"ctrl"+ props.PropName}  className={(prop && prop.IsRelaxed) ? ("SimpleCombobox-Container not-allow " + (props.HideNotAllowedValues? "SimpleCombobox-InvalidHidden ":"SimpleCombobox-Invalid ")) + props.className: "SimpleCombobox-Container "+ props.className} disabled={Enabled? false : true } onChange={ValueChanged} value={GetSelectedValue()} >
                 {prop ? prop.Values.map((value, index) => {
                     if(props.HideNotAllowedValues && value.State===2)
                         return null
