@@ -1,6 +1,7 @@
 import React from 'react';
 import './SimpleCombobox.css'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
+import { FormattedMessage as Culture } from 'react-intl';
 
 function SimpleCombobox(props) {
 
@@ -31,7 +32,7 @@ function SimpleCombobox(props) {
                 return Value.Value === prop.Value
             })
             if(SelectedOption)
-                return SelectedOption.Attributes.Description
+                return <Culture id={SelectedOption.Attributes.Description}/>
             else
                 return null
         }
@@ -48,7 +49,7 @@ function SimpleCombobox(props) {
                     if(props.HideNotAllowedValues && value.State===2)
                         return null
                     else 
-                        return <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}>{value.Attributes.Description}</option>
+                        return <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}><Culture id={value.Attributes.Description}/></option>
                 }
                 ) : null}
             </select>
