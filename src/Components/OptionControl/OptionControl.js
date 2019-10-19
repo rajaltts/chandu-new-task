@@ -1,9 +1,10 @@
 import React from 'react';
 import './OptionControl.css'
 import { Checkbox } from '@material-ui/core';
-import {GetProp} from '@carrier/workflowui-globalfunctions'
+import {GetProp, FormatTransKey} from '@carrier/workflowui-globalfunctions'
 import Tooltip from '@material-ui/core/Tooltip';
 import {InfoIcon, Incomp, EfficiencyIcon, CapacityIcon, SoundImpact} from '../SvgImages'
+import { FormattedMessage as Culture } from 'react-intl';
 
 function OptionControl(props) {
   
@@ -59,12 +60,23 @@ function GetImpactText(Val, type) {
   if(type === "Capacity") TextObject = ImpactData.CapacityText.find(val => val.value === Val)
   if(type === "Efficiency") TextObject = ImpactData.EfficiencyText.find(val => val.value === Val)
   if(type === "Sound") TextObject = ImpactData.SoundText.find(val => val.value === Val)
-  if(TextObject) return TextObject.txt
+  if(TextObject) return <Culture id={FormatTransKey(TextObject.txt)}/>
   else return ""
 }
 
 function onInfoIconClick(){
   SetDisplayDetails(!DisplayDetails)
+}
+
+function GetOptionDescription(MainProp){
+return <Culture id={FormatTransKey(props.PropName)} defaultMessage={<Culture id={FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + MainProp.Values[0].Attributes.Description)}/>}/>
+}
+function GetDetailedDescription(MainProp) {
+  return <Culture id={FormatTransKey(props.PropName + ".DETAILEDDESCRIPTION")} defaultMessage={<Culture id={FormatTransKey(props.PropName +"DETAILEDDESCRIPTION"+ "|" + MainProp.Values[0].Attributes.DetailledDescription)}/>}/>
+}
+
+function GetAdvantage(MainProp) {
+  return <Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={<Culture id={FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)}/>}/>
 }
 
 let Value, Allowed, InputBlock, InputBlockComp
@@ -87,7 +99,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
               <div onClick={ValueChanged} className="OptionControl-ClickableContainer">
                 <Checkbox color="primary" className="OptionControl-Checkbox" id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>
                 <div className="OptionControl-LabelsContainer">
-                    <span className="OptionControl-OptName">{MainProp.Values[0].Attributes.Description}</span>
+                    <span className="OptionControl-OptName">{GetOptionDescription(MainProp)}</span>
                     <span className="OptionControl-OptNumber">{MainProp.Values[0].Attributes.OptNumber}</span>
                 </div>
                 {Allowed?<div className="OptionControl-CompIcon"><Incomp color="#FF9900" width="18px"/></div>:null}
@@ -101,20 +113,20 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                   <div className="OptionControl-ImpactIcon"><CapacityIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)} width="20px"/></div>
                 </Tooltip>               
               </div>
-              <Tooltip title="Click to get more information about this option" placement="top">
+              <Tooltip title={<Culture id={"GetMoreInfoOnOption"}/>} placement="top">
               <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="26px"/></div>
               </Tooltip>
             </div> 
             <span className="OptionControl-Separator"/>
             {DisplayDetails ? 
             <div className="OptionControl-DetailsContainer">
-              <h3 className="OptionControl-DetailTitle">Description</h3>
-              <span className="OptionControl-Detail">{MainProp.Values[0].Attributes.DetailledDescription}</span>
-              <h3 className="OptionControl-DetailTitle">Advantage</h3>
-              <span className="OptionControl-Detail">{MainProp.Values[0].Attributes.Advantage}</span>
+              <h3 className="OptionControl-DetailTitle"><Culture id={"Description"}/></h3>
+              <span className="OptionControl-Detail">{GetDetailedDescription(MainProp)}</span>
+              <h3 className="OptionControl-DetailTitle"><Culture id={"Advantage"}/></h3>
+              <span className="OptionControl-Detail">{GetAdvantage(MainProp)}</span>
               {props.children || InputBlock ? 
               <div>
-                <h3 className="OptionControl-DetailTitle">Conditions</h3>
+                <h3 className="OptionControl-DetailTitle"><Culture id={"Conditions"}/></h3>
                 {props.children}
                 {InputBlockComp?
                   <InputBlockComp RulesJSON={props.RulesJSON} onNewAssignment={props.onValueChanged} unitSystem={props.unitSystem}/>

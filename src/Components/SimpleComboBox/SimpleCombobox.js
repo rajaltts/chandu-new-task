@@ -2,6 +2,7 @@ import React from 'react';
 import './SimpleCombobox.css'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import { FormattedMessage as Culture } from 'react-intl';
+import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
 
 function SimpleCombobox(props) {
 
@@ -21,7 +22,7 @@ function SimpleCombobox(props) {
 
     function ValueChanged(event){
             let SelectedOption = prop.Values.find((Value)=> {
-                return Value.Attributes.Description === event.target.value
+                return Value.Value === event.target.value
             })
             props.onValueChanged([{Name:prop.Name, Value:SelectedOption.Value}])
     }
@@ -32,7 +33,7 @@ function SimpleCombobox(props) {
                 return Value.Value === prop.Value
             })
             if(SelectedOption)
-                return <Culture id={SelectedOption.Attributes.Description}/>
+                return SelectedOption.Value
             else
                 return null
         }
@@ -48,9 +49,14 @@ function SimpleCombobox(props) {
                 {prop ? prop.Values.map((value, index) => {
                     if(props.HideNotAllowedValues && value.State===2)
                         return null
-                    else 
-                        return <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}><Culture id={value.Attributes.Description}/></option>
-                }
+                    else if (props.DoNotTranslate)
+                        return <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} key={index}>{value.Attributes.Description}</option>
+                    else
+                      return <Culture id={FormatTransKey(props.PropName + "|" +value.Attributes.Description)} key={index}>
+                        {(message) => <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} value={value.Value} key={index}>{message}</option>}
+                      </Culture>
+                        
+                    }
                 ) : null}
             </select>
         );

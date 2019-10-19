@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import './SimpleRadioButtonGroup.css';
+import { FormattedMessage as Culture } from 'react-intl';
+import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
 
 function SimpleRadioButtonGroup(props) {
     const [Visibility, SetVisibility] = useState(false)
@@ -41,7 +43,7 @@ function SimpleRadioButtonGroup(props) {
         return (
             <div id={"ctrl"+ props.PropName}>
                 {Prop ? Prop.Values.map((value, index) => {
-                    return <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}><input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/>{value.Attributes.Description}</label>
+                    return <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}><input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/><Culture id={FormatTransKey((props.PropName + "|" +value.Attributes.Description))}/></label>
                 }): null}
             </div>
             
