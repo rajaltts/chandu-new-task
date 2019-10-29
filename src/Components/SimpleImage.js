@@ -15,7 +15,7 @@ function SimpleImage(props) {
             SetImagePath(ImageFolderPath + ImageValue.Attributes.Image)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [props.Prop])
 
     return (
         <img alt="ImageAlt"  src={ImagePath}/>
