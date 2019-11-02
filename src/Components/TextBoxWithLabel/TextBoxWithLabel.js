@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {GetProp} from '@carrier/workflowui-globalfunctions';
 import {GetMetricValue, GetEnglishValue, SameSystemConversion, GetUnitLabel} from '@carrier/ngecat-unitsconversion';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -17,7 +17,7 @@ function TextBoxWithLabel(props) {
     const [OutOfRange, SetOutOfRange] = React.useState(false)
     const [CheckboxProp, SetCheckboxProp] = React.useState()
 
-    React.useEffect(() => {
+    useEffect(() => {
         let VisibleProp
         if(props.Visible)
             VisibleProp = GetProperty(props.Visible)
@@ -32,6 +32,9 @@ function TextBoxWithLabel(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [null,props.unitSystem, props.RulesJSON])
 
+      useEffect(() => {
+        SetOutOfRange(Value < Min || Value > Max)
+      },[Min, Max])
 
     function UpdateStates(){
         if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor === Object){
@@ -53,32 +56,33 @@ function TextBoxWithLabel(props) {
         
                 }else{
                     if(MainProp){
-                    
-                        if(props.unitSystem === "Metric")
-                        {
-                            SetValue(Math.round(GetMetricValue(MainProp.Value,UnitNumber)*100)/100) 
-                            SetMin(Math.round(GetMetricValue(GetProperty(props.PropName+".MIN").Value,UnitNumber)*100)/100)
-                            SetMax(Math.round(GetMetricValue(GetProperty(props.PropName+".MAX").Value,UnitNumber)*100)/100)
-                        }else{
-                            SetValue(Math.round(MainProp.Value*100)/100) 
-                            SetMin(Math.round(GetProperty(props.PropName+".MIN").Value*100)/100)
-                            SetMax(Math.round(GetProperty(props.PropName+".MAX").Value*100)/100)
-                        }
-                        SetUnitProp(UnitProp)
-                        SetUnit(GetUnitLabel(UnitNumber, props.unitSystem))
-                        if(EnabledProp)
-                            SetEnabled(EnabledProp.Value === "TRUE" ? true: false)
-                        if(props.CheckboxPropName)
-                            SetCheckboxProp(GetProperty(props.CheckboxPropName))
-                        let relaxProp = props.RulesJSON.RelaxedVarNames.find(propNa => propNa === props.PropName)
-                        if(relaxProp)
-                            SetRelaxed(true)
-                        else
-                            SetRelaxed(false)
+                        SetValue(FormatNumber(MainProp.Value,UnitNumber)) 
+                        SetMin(FormatNumber(GetProperty(props.PropName+".MIN").Value,UnitNumber))
+                        SetMax(FormatNumber(GetProperty(props.PropName+".MAX").Value,UnitNumber))
                     }
+                    SetUnitProp(UnitProp)
+                    SetUnit(GetUnitLabel(UnitNumber, props.unitSystem))
+                    if(EnabledProp)
+                        SetEnabled(EnabledProp.Value === "TRUE" ? true: false)
+                    if(props.CheckboxPropName)
+                        SetCheckboxProp(GetProperty(props.CheckboxPropName))
+                    let relaxProp = props.RulesJSON.RelaxedVarNames.find(propNa => propNa === props.PropName)
+                    if(relaxProp)
+                        SetRelaxed(true)
+                    else
+                        SetRelaxed(false)
                 }
             }
-            
+        } 
+    }
+    
+    function FormatNumber(value, UnitNumber){
+        if(props.unitSystem === "Metric")
+            value = GetMetricValue(value, UnitNumber)
+        if(value> 0 && value < 1){
+            return Number.parseFloat(value).toPrecision(3)
+        }else{
+            return Math.round(value*100)/100
         }
     }
     
@@ -89,25 +93,34 @@ function TextBoxWithLabel(props) {
     function onInputFocus(){
         SetDisplayMinMax(true)
     }
+
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-        let NewValue = Value
         let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
-        if(props.unitSystem === "Metric"){
-            let UnitNumber = GetProperty(props.PropName+".UNIT").Value
-            NewValue = GetEnglishValue(Value, UnitNumber)
+        if(isNaN(Value) || Value === ""){
+            if(props.unitSystem === "Metric")
+                SetValue(Math.round(GetMetricValue(OldValue, UnitProp.Value)*100)/100)
+            else
+                SetValue(OldValue)
+        }else{
+            let NewValue = Value
+            if(props.unitSystem === "Metric"){
+                NewValue = GetEnglishValue(Value, UnitProp.Value)
+            }
+            if(OldValue !== NewValue)
+                props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
+            SetOutOfRange(Value < Min || Value > Max)
         }
-        if(OldValue !== NewValue)
-            props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
-        SetOutOfRange(Value < Min || Value > Max)
     }
 
     function onChange(event){
-        SetValue(event.target.value)
+        let value = event.target.value.trim().replace(",",".")
+        if(!isNaN(value) || value === "-")
+            SetValue(value)
     }
 
     function onUnitChanged(event){
-        let NewValue = Math.round(SameSystemConversion(UnitProp.Value, event.target.value, Value)*100)/100
+        let NewValue = Math.round(SameSystemConversion(UnitProp.Value, event.target.value, Value, props.unitSystem)*100)/100
         if(props.unitSystem === "Metric")
             props.onValueChanged([{Name: UnitProp.Name, Value: event.target.value}, {Name: props.PropName, Value: GetEnglishValue(NewValue, event.target.value).toString().replace(',','.')}])
         else
@@ -150,7 +163,7 @@ function TextBoxWithLabel(props) {
                 <div className="TBWLAI-ImageContainer">
                     <input className="TBWLAI-CheckBox" type="checkbox" name={props.Checkbox} onChange={handleCheckChange} checked={CheckboxProp.Value === "TRUE" ? true: false}/>
                 </div>: null}
-                <input id={"ctrl"+ props.PropName} type="Number" min={Min} max={Max} disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={(OutOfRange?"ErrorCss ":"" )+(Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full")} value={Value} onChange={onChange} step="any"/>
+                <input id={"ctrl"+ props.PropName}  disabled={Enabled? false : true } onFocus={onInputFocus} onBlur={onInputFocusOut} className={(OutOfRange?"ErrorCss ":"" )+(Unit !== ''? ((props.CheckboxPropName || props.Image) ?"TBWLAI-input" :"TBWLAI-input-label"): "TBWLAI-input-full")} value={Value} onChange={onChange} step="any"/>
                 {PaintLabel()}
             </div>
             {DisplayMinMax?<span className="TBWLAI-footer">(Min:{Min} Max: {Max} )</span>:null}

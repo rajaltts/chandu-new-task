@@ -61,7 +61,7 @@
 
 }
 
-.TBWLAI-input:invalid, .TBWLAI-input-label:invalid, .TBWLAI-input-full:invalid{
+.TBWLAI-input:invalid, .TBWLAI-input-label:invalid, .TBWLAI-input-full:invalid, .ErrorCss{
     border: #c00000 solid 1px;
     background-color: #ffe9e9;
     
