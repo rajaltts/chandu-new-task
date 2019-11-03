@@ -1,21 +1,50 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './OptionControl.css'
 import { Checkbox } from '@material-ui/core';
 import {GetProp, FormatTransKey} from '@carrier/workflowui-globalfunctions'
 import Tooltip from '@material-ui/core/Tooltip';
 import {InfoIcon, Incomp, EfficiencyIcon, CapacityIcon, SoundImpact} from '../SvgImages'
-import { FormattedMessage as Culture } from 'react-intl';
+import { FormattedMessage as Culture, injectIntl } from 'react-intl';
+import { css } from '@emotion/core';
+import { HashLoader } from 'react-spinners';
+
+const override = css`
+    display: block;
+    float: left;
+    margin: 10px 8.5px;
+    border-color: red;
+`;
 
 function OptionControl(props) {
   
-  const [DisplayDetails, SetDisplayDetails] = React.useState(false)
+  const [DisplayDetails, SetDisplayDetails] = useState(false)
+  const [Loading, SetLoading] = useState(false)
+  const [OldValue, SetOldValue] = useState('')
+  const { formatMessage } = props.intl
+
+  useEffect(() => {
+    if(Loading){
+      let UpdatedProp = GetProperty(props.PropName)
+      if(UpdatedProp && UpdatedProp.Value === OldValue)
+        SetLoading(false)
+    }
+  },[props.RulesJSON])
+
+  useEffect(() => {
+    SetDisplayDetails(false)
+  },[props.PropName])
 
   function ValueChanged(event){
-    if((props.children || InputBlock) && Value === "FALSE")
-      SetDisplayDetails(true)
-    else
-      SetDisplayDetails(false)
-    props.onValueChanged([{Name:props.PropName, Value:(Value === "TRUE" ? "FALSE":"TRUE")}])
+    if(!Loading){
+      SetLoading(true)
+      let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")
+      SetOldValue(UpdatedValue)
+      if((props.children || InputBlock) && Value === "FALSE")
+        SetDisplayDetails(true)
+      else
+        SetDisplayDetails(false)
+      props.onValueChanged([{Name:props.PropName, Value:UpdatedValue}])
+    }
 }
 
 function GetProperty(PropName){
@@ -69,14 +98,14 @@ function onInfoIconClick(){
 }
 
 function GetOptionDescription(MainProp){
-return <Culture id={FormatTransKey(props.PropName)} defaultMessage={<Culture id={FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + MainProp.Values[0].Attributes.Description)}/>}/>
+  return <Culture id={FormatTransKey(props.PropName)} defaultMessage={formatMessage({id: FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + MainProp.Values[0].Attributes.Description),defaultMessage: 'No translation'})}/>
 }
 function GetDetailedDescription(MainProp) {
-  return <Culture id={FormatTransKey(props.PropName + ".DETAILEDDESCRIPTION")} defaultMessage={<Culture id={FormatTransKey(props.PropName +"DETAILEDDESCRIPTION"+ "|" + MainProp.Values[0].Attributes.DetailledDescription)}/>}/>
+  return <Culture id={FormatTransKey(props.PropName + ".DETAILEDDESCRIPTION")} defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"DETAILEDDESCRIPTION"+ "|" + MainProp.Values[0].Attributes.DetailledDescription)})}/>
 }
 
 function GetAdvantage(MainProp) {
-  return <Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={<Culture id={FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)}/>}/>
+  return <Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)})}/>
 }
 
 let Value, Allowed, InputBlock, InputBlockComp
@@ -92,12 +121,13 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
           InputBlockComp = props.InputBlocksLib[InputBlock]
       Allowed = MainProp.Values[0].State===2
     }
-
+    
         return (
           <div  className="OptionControl-Container">
             <div className="OptionControl-MainContainer">
               <div onClick={ValueChanged} className="OptionControl-ClickableContainer">
-                <Checkbox color="primary" className="OptionControl-Checkbox" id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>
+                {Loading?<HashLoader css={override} sizeUnit={"px"} size={25} color={'#123abc'} loading={Loading}/>:
+                <Checkbox color="primary" className="OptionControl-Checkbox" id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>}            
                 <div className="OptionControl-LabelsContainer">
                     <span className="OptionControl-OptName">{GetOptionDescription(MainProp)}</span>
                     <span className="OptionControl-OptNumber">{MainProp.Values[0].Attributes.OptNumber}</span>
@@ -143,4 +173,4 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
     }
 }
 
-export default OptionControl;
+export default injectIntl(OptionControl);
