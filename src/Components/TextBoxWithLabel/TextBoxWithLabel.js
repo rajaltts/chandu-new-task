@@ -115,7 +115,7 @@ function TextBoxWithLabel(props) {
 
     function onChange(event){
         let value = event.target.value.trim().replace(",",".")
-        if(!isNaN(value) || value === "-")
+        if(!isNaN(value) || value === "-"|| value === ".")
             SetValue(value)
     }
 

@@ -23,18 +23,19 @@ function OptionControl(props) {
   const { formatMessage } = props.intl
 
   useEffect(() => {
+    let UpdatedProp = GetProperty(props.PropName)
     if(Loading){
-      let UpdatedProp = GetProperty(props.PropName)
       if(UpdatedProp && UpdatedProp.Value === OldValue)
-        SetLoading(false)
-    }
+          SetLoading(false)        
+    }else if(UpdatedProp.Value ==="FALSE" && InputBlock && DisplayDetails === true)
+      SetDisplayDetails(false)
   },[props.RulesJSON])
 
   useEffect(() => {
     SetDisplayDetails(false)
   },[props.PropName])
 
-  function ValueChanged(event){
+  function ValueChanged(){
     if(!Loading){
       SetLoading(true)
       let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")

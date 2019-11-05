@@ -1,17 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './CheckboxWithDropDown.css'
 import { Checkbox } from '@material-ui/core';
 import {GetProp, FormatTransKey} from '@carrier/workflowui-globalfunctions'
 import {InfoIcon} from '../SvgImages'
 import { FormattedMessage as Culture } from 'react-intl';
+import { css } from '@emotion/core';
+import { HashLoader } from 'react-spinners';
+
+const override = css`
+    display: block;
+    float: left;
+    margin: 10px 8.5px;
+    border-color: red;
+`;
 
 function CheckboxWithDropDown(props) {
   
-  const [DisplayDetails, SetDisplayDetails] = React.useState(false)
+  const [DisplayDetails, SetDisplayDetails] = useState(false)
+  const [Loading, SetLoading] = useState(false)
+  const [OldValue, SetOldValue] = useState('')
 
-    function ValueChanged(event){
-        props.onValueChanged([{Name:props.PropName, Value:(Value === "TRUE" ? "FALSE":"TRUE")}])
+  useEffect(() => {
+    if(Loading){
+      let UpdatedProp = GetProperty(props.PropName)
+      if(UpdatedProp && UpdatedProp.Value === OldValue)
+        SetLoading(false)
+    }
+  },[props.RulesJSON])
+
+    function ValueChanged(){
+      if(!Loading){
+        SetLoading(true)
+        let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")
+        SetOldValue(UpdatedValue)
+        props.onValueChanged([{Name:props.PropName, Value:UpdatedValue}])
         SetDisplayDetails(!DisplayDetails)
+      }
     }
 
     function GetProperty(PropName){
@@ -37,7 +61,8 @@ function CheckboxWithDropDown(props) {
             <div  className="CBWDD-Container">
             <div className="CBWDD-MainContainer">
                 <div onClick={ValueChanged} className="CBWDD-ClickableContainer">
-                  <Checkbox id={"ctrl"+ props.PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>
+                {Loading?<HashLoader css={override} sizeUnit={"px"} size={25} color={'#123abc'} loading={Loading}/>:
+                <Checkbox id={"ctrl"+ props.PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>}
                   <span className="CBWDD-Title">{GetTitle(MainProp)}</span>
                 </div>
                 {props.children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="30px"/></div>:null}
