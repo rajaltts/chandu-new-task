@@ -27,7 +27,7 @@ function OptionControl(props) {
     if(Loading){
       if(UpdatedProp && UpdatedProp.Value === OldValue)
           SetLoading(false)        
-    }else if(UpdatedProp.Value ==="FALSE" && InputBlock && DisplayDetails === true)
+    }else if(UpdatedProp && UpdatedProp.Value ==="FALSE" && InputBlock && DisplayDetails === true)
       SetDisplayDetails(false)
   },[props.RulesJSON])
 
