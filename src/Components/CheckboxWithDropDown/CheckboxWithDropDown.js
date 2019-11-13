@@ -29,7 +29,7 @@ function CheckboxWithDropDown(props) {
   },[props.RulesJSON])
 
     function ValueChanged(){
-      if(!Loading){
+      if(!Loading && !props.ReadOnly){
         SetLoading(true)
         let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")
         SetOldValue(UpdatedValue)
@@ -46,8 +46,8 @@ function CheckboxWithDropDown(props) {
       SetDisplayDetails(!DisplayDetails)
     }
     function GetTitle(){
-      let DescriptionProp = GetProperty(props.PropName+".DESCRIPTION")
-      return <Culture id={FormatTransKey(props.PropName)} defaultMessage={DescriptionProp?<Culture id={FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + DescriptionProp.Values[0].Attributes.Description)}/>:"MISSING TRANSLATION"}/>
+      let DescriptionProp = GetProperty(props.PropName)
+      return <Culture id={FormatTransKey(props.PropName)} defaultMessage={DescriptionProp?<Culture id={FormatTransKey(props.PropName + "|" + DescriptionProp.Values[0].Attributes.Description)}/>:"MISSING TRANSLATION"}/>
       }
 
     let Value, Visibility
