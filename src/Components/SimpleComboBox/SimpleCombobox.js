@@ -80,7 +80,7 @@ function SimpleCombobox(props) {
 
     function GetPrice(Value){
         let PriceItem = props.Prices.find(p => p.Size === Value)
-        if(PriceItem)
+        if(PriceItem && PriceItem.Price)
             return PriceItem.Price.toLocaleString()+ " €"
     }
 
@@ -102,7 +102,7 @@ function SimpleCombobox(props) {
                             if(props.HideNotAllowedValues && value.State===2)
                                 return null
                             else if (props.DoNotTranslate)
-                                return <div valueid={value.Value} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
+                                return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
                                         <span>{value.Attributes.Description}</span>
                                         {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
                                     </div>
