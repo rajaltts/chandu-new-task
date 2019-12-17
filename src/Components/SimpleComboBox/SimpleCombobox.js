@@ -1,24 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SimpleCombobox.css'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import { FormattedMessage as Culture } from 'react-intl';
 import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useOnClickOutside from 'use-onclickoutside'
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 function SimpleCombobox(props) {
+    const [Open, setOpen] = useState(false)
+    const [Visible, setVisible] = useState(true)
+    const [Enabled, setEnabled] = useState(true)
+    const ref = React.useRef()
+    useOnClickOutside(ref, () => setOpen(false))
 
-    let VisibleProp = GetProperty(props.PropName+".VISIBLE")
     let prop = GetProperty(props.PropName)
-    let EnabledProp
-    if(props.Enabled)
-        EnabledProp = GetProperty(props.Enabled)
-    else
-        EnabledProp = GetProperty(props.PropName+ ".ENABLED")
-    let Enabled = true
-    if (EnabledProp)
-        Enabled = EnabledProp.Value === "TRUE" ? true: false
-    let Visible = null
-    if (VisibleProp) 
-        Visible = VisibleProp.Value
     
     useEffect(() => {
         let SelectedOption = GetSelectedOption()
@@ -26,13 +22,41 @@ function SimpleCombobox(props) {
             let defaultProp = GetProperty(prop.Name + ".DEFAULT")
             props.onValueChanged([{Name:prop.Name, Value:defaultProp.Value}])
         }
+        UpdateState()
     }, [props.RulesJSON])
 
-    function ValueChanged(event){
-            let SelectedOption = prop.Values.find((Value)=> {
-                return Value.Value === event.target.value
-            })
-            props.onValueChanged([{Name:prop.Name, Value:SelectedOption.Value}])
+    function UpdateState(){
+        let VisibleProp
+        if(props.Visible)
+            VisibleProp = GetProperty(props.Visible)
+        if(VisibleProp === undefined)
+            VisibleProp = GetProperty(props.PropName+".VISIBLE")
+        if(VisibleProp === undefined)
+            setVisible(true)
+        else
+            setVisible(VisibleProp.Value==="FALSE"?false:true)
+        let EnabledProp
+        if(props.Enabled)
+            EnabledProp = GetProperty(props.Enabled)
+        if(EnabledProp === undefined)
+            EnabledProp = GetProperty(props.PropName+".ENABLED")
+        if(EnabledProp === undefined)
+            setEnabled(true)
+        else
+            setEnabled(EnabledProp.Value==="FALSE"?false:true)
+    }
+
+    function onDropBtnClick(){
+        if(Enabled)
+            setOpen(!Open)
+    }
+
+    function ValueChanged(value){
+        let SelectedOption = prop.Values.find((Value)=> {
+            return Value.Value === value
+        })
+        props.onValueChanged([{Name:prop.Name, Value:SelectedOption.Value}])
+        setOpen(false)
     }
     function GetSelectedOption(){
         if(prop && prop.Value){
@@ -46,34 +70,53 @@ function SimpleCombobox(props) {
     function GetSelectedValue() {
         let SelectedOption = GetSelectedOption()
         if(SelectedOption)
-            return SelectedOption.Value
+            return (props.DoNotTranslate?SelectedOption.Attributes.Description:<Culture id={FormatTransKey(props.PropName + "|" +SelectedOption.Attributes.Description)}/>)
         else
             return ""
     }
     function GetProperty(PropName){
         return GetProp(PropName, props.RulesJSON)
-      }
-
-    if(Visible === "TRUE"){
-        return (
-            <select id={"ctrl"+ props.PropName}  className={(prop && prop.IsRelaxed && Enabled) ? ("SimpleCombobox-Container not-allow " + (props.HideNotAllowedValues? "SimpleCombobox-InvalidHidden ":"SimpleCombobox-Invalid ")) + props.className: "SimpleCombobox-Container "+ props.className} disabled={Enabled? false : true } onChange={ValueChanged} value={GetSelectedValue()} >
-                {prop ? prop.Values.map((value, index) => {
-                    if(props.HideNotAllowedValues && value.State===2)
-                        return null
-                    else if (props.DoNotTranslate)
-                        return <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} value={value.Value} key={index}>{value.Attributes.Description}</option>
-                    else
-                      return <Culture id={FormatTransKey(props.PropName + "|" +value.Attributes.Description)} key={index}>
-                        {(message) => <option valueid={value.Value} className={value.State>1? "NotAllowedValue": "AllowedValue"} value={value.Value} key={index}>{message}</option>}
-                      </Culture>
-                        
-                    }
-                ) : null}
-            </select>
-        );
-    }else{
-        return null;
     }
+
+    function GetPrice(Value){
+        let PriceItem = props.Prices.find(p => p.Size === Value)
+        if(PriceItem)
+            return PriceItem.Price.toLocaleString()+ " €"
+    }
+
+    if(Visible){
+        return (
+            <div ref={ref} id={"ctrl"+ props.PropName}  
+                className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
+                <div className={(!Enabled?"SCB-BtnWrapper-Disabled ":"")+"SCB-BtnWrapper"} onClick= {() => onDropBtnClick()}>   
+                    <span>{GetSelectedValue()}</span>
+                    <div>
+                        {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(GetSelectedValue())}</span>:null}
+                        <FontAwesomeIcon icon={faSortDown} color="#000000"/>
+                    </div>
+                    
+                </div>
+                {Open?
+                    <div className="SCB-SubBtnWrapper">
+                        {prop.Values.map((value, index) => {
+                            if(props.HideNotAllowedValues && value.State===2)
+                                return null
+                            else if (props.DoNotTranslate)
+                                return <div valueid={value.Value} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
+                                        <span>{value.Attributes.Description}</span>
+                                        {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
+                                    </div>
+                            else
+                            return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
+                                        <Culture id={FormatTransKey(props.PropName + "|" +value.Attributes.Description)} key={index}/>
+                                        {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
+                                    </div>
+                        })}
+                    </div>: null
+                }
+            </div>
+        )
+    }else return null
 }
 
 export default SimpleCombobox;

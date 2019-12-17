@@ -20,6 +20,7 @@ function OptionControl(props) {
   const [DisplayDetails, SetDisplayDetails] = useState(false)
   const [Loading, SetLoading] = useState(false)
   const [OldValue, SetOldValue] = useState('')
+  const [Price, SetPrice] = useState('')
   const { formatMessage } = props.intl
 
   useEffect(() => {
@@ -33,7 +34,12 @@ function OptionControl(props) {
 
   useEffect(() => {
     SetDisplayDetails(false)
-  },[props.PropName])
+    if(props.OptionsPrices && props.OptionsPrices.length>0){
+      let price = props.OptionsPrices.find(p =>p.PropName === props.PropName)
+      if(price)
+        SetPrice(price.Price)
+    }
+  },[props.PropName, props.OptionsPrices])
 
   function ValueChanged(){
     if(!Loading){
@@ -142,7 +148,8 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                 </Tooltip>
                 <Tooltip title={GetImpactText(MainProp.Values[0].Attributes.CapacityImpact, "Capacity")} placement="top">
                   <div className="OptionControl-ImpactIcon"><CapacityIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)} width="20px"/></div>
-                </Tooltip>               
+                </Tooltip>
+                {Price?<span className="OptionControl-Price">{Price.toLocaleString()+ " €"}</span>:null}               
               </div>
               <Tooltip title={<Culture id={"GetMoreInfoOnOption"}/>} placement="top">
               <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="26px"/></div>

@@ -6,7 +6,7 @@ import './TextBoxWithLabel.css';
 
 function TextBoxWithLabel(props) {
     const [DisplayMinMax, SetDisplayMinMax] = React.useState(false)
-    const [Visibility, SetVisibility] = React.useState(false)
+    const [Visibility, SetVisibility] = React.useState(true)
     const [Value, SetValue] = React.useState(0)
     const [Min, SetMin] = React.useState()
     const [Max, SetMax] = React.useState()
@@ -23,12 +23,11 @@ function TextBoxWithLabel(props) {
             VisibleProp = GetProperty(props.Visible)
         else
             VisibleProp = GetProperty(props.PropName+".VISIBLE")
-        if(VisibleProp && VisibleProp.Value === "TRUE"){
-            SetVisibility(true)
-            UpdateStates()
+        if(VisibleProp){
+            SetVisibility(VisibleProp.Value === "TRUE"?true:false)
         }else
-            SetVisibility(false)
-        
+            SetVisibility(true)
+        UpdateStates()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [null,props.unitSystem, props.RulesJSON])
 
@@ -64,6 +63,8 @@ function TextBoxWithLabel(props) {
                     SetUnit(GetUnitLabel(UnitNumber, props.unitSystem))
                     if(EnabledProp)
                         SetEnabled(EnabledProp.Value === "TRUE" ? true: false)
+                    else
+                        SetEnabled(true)
                     if(props.CheckboxPropName)
                         SetCheckboxProp(GetProperty(props.CheckboxPropName))
                     let relaxProp = props.RulesJSON.RelaxedVarNames.find(propNa => propNa === props.PropName)

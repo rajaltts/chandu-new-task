@@ -86,4 +86,10 @@
 
 }
 
+.OptionControl-Price{
+    display: block;
+    float: right;
+    margin: 15px 30px;
+    color: #928c8c;
+}
 
