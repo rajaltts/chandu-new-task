@@ -15,7 +15,7 @@ function TextBoxWithLabel(props) {
     const [Relaxed, SetRelaxed] = React.useState(false)
     const [Enabled, SetEnabled] = React.useState(true)
     const [OutOfRange, SetOutOfRange] = React.useState(false)
-    const [CheckboxProp, SetCheckboxProp] = React.useState()
+    const [CheckboxProp, SetCheckboxProp] = React.useState(0)
 
     useEffect(() => {
         let VisibleProp
