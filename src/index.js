@@ -13,6 +13,7 @@ import DynamicRow from './Components/DynamicRow';
 import SimpleCheckbox from './Components/SimpleCheckbox';
 import SimpleImage from './Components/SimpleImage';
 import TableColumn from './Components/TableColumn';
+import TableWithQuestionControl from './Components/TableWithQuestionControl/TableWithQuestionControl'
 
 export {
     CheckboxWithDropDown,
@@ -27,5 +28,6 @@ export {
     DynamicRow,
     SimpleCheckbox, 
     SimpleImage,
-    TableColumn
+    TableColumn,
+    TableWithQuestionControl
 }
