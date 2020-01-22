@@ -39,7 +39,7 @@ function ImageWithLabelCheckboxGroup(props) {
           case 1:
             return RenderListItem(value, index, "")
           case 2:
-            return props.isNotAllowed ? RenderListItem(value, index, "IWLCG-notAllow") :  null
+            return props.isNotAllowedVisible ? RenderListItem(value, index, "IWLCG-notAllow") :  null
           default:
             return null    
         }
