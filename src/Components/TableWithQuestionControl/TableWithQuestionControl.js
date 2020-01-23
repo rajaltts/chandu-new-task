@@ -9,7 +9,7 @@ import {
   withStyles, 
   makeStyles 
 } from '@material-ui/core';
-import { SimpleRadioButtonGroup } from '@carrier/ngecat-reactcomponents';
+import { SimpleRadioButtonGroup } from './../SimpleRadioButtonGroup/SimpleRadioButtonGroup';
 import {GetProp} from '@carrier/workflowui-globalfunctions';
 
 const StyledTableCell = withStyles(theme => ({
