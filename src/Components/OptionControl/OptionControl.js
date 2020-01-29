@@ -20,7 +20,6 @@ function OptionControl(props) {
   const [DisplayDetails, SetDisplayDetails] = useState(false)
   const [Loading, SetLoading] = useState(false)
   const [OldValue, SetOldValue] = useState('')
-  const [Price, SetPrice] = useState('')
   const { formatMessage } = props.intl
 
   useEffect(() => {
@@ -30,7 +29,6 @@ function OptionControl(props) {
           SetLoading(false)        
     }else if(UpdatedProp && UpdatedProp.Value ==="FALSE" && InputBlock && DisplayDetails === true)
       SetDisplayDetails(false)
-    SetPrice(GetPrice())
   },[props.RulesJSON])
 
   useEffect(() => {
@@ -113,12 +111,14 @@ function GetAdvantage(MainProp) {
 
 function GetPrice(){
   let PriceProp = GetProperty(props.PropName+".MLP")
-  if(PriceProp)
+  if(PriceProp){
     return parseInt(PriceProp.Value).toLocaleString()+ " €"
+  }
+    
 }
 
 
-let Value, Allowed, InputBlock, InputBlockComp
+let Value, Allowed, InputBlock, InputBlockComp, Price
 
 if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor === Object){
   let VisibilityProp = GetProperty(props.PropName+".VISIBLE")
@@ -130,6 +130,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
       if(InputBlock)
           InputBlockComp = props.InputBlocksLib[InputBlock]
       Allowed = MainProp.Values[0].State===2
+      Price = GetPrice()
     }
     
         return (
