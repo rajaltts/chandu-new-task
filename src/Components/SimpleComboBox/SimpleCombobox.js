@@ -106,7 +106,7 @@ function SimpleCombobox(props) {
                 {Open?
                     <div className="SCB-SubBtnWrapper">
                         {prop.Values.map((value, index) => {
-                            if(props.HideNotAllowedValues && value.State===2)
+                            if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
                                 return null
                             else if (props.DoNotTranslate)
                                 return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
