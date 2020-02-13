@@ -60,3 +60,8 @@
 .IWLCG-Circle-NotSelected {
     display: none;
 }
+
+.IWLCG-notAllow {
+    border-color: red;
+    color: red;
+}

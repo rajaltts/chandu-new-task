@@ -84,12 +84,19 @@ function SimpleCombobox(props) {
             return PriceItem.Price.toLocaleString()+ " €"
     }
 
+    function GetPriceDollar(Value) {
+        return ` $ ${!!Value ? Value+" MLP": `TBD`}`
+    }
+
     if(Visible){
         return (
             <div ref={ref} id={"ctrl"+ props.PropName}  
                 className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
                 <div className={(!Enabled?"SCB-BtnWrapper-Disabled ":"")+"SCB-BtnWrapper"} onClick= {() => onDropBtnClick()}>   
-                    <span>{GetSelectedValue()}</span>
+                    <span>
+                        {GetSelectedValue()}
+                        {(prop && prop.Value && props.PriceDollar) ? <span>{GetPriceDollar(GetSelectedOption().Attributes.MLP)}</span> : null}
+                    </span>
                     <div>
                         {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(GetSelectedValue())}</span>:null}
                         <FontAwesomeIcon icon={faSortDown} color="#000000"/>
@@ -99,11 +106,14 @@ function SimpleCombobox(props) {
                 {Open?
                     <div className="SCB-SubBtnWrapper">
                         {prop.Values.map((value, index) => {
-                            if(props.HideNotAllowedValues && value.State===2)
+                            if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
                                 return null
                             else if (props.DoNotTranslate)
                                 return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
-                                        <span>{value.Attributes.Description}</span>
+                                        <span>
+                                            {value.Attributes.Description}
+                                            {(props.PriceDollar) ? <span>{GetPriceDollar(value.Attributes.MLP)}</span> : null}
+                                        </span>
                                         {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
                                     </div>
                             else

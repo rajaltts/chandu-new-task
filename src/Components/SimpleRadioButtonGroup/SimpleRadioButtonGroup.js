@@ -12,10 +12,10 @@ function SimpleRadioButtonGroup(props) {
     React.useEffect(() => {
         let VisibleProp = GetProperty(props.PropName+".VISIBLE")
         let Prop = GetProperty(props.PropName)
-        if(VisibleProp && VisibleProp.Value === "TRUE"){
-            SetVisibility(true)
+        if(VisibleProp){
+            SetVisibility(VisibleProp.Value === "TRUE"? true : false)
         }else
-            SetVisibility(false)
+            SetVisibility(true)
         SetProp(Prop)
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,6 +43,9 @@ function SimpleRadioButtonGroup(props) {
         return (
             <div id={"ctrl"+ props.PropName}>
                 {Prop ? Prop.Values.map((value, index) => {
+                    if(props.HideNotAllowedValues && value.State===2)
+                    return null;
+                    else
                     return <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}><input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/><Culture id={FormatTransKey((props.PropName + "|" +value.Attributes.Description))}/></label>
                 }): null}
             </div>

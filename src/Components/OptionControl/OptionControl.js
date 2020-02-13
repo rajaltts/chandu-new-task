@@ -20,7 +20,6 @@ function OptionControl(props) {
   const [DisplayDetails, SetDisplayDetails] = useState(false)
   const [Loading, SetLoading] = useState(false)
   const [OldValue, SetOldValue] = useState('')
-  const [Price, SetPrice] = useState('')
   const { formatMessage } = props.intl
 
   useEffect(() => {
@@ -34,12 +33,7 @@ function OptionControl(props) {
 
   useEffect(() => {
     SetDisplayDetails(false)
-    if(props.OptionsPrices && props.OptionsPrices.length>0){
-      let price = props.OptionsPrices.find(p =>p.PropName === props.PropName)
-      if(price)
-        SetPrice(price.Price)
-    }
-  },[props.PropName, props.OptionsPrices])
+  },[props.PropName])
 
   function ValueChanged(){
     if(!Loading){
@@ -115,7 +109,16 @@ function GetAdvantage(MainProp) {
   return <Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)})}/>
 }
 
-let Value, Allowed, InputBlock, InputBlockComp
+function GetPrice(){
+  let PriceProp = GetProperty(props.PropName+".MLP")
+  if(PriceProp){
+    return parseInt(PriceProp.Value).toLocaleString()+ " €"
+  }
+    
+}
+
+
+let Value, Allowed, InputBlock, InputBlockComp, Price
 
 if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor === Object){
   let VisibilityProp = GetProperty(props.PropName+".VISIBLE")
@@ -127,6 +130,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
       if(InputBlock)
           InputBlockComp = props.InputBlocksLib[InputBlock]
       Allowed = MainProp.Values[0].State===2
+      Price = GetPrice()
     }
     
         return (
@@ -149,7 +153,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                 <Tooltip title={GetImpactText(MainProp.Values[0].Attributes.CapacityImpact, "Capacity")} placement="top">
                   <div className="OptionControl-ImpactIcon"><CapacityIcon color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)} width="20px"/></div>
                 </Tooltip>
-                {Price?<span className="OptionControl-Price">{Price.toLocaleString()+ " €"}</span>:null}               
+                {(Price && props.DisplayPrice)?<span className="OptionControl-Price">{Price}</span>:null}       
               </div>
               <Tooltip title={<Culture id={"GetMoreInfoOnOption"}/>} placement="top">
               <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="26px"/></div>
