@@ -77,14 +77,19 @@ function TextBoxWithLabel(props) {
         } 
     }
     
+    function SignificantDigit(valueToPrint){
+        if(valueToPrint> 0 && valueToPrint < 1){
+            return Number.parseFloat(valueToPrint).toPrecision(3)
+        }else{
+            return Math.round(valueToPrint*100)/100
+        }
+    }
+
+
     function FormatNumber(value, UnitNumber){
         if(props.unitSystem === "Metric")
             value = GetMetricValue(value, UnitNumber)
-        if(value> 0 && value < 1){
-            return Number.parseFloat(value).toPrecision(3)
-        }else{
-            return Math.round(value*100)/100
-        }
+            return SignificantDigit(value)
     }
     
     function GetProperty(PropName){
@@ -97,20 +102,18 @@ function TextBoxWithLabel(props) {
 
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-        let OldValue = Math.round(GetProperty(props.PropName).Value*100)/100
+        let OldValue = SignificantDigit(GetProperty(props.PropName).Value,UnitProp.Value)
         if(isNaN(Value) || Value === ""){
-            if(props.unitSystem === "Metric")
-                SetValue(Math.round(GetMetricValue(OldValue, UnitProp.Value)*100)/100)
-            else
-                SetValue(OldValue)
+                    SetValue(FormatNumber(OldValue,UnitProp.Value))
         }else{
             let NewValue = Value
-            if(props.unitSystem === "Metric"){
+            if(props.unitSystem === "Metric")
                 NewValue = GetEnglishValue(Value, UnitProp.Value)
-            }
-            if(OldValue !== NewValue)
+            if(parseFloat(OldValue) !== parseFloat(NewValue))
                 props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
-            SetOutOfRange(Value < Min || Value > Max)
+            else
+                SetValue(FormatNumber(OldValue,UnitProp.Value))
+            SetOutOfRange(parseFloat(Value) < Min || parseFloat(Value) > Max)
         }
     }
 
