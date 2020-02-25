@@ -1,0 +1,44 @@
+import React from 'react';
+import { GetProp } from '@carrier/workflowui-globalfunctions'
+
+function SimpleLabelWithCurrency(props) {
+
+    let prop = GetProperty(props.PropName)
+
+    function GetProperty(PropName) {
+        return GetProp(PropName, props.RulesJSON)
+    }
+    function GetPriceDollar(Value) {
+        return ` ${!!Value ? `$ ${Value}` : ""}`
+    }
+    function getMLPValue() {
+        if (!prop.Value) {
+            return `$ 0`;
+        }
+        return prop && prop.Value && `$ ${prop.Value}`;
+    }
+    if (props.isValue) {
+        return (
+            <label className="currency-label">
+                {prop && `$ ${prop.Value}`}
+            </label>
+        )
+    }
+    else {
+        return (
+            <>
+                {props.MLPValue ? getMLPValue() :
+                    <label className="currency-label">  {
+                        prop && !!prop.Value ?
+                            (props.PriceDollar) ?
+                                props.IsValueArray ? prop.Values.map((value) => { return <div className={`${props.PropName} priceDollor`}>{GetPriceDollar(value.Attributes.MLP)}</div> }) : <div className={`${props.PropName} priceDollor-content`}>{GetPriceDollar(prop.Values[0].Attributes.MLP)}</div>
+                                : null : null
+                    }
+                    </label>
+                }
+            </>
+        )
+    }
+}
+
+export default SimpleLabelWithCurrency;

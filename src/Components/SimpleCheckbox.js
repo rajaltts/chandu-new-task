@@ -20,7 +20,7 @@ function SimpleCheckbox(props) {
 
     if((!VisibleProp || (VisibleProp && VisibleProp.Value === "TRUE")) && ValueProp ){
         return (
-            <label style={{fontSize: "0.95rem"}}><input  id={"ctrl"+ props.PropName} style={{marginRight: "5px"}} type="checkbox" name={props.PropName} onChange={handleChange} checked={ValueProp.Value === "TRUE" ? true: false}/>{GetLabel()}</label>
+            <label style={{fontSize: "0.95rem"}}><input  id={"ctrl"+ props.PropName} style={{marginRight: "5px"}} type="checkbox" name={props.PropName} onChange={handleChange} checked={ValueProp.Value === "TRUE" ? true: false} disabled={props.disabled ? true: false} />{GetLabel()}</label>
         )
     }else
         return null

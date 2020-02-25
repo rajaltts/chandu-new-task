@@ -11,6 +11,7 @@ function SimpleCombobox(props) {
     const [Open, setOpen] = useState(false)
     const [Visible, setVisible] = useState(true)
     const [Enabled, setEnabled] = useState(true)
+    const [Valid, setValid] = useState(true)
     const ref = React.useRef()
     useOnClickOutside(ref, () => setOpen(false))
 
@@ -43,7 +44,16 @@ function SimpleCombobox(props) {
         if(EnabledProp === undefined)
             setEnabled(true)
         else
-            setEnabled(EnabledProp.Value==="FALSE"?false:true)
+        setEnabled(EnabledProp.Value === "FALSE" ? false : true)
+        let ValidProp
+        if (props.Valid)
+          ValidProp = GetProperty(props.Valid)
+        if (ValidProp === undefined)
+          ValidProp = GetProperty(props.PropName + ".VALID")
+        if (ValidProp === undefined)
+          setValid(true)
+        else
+          setValid(ValidProp.Value === "FALSE" ? false : true)
     }
 
     function onDropBtnClick(){
@@ -90,6 +100,8 @@ function SimpleCombobox(props) {
 
     if(Visible){
         return (
+          <>
+            {props.isValidationMessage && Valid === false && <span className="ErrorText"> This field is required </span>}
             <div ref={ref} id={"ctrl"+ props.PropName}  
                 className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
                 <div className={(!Enabled?"SCB-BtnWrapper-Disabled ":"")+"SCB-BtnWrapper"} onClick= {() => onDropBtnClick()}>   
@@ -125,6 +137,7 @@ function SimpleCombobox(props) {
                     </div>: null
                 }
             </div>
+          </>
         )
     }else return null
 }
