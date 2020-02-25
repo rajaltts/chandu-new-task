@@ -22,7 +22,7 @@ function MessageTextArea(props) {
   }
 
   return (
-    <>
+    <React.Fragment>
       {valueProp && !!valueProp.Value ? valueProp.Values.map((value, idx) => {
         if (value.State === 2) {
           return null;
@@ -37,7 +37,7 @@ function MessageTextArea(props) {
           </div>
         }
       }) : null}
-    </>
+    </React.Fragment>
   )
 }
 export default MessageTextArea;
