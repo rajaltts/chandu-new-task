@@ -44,7 +44,7 @@ function SimpleCombobox(props) {
         if(EnabledProp === undefined)
             setEnabled(true)
         else
-        setEnabled(EnabledProp.Value === "FALSE" ? false : true)
+            setEnabled(EnabledProp.Value === "FALSE" ? false : true)
         let ValidProp
         if (props.Valid)
           ValidProp = GetProperty(props.Valid)
