@@ -102,9 +102,9 @@ function TextBoxWithLabel(props) {
 
     function onInputFocusOut(){
         SetDisplayMinMax(false)
-        let OldValue = SignificantDigit(GetProperty(props.PropName).Value,UnitProp.Value)
+        let OldValue = GetProperty(props.PropName).Value
         if(isNaN(Value) || Value === ""){
-                    SetValue(FormatNumber(OldValue,UnitProp.Value))
+                    SetValue(SignificantDigit(OldValue,UnitProp.Value))
         }else{
             let NewValue = Value
             if(props.unitSystem === "Metric")
@@ -116,6 +116,7 @@ function TextBoxWithLabel(props) {
             SetOutOfRange(parseFloat(Value) < Min || parseFloat(Value) > Max)
         }
     }
+
 
     function onChange(event){
         let value = event.target.value.trim().replace(",",".")
