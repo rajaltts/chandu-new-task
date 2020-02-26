@@ -95,7 +95,7 @@ function SimpleCombobox(props) {
     }
 
     function GetPriceDollar(Value) {
-        return ` $ ${!!Value ? Value+" MLP": `TBD`}`
+        return !!Value ? (props.isNoMLP ? ` $ ${Value}`:` $ ${Value} MLP`):" $ TBD";
     }
 
     if(Visible){
