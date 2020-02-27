@@ -12,7 +12,10 @@ function SimpleLabelWithCurrency(props) {
         return ` ${!!Value ? `$ ${Value}` : ""}`
     }
     function getMLPValue() {
-        if (!prop.Value) {
+        if (!prop) {
+            return null;
+        }
+        else if (!prop.Value) {
             return `$ 0`;
         }
         return prop && prop.Value && `$ ${prop.Value}`;
