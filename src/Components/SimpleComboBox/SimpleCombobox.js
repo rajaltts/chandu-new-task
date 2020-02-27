@@ -101,8 +101,8 @@ function SimpleCombobox(props) {
     if(Visible){
         return (
           <>
-            {props.isValidationMessage && Valid === false && <span className="ErrorText"> This field is required </span>}
-            <div ref={ref} id={"ctrl"+ props.PropName}  
+            {props.isValidationMessage && Valid === false && <span className="ErrorText"> {props.isValidationMessage} </span>}
+            <div ref={ref} id={"ctrl"+ props.PropName}
                 className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
                 <div className={(!Enabled?"SCB-BtnWrapper-Disabled ":"")+"SCB-BtnWrapper"} onClick= {() => onDropBtnClick()}>   
                     <span>
