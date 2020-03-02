@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import './SimpleCombobox.css'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import { FormattedMessage as Culture } from 'react-intl';
@@ -100,7 +100,7 @@ function SimpleCombobox(props) {
 
     if(Visible){
         return (
-          <>
+          <Fragment>
             {props.isValidationMessage && Valid === false && <span className="ErrorText"> {props.isValidationMessage} </span>}
             <div ref={ref} id={"ctrl"+ props.PropName}
                 className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
@@ -137,7 +137,7 @@ function SimpleCombobox(props) {
                     </div>: null
                 }
             </div>
-          </>
+          </Fragment>
         )
     }else return null
 }

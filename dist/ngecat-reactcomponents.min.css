@@ -415,3 +415,11 @@ input::-webkit-inner-spin-button {
     width: 16px;
     height: 16px;
 }
+
+.priceDollor {
+    margin: 10px;
+    font-weight: 700;
+  }
+  .priceDollor-content {
+    font-weight: bold;
+  }
