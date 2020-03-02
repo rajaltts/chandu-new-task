@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import './SimpleCombobox.css'
 import {GetProp} from '@carrier/workflowui-globalfunctions'
 import { FormattedMessage as Culture } from 'react-intl';
@@ -11,6 +11,7 @@ function SimpleCombobox(props) {
     const [Open, setOpen] = useState(false)
     const [Visible, setVisible] = useState(true)
     const [Enabled, setEnabled] = useState(true)
+    const [Valid, setValid] = useState(true)
     const ref = React.useRef()
     useOnClickOutside(ref, () => setOpen(false))
 
@@ -43,7 +44,16 @@ function SimpleCombobox(props) {
         if(EnabledProp === undefined)
             setEnabled(true)
         else
-            setEnabled(EnabledProp.Value==="FALSE"?false:true)
+            setEnabled(EnabledProp.Value === "FALSE" ? false : true)
+        let ValidProp
+        if (props.Valid)
+          ValidProp = GetProperty(props.Valid)
+        if (ValidProp === undefined)
+          ValidProp = GetProperty(props.PropName + ".VALID")
+        if (ValidProp === undefined)
+          setValid(true)
+        else
+          setValid(ValidProp.Value === "FALSE" ? false : true)
     }
 
     function onDropBtnClick(){
@@ -85,12 +95,14 @@ function SimpleCombobox(props) {
     }
 
     function GetPriceDollar(Value) {
-        return ` $ ${!!Value ? Value+" MLP": `TBD`}`
+        return !!Value ? (props.isNoMLP ? ` $ ${Value}`:` $ ${Value} MLP`):" $ TBD";
     }
 
     if(Visible){
         return (
-            <div ref={ref} id={"ctrl"+ props.PropName}  
+          <Fragment>
+            {props.isValidationMessage && Valid === false && <span className="ErrorText"> {props.isValidationMessage} </span>}
+            <div ref={ref} id={"ctrl"+ props.PropName}
                 className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
                 <div className={(!Enabled?"SCB-BtnWrapper-Disabled ":"")+"SCB-BtnWrapper"} onClick= {() => onDropBtnClick()}>   
                     <span>
@@ -125,6 +137,7 @@ function SimpleCombobox(props) {
                     </div>: null
                 }
             </div>
+          </Fragment>
         )
     }else return null
 }

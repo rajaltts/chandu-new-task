@@ -19,7 +19,12 @@
     background-color: #FFFFFF;
     color: black;
 }
-
+.SCB-valueContainer>span {
+    width: 100%;
+}
+.SCB-valueContainer span span {
+    float: right;
+}
 .NotAllowedValue {
     color: #cc0000;
 }

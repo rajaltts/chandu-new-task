@@ -1,0 +1,23 @@
+.MSG-Container {	
+  padding: 10px 15px;	
+  display: block;	
+  width: 100%;	
+  border-radius: 5px;	
+  margin-bottom: 10px;	
+  border: 1px solid #E5E5E5;	
+  background-color: #fff;	
+  box-sizing: border-box;	
+}	
+.MSG-Container > p {	
+  margin: 0;  	
+  display: flex;	
+}	
+.MSG-Container > p > .iconLeft {	
+  margin-right: 15px;	
+  display: inline-block;	
+  vertical-align: middle;	
+}	
+.MSG-Container > p > .iconLeft > img{	
+  width: 16px;	
+  height: 16px;	
+} 
