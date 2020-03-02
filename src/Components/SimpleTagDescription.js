@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions'; 
 
 export default function SimpleTagDescription(props) {
@@ -18,8 +18,8 @@ export default function SimpleTagDescription(props) {
     }
   }
   return (
-    <>
+    <Fragment>
       <label>{getDescription(props.propName)}</label>
-    </>
+    </Fragment>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions'
 
 function SimpleLabelWithCurrency(props) {
@@ -29,7 +29,7 @@ function SimpleLabelWithCurrency(props) {
     }
     else {
         return (
-            <>
+            <Fragment>
                 {props.MLPValue ? getMLPValue() :
                     <label className="currency-label">  {
                         prop && !!prop.Value ?
@@ -39,7 +39,7 @@ function SimpleLabelWithCurrency(props) {
                     }
                     </label>
                 }
-            </>
+            </Fragment>
         )
     }
 }
