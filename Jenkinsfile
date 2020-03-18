@@ -23,7 +23,7 @@ pipeline {
         script {
             currentBuild.displayName = "${BuildNo}"
                 }
-           }
+     }}
             stage("SonarqubeAnalysis"){
      steps {
         script {
