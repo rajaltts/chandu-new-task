@@ -27,7 +27,11 @@ pipeline {
             stage("SonarqubeAnalysis"){
      steps {
         script {
-            bat "sonar-scanner"
+		bat '''npm cache clean --force'''
+		bat '''npm install --no-optional"'''
+		bat '''npm audit fix'''
+		bat '''npm run-script build"'''	
+            	bat "sonar-scanner"
                 }
            }
     }
