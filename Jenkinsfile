@@ -1,7 +1,7 @@
 pipeline {
 	agent { label 'JENKINSSLAVE' }
   options { 
-	  //skipDefaultCheckout true
+	  skipDefaultCheckout true
 	  disableConcurrentBuilds()
 	  timestamps()
         	buildDiscarder(logRotator(numToKeepStr: '20', daysToKeepStr: '10'))}
@@ -12,12 +12,12 @@ pipeline {
 		string(name: 'PublishDirectory', defaultValue: 'NGECatPublish', description: 'Publish directory')
     }
   stages {
-	  /*stage('clean workspace') {
+	  stage('clean workspace') {
       steps {
         deleteDir()
         checkout scm
       }
-    }*/
+    }
     stage("Set Build Name"){
      steps {
         script {
