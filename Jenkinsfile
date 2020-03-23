@@ -38,4 +38,11 @@ pipeline {
            }
     }
  }
+	 post {
+ 
+   failure {
+   	//Send the email for build status.
+        emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: 'Chaitanya.Gollamudi@utc.com'
+    }
+    }
   }
