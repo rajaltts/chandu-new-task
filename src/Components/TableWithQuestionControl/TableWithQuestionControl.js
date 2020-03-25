@@ -9,7 +9,7 @@ import {
   withStyles, 
   makeStyles 
 } from '@material-ui/core';
-import { SimpleRadioButtonGroup } from './../SimpleRadioButtonGroup/SimpleRadioButtonGroup';
+import SimpleRadioButtonGroup from './../SimpleRadioButtonGroup/SimpleRadioButtonGroup';
 import {GetProp} from '@carrier/workflowui-globalfunctions';
 
 const StyledTableCell = withStyles(theme => ({
@@ -84,11 +84,11 @@ function TableWithQuestionControl(props) {
   }
 
   function RenderTableCell(prop, Question, Reference) {
-    return (<>
+    return (<React.Fragment>
         {prop ? prop.Values.map((value, index) => {
             return <span key={index}>{value.Attributes[Question ? Question : Reference]}</span>
         }) : null}
-        </>
+        </React.Fragment>
     )
   }
 

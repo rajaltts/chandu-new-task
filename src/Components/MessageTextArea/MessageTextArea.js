@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions';
 import './MessageTextArea.css';
 const ImageFolderPath = 'Images/';
@@ -22,7 +22,7 @@ function MessageTextArea(props) {
   }
 
   return (
-    <>
+    <Fragment>
       {valueProp && !!valueProp.Value ? valueProp.Values.map((value, idx) => {
         if (value.State === 2) {
           return null;
@@ -37,7 +37,7 @@ function MessageTextArea(props) {
           </div>
         }
       }) : null}
-    </>
+    </Fragment>
   )
 }
 export default MessageTextArea;

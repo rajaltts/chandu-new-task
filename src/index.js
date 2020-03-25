@@ -13,8 +13,10 @@ import DynamicRow from './Components/DynamicRow';
 import SimpleCheckbox from './Components/SimpleCheckbox';
 import SimpleImage from './Components/SimpleImage';
 import TableColumn from './Components/TableColumn';
-import TableWithQuestionControl from './Components/TableWithQuestionControl/TableWithQuestionControl';
+import SimpleTagDescription from './Components/SimpleTagDescription';
+import SimpleLabelWithCurrency from './Components/SimpleLabelWithCurrency/SimpleLabelWithCurrency';
 import MessageTextArea from './Components/MessageTextArea/MessageTextArea';
+import TableWithQuestionControl from './Components/TableWithQuestionControl/TableWithQuestionControl';
 
 export {
     CheckboxWithDropDown,
@@ -30,6 +32,8 @@ export {
     SimpleCheckbox, 
     SimpleImage,
     TableColumn,
-    TableWithQuestionControl,
-    MessageTextArea
+    SimpleTagDescription,
+    SimpleLabelWithCurrency,
+    MessageTextArea,
+    TableWithQuestionControl
 }
