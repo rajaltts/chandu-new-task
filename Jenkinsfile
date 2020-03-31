@@ -39,10 +39,12 @@ pipeline {
     }
  }
 	 post {
- 
+	 success
+        {
+	emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: '$ReactTeam'
+        }
    failure {
-   	//Send the email for build status.
-        emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: 'Chaitanya.Gollamudi@utc.com'
+        emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: '$ReactTeam'
     }
     }
   }
