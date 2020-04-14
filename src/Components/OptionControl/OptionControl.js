@@ -44,7 +44,14 @@ function OptionControl(props) {
         SetDisplayDetails(true)
       else
         SetDisplayDetails(false)
-      props.onValueChanged([{Name:props.PropName, Value:UpdatedValue}])
+      let NewAssignments = []
+      if(GetPrice()){
+        let UnitDiscountProp = GetProperty("Sel_fUnitDiscount")
+        if(UnitDiscountProp && UpdatedValue === "TRUE")
+          NewAssignments.push({Name:props.PropName+".DISCOUNT", Value:UnitDiscountProp.Value})
+      }
+      NewAssignments.push({Name:props.PropName, Value:UpdatedValue})
+      props.onValueChanged(NewAssignments)
     }
 }
 
