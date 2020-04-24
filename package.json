@@ -1,6 +1,6 @@
 {
   "name": "@carrier/ngecat-reactcomponents",
-  "version": "1.0.63",
+  "version": "1.0.64",
   "description": "React components library used for NGECAT workflow UI apps",
   "main": "dist/ngecat-reactcomponents.min.js",
   "publishConfig": {
@@ -32,7 +32,7 @@
     "rollup": "^0.58.2",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-image": "^1.0.2",
-    "rollup-plugin-postcss": "^1.6.1",
+    "rollup-plugin-postcss": "^3.1.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-uglify": "^3.0.0"
   }
