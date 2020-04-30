@@ -12,6 +12,7 @@
 .TBWLAI-InputContainer {
     height: 30px;
     width: 100%;
+    float: left;
 }
 
 .TBWLAI-ImageContainer {
@@ -110,8 +111,9 @@
 
 .TBWLAI-footer {
     font-size: 0.9rem;
-    margin-top: -5px;
     color: #aaaaaa;
+    margin-top: 0;
+    line-height: 25px;
 }
 
 .TBWLAI-CheckBox {
