@@ -79,10 +79,10 @@ const ImpactData = {
     {value: "NA", txt: "This option has no impact on the unit efficiency"},
   ],
   SoundText : [
-    {value: "+/-", txt: "This option may have an impact on the unit unit sound power"},
-    {value: "+", txt: "This option has a positive impact on the unit unit sound power"},
-    {value: "-", txt: "This option has a negative impact on the unit unit sound power"},
-    {value: "NA", txt: "This option has no impact on the unit unit sound power"},
+    {value: "+/-", txt: "This option may have an impact on the unit sound power"},
+    {value: "+", txt: "This option has a positive impact on the unit sound power"},
+    {value: "-", txt: "This option has a negative impact on the unit sound power"},
+    {value: "NA", txt: "This option has no impact on the unit sound power"},
   ]
 }
 
