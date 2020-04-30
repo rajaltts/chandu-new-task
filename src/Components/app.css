@@ -1,0 +1,26 @@
+/* start of css for checkbox with error/required class */
+
+input[type=checkbox].checkbox-error-css {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    outline: none;
+    content: none;
+}
+
+input[type=checkbox].checkbox-error-css:before {
+    content: "\f00c";
+    color: transparent !important;
+    background: #ffe9e9;
+    display: block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid red;
+    margin-right: 5px;
+}
+
+input[type=checkbox].checkbox-error-css:checked:before {
+    color: red !important;
+}
+
+/* end of css for check box css */
