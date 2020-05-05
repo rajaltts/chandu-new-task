@@ -33,7 +33,7 @@ function TextBoxWithLabel(props) {
 
       useEffect(() => {
         SetOutOfRange(Value < Min || Value > Max)
-      },[Min, Max])
+      },[Min, Max, Value])
 
     function UpdateStates(){
         if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor === Object){
