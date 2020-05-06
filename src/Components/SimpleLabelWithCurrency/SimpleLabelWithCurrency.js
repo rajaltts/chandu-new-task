@@ -4,7 +4,6 @@ import { GetProp } from '@carrier/workflowui-globalfunctions'
 function SimpleLabelWithCurrency(props) {
 
     let prop = GetProperty(props.PropName)
-    let optionName = props.OptionName
 
     function GetProperty(PropName) {
         return GetProp(PropName, props.RulesJSON)
@@ -35,7 +34,7 @@ function SimpleLabelWithCurrency(props) {
                     <label className="currency-label">  {
                         prop && !!prop.Value ?
                             (props.PriceDollar) ?
-                                props.IsValueArray ? prop.Values.map((value, index) => { return <div className={`${props.PropName} priceDollor ${'CostColumn_' + optionName + '_' + index}`}>{GetPriceDollar(value.Attributes.MLP)}</div> }) : <div className={`${props.PropName} priceDollor-content`}>{GetPriceDollar(prop.Values[0].Attributes.MLP)}</div>
+                                props.IsValueArray ? prop.Values.map((value, index) => { return <div className={`${props.PropName} priceDollor ${'CostColumn_' + props.OptionName + '_' + index}`}>{GetPriceDollar(value.Attributes.MLP)}</div> }) : <div className={`${props.PropName} priceDollor-content`}>{GetPriceDollar(prop.Values[0].Attributes.MLP)}</div>
                                 : null : null
                     }
                     </label>
