@@ -4,7 +4,7 @@ import { GetProp } from '@carrier/workflowui-globalfunctions'
 function SimpleLabelWithCurrency(props) {
 
     let prop = GetProperty(props.PropName)
-    let optionName = GetProperty(props.OptionName)
+    let optionName = props.OptionName
 
     function GetProperty(PropName) {
         return GetProp(PropName, props.RulesJSON)
