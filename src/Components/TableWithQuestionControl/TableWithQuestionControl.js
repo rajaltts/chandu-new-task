@@ -68,6 +68,7 @@ function TableWithQuestionControl(props) {
                 RulesJSON={props.RulesJSON}
                 onValueChanged={props.onNewAssignment}
                 vertical={false}
+                DoNotTranslate
               />
             </div>
           </StyledTableCell>
