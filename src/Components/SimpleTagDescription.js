@@ -19,7 +19,7 @@ export default function SimpleTagDescription(props) {
   }
   return (
     <Fragment>
-      <label>{getDescription(props.propName)}</label>
+      <label id={`ctrl${props.propName}`}>{getDescription(props.propName)}</label>
     </Fragment>
   )
 }
