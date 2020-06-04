@@ -46,19 +46,19 @@ function SimpleRadioButtonGroup(props) {
                     if(props.HideNotAllowedValues && value.State===2)
                     return null;
                     else
-                    return <>
-                     <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}>
+                    return <Fragment>
+                    <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}>
                         <input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/>
                         {props.DoNotTranslate ?
-                            <Culture id={FormatTransKey((props.PropName + "|" +value.Attributes.Description))}/>
-                            :
                             <span>{value.Attributes.Description}</span>
+                            :
+                            <Culture id={FormatTransKey((props.PropName + "|" +value.Attributes.Description))}/>
                         }
                     </label>
                      {(!!value.Attributes.Note && props.vertical)?<div> {value.Attributes.Note.split("||").map((value, index)=>{
                         return <li className={props.NoteclassName}>{value}</li>
                      })}</div>:""}
-                    </>
+                    </Fragment>
                 })}
             </div>
         );
