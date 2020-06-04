@@ -13,6 +13,8 @@ function MessageTextArea(props) {
         return value.Attributes.Note === "WARNING" ? "alert.png" : "success.png";
     } else if (props.PropName.toUpperCase().indexOf(".MSG_WARNING") >= 0) {
         return "warning.png"
+    } else if (props.PropName.toUpperCase().indexOf(".MSG_QCREASON") >= 0) {
+      return "success.png"
     } else {
       return null
     }
