@@ -5,7 +5,10 @@ const ImageFolderPath = 'Images/'
 function ImageWithLabelCheckboxGroup(props) {
 
   function getFullImagePath(name) {
-    return ImageFolderPath + name;
+    if(props.ImagesLocationUrl)
+      return props.ImagesLocationUrl + name;
+    else
+      return ImageFolderPath + name;
   }
 
   function RenderListItem(value, index, Class) {
