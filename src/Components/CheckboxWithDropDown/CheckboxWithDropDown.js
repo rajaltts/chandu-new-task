@@ -47,6 +47,9 @@ function CheckboxWithDropDown(props) {
     }
     function GetTitle(){
       let DescriptionProp = GetProperty(props.PropName)
+      if(props.DoNotTranslate)
+        return DescriptionProp.Values[0].Attributes.Description
+      else
       return <Culture id={FormatTransKey(props.PropName)} defaultMessage={DescriptionProp?<Culture id={FormatTransKey(props.PropName + "|" + DescriptionProp.Values[0].Attributes.Description)}/>:"MISSING TRANSLATION"}/>
       }
 
