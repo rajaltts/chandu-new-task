@@ -17,8 +17,18 @@ function SimpleCheckbox(props) {
     function handleChange(){
         props.onValueChanged([{Name:props.PropName, Value: ValueProp.Value === "FALSE" ? "TRUE": "FALSE"}])
     }
-    function GetLabel(){
-        return <Culture id={props.PropName}/>
+    function GetLabel() {
+      if (props.DoNotTranslate) {
+        let PropDescription;
+        if (ValueProp && ValueProp.Values) {
+          PropDescription = ValueProp.Values.map((data) => {
+            return data;
+          });
+          return PropDescription && PropDescription[0].Attributes && PropDescription[0].Attributes.Description;
+        }
+      } else {
+        return <Culture id={props.PropName} />;
+      }
     }
 
     if((!VisibleProp || (VisibleProp && VisibleProp.Value === "TRUE")) && ValueProp ){
