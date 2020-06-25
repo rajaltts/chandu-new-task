@@ -1,10 +1,10 @@
 {
   "name": "@carrier/ngecat-reactcomponents",
-  "version": "1.0.78",
+  "version": "1.0.80",
   "description": "React components library used for NGECAT workflow UI apps",
   "main": "dist/ngecat-reactcomponents.min.js",
   "publishConfig": {
-    "registry": "http://scejf01.utccgl.com:8081/artifactory/api/npm/npm/"
+    "registry": "https://scejf01.apps.carrier.com:443/artifactory/npm-local"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
