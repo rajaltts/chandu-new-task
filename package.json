@@ -4,7 +4,7 @@
   "description": "React components library used for NGECAT workflow UI apps",
   "main": "dist/ngecat-reactcomponents.min.js",
   "publishConfig": {
-    "registry": "https://scejf01.apps.carrier.com:443/artifactory/npm-local"
+    "registry": "https://scejf01.apps.carrier.com:443/artifactory/npm-local/"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
