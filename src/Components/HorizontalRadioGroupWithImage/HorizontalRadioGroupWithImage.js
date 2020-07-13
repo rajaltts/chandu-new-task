@@ -21,7 +21,7 @@ const HorizontalRadioGroupWithImage = (props) => {
     return (
         <Fragment>
             <div className="IWLCG_Wrapper">
-                {ValueProp ? ValueProp.Values.map((value, index) => {
+                {ValueProp && ValueProp.Values ? ValueProp.Values.map((value, index) => {
                     if(value.Attributes.VISIBLE === "TRUE"){
                         return(
                             <div 
