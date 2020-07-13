@@ -1,0 +1,36 @@
+.RowDiv {
+    width:100%;
+    display: block;
+    clear:both;    
+    overflow:hidden;
+}
+.LiGroup {
+    margin-top: 10px;
+}
+.SRBG-Label-vertical {
+    margin: 10px;
+    font-size: 0.92rem;
+    float:left;
+}
+.SRBG-Label-horizontal {
+    margin: 10px;
+    font-size: 14px;
+    display: block;
+    float: left;
+}
+.SRBG-Label-vertical:hover, .SRBG-Label-horizontal:hover {
+    cursor: pointer;
+}
+.SRBG-radio {
+    margin-right: 5px;
+}
+.SRBG-radio-notAllowed {
+    color: #cc0000;
+}
+.priceDollor {
+    margin-top: 13px;
+    margin-right: 5px;
+    font-weight: 700;
+    font-weight: bold;
+    float: right;
+}

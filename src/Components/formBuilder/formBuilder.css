@@ -1,0 +1,22 @@
+.defaultCursor {
+    cursor: default;
+}
+
+.pointerCursor {
+    cursor: pointer !important;
+}
+
+.active {
+    cursor: pointer !important;
+    color: #152c73;
+}
+
+.disable {
+    cursor: not-allowed;
+}
+
+.normal {
+    cursor: default;
+    color: #152c73;
+}
+

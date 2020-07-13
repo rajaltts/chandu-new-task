@@ -1,0 +1,175 @@
+
+    .customGrid .gridSearch {
+        height: 2rem;
+        border-radius: 3px;
+    }
+
+    .customGrid .root {
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .customGrid .paper {
+        width: 100%;
+        height: inherit;
+    }
+
+    .customGrid .visuallyHidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1;
+        margin: -1;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        top: 20;
+        width: 1;
+    }
+
+    .customGrid .tableWrapper {
+        overflow-x: auto;
+        height: calc(100% - 42px)
+      }
+
+      .customGrid .table {
+        height: 100%;
+    }
+
+    .customGrid .MuiTableSortLabel-root:hover, .customGrid .MuiTableSortLabel-root:focus, .customGrid .MuiTableCell-head,
+    .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active, .customGrid .MuiTableSortLabel-iconDirectionDesc,
+    .customGrid .MuiTableSortLabel-iconDirectionAsc, .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active:hover,
+    .customGrid .MuiTableCell-head:hover, .customGrid .MuiTableSortLabel-iconDirectionDesc:hover, .customGrid .MuiTableSortLabel-iconDirectionAsc:hover{
+        background-color: #f9f9f9;
+        color: #152c73 !important;
+        font-weight: bold !important;
+    }
+
+    .customGrid .MuiTableCell-head {
+        font-size: 14px  !important;
+        line-height: 1.3125rem !important;
+        padding-bottom: 7px !important;
+        padding-top: 7px !important;
+        padding-right: 0px !important;
+        padding-left: 10px !important;
+        word-break: break-all;
+        max-width: 100%;
+        cursor: default;
+    }
+
+
+    .customGrid .MuiTableCell-root {
+        border: 1px solid rgba(224, 224, 224, 1);
+        min-width: 119px;
+        word-break: break-word;
+    }
+
+    .customGrid .MuiTableSortLabel-root {
+        width: 100%;
+    }
+
+    .customGrid .headerColumn {
+        width: 100%;
+    }
+
+    .customGrid .MuiTableSortLabel-icon {
+        width: 28px !important;
+        height: 28px !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .customGrid .MuiTableCell-root:nth-child(1) {
+        min-width: 40px;
+    }
+
+    .customGrid tbody tr {
+        padding: 0px;
+        height: 30px;
+    }
+
+    .customGrid td {
+        padding: 0px 1px 0px 9px !important;
+        word-break: break-all;
+        max-width: 50%;
+        cursor: default;
+    }
+
+    .customGrid .headerColumn {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .customGrid .headerColumnSubTitle {
+        color: #999 !important;
+    }
+
+    .customGrid tr:nth-child(even) {
+        background-color: #f5f5f5 !important;
+    }
+
+    .customGrid tr:nth-child(odd) {
+        background-color: transparent !important;
+    }
+
+    .customGrid .footerContainer {
+        display: flex;
+        flex-direction: row;
+        color: #656565;
+        background-color: #f6f6f6;
+
+    }
+    .customGrid .footerContainer .MuiIconButton-root.Mui-disabled {
+        opacity: 0.5;
+    }
+
+    .customGrid .footerItemsButton {
+        margin: 0 2rem;
+    }
+
+    .customGrid .footerLastFirst {
+        font-size: 12px;
+        color: #656565;
+    }
+
+    .customGrid .footerForwardBackward {
+        font-size: 18px;
+        color: #656565;
+    }
+
+    .customGrid .footerSelect {
+        width: 50px;
+        margin: 0 0.5rem;
+        height: 20px;
+    }
+
+    .customGrid .footerPagerContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .customGrid .footerChips {
+        color: #fff;
+        border: 1px solid #d1d1d1;
+        background-color: #8c8c8c;
+    }
+
+    .customGrid .footerChipsUnselected {
+        background-color: transparent;
+        color: #656565;
+        border: none;
+    }
+
+    .customGrid .messageContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(100% - 100px);
+        width: inherit;
+    }
+
+    .customGrid .messageContainerDefaultHeight {
+        min-height: 300px;
+    }
