@@ -31,7 +31,7 @@ const SimpleRadioButtonWithCurrencyGroup = (props) => {
 
   const GetClassName = () => {
     if (className) return className;
-    else if (vertical) return "SRBG-Label-vertical";
+    else if (vertical) return "SRBG-Label-vertical-currency";
     else return "SRBG-Label-horizontal";
   }
 

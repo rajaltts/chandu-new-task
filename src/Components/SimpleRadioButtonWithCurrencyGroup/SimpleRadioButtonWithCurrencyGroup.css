@@ -7,7 +7,7 @@
 .LiGroup {
     margin-top: 10px;
 }
-.SRBG-Label-vertical {
+.SRBG-Label-vertical-currency {
     margin: 10px;
     font-size: 0.92rem;
     float:left;
@@ -18,7 +18,7 @@
     display: block;
     float: left;
 }
-.SRBG-Label-vertical:hover, .SRBG-Label-horizontal:hover {
+.SRBG-Label-vertical-currency:hover, .SRBG-Label-horizontal:hover {
     cursor: pointer;
 }
 .SRBG-radio {
