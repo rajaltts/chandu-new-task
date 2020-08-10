@@ -119,8 +119,14 @@
         background-color: #f6f6f6;
 
     }
+
     .customGrid .footerContainer .MuiIconButton-root.Mui-disabled {
         opacity: 0.5;
+    }
+
+    .customGrid .footerContainer .MuiIconButton-root {
+        padding: 12px !important;
+        border-radius: 50%  !important;
     }
 
     .customGrid .footerItemsButton {
