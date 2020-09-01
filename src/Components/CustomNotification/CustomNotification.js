@@ -23,7 +23,7 @@ class CustomNotification extends React.Component {
     this.props.changeStatus && this.props.changeStatus(false, "", "");
   }
 
-  onclose() {
+  onclose = () => {
     this.setState({ visible: false });
     this.props.changeStatus && this.props.changeStatus(false, "", "");
   }
@@ -56,13 +56,13 @@ class CustomNotification extends React.Component {
         break;
     }
     return (this.state.visible) ?
-      <div className={`Notification ${notificationClass}`}>
-        <span className={`k-icon k-icon-notification ${iconType} NotificationIcon`}></span>
-        <span className="NotificationDescription">{this.props.descriptionId}</span>
-        <span style={this.styles()}><FontAwesomeIcon icon={faWindowClose} onClick={this.onclose} /></span>
-      </div>
-      :
-      ''
+        <div id={notificationClass} className={`Notification ${notificationClass}`}>
+          <span className={`k-icon k-icon-notification ${iconType} NotificationIcon`}></span>
+          <span className="NotificationDescription">{this.props.descriptionId}</span>
+          <span style={this.styles()}><FontAwesomeIcon icon={faWindowClose} onClick={this.onclose} /></span>
+        </div>
+        :
+        ''
   }
 }
 
