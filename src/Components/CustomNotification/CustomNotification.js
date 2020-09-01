@@ -23,7 +23,7 @@ class CustomNotification extends React.Component {
     this.props.changeStatus && this.props.changeStatus(false, "", "");
   }
 
-  onclose = () => {
+  onclose() {
     this.setState({ visible: false });
     this.props.changeStatus && this.props.changeStatus(false, "", "");
   }
