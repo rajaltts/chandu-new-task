@@ -1,6 +1,8 @@
 import React from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions';
 import { GetMetricValue } from '@carrier/ngecat-unitsconversion';
+import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
+import { FormattedMessage as Culture } from 'react-intl';
 
 const SimpleTagDescription = (props) => {
   const { propName, RulesJSON, isLabel, unitahriRounding, ahriRounding, unitConversion, unitcode, unitPropName, GetAHRIDigits } = props;
@@ -33,7 +35,13 @@ const SimpleTagDescription = (props) => {
     return propUnit.Value === "F" ? value : GetAHRIDigits && GetAHRIDigits((value - 32) * 5 / 9, unitahriRounding);
   }	
 
-  return <label id={`Ctrl${propName}`}>{getDescription(propName)}</label>
+  return <label id={`Ctrl${propName}`}>
+                    {props.NeedToTranslate ?
+					<Culture id={FormatTransKey(getDescription(propName))}/>
+					:
+					<span>{getDescription(propName)}</span>
+                }
+		 </label>
 }
 
 export default SimpleTagDescription;
