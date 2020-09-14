@@ -80,7 +80,7 @@ function SimpleCombobox(props) {
         let SelectedOption = prop.Values.find((Value)=> {
             return Value.Value.toLowerCase() === value.toLowerCase();
         })
-        props.onValueChanged([{Name:prop.Name, Value: (SelectedOption ? SelectedOption.Value: value)}])
+        SelectedOption && props.onValueChanged([{Name:prop.Name, Value:SelectedOption.Value }])
         if (search) {
             setEditedValue('');
         }
