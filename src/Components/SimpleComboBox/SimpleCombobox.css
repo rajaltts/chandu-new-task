@@ -59,6 +59,10 @@
     border: #cccccc solid 1px;
 }
 
+.SCB-BtnWrapper-noBorder {
+    border: none;
+}
+
 .SCB-BtnWrapper-Disabled {
     background-color: #ebebe4;
 }
@@ -83,4 +87,17 @@
     margin-bottom: 50px;
     max-height: 200px;
     overflow: auto;
+}
+
+.SCB-input-searchable {
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    width: 100%;
+    outline: none;
+}
+
+.SCB-input-searchable-list {
+    box-shadow: 0 5px 10px rgba(150, 150, 150, 0.5);
+    padding-top: 8px;
+    top: 32px;
 }
