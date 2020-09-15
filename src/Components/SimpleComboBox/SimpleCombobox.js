@@ -173,6 +173,8 @@ function SimpleCombobox(props) {
             </div>
           </Fragment>
         )
+    } else {
+        return null;
     }
 }
 
