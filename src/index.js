@@ -39,6 +39,7 @@ import FormBuilderField from './Components/formBuilder/FormBuilderField';
 import ConfigDrivenUrlField from './Components/formBuilder/fieldComponents/ConfigDrivenUrlField';
 import CustomDropdown from './Components/CustomDropdown/CustomDropdown';
 import CustomLoader from './Components/CustomLoader/CustomLoader';
+import ConfirmModal from './Components/ConfirmModal/ConfirmModal';
 import CustomNotification from './Components/CustomNotification/CustomNotification';
 import NavigationBar from './Components/Navigation/NavigationBar';
 import PanelGroup from './Components/PanelGroup/PanelGroup';
@@ -71,6 +72,7 @@ export {
     SimpleRuleButton,
     SimpleHorizontalTabs,
     Button,
+    ConfirmModal,
     DynamicIcon,
     SearchDropdown,
     CustomGrid,
