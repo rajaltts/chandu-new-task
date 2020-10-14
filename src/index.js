@@ -45,6 +45,7 @@ import NavigationBar from './Components/Navigation/NavigationBar';
 import PanelGroup from './Components/PanelGroup/PanelGroup';
 import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp';
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
+import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 
 export {
     CheckboxWithDropDown,
@@ -91,4 +92,5 @@ export {
     PanelGroup,
     RenameTemplatePopUp,
     TemplatePopUp,
+    LabelWithInput
 }
