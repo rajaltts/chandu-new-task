@@ -5,7 +5,7 @@ import { faCaretRight, faCaretLeft, faStepForward, faStepBackward } from '@forta
 
 const CustomGridPagination = (props) => {
   const { rowsLength, labelRowsPerPage, rowsPerPage, handleChangeRowsPerPage, searchText, initialRowData,
-          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page } = props;
+          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, show, rowsPerPageDisplay } = props;
   const chipCountValue = Math.ceil(rowsLength / rowsPerPage);
   const chipsCount = isNaN(chipCountValue) ? 0 : chipCountValue;
   
@@ -52,11 +52,11 @@ const CustomGridPagination = (props) => {
   return (
     <div className="footerContainer">
       <div className="footerPagerContainer">
-        <span>{"Show"}</span>
+        <span>{show || "Show"}</span>
         <select className="footerSelect" onChange={createhandleChangeRowsPerPage}>
           {showRowsSelectionOptions()}
         </select>
-        {labelRowsPerPage || 'rows per page'}
+        {rowsPerPageDisplay || "rows per page"}
         <div className="footerItemsButton">
           {labelDisplayedRows({
             from: (rowsLength === 0) ? 0 : (page * rowsPerPage + 1),

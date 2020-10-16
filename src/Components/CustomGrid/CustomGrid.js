@@ -11,7 +11,7 @@ import './CustomGrid.css';
 function CustomGrid(props) {
   const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
           sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false } = props;
+          gridClassName, singleSelectGrid=false, notFoundMessage, show, rowsPerPageDisplay } = props;
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(orderByfield);
@@ -152,7 +152,7 @@ function CustomGrid(props) {
               {(isLoading) ?
                 <CircularProgress />
                 :
-                <div>No records found.</div>
+                <div>{notFoundMessage || "No records found"}</div>
               }
             </div>
           }
@@ -168,6 +168,8 @@ function CustomGrid(props) {
               initialRowData={initialRowData}
               handleChangePage={handleChangePage}
               handleChangeRowsPerPage={handleChangeRowsPerPage}
+              show={show}
+              rowsPerPageDisplay={rowsPerPageDisplay}
             />
           }
         </Paper>
