@@ -11,7 +11,7 @@ import './ConfirmModal.css';
 
 const ConfirmModal = (props) => {
     const { contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
-        modalWidth, overrideFooterCancelButton, id="", actionButtonList=[], errorMsg="" } = props;
+        modalWidth, overrideFooterCancelButton, id="", actionButtonList=[], errorMsg="",fullWidth=false,fullScreen = false, } = props;
     const cancelText = translation("Cancel");
 
     const onCancelButtonClick = () => {
@@ -36,7 +36,8 @@ const ConfirmModal = (props) => {
             scroll="paper"
             classes={{ paper: {maxHeight: "90vh"}}}
             disableBackdropClick
-            fullWidth
+            fullWidth={fullWidth}
+            fullScreen={fullScreen}
         >
             <div className="customModalHeader">
                 <span className="customModalTitle">{title}</span>
