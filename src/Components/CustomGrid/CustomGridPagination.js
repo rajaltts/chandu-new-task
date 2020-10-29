@@ -2,10 +2,11 @@ import React from "react";
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faCaretLeft, faStepForward, faStepBackward } from '@fortawesome/free-solid-svg-icons';
+import translation from "../Translation";
 
 const CustomGridPagination = (props) => {
   const { rowsLength, labelRowsPerPage, rowsPerPage, handleChangeRowsPerPage, searchText, initialRowData,
-          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, show, rowsPerPageDisplay } = props;
+          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, doNotTranslate } = props;
   const chipCountValue = Math.ceil(rowsLength / rowsPerPage);
   const chipsCount = isNaN(chipCountValue) ? 0 : chipCountValue;
   
@@ -30,8 +31,13 @@ const CustomGridPagination = (props) => {
   };
 
   const labelDisplayedRows = ({ from, to }) => {
-    const displayItem = searchText.trim() ? `(filtered from ${initialRowData.length} total entries)` : 'items';
-    return `Displaying  ${from}-${to === -1 ? rowsLength : to} of ${rowsLength} ${displayItem}`;
+    let displayItem = "";
+    if(searchText.trim()) {
+      displayItem = doNotTranslate ? `(filtered from ${initialRowData.length} total entries)` : translation("FilteredEntries", "items", {Count: initialRowData.length});
+    } else {
+      displayItem = doNotTranslate ? "Items" : translation("Items", "Items");
+    }
+    return doNotTranslate ? `Displaying  ${from}-${to === -1 ? rowsLength : to} of ${rowsLength} ${displayItem}` : translation("DisplayingItems", "Displaying", {From: from, To: to, Length: rowsLength, Display: displayItem});
   };
 
   const showRowsSelectionOptions = () => {
@@ -52,11 +58,11 @@ const CustomGridPagination = (props) => {
   return (
     <div className="footerContainer">
       <div className="footerPagerContainer">
-        <span>{show || "Show"}</span>
+        <span>{doNotTranslate ? "Show" : translation("Show")}</span>
         <select className="footerSelect" onChange={createhandleChangeRowsPerPage}>
           {showRowsSelectionOptions()}
         </select>
-        {rowsPerPageDisplay || "rows per page"}
+        {doNotTranslate ? "rows per page" : translation("Rowsperpage")}
         <div className="footerItemsButton">
           {labelDisplayedRows({
             from: (rowsLength === 0) ? 0 : (page * rowsPerPage + 1),

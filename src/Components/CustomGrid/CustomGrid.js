@@ -7,11 +7,12 @@ import CustomGridPagination from './CustomGridPagination';
 import CustomGridBody from './CustomGridBody';
 import CustomGridSearch from './CustomGridSearch';
 import './CustomGrid.css';
+import translation from "../Translation";
 
 function CustomGrid(props) {
   const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
           sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false, notFoundMessage, show, rowsPerPageDisplay } = props;
+          gridClassName, singleSelectGrid=false, doNotTranslate=true } = props;
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(orderByfield);
@@ -127,6 +128,7 @@ function CustomGrid(props) {
                 singleSelectGrid={singleSelectGrid}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
+                doNotTranslate={doNotTranslate}
               />
               {!!rows.length &&
                 <CustomGridBody
@@ -143,6 +145,7 @@ function CustomGrid(props) {
                   handleClick={handleClick}
                   selectionType={singleSelectGrid}
                   config={config}
+                  doNotTranslate={doNotTranslate}
                 />
               }
             </Table>
@@ -152,7 +155,7 @@ function CustomGrid(props) {
               {(isLoading) ?
                 <CircularProgress />
                 :
-                <div>{notFoundMessage || "No records found"}</div>
+                <div>{doNotTranslate ? "No records found" : translation("NoRecordsAvailable")}</div>
               }
             </div>
           }
@@ -168,8 +171,7 @@ function CustomGrid(props) {
               initialRowData={initialRowData}
               handleChangePage={handleChangePage}
               handleChangeRowsPerPage={handleChangeRowsPerPage}
-              show={show}
-              rowsPerPageDisplay={rowsPerPageDisplay}
+              doNotTranslate={doNotTranslate}
             />
           }
         </Paper>
