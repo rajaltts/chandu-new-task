@@ -18,7 +18,7 @@ const CustomGridHead = (props) => {
       return (
         <div className="headerColumn">
             <span>
-              {cell.name}
+              {cell.displayName || cell.name}
               {cell.showCheckbox &&
                 <Checkbox
                   color='primary'
