@@ -5,21 +5,42 @@ import { FormattedMessage as Culture } from 'react-intl';
 import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
 
 function SimpleRadioButtonGroup(props) {
+    const {notAllowedDefaultState = false, checkEnabledRule = false} = props
     const [Visibility, SetVisibility] = useState(false)
+    const [Enabled, SetEnabled] = useState(true)
     const [Prop, SetProp] = useState(null)
-
+    
+    const VISIBLE = '.VISIBLE'
+    const ENABLED = '.ENABLED'
 
     React.useEffect(() => {
-        let VisibleProp = GetProperty(props.PropName+".VISIBLE")
+        handleInputState(VISIBLE);
+        if(checkEnabledRule) {
+            handleInputState(ENABLED);
+        }
         let Prop = GetProperty(props.PropName)
-        if(VisibleProp){
-            SetVisibility(VisibleProp.Value === "TRUE"? true : false)
-        }else
-            SetVisibility(true)
         SetProp(Prop)
-        
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [null, props.RulesJSON])
+
+    function handleInputState(type) {
+      let PropData = GetProperty(props.PropName + type);
+      if (PropData) {
+        switch (type) {
+          case VISIBLE:
+            SetVisibility(PropData.Value === "TRUE" ? true : false);
+            break;
+          case ENABLED:
+            SetEnabled(PropData.Value === "TRUE" ? true : false);
+            break;
+          default:
+            break;
+        }
+      } else {
+        SetVisibility(true);
+        SetEnabled(true);
+      }
+    }  
 
     function handleChange(event){
         props.onValueChanged([{Name:props.PropName, Value: event.target.value}])
@@ -47,8 +68,8 @@ function SimpleRadioButtonGroup(props) {
                     return null;
                     else
                     return <Fragment>
-                    <label key={index} className={((value.State === 2 && Prop.AssignedValue === value.Value)?"SRBG-radio-notAllowed ":"") + GetClassName()}>
-                        <input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false}/>
+                    <label key={index} className={((value.State === 2 && (notAllowedDefaultState || Prop.AssignedValue === value.Value))?"SRBG-radio-notAllowed ":"") + GetClassName()}>
+                        <input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false} disabled={!Enabled}/>
                         {props.DoNotTranslate ?
                             <span>{value.Attributes.Description}</span>
                             :
