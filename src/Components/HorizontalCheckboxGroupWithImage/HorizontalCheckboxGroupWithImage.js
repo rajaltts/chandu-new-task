@@ -3,7 +3,7 @@ import {GetProp} from '@carrier/workflowui-globalfunctions';
 import classNames from 'classnames'
 
 const HorizontalCheckboxGroupWithImage = (props) => {
-    const { PropName, Class, RulesJSON, isLabel, onValueChanged, checkEnabledRule } = props;
+    const { PropName, Class, RulesJSON, isLabel, onValueChanged, checkEnabledRule = false} = props;
     const ValueProp = GetProp(PropName, RulesJSON);
     const [Enabled, SetEnabled] = useState(true)
     const ENABLED = '.ENABLED'
