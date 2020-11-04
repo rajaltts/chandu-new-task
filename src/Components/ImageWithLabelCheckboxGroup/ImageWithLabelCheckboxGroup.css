@@ -65,3 +65,10 @@
     border-color: red;
     color: red;
 }
+
+.IWLCG_Disabled {
+    border: 1px solid gray;
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
