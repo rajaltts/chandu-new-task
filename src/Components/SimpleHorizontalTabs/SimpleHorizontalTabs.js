@@ -31,7 +31,7 @@ const SimpleHorizontalTabs = (props) => {
         className="horizantal-tabs"
       >
         {TabsJson.map((item, idx) => VisibleTab(item.propName) && 
-          <Tab label={item.Name} value={idx} key={idx} />
+          <Tab id={`ctrl${item.propName}`} label={item.Name} value={idx} key={idx} aria-labelledby={item.Name} />
         )}
       </Tabs>
       {TabsJson.map((item, idx) => VisibleTab(item.propName) &&
