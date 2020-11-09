@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {GetProp} from '@carrier/workflowui-globalfunctions';
+import {GetProp, getBooleanValue} from '@carrier/workflowui-globalfunctions';
 import classNames from 'classnames'
 
 const HorizontalCheckboxGroupWithImage = (props) => {
-    const { PropName, Class, RulesJSON, isLabel, onValueChanged, checkEnabledRule = false} = props;
+    const { PropName, Class, RulesJSON, isLabel, onValueChanged, checkEnabledRule = false, isRedHighlight = false} = props;
     const ValueProp = GetProp(PropName, RulesJSON);
     const [Enabled, SetEnabled] = useState(true)
     const ENABLED = '.ENABLED'
@@ -27,11 +27,12 @@ const HorizontalCheckboxGroupWithImage = (props) => {
         <div className={`IWLCG_Wrapper ${Class}`}>
             {ValueProp && ValueProp.Values.map((value, index) => {
                 if(value.Value === "TRUE") {
+                    const enableRedHighlight = isRedHighlight && value.State === 2 && getBooleanValue(ValueProp.Value) ;
                     return (
                         <div 
                             onClick={handleChange} 
                             key={index}
-                            className={Enabled ? "IWLCG-tile" : classNames("IWLCG-tile", "IWLCG_Disabled")}
+                            className={classNames("IWLCG-tile", enableRedHighlight && "IWLCG-notAllow", !Enabled && "IWLCG_Disabled")}
                             id={"ctrl"+ValueProp.Name+value.Value}
                         >
                             <img src={`Images/${value.Attributes.Image}`} alt="icon"/>
