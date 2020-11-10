@@ -12,7 +12,7 @@ import translation from "../Translation";
 function CustomGrid(props) {
   const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
           sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false, doNotTranslate=true } = props;
+          gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid' } = props;
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(orderByfield);
@@ -111,11 +111,11 @@ function CustomGrid(props) {
   }
 
   return (
-    <div className="customGrid">
+    <div id={id} className="customGrid">
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
-      <div className={`root ${gridClassName || ''}`}>
+      <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
-          <div className={!!rows.length && 'tableWrapper'}>
+          <div id={`${id}_table`}className={!!rows.length && 'tableWrapper'}>
             <Table className='table' size={"medium"} >
               <CustomGridHead
                 headCells={headCells}
@@ -155,7 +155,9 @@ function CustomGrid(props) {
               {(isLoading) ?
                 <CircularProgress />
                 :
-                <div>{doNotTranslate ? "No records found" : translation("NoRecordsAvailable")}</div>
+                <div id={`${id}NoRecodsFound`}>
+                  {doNotTranslate ? "No records found" : translation("NoRecordsAvailable")}
+                </div>
               }
             </div>
           }

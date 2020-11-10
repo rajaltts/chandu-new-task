@@ -43,6 +43,7 @@ function CustomGridBody(props) {
 
     const showSelectionCell = (isItemSelected, row, index, type) => {
       const selectionProps = {
+        id: `customGridRow${index}_checkbox`,
         color: 'primary',
         checked: isItemSelected,
         onChange: (event) => handleClick(event, row, index, type),
@@ -50,12 +51,7 @@ function CustomGridBody(props) {
       };
       return (
         <TableCell padding="checkbox">
-          { (type)
-            ?
-              <Radio {...selectionProps} />
-            :
-              <Checkbox {...selectionProps} />
-          }
+          {(type) ? <Radio {...selectionProps} /> : <Checkbox {...selectionProps} />}
         </TableCell>
       );
     }

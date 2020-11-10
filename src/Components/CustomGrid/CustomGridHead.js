@@ -21,6 +21,7 @@ const CustomGridHead = (props) => {
               {cell.displayName || cell.name}
               {cell.showCheckbox &&
                 <Checkbox
+                  id={`${cell.name}_checkbox`}
                   color='primary'
                   onChange={(event) => {cell.onChange && cell.onChange(event.target.checked, cell)}}
                   inputProps={{ 'aria-label': 'select this column' }}
@@ -37,6 +38,7 @@ const CustomGridHead = (props) => {
         <TableCell padding="checkbox">
           { (!singleSelectGrid) && 
             <Checkbox
+              id="selectAllRowsCustomGrid"
               color='primary'
               checked={rowCount > 0 && numSelected === rowCount}
               onChange={onSelectAllClick}
