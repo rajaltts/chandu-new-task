@@ -22,21 +22,35 @@ function MessageTextArea(props) {
   function GetProperty(PropName) {
     return GetProp(PropName, props.RulesJSON)
   }
+   
+  function getLineDelimiterValue(txtVal) { 
+    return txtVal.split(props.LineDelimiter).map(str => <p>{str}</p>);  
+  }
 
   return (
     <Fragment>
       {valueProp && !!valueProp.Value ? valueProp.Values.map((value, idx) => {
         if (value.State === 2) {
           return null;
-        } else {
+        } else if (props.LineDelimiter){
           return <div className="MSG-Container" key={idx}>
-            <p className="MessageTextArea">
+            <div className="MessageTextArea">
               <span className="iconLeft">
                 <img src={`${ImageFolderPath}${GetMessageImage(props, value)}`} alt={props.Text} />
               </span>
-              {value.Value}
-            </p>
+              {getLineDelimiterValue(value.Value) }  
+            </div>
           </div>
+        }else
+        {
+          return <div className="MSG-Container" key={idx}>
+          <p className="MessageTextArea">
+            <span className="iconLeft">
+              <img src={`${ImageFolderPath}${GetMessageImage(props, value)}`} alt={props.Text} />
+            </span>
+            {value.Value}  
+          </p>
+        </div>
         }
       }) : null}
     </Fragment>
