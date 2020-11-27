@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions';
 import './MessageTextArea.css';
-const ImageFolderPath = 'Images/';
-
+const ImageFolderPath = 'Images/'; 
 function MessageTextArea(props) {
   let valueProp = GetProperty(props.PropName)
 
@@ -22,24 +21,46 @@ function MessageTextArea(props) {
   function GetProperty(PropName) {
     return GetProp(PropName, props.RulesJSON)
   }
+  
+  function getLineDelimiterValue(txtVal) { 
+    
+    return txtVal.split(props.LineDelimiter).map(str => <p>{str}</p>);  
+  }
 
-  return (
+  function getIcon(value)
+  {
+  return  <span className="iconLeft">
+  <img src={`${ImageFolderPath}${GetMessageImage(props, value)}`} alt={props.Text} />
+   </span>
+  }
+  
+   function getTextElement(value){
+    return  props.LineDelimiter ?
+      <div className="MessageTextArea">
+        {getIcon(value)}
+        {getLineDelimiterValue(value.Value)}
+      </div>
+      :
+      <p className="MessageTextArea">
+        {getIcon(value)}
+        {value.Value}
+      </p>
+    }
+
+    return (
     <Fragment>
       {valueProp && !!valueProp.Value ? valueProp.Values.map((value, idx) => {
-        if (value.State === 2) {
+        if (value.State === 2){
           return null;
-        } else {
+        }else
+        {
           return <div className="MSG-Container" key={idx}>
-            <p className="MessageTextArea">
-              <span className="iconLeft">
-                <img src={`${ImageFolderPath}${GetMessageImage(props, value)}`} alt={props.Text} />
-              </span>
-              {value.Value}
-            </p>
-          </div>
+          {getTextElement(value)}
+        </div>
         }
       }) : null}
     </Fragment>
   )
+
 }
 export default MessageTextArea;
