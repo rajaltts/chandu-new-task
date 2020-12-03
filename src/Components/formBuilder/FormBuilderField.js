@@ -15,6 +15,8 @@ const FormBuilderField = (props) => {
             return <DynamicIcon icon={value} {...config} {...props} />
         case columnType.button:
             return <Button name={config.name} styles={config.className} onClick={() => config.onClick(props.rowData)} />
+        case columnType.customComponent:
+            return config.component ? React.cloneElement(config.component, {dataItem: value}) : null;
         default:
             return <Fragment>{formattedValue}</Fragment>;
     };
