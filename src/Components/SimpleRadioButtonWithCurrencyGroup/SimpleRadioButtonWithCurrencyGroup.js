@@ -51,14 +51,14 @@ const SimpleRadioButtonWithCurrencyGroup = (props) => {
                     <div
                       id={"ctrl" + PropName}
                       className={
-                        (value.State === 2 && Prop.AssignedValue === value.Value
+                        (value.State === 2
                           ? "SRBG-radio-notAllowed "
                           : "") + GetClassName()
                       }
                     >
                       <input
                         id={"ctrl" + PropName + value.Value}
-                        className="SRBG-radio"
+                        className="SRBG-radio"               
                         type="radio"
                         name={PropName}
                         value={value.Value}
