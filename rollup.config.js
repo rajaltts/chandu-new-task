@@ -4,8 +4,7 @@ import babel from 'rollup-plugin-babel'
 import image from 'rollup-plugin-image';
 import postcss from 'rollup-plugin-postcss'
 import svg from 'rollup-plugin-svg'
-
-//const cssExportMap = {}
+import {terser} from 'rollup-plugin-terser'
 
 const config = {
     input: 'src/index.js',
@@ -15,7 +14,7 @@ const config = {
         babel({
             exclude: "node_modules/**"
         }),
-        uglify(),
+        terser(),
         image(),
         svg()
     ],

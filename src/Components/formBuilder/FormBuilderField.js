@@ -16,7 +16,7 @@ const FormBuilderField = (props) => {
         case columnType.button:
             return <Button name={config.name} styles={config.className} onClick={() => config.onClick(props.rowData)} />
         case columnType.customComponent:
-            return config.component ? React.cloneElement(config.component, {custProp: value}) : null;
+            return config.component ? React.cloneElement(config.component, {...props}) : null;
         default:
             return <Fragment>{formattedValue}</Fragment>;
     };
