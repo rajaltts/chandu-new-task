@@ -115,7 +115,7 @@ function CustomGrid(props) {
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
       <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
-          <div id={`${id}_table`}className={!!rows.length && 'tableWrapper'}>
+          <div id={`${id}_table`}className={'tableWrapper'}>
             <Table className='table' size={"medium"} >
               <CustomGridHead
                 headCells={headCells}
@@ -149,8 +149,7 @@ function CustomGrid(props) {
                 />
               }
             </Table>
-          </div>
-          {!rows.length &&
+            {!rows.length &&
             <div className={`messageContainer${!gridClassName ? ' messageContainerDefaultHeight' : ''}`}>
               {(isLoading) ?
                 <CircularProgress />
@@ -161,6 +160,8 @@ function CustomGrid(props) {
               }
             </div>
           }
+          </div>
+         
           {!hidePagination &&
             <CustomGridPagination
               labelRowsPerPage={labelRowsPerPage}
