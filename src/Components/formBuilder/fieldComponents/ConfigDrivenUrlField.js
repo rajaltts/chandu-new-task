@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatValue } from '@carrier/workflowui-globalfunctions';
+import classNames from 'classnames'
 import '../formBuilder.css'
 
 const ConfigDrivenUrlField = (props) => {
@@ -10,7 +11,7 @@ const ConfigDrivenUrlField = (props) => {
         onClick && onClick(event, rowData, rowIndex);
     };
 
-    const classes = `${className} ${onClick ? 'active' : 'normal'}`;
+    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
     return (
         <a href={href} className={classes} target='_blank' onClick={onClickHandler}>
             {formatValue(config, value)}

@@ -25,7 +25,7 @@ const DynamicIcon = (props) => {
         return React.createElement(AllIcons[icon], { title, className, style });
     }
     else {
-        return <img src={icon} className={`${onClick ? 'pointerCursor' : ''} ${className}`} style={style} alt={alt} onClick={onClickHandler}/>;
+        return <img src={icon} className={`${onClick ? 'formBuilderPointerCursor' : ''} ${className}`} style={style} alt={alt} onClick={onClickHandler}/>;
     }
 };
 

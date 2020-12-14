@@ -8,7 +8,8 @@ import FormBuilderField from "../formBuilder/FormBuilderField";
 import isPlainObject from 'lodash/isPlainObject';
 
 function CustomGridBody(props) {
-    const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected, handleClick } = props;
+    const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected,
+      handleClick, doNotTranslate} = props;
 
     const descendingComparator = (a, b, orderBy) => {
       const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
@@ -110,8 +111,13 @@ function CustomGridBody(props) {
                       const configItem = config[head.name] || {};
                       const lookUpKey = configItem.lookUpKey || head.name;
                       return (
-                        <TableCell align="left" className={row.className || ""}>
-                          <FormBuilderField rowData={row} rowIndex={index} config={configItem} value={getValueForDynamicKey(row, lookUpKey)}/>
+                        <TableCell align="left" className={row.className || head.className || ""}>
+                          <FormBuilderField
+                            doNotTranslate={doNotTranslate}
+                            rowData={row}
+                            rowIndex={index}
+                            config={configItem}
+                            value={getValueForDynamicKey(row, lookUpKey)}/>
                         </TableCell>
                       );
                 })}

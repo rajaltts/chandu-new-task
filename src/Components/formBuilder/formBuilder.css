@@ -1,21 +1,21 @@
-.defaultCursor {
+.formBuilderDefaultCursor {
     cursor: default;
 }
 
-.pointerCursor {
+.formBuilderPointerCursor {
     cursor: pointer !important;
 }
 
-.active {
+.formBuilderActive {
     cursor: pointer !important;
     color: #152c73;
 }
 
-.disable {
+.formBuilderDisable {
     cursor: not-allowed;
 }
 
-.normal {
+.formBuilderNormal {
     cursor: default;
     color: #152c73;
 }

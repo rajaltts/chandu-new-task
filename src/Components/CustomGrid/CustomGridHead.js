@@ -89,7 +89,7 @@ const CustomGridHead = (props) => {
                   >
                     {showHeader(cell)}
                   </TableSortLabel>
-                }              
+                }
             </TableCell>
           ))}
         </TableRow>
