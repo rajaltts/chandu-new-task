@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
-import { keyboard } from '@carrier/workflowui-globalfunctions';
+import TextField from '@material-ui/core/TextField';
+import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions';
 import translation from "../../Translation";
 import classNames from 'classnames'
 import '../formBuilder.css'
 
 const ConfigDrivenNumberField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
-    const { step = "1", min = "-99999999", max = "99999999", className = null, onClick = null } = config;
+    const { step = "1", min = "-99999999", max = "99999999", className = null, onClick = null,
+        isEditable = false } = config;
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
 
     const onClickHandler = () => {
-        setEditedValue(value);
+        setEditedValue(getFormatedValue());
         setEditable(true);
     };
 
@@ -32,23 +34,32 @@ const ConfigDrivenNumberField = (props) => {
         setEditedValue(event.target.value);
     }
 
+    const getFormatedValue = () => {
+        return formatValue(config, value);
+    }
+
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
-    return ( editable ?
-        <input
-            type="number"
-            className={classes}
-            step={step}
-            min={min}
-            max={max}
+    
+    if (!isEditable) {
+        return getFormatedValue();
+    }
+
+    return (editable ?
+        <TextField
+            type='number'
+            variant="outlined"
+            inputProps={{min, max, step}}
             value={editedValue}
             autoFocus
+            margin='dense'
+            size='small'
             onKeyUp={enterKeyPressHandler}
             onChange={onChangeHandler}
             onBlur={updateValue}
         />
         :
         <Tooltip title={doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit")} arrow>
-            <div className={classes} onClick={onClickHandler}>{value}</div>
+            <div className={classes} onClick={onClickHandler}>{getFormatedValue()}</div>
         </Tooltip>
     )
 }

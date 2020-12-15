@@ -116,7 +116,7 @@ function CustomGrid(props) {
       <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
           <div id={`${id}_table`}className={'tableWrapper'}>
-            <Table className='table' size={"medium"} >
+            <Table stickyHeader className='table' size={"medium"} >
               <CustomGridHead
                 headCells={headCells}
                 order={order}

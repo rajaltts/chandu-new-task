@@ -13,8 +13,10 @@ function CustomGridBody(props) {
 
     const descendingComparator = (a, b, orderBy) => {
       const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
-      const firstArg = (typeof a[orderByKey] === 'string') ? a[orderByKey].toLowerCase() : a[orderByKey];
-      const secondArg = (typeof b[orderByKey] === 'string') ? b[orderByKey].toLowerCase() : b[orderByKey];
+      const aValue = getValueForDynamicKey(a, orderByKey);
+      const bValue = getValueForDynamicKey(b, orderByKey);
+      const firstArg = (typeof aValue === 'string') ? aValue.toLowerCase() : aValue;
+      const secondArg = (typeof bValue === 'string') ? bValue.toLowerCase() : bValue;
       if (secondArg < firstArg) {
         return -1;
       }
@@ -100,6 +102,7 @@ function CustomGridBody(props) {
             const isItemSelected = isSelected(row);
             return (
               <TableRow
+                hover
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
@@ -111,7 +114,7 @@ function CustomGridBody(props) {
                       const configItem = config[head.name] || {};
                       const lookUpKey = configItem.lookUpKey || head.name;
                       return (
-                        <TableCell align="left" className={row.className || head.className || ""}>
+                        <TableCell align="left" className={row.className || ""}>
                           <FormBuilderField
                             doNotTranslate={doNotTranslate}
                             rowData={row}
