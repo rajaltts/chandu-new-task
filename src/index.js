@@ -26,6 +26,7 @@ import SimpleHorizontalTabs from './Components/SimpleHorizontalTabs/SimpleHorizo
 import SimpleRuleButton from './Components/SimpleRuleButton';
 
 import Button from './Components/Button';
+import ProjectTagSelection from './Components/ProjectTagSelection/projectTagSelection';
 import translation from './Components/Translation';
 import DynamicIcon from './Components/DynamicIcon';
 import SearchDropdown from './Components/Searchdropdown';
@@ -92,5 +93,6 @@ export {
     PanelGroup,
     RenameTemplatePopUp,
     TemplatePopUp,
-    LabelWithInput
+    LabelWithInput,
+    ProjectTagSelection
 }
