@@ -31,6 +31,10 @@ function CustomGrid(props) {
     }
   }, [rows, rowsPerPage, initialRowData]);
 
+  useEffect(()=>{
+    setSelected(selected.filter(item => rows.includes(item)))
+  },[rows])
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
