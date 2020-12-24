@@ -4,7 +4,7 @@ import { FormattedMessage as Culture } from 'react-intl';
 import './app.css';
 
 const SimpleCheckbox = (props) => {
-  const { PropName, RulesJSON, DoNotTranslate, onValueChanged } = props;
+  const { PropName, RulesJSON, DoNotTranslate, onValueChanged, className } = props;
   
   const GetProperty = (PropName) => {
     return GetProp(PropName, RulesJSON)
@@ -34,7 +34,7 @@ const SimpleCheckbox = (props) => {
 
   if((!VisibleProp || (VisibleProp && VisibleProp.Value === "TRUE")) && ValueProp ){
     return (
-      <label style={{fontSize: "0.95rem"}}><input className={IsValidProp && IsValidProp.Value === "FALSE" ? "checkbox-error-css":""} id={"ctrl"+ props.PropName} style={{marginRight: "5px"}} type="checkbox" name={props.PropName} onChange={handleChange} checked={ValueProp.Value === "TRUE" ? true: false} disabled={EnableProp && EnableProp.Value === "FALSE" ? true: false} />{GetLabel()}</label>
+      <label style={{fontSize: "0.95rem"}} className={className}><input className={IsValidProp && IsValidProp.Value === "FALSE" ? "checkbox-error-css":""} id={"ctrl"+ props.PropName} style={{marginRight: "5px"}} type="checkbox" name={props.PropName} onChange={handleChange} checked={ValueProp.Value === "TRUE" ? true: false} disabled={EnableProp && EnableProp.Value === "FALSE" ? true: false} />{GetLabel()}</label>
     )
   }else
     return null

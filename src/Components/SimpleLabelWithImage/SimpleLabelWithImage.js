@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SimpleLabelWithImage = (props) => {
-  const { className, noSpaceLeft, ImageName, Text } = props;
+  const { className, noSpaceLeft, ImageName, Text, children } = props;
   
   return (
     <label className={`SimpleLabel ${className}`}>
@@ -11,6 +11,7 @@ const SimpleLabelWithImage = (props) => {
         </span>
       }
       {Text}
+      {children}
     </label>
   )
 }
