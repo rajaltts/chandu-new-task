@@ -2,7 +2,6 @@
 
 input[type=checkbox].checkbox-error-css {
     -moz-appearance: none;
-    -webkit-appearance: none;
     -o-appearance: none;
     outline: none;
     content: none;
@@ -11,7 +10,6 @@ input[type=checkbox].checkbox-error-css {
 input[type=checkbox].checkbox-error-css:before {
     content: "\f00c";
     color: transparent !important;
-    background: #ffe9e9;
     display: block;
     width: 12px;
     height: 12px;
