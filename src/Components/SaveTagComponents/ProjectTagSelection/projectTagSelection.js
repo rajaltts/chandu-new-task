@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, Fragment } from 'react';
 import { injectIntl } from "react-intl";
-import translation from '../Translation';
-import projectTagSelectionStyles from "./projectTagSelectionStyles";
+import translation from '../../Translation';
+import saveTagStyles from "../saveTagStyles";
 import { validateFormFields, injectIntlTranslation } from "@carrier/workflowui-globalfunctions";
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 
 const ProjectTagSelection = (props) => {
     const { intl, projectDataList = [], isTagNameDisabled = false, tagLabel = "",
-        checkValidation, onSave, onValidation } = props;
+        onSaveTagData, onValidation } = props;
     const [dataItem, setDataItem] = useState();
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
     const [tagName, setTagName] = useState(tagLabel);
@@ -20,21 +20,24 @@ const ProjectTagSelection = (props) => {
     const [searchValue, setSearchValue] = useState("");
     const [projectError, setProjectError] = useState("");
     const { tagNameContainer, tagNameLabel, errorMsg, searchInput, radioRoot, tagNameLabelContainer,
-        radioSection, labelRoot, label, searchInputRoot, noRecords } = projectTagSelectionStyles();
+        radioSection, labelRoot, label, searchInputRoot, noRecords, errorBorder, nonErrorBorder,
+        requiredAsterik } = saveTagStyles();
     const [fetchState, setFetchState] = useState(false);
 
+    useEffect(() => {
+        let disableSave = false;
+        if (!tagName || !dataItem) {
+            disableSave = true;
+        }
+        onSaveTagData && onSaveTagData({ tagName, projectData: dataItem, disableSave });
+    }, [tagName, dataItem])
+    
     useEffect(() => {
         if (projectDataList.length > 0) {
             setDisplayProjectNames(projectDataList);
             setFetchState(true);
         }
     }, [projectDataList])
-
-    useEffect(() => {
-        if (checkValidation) {
-            saveTagAction();
-        }
-    }, [checkValidation])
 
     const searchProjects = (value) => {
         if (value) {
@@ -48,7 +51,7 @@ const ProjectTagSelection = (props) => {
         }
     }
 
-    const validateForm = ({ target: { value } }) => {
+    const validateForm = (value) => {
         setTagName(value);
         let error = "";
         if (onValidation) {
@@ -60,7 +63,7 @@ const ProjectTagSelection = (props) => {
                 maxLength: 100
             };
             const validationMessages = {
-                tagNameRequired: injectIntlTranslation(intl, "Tagnamerequired", "Tag name required"),
+                nameRequired: injectIntlTranslation(intl, "Tagnamerequired", "Tag name required"),
                 notAllowedCharacters: injectIntlTranslation(intl, "OnlyAlphabetsAndUnderscoreMessage", "Input should contain alphabets and underscore only"),
                 maxLengthError: injectIntlTranslation(intl, ("TextRangeValidationMessage"), "Number of characters should be between {0} and {1}").replace('{0}', 1).replace('{1}', 100)
             }
@@ -68,6 +71,9 @@ const ProjectTagSelection = (props) => {
         }
         if (error !== existingErrorTagName) {
             setExistingErrorTagName(error);
+        }
+        else if (!dataItem) {
+            setProjectError(injectIntlTranslation(intl, "validationAtLeastOneProject", "Please select a Project."));
         }
     }
 
@@ -79,18 +85,6 @@ const ProjectTagSelection = (props) => {
     const onChange = ({ target: { value } }) => {
         setSearchValue(value);
         debounce(searchProjects(value), 200)
-    }
-
-    const saveTagAction = (event) => {
-        if (!tagName) {
-            setExistingErrorTagName(injectIntlTranslation(intl, "Tagnamerequired", "Tag name required"));
-        }
-        else if (!dataItem) {
-            return setProjectError(injectIntlTranslation(intl, "validationAtLeastOneProject", "Please select a Project."));
-        }
-        else {
-            onSave && onSave({ tagName, projectData: dataItem });
-        }
     }
 
     const isRadioSelected = (id) => {
@@ -125,6 +119,7 @@ const ProjectTagSelection = (props) => {
                     InputProps={{
                         classes: {
                             input: searchInputRoot,
+                            notchedOutline: nonErrorBorder
                         },
                     }}
                     placeholder={injectIntlTranslation(intl, "SearchProject", "Search project here")}
@@ -138,6 +133,7 @@ const ProjectTagSelection = (props) => {
             <div className={tagNameContainer}>
                 <div className={tagNameLabel}>
                     <span>{translation("TagName", "Tag Name")}</span>
+                    <span className={requiredAsterik}>*</span>
                 </div>
                 <div className={tagNameLabelContainer} >
                     <TextField
@@ -147,14 +143,15 @@ const ProjectTagSelection = (props) => {
                         InputProps={{
                             classes: {
                                 input: searchInputRoot,
-                            },
+                                notchedOutline: existingErrorTagName ? errorBorder : nonErrorBorder
+                            }
                         }}
                         disabled={isTagNameDisabled}
                         placeholder={injectIntlTranslation(intl, "TagName", "Tag Name")}
                         name="tagName"
                         margin={'dense'}
                         size={'small'}
-                        onChange={validateForm}
+                        onChange={(event) => validateForm(event.target.value)}
                     />
                     <span className={errorMsg}>{existingErrorTagName}</span>
                 </div>

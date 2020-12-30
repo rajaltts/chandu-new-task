@@ -1,14 +1,29 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const projectTagSelectionStyles = makeStyles((theme) => ({
+const saveTagStyles = makeStyles((theme) => ({
     tagNameContainer: {
         display: "flex",
         flexDirection: "row",
         padding: "2px",
     },
+    newProjectSeletionContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    disableInput: {
+        backgroundColor: "#f5f5f5"
+    },
+    popper: {
+        zIndex: "99999",
+        width: "64%"
+    },
     tagNameLabel: {
         margin: "19px 27px 0px 0px",
-        width: "23%"
+        width: "23%",
+        display: "flex"
+    },
+    requiredAsterik: {
+        color: "#c00000"
     },
     errorMsg: {
         display: "block",
@@ -19,7 +34,16 @@ const projectTagSelectionStyles = makeStyles((theme) => ({
         fontSize: "14px"
     },
     searchInput: {
-        width: "100%",
+        width: "100%"
+    },
+    errorBorder: {
+        borderColor: "#c00000 !important"
+    },
+    nonErrorBorder: {
+        borderColor: "#bcbcbc !important"
+    },
+    tagNameLabelContainer: {
+        width: "72%"
     },
     labelRoot: {
         margin: "0px"
@@ -38,9 +62,6 @@ const projectTagSelectionStyles = makeStyles((theme) => ({
         overflowY: "auto",
         overflowX: "hidden"
     },
-    tagNameLabelContainer: {
-        width: "72%"
-    },
     noRecords: {
         justifyContent: "center",
         alignItems: "center",
@@ -49,4 +70,4 @@ const projectTagSelectionStyles = makeStyles((theme) => ({
     }
 }));
 
-export default projectTagSelectionStyles;
+export default saveTagStyles;
