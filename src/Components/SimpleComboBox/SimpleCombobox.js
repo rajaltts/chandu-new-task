@@ -9,7 +9,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 
 function SimpleCombobox(props) {
-    const {isSearchable: { search, placeholder } = {}, intl } = props;
+    const {isSearchable: { search, placeholder, filter } = {}, intl } = props;
     const [Open, setOpen] = useState(false)
     const [Visible, setVisible] = useState(true)
     const [Enabled, setEnabled] = useState(true)
@@ -151,9 +151,13 @@ function SimpleCombobox(props) {
                         {prop.Values.map((value, index) => {
                             if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
                                 return null
-                            else if (search && editedValue && !value.Attributes.Description.toLowerCase().includes(editedValue.toLowerCase())) {
-                                return null
-                            }
+                            else if (search && editedValue && 
+                                        (filter === "startsWith" ? 
+                                            !value.Attributes.Description.toLowerCase().startsWith(editedValue.toLowerCase())
+                                            : !value.Attributes.Description.toLowerCase().includes(editedValue.toLowerCase())
+                                        )
+                                    )
+                                return null                  
                             else if (props.DoNotTranslate)
                                 return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
                                         <span>
