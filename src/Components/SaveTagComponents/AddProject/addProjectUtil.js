@@ -67,7 +67,8 @@ export const fieldKeys = {
     error: "error",
     placeHolder: "placeHolder",
     validation: "validation",
-    isRequired: "isRequired"
+    isRequired: "isRequired",
+    defaultLabel: "defaultLabel"
 }
 
 export const init = () => {
@@ -98,7 +99,7 @@ export const addProjectFields = () => {
     const { ProjectName, TagName, CustomerName, ContactName,
         ContactEmail, ContactNumber } = fieldType;
     const { isVisible, isDisabled, isAutoComplete, label, id, value, error,
-        placeHolder, validation, isRequired } = fieldKeys;
+        placeHolder, validation, isRequired, defaultLabel } = fieldKeys;
     return {
         [ProjectName]: {
             [isVisible]: true,
@@ -106,6 +107,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: false,
             [isRequired]: true,
             [label]: "NewProjectProjectName",
+            [defaultLabel]: "Project Name",
             [id]: ProjectName,
             [value]: "Project " + RandomNumber(),
             [error]: "",
@@ -118,6 +120,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: false,
             [isRequired]: true,
             [label]: "TagName",
+            [defaultLabel]: "Tag Name",
             [id]: TagName,
             [value]: "",
             [error]: "",
@@ -130,6 +133,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: true,
             [isRequired]: true,
             [label]: "CustomerName",
+            [defaultLabel]: "Customer Name",
             [id]: CustomerName,
             [value]: "",
             [error]: "",
@@ -142,6 +146,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: false,
             [isRequired]: false,
             [label]: "CompanyName",
+            [defaultLabel]: "Contact Name",
             [id]: ContactName,
             [value]: "",
             [error]: "",
@@ -154,6 +159,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: false,
             [isRequired]: false,
             [label]: "NewProjectEmailid",
+            [defaultLabel]: "Contact Email",
             [id]: ContactEmail,
             [value]: "",
             [error]: "",
@@ -166,6 +172,7 @@ export const addProjectFields = () => {
             [isAutoComplete]: false,
             [isRequired]: false,
             [label]: "ContactNumber",
+            [defaultLabel]: "Contact Number",
             [id]: ContactNumber,
             [value]: "",
             [error]: "",

@@ -26,7 +26,8 @@ const ProjectTagSelection = (props) => {
 
     useEffect(() => {
         let disableSave = false;
-        if (!tagName || !dataItem) {
+        const tagNameStatus = !isTagNameDisabled && !tagName;
+        if (tagNameStatus || !dataItem) {
             disableSave = true;
         }
         onSaveTagData && onSaveTagData({ tagName, projectData: dataItem, disableSave });
@@ -70,7 +71,7 @@ const ProjectTagSelection = (props) => {
             error = validateFormFields(value, validations, validationMessages);
         }
         if (error !== existingErrorTagName) {
-            setExistingErrorTagName(error);
+            !isTagNameDisabled && setExistingErrorTagName(error);
         }
         else if (!dataItem) {
             setProjectError(injectIntlTranslation(intl, "validationAtLeastOneProject", "Please select a Project."));

@@ -11,8 +11,8 @@ import { intlShape, injectIntl } from "react-intl";
 import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions';
 
 const AutoComplete = (props) => {
-    const { menuList = [], isError=false, required=false, validateField, field, intl } = props;
-    const { value = "", id, isDisabled, placeHolder, validation } = field;
+    const { menuList = [], isError=false, validateField, field, intl } = props;
+    const { value = "", id, isDisabled, placeHolder, validation, defaultLabel } = field;
     const { searchInput, searchInputRoot, popper, errorBorder, nonErrorBorder } = saveTagStyles();
     const [open, setOpen] = React.useState(false);
     const [textValue, setTextValue] = React.useState(value);
@@ -74,7 +74,7 @@ const AutoComplete = (props) => {
                     }
                 }}
                 disabled={isDisabled}
-                placeholder={injectIntlTranslation(intl, placeHolder)}
+                placeholder={injectIntlTranslation(intl, placeHolder, defaultLabel)}
                 name={id}
                 margin={'dense'}
                 size={'small'}

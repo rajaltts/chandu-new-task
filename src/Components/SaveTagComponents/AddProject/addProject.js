@@ -101,14 +101,14 @@ const AddProject = (props) => {
   }
 
   const createProjectField = (field) => {
-    const { label, value = "", id, error, isDisabled,
+    const { label, defaultLabel="", value = "", id, error, isDisabled,
       placeHolder, isVisible, validation, isAutoComplete, isRequired } = field;
     const errorClass = error ? errorBorder : nonErrorBorder;
     if (isVisible) {
       return (
         <div className={tagNameContainer}>
           <div className={tagNameLabel}>
-            <span>{translation(label)}</span>
+            <span>{translation(label, defaultLabel)}</span>
             {isRequired && <span className={requiredAsterik}>*</span> }
           </div>
           <div className={tagNameLabelContainer} >
@@ -135,7 +135,7 @@ const AddProject = (props) => {
                   }
                 }}
                 disabled={isDisabled}
-                placeholder={injectIntlTranslation(intl, placeHolder)}
+                placeholder={injectIntlTranslation(intl, placeHolder, defaultLabel)}
                 name={id}
                 margin={'dense'}
                 size={'small'}
