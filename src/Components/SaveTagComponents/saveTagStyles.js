@@ -19,7 +19,7 @@ const saveTagStyles = makeStyles((theme) => ({
     },
     tagNameLabel: {
         margin: "19px 27px 0px 0px",
-        width: "23%",
+        width: "40%",
         display: "flex"
     },
     requiredAsterik: {
