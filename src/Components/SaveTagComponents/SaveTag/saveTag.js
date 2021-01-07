@@ -9,7 +9,7 @@ import AddProject from "../AddProject/addProject";
 const SaveTag = (props) => {
     const { isModalOpen = false, hideComponent = () => { }, customerNameList = [], projectDataList = [],
         projectName = {}, customerName = {}, tagName = {}, contactName = {}, contactEmail = {},
-        contactNumber = {}, saveTagData } = props;
+        contactNumber = {}, saveTagData, existingProjectValidation } = props;
     const { isDisabled=false } = tagName;
     const [selectedTab, setSelectedTab] = useState(0);
     const [menuList, setMenuList] = useState(customerNameList);
@@ -100,6 +100,7 @@ const SaveTag = (props) => {
                     projectDataList={projectDataList}
                     onSaveTagData={updateExistingTagInfo}
                     isTagNameDisabled={isDisabled}
+                    onValidation={existingProjectValidation}
                 />
             )
         }
