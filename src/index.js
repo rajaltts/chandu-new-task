@@ -51,6 +51,7 @@ import PanelGroup from './Components/PanelGroup/PanelGroup';
 import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp';
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
 import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
+import ReportDialog from './Components/ReportDialog/ReportDialog.jsx'
 
 export {
     CheckboxWithDropDown,
@@ -102,5 +103,6 @@ export {
     TabsBuilder,
     AutoComplete,
     AddProject,
-    SaveTag
+    SaveTag,
+    ReportDialog
 }
