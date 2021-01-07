@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import ReactDOM from 'react-dom'
-import './ReportDialog.scss'
+import './ReportDialog.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faFilePdf, faFileWord} from '@fortawesome/free-solid-svg-icons'
 import FileSaver from 'file-saver'
