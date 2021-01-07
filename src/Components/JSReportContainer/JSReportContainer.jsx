@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import ReactDOM from 'react-dom'
-import './ReportDialog.css'
+import './JSReportContainer.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faFilePdf, faFileWord} from '@fortawesome/free-solid-svg-icons'
 import FileSaver from 'file-saver'
@@ -9,7 +9,7 @@ import Slide from '@material-ui/core/Slide'
 import Grow from '@material-ui/core/Grow'
 import {IntlProvider} from 'react-intl'
 
-const ReportDialog = (props) => {
+const JSReportContainer = (props) => {
     const [isLoading, setLoading] = useState(false)
     const [reportCurrentPageIndex, setReportCurrentPageIndex] = useState(0)
     const [scrollBarWidth, setScrollBarWidth] = useState(0)
@@ -184,4 +184,4 @@ const ReportDialog = (props) => {
     } else return null
 }
 
-export default ReportDialog
+export default JSReportContainer
