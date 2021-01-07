@@ -106,14 +106,14 @@ function onInfoIconClick(){
 }
 
 function GetOptionDescription(MainProp){
-  return <Culture id={FormatTransKey(props.PropName)} defaultMessage={formatMessage({id: FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + MainProp.Values[0].Attributes.Description),defaultMessage: 'No translation'})}/>
+  return props.DoNotTranslate? MainProp.Values[0].Attributes && MainProp.Values[0].Attributes.Description :<Culture id={FormatTransKey(props.PropName)} defaultMessage={formatMessage({id: FormatTransKey(props.PropName +"DESCRIPTION"+ "|" + MainProp.Values[0].Attributes.Description),defaultMessage: 'No translation'})}/>
 }
 function GetDetailedDescription(MainProp) {
-  return <Culture id={FormatTransKey(props.PropName + ".DETAILEDDESCRIPTION")} defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"DETAILEDDESCRIPTION"+ "|" + MainProp.Values[0].Attributes.DetailledDescription)})}/>
+  return props.DoNotTranslate? MainProp.Values[0].Attributes && MainProp.Values[0].Attributes.DetailledDescription :<Culture id={FormatTransKey(props.PropName + ".DETAILEDDESCRIPTION")} defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"DETAILEDDESCRIPTION"+ "|" + MainProp.Values[0].Attributes.DetailledDescription)})}/>
 }
 
 function GetAdvantage(MainProp) {
-  return <Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)})}/>
+  return props.DoNotTranslate? MainProp.Values[0].Attributes && MainProp.Values[0].Attributes.Advantage :<Culture id={FormatTransKey(props.PropName + ".ADVANTAGE")}  defaultMessage={formatMessage({id : FormatTransKey(props.PropName +"ADVANTAGE"+ "|" + MainProp.Values[0].Attributes.Advantage)})}/>
 }
 
 function GetPrice(){
