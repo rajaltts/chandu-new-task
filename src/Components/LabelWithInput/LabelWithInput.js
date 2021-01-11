@@ -9,7 +9,7 @@ const useStyles = makeStyles({
 });
 function LabelWithInput(props) {
     const { labelWithInput } = useStyles();
-    const { type, name, controlId, checked, labelText, OnControlChange, value, constant } = props;
+    const { type, name, controlId, checked, labelText, OnControlChange, value, disabled = false, constant } = props;
 
     const onChangeHandler = (e) => {
         const { checked } = e.target;
@@ -25,6 +25,7 @@ function LabelWithInput(props) {
                 onChange={onChangeHandler}
                 checked={checked}
                 value={value}
+                disabled={disabled}
             />
             <span className={labelWithInput}>{labelText}</span>
         </label>
