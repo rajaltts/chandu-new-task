@@ -8,6 +8,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import Slide from '@material-ui/core/Slide'
 import Grow from '@material-ui/core/Grow'
 import {IntlProvider} from 'react-intl'
+import {Provider, useStore} from 'react-redux'
 
 const JSReportContainer = (props) => {
     const [isLoading, setLoading] = useState(false)
@@ -15,6 +16,7 @@ const JSReportContainer = (props) => {
     const [scrollBarWidth, setScrollBarWidth] = useState(0)
     const {intl, content, config, title} = props
     const ref = useRef()
+    const store = useStore()
 
     useEffect(() => {
         setReportCurrentPageIndex(0)
@@ -49,27 +51,29 @@ const JSReportContainer = (props) => {
 
     const downloadPDF = async () => {
         setLoading(true)
+        const RootEl = (props) => (store ? <Provider store={store}>{props.children}</Provider> : <></>)
         try {
             const reportEl = (
-                <IntlProvider locale={intl.locale} messages={intl.messages}>
-                    <html id='pdf-download-root'>
-                        <head>
-                            <meta httpEquiv='Content-Type' content='text/html; charset=UTF-8' />
-                            {config.styles.files.map((file, i) => (
-                                <link key={i} rel='stylesheet' type='text/css' href={`${config.styles.url}${file}`} />
-                            ))}
-                        </head>
-                        <body>
-                            {content.map((elem, i) => (
-                                <div key={i} className='page'>
-                                    {elem}
-                                </div>
-                            ))}
-                        </body>
-                    </html>
-                </IntlProvider>
+                <RootEl>
+                    <IntlProvider locale={intl.locale} messages={intl.messages}>
+                        <html id='pdf-download-root'>
+                            <head>
+                                <meta httpEquiv='Content-Type' content='text/html; charset=UTF-8' />
+                                {config.styles.files.map((file, i) => (
+                                    <link key={i} rel='stylesheet' type='text/css' href={`${config.styles.url}${file}`} />
+                                ))}
+                            </head>
+                            <body>
+                                {content.map((elem, i) => (
+                                    <div key={i} className='page'>
+                                        {elem}
+                                    </div>
+                                ))}
+                            </body>
+                        </html>
+                    </IntlProvider>
+                </RootEl>
             )
-
             const reportDoc = new Document()
             ReactDOM.render(reportEl, reportDoc)
 
@@ -95,7 +99,9 @@ const JSReportContainer = (props) => {
                 }),
             })
             FileSaver.saveAs(await jsReportReponse.blob(), `${config.fileName}.pdf`)
-        } catch (err) {console.error(err)}
+        } catch (err) {
+            console.error(err)
+        }
         setLoading(false)
     }
 
