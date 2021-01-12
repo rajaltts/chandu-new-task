@@ -65,7 +65,7 @@ const AutoComplete = (props) => {
                 inputRef={anchorRef}
                 autoComplete='off'
                 className={searchInput}
-                value={textValue}
+                value={textValue || value}
                 variant="outlined"
                 InputProps={{
                     classes: {

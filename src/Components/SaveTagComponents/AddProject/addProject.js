@@ -1,6 +1,6 @@
 import React, { memo, useReducer, useEffect, useState } from "react";
 import { intlShape, injectIntl } from "react-intl";
-import { injectIntlTranslation, guid } from '@carrier/workflowui-globalfunctions';
+import { EMPTY_GUID, injectIntlTranslation } from '@carrier/workflowui-globalfunctions';
 import translation from '../../Translation';
 import { addProjectFields, addProjectReducer, init, fieldType, fieldKeys } from "./addProjectUtil";
 import TextField from '@material-ui/core/TextField';
@@ -82,9 +82,18 @@ const AddProject = (props) => {
     updateProjectHandler(fields);
   }
 
+  const getCustomerID = (fields, CustomerID) => {
+    if (CustomerID) { return CustomerID; }
+    if (fields.CustomerName.value) {
+      const customer = customerNameList.find(customer => customer.CustomerName === fields.CustomerName.value);
+      if (customer) { return customer.CustomerID; }
+    }
+    return EMPTY_GUID;
+  }
+
   const updateProjectHandler = (fields, CustomerID = "") => {
     if (updateProjectInfo) {
-      const customerId = CustomerID || guid();
+      const customerId = getCustomerID(fields, CustomerID);
       const projectInfo = {};
       let disableSave = false;
       Object.keys(fields).forEach(key => {
@@ -101,7 +110,7 @@ const AddProject = (props) => {
   }
 
   const createProjectField = (field) => {
-    const { label, defaultLabel="", value = "", id, error, isDisabled,
+    const { label, defaultLabel = "", value = "", id, error, isDisabled,
       placeHolder, isVisible, validation, isAutoComplete, isRequired } = field;
     const errorClass = error ? errorBorder : nonErrorBorder;
     if (isVisible) {
@@ -109,7 +118,7 @@ const AddProject = (props) => {
         <div className={tagNameContainer}>
           <div className={tagNameLabel}>
             <span>{translation(label, defaultLabel)}</span>
-            {isRequired && <span className={requiredAsterik}>*</span> }
+            {isRequired && <span className={requiredAsterik}>*</span>}
           </div>
           <div className={tagNameLabelContainer} >
             {isAutoComplete
