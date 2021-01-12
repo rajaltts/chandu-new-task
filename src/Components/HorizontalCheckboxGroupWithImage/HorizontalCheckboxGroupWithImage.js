@@ -35,7 +35,7 @@ const HorizontalCheckboxGroupWithImage = (props) => {
                             className={classNames("IWLCG-tile", enableRedHighlight && "IWLCG-notAllow", !Enabled && "IWLCG_Disabled")}
                             id={"ctrl"+ValueProp.Name+value.Value}
                         >
-                            <img src={`Images/${value.Attributes.Image}`} alt="icon"/>
+                            <img src={`/Images/${value.Attributes.Image}`} alt="icon"/>
                             {isLabel &&
                                 <span className="IWLCG-Label">
                                     <input type="checkbox" onChange={handleChange} checked={ValueProp.AssignedValue === value.Value} />

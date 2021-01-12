@@ -1,6 +1,6 @@
 import React from 'react';
 import './ImageWithLabelCheckboxGroup.css'
-const ImageFolderPath = 'Images/'
+const ImageFolderPath = '/Images/'
 
 function ImageWithLabelCheckboxGroup(props) {
 

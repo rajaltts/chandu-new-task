@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-const ImageFolderPath = 'Images/'
+const ImageFolderPath = '/Images/'
 
 function SimpleImage(props) {
     const [ImagePath, SetImagePath] = useState('')

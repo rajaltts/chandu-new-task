@@ -7,7 +7,7 @@ const SimpleLabelWithImage = (props) => {
     <label className={`SimpleLabel ${className}`}>
       {!noSpaceLeft && 
         <span className="iconLeft">
-          {ImageName && <img src={`Images/${ImageName}`} alt={Text} />}
+          {ImageName && <img src={`/Images/${ImageName}`} alt={Text} />}
         </span>
       }
       {Text}

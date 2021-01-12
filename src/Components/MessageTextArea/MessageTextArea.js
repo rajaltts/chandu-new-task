@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import { GetProp } from '@carrier/workflowui-globalfunctions';
 import './MessageTextArea.css';
-const ImageFolderPath = 'Images/'; 
+const ImageFolderPath = '/Images/'; 
 function MessageTextArea(props) {
   let valueProp = GetProperty(props.PropName)
 

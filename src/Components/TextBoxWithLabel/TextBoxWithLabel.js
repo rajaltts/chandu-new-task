@@ -161,8 +161,8 @@ function TextBoxWithLabel(props) {
             <div className="TBWLAI-InputContainer">
                 {props.Image?
                 <div className="TBWLAI-ImageContainer">
-                    {props.Tooltip ? <Tooltip title={props.Tooltip} placement="top"><img alt="ImageIcon" className="TBWLAI-Image" src={'Images/'+ props.Image}/></Tooltip>
-                        :<img alt="ImageIcon" className="TBWLAI-Image" src={'Images/'+ props.Image}/>}
+                    {props.Tooltip ? <Tooltip title={props.Tooltip} placement="top"><img alt="ImageIcon" className="TBWLAI-Image" src={'/Images/'+ props.Image}/></Tooltip>
+                        :<img alt="ImageIcon" className="TBWLAI-Image" src={'/Images/'+ props.Image}/>}
                 </div>: null}
                 {props.CheckboxPropName?
                 <div className="TBWLAI-ImageContainer">
