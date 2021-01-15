@@ -15,7 +15,19 @@ const saveTagStyles = makeStyles((theme) => ({
     },
     popper: {
         zIndex: "99999",
-        width: "64%"
+        width: "51%",
+        top: 'unset',
+        left: 'unset'
+    },
+    paper: {
+        "max-height": "170px",
+        "min-height": "150px",
+        overflowY: "auto"
+    },
+    noDataAvailable: {
+        "row-gap": "10px",
+        display: "flex",
+        "flex-direction": "column"
     },
     tagNameLabel: {
         margin: "19px 27px 0px 0px",
