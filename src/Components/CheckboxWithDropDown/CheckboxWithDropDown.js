@@ -15,65 +15,83 @@ const override = css`
 `;
 
 function CheckboxWithDropDown(props) {
+
+  const {
+    PropName,
+    RulesJSON,
+    ReadOnly,
+    DoNotTranslate,
+    children,
+    onValueChanged,
+    iconColor = "#2d4181",
+    iconWidth = "30px",
+    toggleContentPanel = false,
+  } = props;
   
-  const [DisplayDetails, SetDisplayDetails] = useState(false)
+  const [DisplayDetails, SetDisplayDetails] = useState(toggleContentPanel)
   const [Loading, SetLoading] = useState(false)
   const [OldValue, SetOldValue] = useState('')
 
   useEffect(() => {
     if(Loading){
-      let UpdatedProp = GetProperty(props.PropName)
+      let UpdatedProp = GetProperty(PropName)
       if(UpdatedProp && UpdatedProp.Value === OldValue)
         SetLoading(false)
     }
-  },[props.RulesJSON])
+  },[RulesJSON])
+
+  useEffect(() => {
+    if(toggleContentPanel !== DisplayDetails) {
+      SetDisplayDetails(toggleContentPanel)  
+    }
+  },[toggleContentPanel])
 
     function ValueChanged(){
-      if(!Loading && !props.ReadOnly){
+      if(!Loading && !ReadOnly){
         SetLoading(true)
         let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")
         SetOldValue(UpdatedValue)
-        props.onValueChanged([{Name:props.PropName, Value:UpdatedValue}])
+        onValueChanged([{Name:PropName, Value:UpdatedValue}])
         SetDisplayDetails(!DisplayDetails)
       }
     }
 
     function GetProperty(PropName){
-      return GetProp(PropName, props.RulesJSON)
+      return GetProp(PropName, RulesJSON)
     }
 
     function onInfoIconClick(){
       SetDisplayDetails(!DisplayDetails)
     }
     function GetTitle(){
-      let DescriptionProp = GetProperty(props.PropName)
-      if(props.DoNotTranslate)
+      let DescriptionProp = GetProperty(PropName)
+      if(DoNotTranslate)
         return DescriptionProp.Values[0].Attributes.Description
       else
-      return <Culture id={FormatTransKey(props.PropName)} defaultMessage={DescriptionProp?<Culture id={FormatTransKey(props.PropName + "|" + DescriptionProp.Values[0].Attributes.Description)}/>:"MISSING TRANSLATION"}/>
+      return <Culture id={FormatTransKey(PropName)} defaultMessage={DescriptionProp?<Culture id={FormatTransKey(PropName + "|" + DescriptionProp.Values[0].Attributes.Description)}/>:"MISSING TRANSLATION"}/>
       }
 
     let Value, Visibility
 
-    if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor === Object){
-      Visibility = GetProperty(props.PropName+".VISIBLE")
+    if(Object.entries(RulesJSON).length > 0 && RulesJSON.constructor === Object){
+      Visibility = GetProperty(PropName+".VISIBLE")
       if(Visibility && Visibility.Value === "TRUE"){
-        let MainProp = GetProperty(props.PropName)
+        let MainProp = GetProperty(PropName)
         Value = MainProp.Value
         return (
             <div  className="CBWDD-Container">
             <div className="CBWDD-MainContainer">
                 <div onClick={ValueChanged} className="CBWDD-ClickableContainer">
                 {Loading?<HashLoader css={override} sizeUnit={"px"} size={25} color={'#123abc'} loading={Loading}/>:
-                <Checkbox id={"ctrl"+ props.PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>}
+                <Checkbox id={"ctrl"+ PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>}
                   <span className="CBWDD-Title">{GetTitle(MainProp)}</span>
                 </div>
-                {props.children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="30px"/></div>:null}
+                {children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color={iconColor} width={iconWidth}/></div>:null}
             </div> 
             <span className="CBWDD-Separator"/>
-            {DisplayDetails && props.children ? 
+            {DisplayDetails && children ? 
             <div className="CBWDD-DetailsContainer">
-              {props.children}
+              {children}
             </div>: null}  
             </div>
         )
