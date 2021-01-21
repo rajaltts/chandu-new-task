@@ -15,7 +15,7 @@ const saveTagStyles = makeStyles((theme) => ({
     },
     popper: {
         zIndex: "99999",
-        width: "51%",
+        width: "55%",
         top: 'unset',
         left: 'unset'
     },

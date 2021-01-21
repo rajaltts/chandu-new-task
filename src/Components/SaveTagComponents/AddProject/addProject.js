@@ -55,7 +55,7 @@ const AddProject = (props) => {
     const { target: { value } } = event;
     const { CompanyName = "", Email = "", Phone = "", CustomerName = value, CustomerID = "" } = menuItem;
     const validationMessage = validation(CustomerName, intl);
-    const isDisabled = Object.keys(menuItem).length === 0 ? false : true;
+    const isDisabled = ((CustomerName !== "") && Object.keys(menuItem).length === 0) ? false : true;
     const fields = { ...state };
     fields[id].value = CustomerName;
     fields[id].error = validationMessage;
@@ -74,7 +74,7 @@ const AddProject = (props) => {
 
   const validateField = ({ event, id, validation }) => {
     const { target: { value } } = event;
-    const validationMessage = validation(value, intl);
+    const validationMessage = value ? validation(value, intl) : "";
     const fields = { ...state };
     fields[id].value = value;
     fields[id].error = validationMessage;

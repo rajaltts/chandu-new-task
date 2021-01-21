@@ -114,24 +114,6 @@ const ProjectTagSelection = (props) => {
     return (
         <Fragment>
             <div className={tagNameContainer}>
-                <TextField
-                    className={searchInput}
-                    variant="outlined"
-                    InputProps={{
-                        classes: {
-                            input: searchInputRoot,
-                            notchedOutline: nonErrorBorder
-                        },
-                    }}
-                    placeholder={injectIntlTranslation(intl, "SearchProject", "Search project here")}
-                    autoFocus
-                    margin={'dense'}
-                    size={'small'}
-                    value={searchValue}
-                    onChange={onChange}
-                />
-            </div>
-            <div className={tagNameContainer}>
                 <div className={tagNameLabel}>
                     <span>{translation("TagName", "Tag Name")}</span>
                     <span className={requiredAsterik}>*</span>
@@ -156,6 +138,24 @@ const ProjectTagSelection = (props) => {
                     />
                     <span className={errorMsg}>{existingErrorTagName}</span>
                 </div>
+            </div>
+            <div className={tagNameContainer}>
+                <TextField
+                    className={searchInput}
+                    variant="outlined"
+                    InputProps={{
+                        classes: {
+                            input: searchInputRoot,
+                            notchedOutline: nonErrorBorder
+                        },
+                    }}
+                    placeholder={injectIntlTranslation(intl, "SearchProject", "Search project here")}
+                    autoFocus
+                    margin={'dense'}
+                    size={'small'}
+                    value={searchValue}
+                    onChange={onChange}
+                />
             </div>
             <span className={errorMsg}>{projectError}</span>
             {displayProjectNames.length > 0 ?
