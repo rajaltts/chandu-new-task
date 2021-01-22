@@ -11,28 +11,28 @@ import debounce from "lodash/debounce";
 import Box from '@material-ui/core/Box';
 
 const ProjectTagSelection = (props) => {
-    const { intl, projectDataList = [], isTagNameDisabled = false, tagLabel = "",
-        onSaveTagData, onValidation } = props;
+    const { intl, projectDataList = [], tagName: tagInfo = {}, onSaveTagData, onValidation } = props;
+    const { isDisabled = false, value="" } = tagInfo;
     const [dataItem, setDataItem] = useState();
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
-    const [tagName, setTagName] = useState(tagLabel);
+    const [tagName, setTagName] = useState(value);
     const [existingErrorTagName, setExistingErrorTagName] = useState("");
     const [searchValue, setSearchValue] = useState("");
     const [projectError, setProjectError] = useState("");
     const { tagNameContainer, tagNameLabel, errorMsg, searchInput, radioRoot, tagNameLabelContainer,
         radioSection, labelRoot, label, searchInputRoot, noRecords, errorBorder, nonErrorBorder,
-        requiredAsterik } = saveTagStyles();
+        requiredAsterik,disableInput } = saveTagStyles();
     const [fetchState, setFetchState] = useState(false);
 
     useEffect(() => {
         let disableSave = false;
-        const tagNameStatus = !isTagNameDisabled && !tagName;
+        const tagNameStatus = !isDisabled && !tagName;
         if (tagNameStatus || !dataItem) {
             disableSave = true;
         }
         onSaveTagData && onSaveTagData({ tagName, projectData: dataItem, disableSave });
     }, [tagName, dataItem])
-    
+
     useEffect(() => {
         if (projectDataList.length > 0) {
             setDisplayProjectNames(projectDataList);
@@ -71,7 +71,7 @@ const ProjectTagSelection = (props) => {
             error = validateFormFields(value, validations, validationMessages);
         }
         if (error !== existingErrorTagName) {
-            !isTagNameDisabled && setExistingErrorTagName(error);
+            !isDisabled && setExistingErrorTagName(error);
         }
         else if (!dataItem) {
             setProjectError(injectIntlTranslation(intl, "validationAtLeastOneProject", "Please select a Project."));
@@ -126,10 +126,11 @@ const ProjectTagSelection = (props) => {
                         InputProps={{
                             classes: {
                                 input: searchInputRoot,
-                                notchedOutline: existingErrorTagName ? errorBorder : nonErrorBorder
+                                notchedOutline: existingErrorTagName ? errorBorder : nonErrorBorder,
+                                disabled: disableInput
                             }
                         }}
-                        disabled={isTagNameDisabled}
+                        disabled={isDisabled}
                         placeholder={injectIntlTranslation(intl, "TagName", "Tag Name")}
                         name="tagName"
                         margin={'dense'}

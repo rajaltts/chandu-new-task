@@ -10,7 +10,6 @@ const SaveTag = (props) => {
     const { isModalOpen = false, hideComponent = () => { }, customerNameList = [], projectDataList = [],
         projectName = {}, customerName = {}, tagName = {}, contactName = {}, contactEmail = {},
         contactNumber = {}, saveTagData, existingProjectValidation } = props;
-    const { isDisabled=false } = tagName;
     const [selectedTab, setSelectedTab] = useState(0);
     const [menuList, setMenuList] = useState(customerNameList);
     const [exisitingProjectData, setExisitingProjectData] = useState({});
@@ -99,7 +98,7 @@ const SaveTag = (props) => {
                     onClose={hideComponentHandler}
                     projectDataList={projectDataList}
                     onSaveTagData={updateExistingTagInfo}
-                    isTagNameDisabled={isDisabled}
+                    tagName={tagName}
                     onValidation={existingProjectValidation}
                 />
             )
