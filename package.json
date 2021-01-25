@@ -1,6 +1,6 @@
 {
   "name": "@carrier/ngecat-reactcomponents",
-  "version": "1.0.143",
+  "version": "1.0.144",
   "description": "React components library used for NGECAT workflow UI apps",
   "main": "dist/ngecat-reactcomponents.min.js",
   "publishConfig": {
@@ -17,7 +17,7 @@
   "author": "Mathieu Berte",
   "license": "ISC",
   "dependencies": {
-    "@carrier/workflowui-globalfunctions": "~1.0.58",
+    "@carrier/workflowui-globalfunctions": "~1.0.82",
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.2.1",
     "react-intl": "2.9.0",

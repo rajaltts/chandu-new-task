@@ -4,6 +4,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from '@material-ui/core/Radio';
+import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import FormBuilderField from "../formBuilder/FormBuilderField";
 import isPlainObject from 'lodash/isPlainObject';
 
@@ -27,7 +28,7 @@ function CustomGridBody(props) {
     }
       
     const getComparator = (order, orderBy) => {
-      if (order === "desc") {
+      if (order === sortingOrder.descending) {
         return (a, b) => descendingComparator(a, b, orderBy)
       }
       else {

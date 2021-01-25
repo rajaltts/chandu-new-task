@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions';
 import translation from "../../Translation";
 import classNames from 'classnames'
 import '../formBuilder.css'
+import { inputStyles } from '../formBuilderStyles';
 
 const ConfigDrivenNumberField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
@@ -14,8 +15,12 @@ const ConfigDrivenNumberField = (props) => {
     const [editedValue, setEditedValue] = useState(false);
     const [isValid, setIsValid] = useState(true);
     const [validationmessage, setValidationMessage] = useState('');
+    const [containerWidth, setContainerWidth] = useState({width: '100%'});
+    const { InputRoot } = inputStyles(containerWidth);
+    const ref1 = useRef(null);
 
     const onClickHandler = () => {
+        setContainerWidth({width: `${(ref1.current.offsetWidth - 5)}px`});
         setEditedValue(getFormatedValue());
         setEditable(true);
     };
@@ -29,6 +34,7 @@ const ConfigDrivenNumberField = (props) => {
 
     const checkValidation = () => {
         if (editedValue === value) {
+            setEditable(false);
             return false;
         }
         if (validations.validation) {
@@ -69,10 +75,16 @@ const ConfigDrivenNumberField = (props) => {
                 <TextField
                     type='number'
                     variant="outlined"
+                    fullWidth
                     inputProps={{ min, max, step }}
+                    InputProps={{
+                        classes: {
+                          input: InputRoot,
+                        }
+                    }}
                     value={editedValue}
                     autoFocus
-                    margin='dense'
+                    margin='none'
                     size='small'
                     onKeyUp={enterKeyPressHandler}
                     onChange={onChangeHandler}
@@ -81,7 +93,7 @@ const ConfigDrivenNumberField = (props) => {
                 {!isValid && <span className="errorMsg">{validationmessage}</span>}
             </React.Fragment>
             :
-            <Tooltip title={doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit")} arrow>
+            <Tooltip ref={ref1} title={doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit")} arrow>
                 <div className={classes} onClick={onClickHandler}>{getFormatedValue()}</div>
             </Tooltip>
     )

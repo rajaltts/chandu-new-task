@@ -5,9 +5,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import './CustomGrid.css';
 
 const CustomGridHead = (props) => {
+    const { ascending, descending } = sortingOrder;
     const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox, singleSelectGrid, rowCount, numSelected } = props;
 
     const createSortHandler = property => event => {
@@ -66,7 +68,7 @@ const CustomGridHead = (props) => {
                 {(sortable && !cell.disableSorting) ?
                   <TableSortLabel
                       active={orderBy === cell.name}
-                      direction={orderBy === cell.name ? order : "asc"}
+                      direction={orderBy === cell.name ? order : ascending}
                       onClick={createSortHandler(cell.name)}
                       IconComponent={ArrowDropDownIcon}
                   >
@@ -74,7 +76,7 @@ const CustomGridHead = (props) => {
                     
                     {(orderBy === cell.name) ?
                       <span className='visuallyHidden'>
-                          {order === "desc" ? "sorted descending" : "sorted ascending"}
+                          {order === descending ? "sorted descending" : "sorted ascending"}
                       </span>
                       :
                       null
@@ -83,7 +85,7 @@ const CustomGridHead = (props) => {
                   :
                   <TableSortLabel
                       active={false}
-                      direction={orderBy === cell.name ? order : "asc"}
+                      direction={orderBy === cell.name ? order : ascending}
                       onClick={null}
                       hideSortIcon
                   >

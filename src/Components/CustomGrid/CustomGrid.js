@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import CustomGridHead from './CustomGridHead';
 import CustomGridPagination from './CustomGridPagination';
 import CustomGridBody from './CustomGridBody';
@@ -10,11 +11,12 @@ import './CustomGrid.css';
 import translation from "../Translation";
 
 function CustomGrid(props) {
+  const { ascending, descending } = sortingOrder;
   const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
           sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid' } = props;
+          gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid', sorting=ascending } = props;
 
-  const [order, setOrder] = useState("asc");
+  const [order, setOrder] = useState(sorting);
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
   const [page, setPage] = useState(0);
@@ -35,9 +37,15 @@ function CustomGrid(props) {
     setSelected(selected.filter(item => rows.includes(item)))
   },[rows])
 
+  useEffect(() => {
+    if (order !== sorting) {
+      setOrder(sorting);
+    }
+  },[sorting])
+
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === ascending;
+    setOrder(isAsc ? descending : ascending);
     setOrderBy(property);
   };
 
