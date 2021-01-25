@@ -9,7 +9,7 @@ import AddProject from "../AddProject/addProject";
 const SaveTag = (props) => {
     const { isModalOpen = false, hideComponent = () => { }, customerNameList = [], projectDataList = [],
         projectName = {}, customerName = {}, tagName = {}, contactName = {}, contactEmail = {},
-        contactNumber = {}, saveTagData, existingProjectValidation } = props;
+        contactNumber = {}, saveTagData, existingProjectValidation, errorMsg } = props;
     const [selectedTab, setSelectedTab] = useState(0);
     const [menuList, setMenuList] = useState(customerNameList);
     const [exisitingProjectData, setExisitingProjectData] = useState({});
@@ -113,6 +113,7 @@ const SaveTag = (props) => {
             hideCancel={false}
             actionButtonList={createActionsButton(disableSave)}
             fullWidth
+            errorMsg={errorMsg}
         >
             <TabsBuilder
                 tabs={tabs}
