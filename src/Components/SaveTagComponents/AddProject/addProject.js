@@ -132,6 +132,7 @@ const AddProject = (props) => {
               />
               :
               <TextField
+                id={id}
                 className={searchInput}
                 value={value}
                 variant="outlined"
