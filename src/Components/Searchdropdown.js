@@ -39,21 +39,22 @@ import {injectIntl} from "react-intl";
       }
 
     return (
-        <div className="searchdropdown" >
-            <div ref={node} className="searchDropdownButton">
+       <div id="SearchComponentContainer" className="searchdropdown" >
+            <div id="SearchDropdownContainer" ref={node} className="searchDropdownButton">
                 <button className="eButtonsimple" onClick={handleBtnClick}>               
                     {injectIntlTranslation(props.filterName)}
                     {(props.filters.length > 1) && <span className="caret" />}
                 </button>
-                { open && (<ul className="dropdown-menu">
+                { open && (<ul id="ProjectSearchCriteriaListContainer" className="dropdown-menu">
                         {props.filters.map((value, idx) => {
-                            return <li key={idx} onClick={() => listItemClicked(value)}>{value}</li>
+                            return <li id={idx} key={idx} onClick={() => listItemClicked(value)}>{value}</li>
                         })} 
                     </ul>)                
                 }
             </div>
             <div className="searchContainerProject">
                 <input 
+                    id="ProjectSearchTextBox"
                     className="searchBox" 
                     type="search" 
                     name="search" 
@@ -62,7 +63,7 @@ import {injectIntl} from "react-intl";
                     onKeyPress={props.handleKeyPress}
                 />
                 <span onClick={props.onSearchClick}>
-                <FontAwesomeIcon icon={faSearch} className="searchIconProject" title={props.title} /></span>
+                <FontAwesomeIcon id="ProjectSearchIcon" icon={faSearch} className="searchIconProject" title={props.title} /></span>
             </div>
         </div>
     )
