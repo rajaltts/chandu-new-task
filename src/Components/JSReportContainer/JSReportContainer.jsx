@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState, cloneElement, memo} from 'react'
 import ReactDOM from 'react-dom'
 import './JSReportContainer.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -11,18 +11,14 @@ import {IntlProvider} from 'react-intl'
 import {Provider, useStore} from 'react-redux'
 
 const JSReportContainer = (props) => {
+    const {intl, config, title, open} = props
+    const [reportCurrentPreviewIndex, setReportCurrentPreviewIndex] = useState(0)
+    const [pageList, setPageList] = useState([])
     const [isLoading, setLoading] = useState(false)
-    const [reportCurrentPageIndex, setReportCurrentPageIndex] = useState(0)
     const [scrollBarWidth, setScrollBarWidth] = useState(0)
-    const {intl, content, config, title} = props
-    const ref = useRef()
+    
+    const clickRef = useRef()
     const store = useStore()
-
-    useEffect(() => {
-        setReportCurrentPageIndex(0)
-        if (props.open) document.body.style.overflow = 'hidden'
-        return () => (document.body.style.overflow = 'unset')
-    }, [props.open])
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick)
@@ -46,38 +42,52 @@ const JSReportContainer = (props) => {
 
     const handleClick = (e) => {
         const onScrollbar = document.documentElement.clientWidth - scrollBarWidth <= e.clientX
-        if (ref.current && !ref.current.contains(e.target) && !onScrollbar) props.onClose()
+        if (clickRef.current && !clickRef.current.contains(e.target) && !onScrollbar) {
+            setPageList([])
+            setReportCurrentPreviewIndex(0)
+            props.onClose()
+        }
     }
 
     const downloadPDF = async () => {
+        const RootEl = (props) =>
+            store ? (
+                <Provider store={store}>
+                    <IntlProvider locale={intl.locale} messages={intl.messages}>
+                        {props.children}
+                    </IntlProvider>
+                </Provider>
+            ) : (
+                <IntlProvider locale={intl.locale} messages={intl.messages}>
+                    {props.children}
+                </IntlProvider>
+            )
+
         setLoading(true)
-        const RootEl = (props) => (store ? <Provider store={store}>{props.children}</Provider> : <></>)
         try {
             const reportEl = (
                 <RootEl>
-                    <IntlProvider locale={intl.locale} messages={intl.messages}>
-                        <html id='pdf-download-root'>
-                            <head>
-                                <meta httpEquiv='Content-Type' content='text/html; charset=UTF-8' />
-                                {config.styles.files.map((file, i) => (
-                                    <link key={i} rel='stylesheet' type='text/css' href={`${config.styles.url}${file}`} />
-                                ))}
-                            </head>
-                            <body>
-                                {content.map((elem, i) => (
-                                    <div key={i} className='page'>
-                                        {elem}
-                                    </div>
-                                ))}
-                            </body>
-                        </html>
-                    </IntlProvider>
+                    <html id='pdf-download-root'>
+                        <head>
+                            <meta httpEquiv='Content-Type' content='text/html; charset=UTF-8' />
+                            {config.styles.files.map((file, i) => (
+                                <link key={i} rel='stylesheet' type='text/css' href={`${config.styles.url}${file}`} />
+                            ))}
+                        </head>
+                        <body>
+                            {pageList.map((elem, i) => (
+                                <div key={i} className='page'>
+                                    {elem}
+                                </div>
+                            ))}
+                        </body>
+                    </html>
                 </RootEl>
             )
             const reportDoc = new Document()
             ReactDOM.render(reportEl, reportDoc)
 
-            const jsReportReponse = await fetch(`${props.api.jsReport}api/report`, {
+            const jsReportReponse = await fetch(`${props.jsReportApi}api/report`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
@@ -109,27 +119,22 @@ const JSReportContainer = (props) => {
         // To develop
     }
 
-    const ReportPagePreview = () => {
-        if (content.length > 0) return content[reportCurrentPageIndex ?? 0]
-        else return null
-    }
-
-    if (props.open) {
+    if (open) {
         return (
             <div className='js-report'>
                 <div className='report-back'>
-                    <div className='report-toolbar-container' ref={ref}>
+                    <div className='report-toolbar-container' ref={clickRef}>
                         <Slide in={true}>
                             <div className='report-top-action-container'>
                                 <span className='report-top-action-container-title'>{title}</span>
                                 <div className='report-top-action'>
-                                    {reportCurrentPageIndex > 0 ? (
+                                    {reportCurrentPreviewIndex > 0 ? (
                                         <FontAwesomeIcon
                                             className='report-top-action-icons'
                                             icon={faChevronLeft}
                                             color='#FFFFFF'
                                             onClick={() => {
-                                                setReportCurrentPageIndex(reportCurrentPageIndex - 1)
+                                                setReportCurrentPreviewIndex(reportCurrentPreviewIndex - 1)
                                             }}
                                         />
                                     ) : (
@@ -139,16 +144,16 @@ const JSReportContainer = (props) => {
                                     <span className='report-top-action-page-index-container'>
                                         <span className='report-top-actions-container-title'>Page</span>
                                         <span className='report-top-action-page-index-value'>
-                                            <b>{reportCurrentPageIndex + 1} </b>/ {content.length}
+                                            <b>{reportCurrentPreviewIndex + 1} </b>/ {pageList.length}
                                         </span>
                                     </span>
-                                    {reportCurrentPageIndex >= 0 && reportCurrentPageIndex < content.length - 1 ? (
+                                    {reportCurrentPreviewIndex >= 0 && reportCurrentPreviewIndex < pageList.length - 1 ? (
                                         <FontAwesomeIcon
                                             className='report-top-action-icons'
                                             icon={faChevronRight}
                                             color='#FFFFFF'
                                             onClick={() => {
-                                                setReportCurrentPageIndex(reportCurrentPageIndex + 1)
+                                                setReportCurrentPreviewIndex(reportCurrentPreviewIndex + 1)
                                             }}
                                         />
                                     ) : (
@@ -180,7 +185,10 @@ const JSReportContainer = (props) => {
                         </Slide>
                         <Grow in={true}>
                             <div className='report-popup'>
-                                <ReportPagePreview />
+                                {cloneElement(props.children, {
+                                    reportCurrentPreviewIndex: reportCurrentPreviewIndex,
+                                    updateList: (data) => setPageList(data),
+                                })}
                             </div>
                         </Grow>
                     </div>
@@ -190,4 +198,4 @@ const JSReportContainer = (props) => {
     } else return null
 }
 
-export default JSReportContainer
+export default memo(JSReportContainer)
