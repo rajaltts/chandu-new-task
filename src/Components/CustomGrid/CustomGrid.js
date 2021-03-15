@@ -23,9 +23,10 @@ function CustomGrid(props) {
   const [rowsPerPage, setRowsPerPage] = useState(rowsToShowPerPage);
   const [initialRowData, setInitialRowData] = useState(rows);
   const [searchText, setSearchText] = useState('');
+  const [isAllPaginationSelected, setIsAllPaginationSelected] = useState(false);
 
   useEffect(()=> {
-    if (!rowsPerPage) {
+    if (!rowsPerPage || isAllPaginationSelected) {
       setRowsPerPage(rows.length);
     }
     if (!initialRowData.length && rows.length) {
@@ -107,6 +108,10 @@ function CustomGrid(props) {
   const handleChangeRowsPerPage = ({ target: { value }}) => {
     if (typeof value === 'string' && value.toLowerCase() === 'all') {
       value = rows.length;
+      !isAllPaginationSelected && setIsAllPaginationSelected(true)
+    }
+    else {
+      isAllPaginationSelected && setIsAllPaginationSelected(false)
     }
     setRowsPerPage(parseInt(value, 10));
     setPage(0);
@@ -178,6 +183,7 @@ function CustomGrid(props) {
             <CustomGridPagination
               labelRowsPerPage={labelRowsPerPage}
               rowsPerPageOptions={rowsPerPageOptions}
+              isAllPaginationSelected={isAllPaginationSelected}
               component="div"
               rowsLength={rows.length}
               rowsPerPage={rowsPerPage}

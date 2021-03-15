@@ -12,7 +12,7 @@ import './ConfirmModal.css';
 const ConfirmModal = (props) => {
     const { contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
         modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "", fullWidth = false, fullScreen = false,
-        footerComponent = null } = props;
+        footerComponent = null, hideHeader = false } = props;
     const cancelText = translation("Cancel");
 
     const onCancelButtonClick = () => {
@@ -40,14 +40,14 @@ const ConfirmModal = (props) => {
             fullWidth={fullWidth}
             fullScreen={fullScreen}
         >
-            <div className="customModalHeader">
+            {!hideHeader && <div className="customModalHeader">
                 <span className="customModalTitle">{title}</span>
                 {!disableCloseIcon && (
                     <IconButton className="customModalClose" onClick={onCancelButtonClick}>
                         <CloseIcon className="customModalCloseIcon" titleAccess='close' />
                     </IconButton>
                 )}
-            </div>
+            </div>}
             <DialogContent className={contentClassName}>
                 {children}
             </DialogContent>

@@ -17,7 +17,7 @@ const SaveTag = (props) => {
     const [disableSave, setDisableSave] = useState(true);
     const tabs = [
         { tabName: translation("ExistingProject", "Existing Project") },
-        { tabName: translation("NEW_PROJECT", "New Project") }
+        { tabName: translation("NewProject", "New Project") }
     ];
 
     useEffect(() => {

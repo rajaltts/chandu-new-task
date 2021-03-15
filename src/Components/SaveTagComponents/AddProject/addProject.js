@@ -72,9 +72,9 @@ const AddProject = (props) => {
     updateProjectHandler(fields, CustomerID);
   }
 
-  const validateField = ({ event, id, validation }) => {
+  const validateField = ({ event, id, validation, isRequired }) => {
     const { target: { value } } = event;
-    const validationMessage = value ? validation(value, intl) : "";
+    const validationMessage = isRequired || value? validation(value, intl) : "";
     const fields = { ...state };
     fields[id].value = value;
     fields[id].error = validationMessage;
@@ -99,7 +99,7 @@ const AddProject = (props) => {
       Object.keys(fields).forEach(key => {
         if (fields[key].isVisible) {
           const { validation, id, value } = fields[key];
-          if (validation(value, intl) && fields[key].isRequired) {
+          if ((validation(value, intl) && fields[key].isRequired) || fields[key].error) {
             disableSave = true;
           }
           projectInfo[key] = { id: id, value: value };
@@ -132,6 +132,7 @@ const AddProject = (props) => {
               />
               :
               <TextField
+                id={id}
                 className={searchInput}
                 value={value}
                 variant="outlined"
@@ -148,7 +149,7 @@ const AddProject = (props) => {
                 name={id}
                 margin={'dense'}
                 size={'small'}
-                onChange={event => validateField({ event, id, validation })}
+                onChange={event => validateField({ event, id, validation, isRequired})}
               />
             }
             <span className={errorMsg}>{error}</span>

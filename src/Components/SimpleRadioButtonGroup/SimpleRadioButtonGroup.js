@@ -73,7 +73,7 @@ function SimpleRadioButtonGroup(props) {
                         {props.DoNotTranslate ?
                             <span>{value.Attributes.Description}</span>
                             :
-                            <Culture id={FormatTransKey(props.PropName + "|" + (useValueAsKey ? value.Value: value.Attributes.Description))}/>
+                            <Culture id={FormatTransKey(props.PropName + "|" + (useValueAsKey ? value.Value : value.Attributes.Description))} defaultMessage={value.Attributes.Description} />
                         }
                     </label>
                      {(!!value.Attributes.Note && props.vertical)?<div> {value.Attributes.Note.split("||").map((value, index)=>{

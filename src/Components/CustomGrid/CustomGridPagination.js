@@ -6,7 +6,8 @@ import translation from "../Translation";
 
 const CustomGridPagination = (props) => {
   const { rowsLength, labelRowsPerPage, rowsPerPage, handleChangeRowsPerPage, searchText, initialRowData,
-          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, doNotTranslate } = props;
+          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, doNotTranslate,
+          isAllPaginationSelected } = props;
   const chipCountValue = Math.ceil(rowsLength / rowsPerPage);
   const chipsCount = isNaN(chipCountValue) ? 0 : chipCountValue;
   
@@ -43,7 +44,7 @@ const CustomGridPagination = (props) => {
   const showRowsSelectionOptions = () => {
     let isSelected = false;
     return rowsPerPageOptions.map(rowsCount => {
-      if (rowsCount === rowsPerPage) {
+      if (rowsCount === rowsPerPage && !isAllPaginationSelected) {
         isSelected = true;
         return <option selected>{rowsCount}</option>;
       }

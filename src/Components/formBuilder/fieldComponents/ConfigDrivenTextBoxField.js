@@ -26,6 +26,7 @@ const ConfigDrivenTextBoxField = (props) => {
 
     const updateValue = (event) => {
         if (checkValidation()) {
+            setIsValid(true);
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
         }

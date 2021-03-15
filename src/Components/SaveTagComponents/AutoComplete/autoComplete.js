@@ -89,6 +89,7 @@ const AutoComplete = (props) => {
                 disabled={isDisabled}
                 placeholder={injectIntlTranslation(intl, placeHolder, defaultLabel)}
                 name={id}
+                id={id}
                 margin={'dense'}
                 size={'small'}
                 type="search"
