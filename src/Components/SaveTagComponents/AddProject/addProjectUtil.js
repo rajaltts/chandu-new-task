@@ -1,17 +1,4 @@
-import { RandomNumber, validateFormFields, injectIntlTranslation } from '@carrier/workflowui-globalfunctions';
-
-const defaultValidation = {
-    regExp: /^[^'\"&\/#,<>|\\\\]*$/,
-    maxLength: 100
-};
-
-const defaultValidationMessages = (intl) => {
-    return {
-        nameRequired: injectIntlTranslation(intl, "FieldRequired", "This field is required"),
-        notAllowedCharacters: injectIntlTranslation(intl, "SpecialCharactersNotAllowed", "Special characters are not allowed."),
-        maxLengthError: injectIntlTranslation(intl, "MaxLengthError100", "Number of characters should not be more than 100")
-    }
-};
+import { RandomNumber, validateFormFields, defaultValidation, defaultValidationMessages, injectIntlTranslation } from '@carrier/workflowui-globalfunctions';
 
 const projectNameValidation = (value, intl) => {
     return validateFormFields(value, defaultValidation, defaultValidationMessages(intl));
