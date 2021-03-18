@@ -9,20 +9,42 @@ import { inputStyles } from '../formBuilderStyles';
 
 const ConfigDrivenTextBoxField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
-    const { className = null, onClick = null, isEditable = false, validations = {} } = config;
+    const { className = null, onClick = null, onDoubleClick = null, isEditable = false, validations = {} } = config;
     const [isValid, setIsValid] = useState(true);
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
-    const [validationmessage, setValidationMessage] = useState('');
+    const getFieldTitle = () => {
+        if(onClick){
+           return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
+        }
+        if(onDoubleClick){
+            return doNotTranslate ? "Doubleclick to Edit" : translation("DoubleclickToEdit", "Doubleclick to Edit");
+        }
+        return '';
+    }
+    const [title, setTitle] = useState(getFieldTitle());
+    const [validationmessage, setValidationMessage] = useState({width: '100%'});
     const [containerWidth, setContainerWidth] = useState({width: '100%'});
     const { InputRoot } = inputStyles(containerWidth);
     const ref1 = useRef(null);
 
     const onClickHandler = () => {
+        if(onClick){
+            setTextBoxField();
+        }
+    };
+    
+    const onDoubleClickHandler = () => {
+        if(onDoubleClick){
+            setTextBoxField();
+        }
+    }
+
+    const setTextBoxField = () => {
         setContainerWidth({width: `${(ref1.current.offsetWidth - 5)}px`});
         setEditedValue(getFormatedValue());
         setEditable(true);
-    };
+    }
 
     const updateValue = (event) => {
         if (checkValidation()) {
@@ -91,8 +113,8 @@ const ConfigDrivenTextBoxField = (props) => {
                 {!isValid && <span className="errorMsg">{validationmessage}</span>}
             </React.Fragment>
             :
-            <Tooltip title={doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit")} arrow>
-                <div ref={ref1} className={classes} onClick={onClickHandler}>{getFormatedValue()}</div>
+            <Tooltip title={title} arrow>
+                <div ref={ref1} className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>{getFormatedValue()}</div>
             </Tooltip>
     )
 }
