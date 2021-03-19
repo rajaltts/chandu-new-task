@@ -10,26 +10,49 @@ import { inputStyles } from '../formBuilderStyles';
 const ConfigDrivenNumberField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
     const { step = "1", min = "-99999999", max = "99999999", className = null, onClick = null,
-        isEditable = false, validations = {} } = config;
+        onDoubleClick = null, isEditable = false, validations = {} } = config;
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
     const [isValid, setIsValid] = useState(true);
     const [validationmessage, setValidationMessage] = useState('');
-    const [containerWidth, setContainerWidth] = useState({width: '100%'});
+    const getFieldTitle = () => {
+        if (onClick) {
+            return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
+        }
+        if (onDoubleClick) {
+            return doNotTranslate ? "Doubleclick to Edit" : translation("DoubleclickToEdit", "Doubleclick to Edit");
+        }
+        return '';
+    }
+    const [title, setTitle] = useState(getFieldTitle());
+    const [containerWidth, setContainerWidth] = useState({ width: '100%' });
     const { InputRoot } = inputStyles(containerWidth);
     const ref1 = useRef(null);
 
     const onClickHandler = () => {
-        setContainerWidth({width: `${(ref1.current.offsetWidth - 5)}px`});
+        if (onClick) {
+            setNumberField();
+        }
+    };
+
+    const onDoubleClickHandler = () => {
+        if (onDoubleClick) {
+            setNumberField();
+        }
+    }
+
+    const setNumberField = () => {
+        setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
         setEditedValue(getFormatedValue());
         setEditable(true);
-    };
+    }
 
     const updateValue = (event) => {
         if (checkValidation()) {
             setIsValid(true);
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
+            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
         }
     }
 
@@ -80,7 +103,7 @@ const ConfigDrivenNumberField = (props) => {
                     inputProps={{ min, max, step }}
                     InputProps={{
                         classes: {
-                          input: InputRoot,
+                            input: InputRoot,
                         }
                     }}
                     value={editedValue}
@@ -94,8 +117,8 @@ const ConfigDrivenNumberField = (props) => {
                 {!isValid && <span className="errorMsg">{validationmessage}</span>}
             </React.Fragment>
             :
-            <Tooltip ref={ref1} title={doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit")} arrow>
-                <div className={classes} onClick={onClickHandler}>{getFormatedValue()}</div>
+            <Tooltip ref={ref1} title={title} arrow>
+                <div className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>{getFormatedValue()}</div>
             </Tooltip>
     )
 }

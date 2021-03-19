@@ -49,6 +49,7 @@ const AddProject = (props) => {
       fields[id] = newField;
     });
     dispatch({ type: 'updateFields', fields });
+    updateProjectHandler(fields);
   }
 
   const updateCustomerInfo = ({ event, id, validation, menuItem = {} }) => {

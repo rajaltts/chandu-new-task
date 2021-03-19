@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faSortDown, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faSortDown, faTrashAlt, faEdit, faDownload } from '@fortawesome/free-solid-svg-icons'
 import { guid } from '@carrier/workflowui-globalfunctions';
 
 function CustomDropdown(props) {
@@ -20,6 +20,10 @@ function CustomDropdown(props) {
   }
   function deleteTagTemplate(item) {
     props.deleteTagTemplate(item, "delete")
+    setOpen(!open)
+  }
+  function exportTagTemplate(item) {
+    props.exportTagTemplate(item)
     setOpen(!open)
   }
   function onClickOfDropdownMenu(templateData) {
@@ -88,6 +92,14 @@ function CustomDropdown(props) {
                   >
                     <FontAwesomeIcon className="columncolor" icon={faTrashAlt} />
                   </span>
+                  {props.exportTagSupported && (<span
+                    className="ActionLink"
+                    id="TagTemplateExportlink"
+                    data-action="TagTemplateExport"
+                    onClick={() => exportTagTemplate(item)}
+                  >
+                    <FontAwesomeIcon className="columncolor" icon={faDownload} />
+                  </span>)}                   
                 </div>
               }
             </li>
