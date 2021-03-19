@@ -10,39 +10,39 @@ import { inputStyles } from '../formBuilderStyles';
 const ConfigDrivenNumberField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
     const { step = "1", min = "-99999999", max = "99999999", className = null, onClick = null,
-    onDoubleClick = null, isEditable = false, validations = {} } = config;
+        onDoubleClick = null, isEditable = false, validations = {} } = config;
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
     const [isValid, setIsValid] = useState(true);
     const [validationmessage, setValidationMessage] = useState('');
     const getFieldTitle = () => {
-        if(onClick){
-           return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
+        if (onClick) {
+            return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
         }
-        if(onDoubleClick){
+        if (onDoubleClick) {
             return doNotTranslate ? "Doubleclick to Edit" : translation("DoubleclickToEdit", "Doubleclick to Edit");
         }
         return '';
     }
     const [title, setTitle] = useState(getFieldTitle());
-    const [containerWidth, setContainerWidth] = useState({width: '100%'});
+    const [containerWidth, setContainerWidth] = useState({ width: '100%' });
     const { InputRoot } = inputStyles(containerWidth);
     const ref1 = useRef(null);
 
     const onClickHandler = () => {
-        if(onClick){
-        setNumberField();
+        if (onClick) {
+            setNumberField();
         }
     };
 
     const onDoubleClickHandler = () => {
-        if(onDoubleClick){
+        if (onDoubleClick) {
             setNumberField();
         }
     }
 
     const setNumberField = () => {
-        setContainerWidth({width: `${(ref1.current.offsetWidth - 5)}px`});
+        setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
         setEditedValue(getFormatedValue());
         setEditable(true);
     }
@@ -52,6 +52,7 @@ const ConfigDrivenNumberField = (props) => {
             setIsValid(true);
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
+            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
         }
     }
 
@@ -102,7 +103,7 @@ const ConfigDrivenNumberField = (props) => {
                     inputProps={{ min, max, step }}
                     InputProps={{
                         classes: {
-                          input: InputRoot,
+                            input: InputRoot,
                         }
                     }}
                     value={editedValue}

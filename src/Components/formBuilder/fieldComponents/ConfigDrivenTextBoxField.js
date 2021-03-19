@@ -14,34 +14,34 @@ const ConfigDrivenTextBoxField = (props) => {
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
     const getFieldTitle = () => {
-        if(onClick){
-           return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
+        if (onClick) {
+            return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
         }
-        if(onDoubleClick){
+        if (onDoubleClick) {
             return doNotTranslate ? "Doubleclick to Edit" : translation("DoubleclickToEdit", "Doubleclick to Edit");
         }
         return '';
     }
     const [title, setTitle] = useState(getFieldTitle());
-    const [validationmessage, setValidationMessage] = useState({width: '100%'});
-    const [containerWidth, setContainerWidth] = useState({width: '100%'});
+    const [validationmessage, setValidationMessage] = useState({ width: '100%' });
+    const [containerWidth, setContainerWidth] = useState({ width: '100%' });
     const { InputRoot } = inputStyles(containerWidth);
     const ref1 = useRef(null);
 
     const onClickHandler = () => {
-        if(onClick){
+        if (onClick) {
             setTextBoxField();
         }
     };
-    
+
     const onDoubleClickHandler = () => {
-        if(onDoubleClick){
+        if (onDoubleClick) {
             setTextBoxField();
         }
     }
 
     const setTextBoxField = () => {
-        setContainerWidth({width: `${(ref1.current.offsetWidth - 5)}px`});
+        setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
         setEditedValue(getFormatedValue());
         setEditable(true);
     }
@@ -51,6 +51,7 @@ const ConfigDrivenTextBoxField = (props) => {
             setIsValid(true);
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
+            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
         }
     }
 
@@ -100,7 +101,7 @@ const ConfigDrivenTextBoxField = (props) => {
                     value={editedValue}
                     InputProps={{
                         classes: {
-                          input: InputRoot,
+                            input: InputRoot,
                         }
                     }}
                     autoFocus
