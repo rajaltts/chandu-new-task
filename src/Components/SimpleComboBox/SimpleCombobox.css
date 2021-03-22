@@ -79,7 +79,7 @@
     position: absolute;
     color: #2d4181;
     background-color: white;
-    z-index: 100;
+    z-index: 1000;
     box-Shadow: 0 0 10px rgba(150, 150, 150, 0.5);
     width: 100%;
     top: 35px;
