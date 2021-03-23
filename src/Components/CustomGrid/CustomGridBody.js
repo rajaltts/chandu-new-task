@@ -10,7 +10,7 @@ import isPlainObject from 'lodash/isPlainObject';
 
 function CustomGridBody(props) {
     const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected,
-      handleClick, doNotTranslate} = props;
+      handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate} = props;
 
     const descendingComparator = (a, b, orderBy) => {
       const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
@@ -52,6 +52,7 @@ function CustomGridBody(props) {
         color: 'primary',
         checked: isItemSelected,
         onChange: (event) => handleClick(event, row, index, type),
+        onClick: (event) => handleSelectOnClick(event),
         inputProps: { 'aria-label': 'select this row' }
       };
       return (
@@ -95,6 +96,10 @@ function CustomGridBody(props) {
       return value;
     }
 
+    const handleOnClick = (row, index, event) =>{
+      rowOnclickHandler(row, index, event);
+    }
+
     return (
       <TableBody>
         {stableSort(rows, getComparator(order, orderBy))
@@ -108,7 +113,7 @@ function CustomGridBody(props) {
                 aria-checked={isItemSelected}
                 tabIndex={-1}
                 key={index}
-                selected={isItemSelected}
+                selected={isItemSelected} onClick={(event) => handleOnClick(row, index, event)}
               >
                 {(showCheckbox) && showSelectionCell(isItemSelected, row, index, selectionType)}
                 {headCells.map((head) => {

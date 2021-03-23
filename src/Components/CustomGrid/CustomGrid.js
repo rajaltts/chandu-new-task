@@ -13,7 +13,7 @@ import translation from "../Translation";
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
   const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
-          sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
+          sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
           gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid', sorting=ascending } = props;
 
   const [order, setOrder] = useState(sorting);
@@ -76,6 +76,14 @@ function CustomGrid(props) {
       rowCheckboxHandler([row]);
     }
   };
+
+  const handleSelectOnClick = (event) => {
+    if(rowOnclickHandler){
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  }
 
   const handleMultiSelectClick = (checked, row, index) => {
     let newSelected = [...selected];
@@ -158,8 +166,10 @@ function CustomGrid(props) {
                   orderBy={orderBy}
                   page={page}
                   rowsPerPage={rowsPerPage}
+                  rowOnclickHandler={rowOnclickHandler}
                   isSelected={isSelected}
                   handleClick={handleClick}
+                  handleSelectOnClick={handleSelectOnClick}
                   selectionType={singleSelectGrid}
                   config={config}
                   doNotTranslate={doNotTranslate}
