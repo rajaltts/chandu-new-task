@@ -11,6 +11,7 @@ import isPlainObject from 'lodash/isPlainObject';
 function CustomGridBody(props) {
     const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected,
       handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate} = props;
+      let timer;
 
     const descendingComparator = (a, b, orderBy) => {
       const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
@@ -96,8 +97,11 @@ function CustomGridBody(props) {
       return value;
     }
 
-    const handleOnClick = (row, index, event) =>{
-      rowOnclickHandler(row, index, event);
+    const handleOnClick = (row, index, event) => {
+      clearTimeout(timer);
+      if (event.detail === 1) {
+        timer = setTimeout(() => rowOnclickHandler(row, index, event), 200);
+      }
     }
 
     return (
