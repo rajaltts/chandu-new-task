@@ -100,7 +100,7 @@ function CustomGridBody(props) {
     const handleOnClick = (row, index, event) => {
       clearTimeout(timer);
       if (event.detail === 1) {
-        timer = setTimeout(() => rowOnclickHandler(row, index, event), 200);
+        timer = setTimeout(() => rowOnclickHandler(row, index, event), 300);
       }
     }
 

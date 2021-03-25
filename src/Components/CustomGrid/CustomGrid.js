@@ -79,9 +79,7 @@ function CustomGrid(props) {
 
   const handleSelectOnClick = (event) => {
     if(rowOnclickHandler){
-      event.preventDefault();
       event.stopPropagation();
-      return false;
     }
   }
 
