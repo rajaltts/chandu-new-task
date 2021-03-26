@@ -87,7 +87,9 @@ const ConfigDrivenTextBoxField = (props) => {
     }
     
     const handleTextBoxOnClick = (event) => {
-        event.stopPropagation();
+        if (onDoubleClick) {
+            event.stopPropagation();
+        }
     }
 
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
