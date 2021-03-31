@@ -10,7 +10,7 @@ import isPlainObject from 'lodash/isPlainObject';
 
 function CustomGridBody(props) {
     const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected,
-      handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate} = props;
+      handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, stateLessGrid} = props;
       let timer;
 
     const descendingComparator = (a, b, orderBy) => {
@@ -104,10 +104,16 @@ function CustomGridBody(props) {
       }
     }
 
+    const sliceRecords = (records) => {
+      if (!stateLessGrid) {
+        return records.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)  
+      }
+      return records;
+    }
+
     return (
       <TableBody>
-        {stableSort(rows, getComparator(order, orderBy))
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        {sliceRecords(stableSort(rows, getComparator(order, orderBy)))
           .map((row, index) => {
             const isItemSelected = isSelected(row);
             return (

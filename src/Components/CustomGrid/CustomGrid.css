@@ -89,7 +89,7 @@
     }
 
     .customGrid td {
-        padding: 0px 1px 0px 9px !important;
+        padding: 0px 1px 0px 9px;
         word-break: break-all;
         max-width: 50%;
         cursor: default;

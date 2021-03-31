@@ -12,14 +12,16 @@ import translation from "../Translation";
 
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
-  const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
-          sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid', sorting=ascending } = props;
+  const { selectedRows = [], rows = [], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
+    sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
+    gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
+    pageNumber, stateLessGrid = false, totalPageCount = rows.length
+  } = props;
 
   const [order, setOrder] = useState(sorting);
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(pageNumber || 0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsToShowPerPage);
   const [initialRowData, setInitialRowData] = useState(rows);
   const [searchText, setSearchText] = useState('');
@@ -37,6 +39,14 @@ function CustomGrid(props) {
   useEffect(()=>{
     setSelected(selected.filter(item => rows.includes(item)))
   },[rows])
+
+  useEffect(()=>{
+    gridStateHandler && gridStateHandler({order, orderBy, rowsPerPage, page})
+  },[order, orderBy, rowsPerPage, page])
+
+  useEffect(() => {
+    (pageNumber >= 0) && handleChangePage(pageNumber);
+  },[pageNumber])
 
   useEffect(() => {
     if (order !== sorting) {
@@ -133,6 +143,10 @@ function CustomGrid(props) {
     return selected.some((item) => item[uniqueKey] === row[uniqueKey]);
   }
 
+  const getRowLength = () => {
+    return stateLessGrid ? totalPageCount : rows.length
+  }
+
   return (
     <div id={id} className="customGrid">
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
@@ -153,7 +167,7 @@ function CustomGrid(props) {
                 onRequestSort={handleRequestSort}
                 doNotTranslate={doNotTranslate}
               />
-              {!!rows.length &&
+              {!!(getRowLength()) &&
                 <CustomGridBody
                   isLoading={isLoading}
                   gridClassName={gridClassName}
@@ -171,10 +185,11 @@ function CustomGrid(props) {
                   selectionType={singleSelectGrid}
                   config={config}
                   doNotTranslate={doNotTranslate}
+                  stateLessGrid={stateLessGrid}
                 />
               }
             </Table>
-            {!rows.length &&
+            {!(getRowLength()) &&
             <div className={`messageContainer${!gridClassName ? ' messageContainerDefaultHeight' : ''}`}>
               {(isLoading) ?
                 <CircularProgress />
@@ -193,7 +208,7 @@ function CustomGrid(props) {
               rowsPerPageOptions={rowsPerPageOptions}
               isAllPaginationSelected={isAllPaginationSelected}
               component="div"
-              rowsLength={rows.length}
+              rowsLength={getRowLength()}
               rowsPerPage={rowsPerPage}
               page={page}
               searchText={searchText}
