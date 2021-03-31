@@ -163,7 +163,7 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
                 {(Price && props.DisplayPrice)?<span className="OptionControl-Price">{Price}</span>:null}       
               </div>
               <Tooltip title={<Culture id={"GetMoreInfoOnOption"}/>} placement="top">
-              <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color="#2d4181" width="26px"/></div>
+              <div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon id={props.PropName} color="#2d4181" width="26px"/></div>
               </Tooltip>
             </div> 
             <span className="OptionControl-Separator"/>

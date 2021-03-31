@@ -9,7 +9,7 @@ export const Incomp = props => (
 )
 
 export const InfoIcon = props => (
-    <svg  x="0px" y="0px" viewBox="0 0 437.6 437.6" width={props.width}>
+    <svg  x="0px" y="0px" viewBox="0 0 437.6 437.6" id={props.id} width={props.width}>
         <g>
             <path d="M194,142.8c0.8,1.6,1.6,3.2,2.4,4.4c0.8,1.2,2,2.4,2.8,3.6c1.2,1.2,2.4,2.4,4,3.6c1.2,0.8,2.8,2,4.8,2.4
                 c1.6,0.8,3.2,1.2,5.2,1.6c2,0.4,3.6,0.4,5.2,0.4c1.6,0,3.6,0,5.2-0.4c1.6-0.4,3.2-0.8,4.4-1.6h0.4c1.6-0.8,3.2-1.6,4.8-2.8
