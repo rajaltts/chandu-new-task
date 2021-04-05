@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { HashLoader } from 'react-spinners';
-import { Dialog } from '@progress/kendo-react-dialogs';
+import { Dialog } from '@material-ui/core';
 import './CustomLoader.css';
 
 const override = css`
