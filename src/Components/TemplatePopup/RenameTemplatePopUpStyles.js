@@ -24,11 +24,14 @@ const RenameTemplatePopUpStyles = makeStyles({
         borderColor: "#c00000 !important"
     },
     nonErrorBorder: {
-        borderColor: "#bcbcbc !important"
+        borderColor: "#bcbcbc !important",
+        color: 'black !important',
+        backgroundColor: 'unset !important',
     },
     errorMsg: {
         display: "block",
         color: "#c00000",
+        backgroundColor: 'unset !important',
         margin: "4px 0px"
     },
 });
