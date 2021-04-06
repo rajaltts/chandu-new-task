@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import CustomGridHead from './CustomGridHead';
 import CustomGridPagination from './CustomGridPagination';
@@ -15,7 +16,7 @@ function CustomGrid(props) {
   const { selectedRows = [], rows = [], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
     sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
-    pageNumber, stateLessGrid = false, totalPageCount = rows.length
+    pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false
   } = props;
 
   const [order, setOrder] = useState(sorting);
@@ -161,6 +162,7 @@ function CustomGrid(props) {
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
       <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
+          {showLinearProgress && <LinearProgress />}
           <div id={`${id}_table`}className={'tableWrapper'}>
             <Table stickyHeader className='table' size={"medium"} >
               <CustomGridHead
