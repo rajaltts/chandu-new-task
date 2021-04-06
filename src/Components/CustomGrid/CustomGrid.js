@@ -39,6 +39,15 @@ function CustomGrid(props) {
   useEffect(()=>{
     setSelected(selected.filter(item => rows.includes(item)))
   },[rows])
+  
+  useEffect(() => {
+    if (stateLessGrid) {
+      setRowsPerPage(rowsToShowPerPage);
+      setOrderBy(orderByfield);
+      setPage(pageNumber);
+      setOrder(sorting);
+    }
+  }, [rowsToShowPerPage, pageNumber, orderByfield, sorting])
 
   useEffect(()=>{
     gridStateHandler && gridStateHandler({order, orderBy, rowsPerPage, page})
