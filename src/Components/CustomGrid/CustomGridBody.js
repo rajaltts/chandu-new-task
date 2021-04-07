@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,11 +7,16 @@ import Radio from '@material-ui/core/Radio';
 import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import FormBuilderField from "../formBuilder/FormBuilderField";
 import isPlainObject from 'lodash/isPlainObject';
+import classNames from 'classnames'
+import './CustomGrid.css';
 
 function CustomGridBody(props) {
     const { rows, order, orderBy, page, rowsPerPage, config, headCells, showCheckbox, selectionType=false, isSelected,
-      handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, stateLessGrid} = props;
+      handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, stateLessGrid, uniqueKey, clickOnRowHighlight,
+      rowHighlightClassName, rowClassName, highlightedRowByDefault } = props;
       let timer;
+
+    const [clickedRow, setClickedRow] = useState(highlightedRowByDefault);
 
     const descendingComparator = (a, b, orderBy) => {
       const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
@@ -98,6 +103,7 @@ function CustomGridBody(props) {
     }
 
     const handleOnClick = (row, index, event) => {
+      clickOnRowHighlight && setClickedRow(row);
       clearTimeout(timer);
       if (event.detail === 1 && rowOnclickHandler) {
         timer = setTimeout(() => rowOnclickHandler(row, index, event), 300);
@@ -116,14 +122,15 @@ function CustomGridBody(props) {
         {sliceRecords(stableSort(rows, getComparator(order, orderBy)))
           .map((row, index) => {
             const isItemSelected = isSelected(row);
+            const rowHighlight = (clickOnRowHighlight && uniqueKey && row[uniqueKey] === clickedRow[uniqueKey]);
             return (
               <TableRow
-                hover
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
                 key={index}
-                selected={isItemSelected} onClick={(event) => handleOnClick(row, index, event)}
+                className={classNames(rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
+                onClick={(event) => handleOnClick(row, index, event)}
               >
                 {(showCheckbox) && showSelectionCell(isItemSelected, row, index, selectionType)}
                 {headCells.map((head) => {

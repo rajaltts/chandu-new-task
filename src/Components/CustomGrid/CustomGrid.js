@@ -16,7 +16,8 @@ function CustomGrid(props) {
   const { selectedRows = [], rows = [], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
     sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
-    pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false
+    pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
+    rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}
   } = props;
 
   const [order, setOrder] = useState(sorting);
@@ -197,6 +198,11 @@ function CustomGrid(props) {
                   config={config}
                   doNotTranslate={doNotTranslate}
                   stateLessGrid={stateLessGrid}
+                  uniqueKey={uniqueKey}
+                  clickOnRowHighlight={clickOnRowHighlight}
+                  rowHighlightClassName={rowHighlightClassName}
+                  rowClassName={rowClassName}
+                  highlightedRowByDefault={highlightedRowByDefault}
                 />
               }
             </Table>

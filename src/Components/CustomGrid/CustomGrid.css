@@ -105,11 +105,11 @@
     }
 
     .customGrid tr:nth-child(even) {
-        background-color: #f5f5f5 !important;
+        background-color: #f5f5f5;
     }
 
     .customGrid tr:nth-child(odd) {
-        background-color: transparent !important;
+        background-color: transparent;
     }
 
     .customGrid .footerContainer {
@@ -178,4 +178,8 @@
 
     .customGrid .messageContainerDefaultHeight {
         min-height: 300px;
+    }
+
+    .customGrid .tableWrapper .rowHighlight {
+        background-color: rgba(25, 118, 210, 0.12) !important;
     }
