@@ -86,7 +86,7 @@ function CheckboxWithDropDown(props) {
                 <Checkbox id={"ctrl"+ PropName} color="primary" className="CBWDD-Checkbox" checked={Value ==="TRUE"?true:false}/>}
                   <span className="CBWDD-Title">{GetTitle(MainProp)}</span>
                 </div>
-                {children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon color={iconColor} width={iconWidth}/></div>:null}
+                {children ?<div className="OptionControl-InfoIcon" onClick={onInfoIconClick}><InfoIcon id={PropName} color={iconColor} width={iconWidth}/></div>:null}
             </div> 
             <span className="CBWDD-Separator"/>
             {DisplayDetails && children ? 

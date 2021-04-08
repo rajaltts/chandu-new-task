@@ -85,6 +85,12 @@ const ConfigDrivenTextBoxField = (props) => {
     const getFormatedValue = () => {
         return formatValue(config, value);
     }
+    
+    const handleTextBoxOnClick = (event) => {
+        if (onDoubleClick) {
+            event.stopPropagation();
+        }
+    }
 
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
 
@@ -110,6 +116,7 @@ const ConfigDrivenTextBoxField = (props) => {
                     onKeyUp={enterKeyPressHandler}
                     onChange={onChangeHandler}
                     onBlur={updateValue}
+                    onClick={handleTextBoxOnClick}
                 />
                 {!isValid && <span className="errorMsg">{validationmessage}</span>}
             </React.Fragment>

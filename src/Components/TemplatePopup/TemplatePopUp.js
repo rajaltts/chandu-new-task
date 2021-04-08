@@ -1,9 +1,11 @@
 import React from 'react';
-import { Dialog } from '@progress/kendo-react-dialogs';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { connect } from 'react-redux'
 import Button from '../Button';
+import TemplatePopUpStyles from './TemplatePopUpStyles';
 
 function TemplatePopUp(props) {
+  const { deleteConfirmationText, deleteConfirmationBody } = TemplatePopUpStyles();
 
   function onToggleDeleteDialouge(flag) {
     props.onToggleDeleteDialouge(flag)
@@ -18,35 +20,40 @@ function TemplatePopUp(props) {
     }
     props.onToggleDeleteDialouge(false)
   }
-  return (
-    <div>
-      <Dialog title={props.popUpHeading} onClose={() => onToggleDeleteDialouge(false)} className="editTagTemplate-dialog">
-        <form>
-          <div>
-            <label>
-              <div className="confirmation_delete"><span>{props.confirmText}</span></div>
-            </label>
-          </div>
 
-          <div className="dialog-but">
-            <Button
-              name={props.okText}
-              styles="eButtonPrimary"
-              style={{ backgroundColor: "#152c73", color: "white" }}
-              onClick={(e) => deleteTagTemplate(e)}
-              id="Delete_template"
-            />
-            <Button
-              name={props.noText}
-              styles="eButtonPrimary"
-              style={{ backgroundColor: "#152c73", color: "white" }}
-              onClick={() => onToggleDeleteDialouge(false)}
-              id="Cancel_Delete_Template"
-            />
-          </div>
-        </form>
-      </Dialog>
-    </div>
+  const createRemoveTemplateButtons = () => {
+    return (
+      <div className="dialog-but">
+        <Button
+          name={props.okText}
+          styles="eButtonPrimary"
+          onClick={(e) => deleteTagTemplate(e)}
+          id="Delete_template"
+        />
+        <Button
+          name={props.noText}
+          styles="eButtonPrimary"
+          onClick={() => onToggleDeleteDialouge(false)}
+          id="Cancel_Delete_Template"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <ConfirmModal
+      isModalOpen={true}
+      title={props.popUpHeading}
+      fullWidth
+      hideCancel
+      onClose={() => onToggleDeleteDialouge(false)}
+      footerComponent={createRemoveTemplateButtons()}
+      className="editTagTemplate-dialog"
+    >
+      <div className={deleteConfirmationBody}>
+        <div className="confirmation_delete"><span className={deleteConfirmationText}>{props.confirmText}</span></div>
+      </div>
+    </ConfirmModal>
   )
 }
 const mapStateToProps = (state) => ({

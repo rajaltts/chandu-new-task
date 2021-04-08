@@ -87,6 +87,12 @@ const ConfigDrivenNumberField = (props) => {
         return formatValue(config, value);
     }
 
+    const handleNumberOnClick = (event) => {
+        if (onDoubleClick) {
+            event.stopPropagation();
+        }
+    }
+
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
@@ -113,6 +119,7 @@ const ConfigDrivenNumberField = (props) => {
                     onKeyUp={enterKeyPressHandler}
                     onChange={onChangeHandler}
                     onBlur={updateValue}
+                    onClick={handleNumberOnClick}
                 />
                 {!isValid && <span className="errorMsg">{validationmessage}</span>}
             </React.Fragment>

@@ -1,13 +1,17 @@
 import React from 'react';
-import { Dialog } from '@progress/kendo-react-dialogs';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { validateFormFields, isDuplicateTagTemplate } from '@carrier/workflowui-globalfunctions';
 import Button from '../Button';
+import TextField from '@material-ui/core/TextField';
+import RenameTemplatePopUpStyles from './RenameTemplatePopUpStyles';
 
 function RenameTemplatePopUp(props) {
   const [tagName, setTagName] = React.useState();
   const [tagValidationError, setTagValidationError] = React.useState();
   const tagNameRef = React.useRef();
+  const { tagNameContainer, tagNameLabel, tagNameField, errorBorder, nonErrorBorder, errorMsg, fieldDisabled } = RenameTemplatePopUpStyles();
+  const errorClass = tagValidationError ? errorBorder : nonErrorBorder;
 
   function onToggleEditDialouge() {
     setTagName("")
@@ -49,58 +53,85 @@ function RenameTemplatePopUp(props) {
       tagNameRef.current.focus();
     }
   }
+
+  const createRenameTemplateButtons = () => {
+    return (
+      <div className="dialog-but">
+        <Button
+          icon={faTimes}
+          name={props.cancelText}
+          styles="eButtonPrimary"
+          onClick={onToggleEditDialouge}
+          id="Cancel_Rename"
+        />
+        <Button
+          icon={faSave}
+          name={props.renameTemplateText}
+          styles="eButtonPrimary"
+          onClick={(e) => onUpdateTagTemplate(e)}
+          id="Rename_TagTemplate"
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {props.opendialouge && <Dialog title={props.title} onClose={onToggleEditDialouge} className="editTagTemplate-dialog">
-        <form className="">
-          <div className="">
-            <label className="">
-              <div className="editTagTemplate-dialog-dimensions"><span>{props.templateNameText}</span></div>
-              <div className="message textBoxwidth">
-                <input
-                  className="k-textbox form-control"
-                  name="tagName"
-                  value={tagName}
-                  onChange={handleChange}
-                  ref={tagNameRef}
-                />
-                <span className="errorMsg">{tagValidationError}</span>
-              </div>
-            </label>
-            <label className="">
-              <div className="editTagTemplate-dialog-dimensions"><span>{props.existingTemplateText}</span></div>
-              <div className="message textBoxwidth">
-                <input
-                  className="k-textbox form-control"
-                  name="tagName"
-                  value={props.item && props.item.TemplateName}
-                  onChange={handleChange}
-                  disabled
-                />
-              </div>
-            </label>
+      {props.opendialouge && <ConfirmModal
+        isModalOpen={true}
+        title={props.title}
+        fullWidth
+        hideCancel
+        onClose={onToggleEditDialouge}
+        footerComponent={createRenameTemplateButtons()}
+        className="editTagTemplate-dialog"
+      >
+        <div className={tagNameContainer}>
+          <div className={tagNameLabel}>
+            <span> {props.templateNameText}</span>
           </div>
-
-          <div className="dialog-but">
-            <Button
-              icon={faTimes}
-              name={props.cancelText}
-              styles="eButtonPrimary"
-              style={{ backgroundColor: "#152c73", color: "white" }}
-              onClick={onToggleEditDialouge}
-              id="Cancel_Rename"
+          <div className={tagNameField}>
+            <TextField
+              fullWidth
+              id="rename_tagtemplate"
+              value={tagName}
+              variant="outlined"
+              required={true}
+              InputProps={{
+                classes: {
+                  notchedOutline: errorClass,
+                }
+              }}
+              name="tagName"
+              margin={'dense'}
+              size={'small'}
+              onChange={handleChange}
+              ref={tagNameRef}
             />
-            <Button
-              icon={faSave}
-              name={props.renameTemplateText}
-              styles="eButtonPrimary"
-              style={{ backgroundColor: "#152c73", color: "white" }}
-              onClick={(e) => onUpdateTagTemplate(e)}
-              id="Rename_TagTemplate"
+            <span className={errorMsg}>{tagValidationError}</span>
+          </div>
+        </div>
+        <div className={tagNameContainer}>
+          <div className={tagNameLabel}>
+            <span>{props.existingTemplateText}</span>
+          </div>
+          <div className={tagNameField}>
+            <TextField
+              fullWidth
+              className={fieldDisabled}
+              id="rename_tagtemplate_disabled"
+              value={props.item && props.item.TemplateName}
+              variant="outlined"
+              required={true}
+              name="tagName"
+              margin={'dense'}
+              size={'small'}
+              onChange={handleChange}
+              disabled
             />
           </div>
-        </form>
-      </Dialog>}
+        </div>
+      </ConfirmModal>}
     </div>
   )
 }

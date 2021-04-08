@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import CustomGridHead from './CustomGridHead';
 import CustomGridPagination from './CustomGridPagination';
@@ -12,14 +13,17 @@ import translation from "../Translation";
 
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
-  const { selectedRows=[], rows=[], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
-          sortable, orderByfield, uniqueKey, rowCheckboxHandler, hidePagination, hideSearch, onSearch, isLoading,
-          gridClassName, singleSelectGrid=false, doNotTranslate=true, id='customGrid', sorting=ascending } = props;
+  const { selectedRows = [], rows = [], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
+    sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
+    gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
+    pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
+    rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}
+  } = props;
 
   const [order, setOrder] = useState(sorting);
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(pageNumber || 0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsToShowPerPage);
   const [initialRowData, setInitialRowData] = useState(rows);
   const [searchText, setSearchText] = useState('');
@@ -37,6 +41,23 @@ function CustomGrid(props) {
   useEffect(()=>{
     setSelected(selected.filter(item => rows.includes(item)))
   },[rows])
+  
+  useEffect(() => {
+    if (stateLessGrid) {
+      setRowsPerPage(rowsToShowPerPage);
+      setOrderBy(orderByfield);
+      setPage(pageNumber);
+      setOrder(sorting);
+    }
+  }, [rowsToShowPerPage, pageNumber, orderByfield, sorting])
+
+  useEffect(()=>{
+    gridStateHandler && gridStateHandler({order, orderBy, rowsPerPage, page})
+  },[order, orderBy, rowsPerPage, page])
+
+  useEffect(() => {
+    (pageNumber >= 0) && handleChangePage(pageNumber);
+  },[pageNumber])
 
   useEffect(() => {
     if (order !== sorting) {
@@ -76,6 +97,12 @@ function CustomGrid(props) {
       rowCheckboxHandler([row]);
     }
   };
+
+  const handleSelectOnClick = (event) => {
+    if(rowOnclickHandler){
+      event.stopPropagation();
+    }
+  }
 
   const handleMultiSelectClick = (checked, row, index) => {
     let newSelected = [...selected];
@@ -127,11 +154,16 @@ function CustomGrid(props) {
     return selected.some((item) => item[uniqueKey] === row[uniqueKey]);
   }
 
+  const getRowLength = () => {
+    return stateLessGrid ? totalPageCount : rows.length
+  }
+
   return (
     <div id={id} className="customGrid">
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
       <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
+          {showLinearProgress && <LinearProgress />}
           <div id={`${id}_table`}className={'tableWrapper'}>
             <Table stickyHeader className='table' size={"medium"} >
               <CustomGridHead
@@ -147,7 +179,7 @@ function CustomGrid(props) {
                 onRequestSort={handleRequestSort}
                 doNotTranslate={doNotTranslate}
               />
-              {!!rows.length &&
+              {!!(getRowLength()) &&
                 <CustomGridBody
                   isLoading={isLoading}
                   gridClassName={gridClassName}
@@ -158,15 +190,23 @@ function CustomGrid(props) {
                   orderBy={orderBy}
                   page={page}
                   rowsPerPage={rowsPerPage}
+                  rowOnclickHandler={rowOnclickHandler}
                   isSelected={isSelected}
                   handleClick={handleClick}
+                  handleSelectOnClick={handleSelectOnClick}
                   selectionType={singleSelectGrid}
                   config={config}
                   doNotTranslate={doNotTranslate}
+                  stateLessGrid={stateLessGrid}
+                  uniqueKey={uniqueKey}
+                  clickOnRowHighlight={clickOnRowHighlight}
+                  rowHighlightClassName={rowHighlightClassName}
+                  rowClassName={rowClassName}
+                  highlightedRowByDefault={highlightedRowByDefault}
                 />
               }
             </Table>
-            {!rows.length &&
+            {!(getRowLength()) &&
             <div className={`messageContainer${!gridClassName ? ' messageContainerDefaultHeight' : ''}`}>
               {(isLoading) ?
                 <CircularProgress />
@@ -185,7 +225,7 @@ function CustomGrid(props) {
               rowsPerPageOptions={rowsPerPageOptions}
               isAllPaginationSelected={isAllPaginationSelected}
               component="div"
-              rowsLength={rows.length}
+              rowsLength={getRowLength()}
               rowsPerPage={rowsPerPage}
               page={page}
               searchText={searchText}
