@@ -37,6 +37,10 @@
     z-index: 9999999 !important;
 }
 
+.MuiDialog-paperScrollPaper{
+    max-height: calc(100% - 162px) !important;
+}
+
 .customModalDialogFooter {
     display: inline-flex;
     justify-content: flex-end;
