@@ -11,7 +11,7 @@ import {IntlProvider} from 'react-intl'
 import {Provider, useStore} from 'react-redux'
 
 const JSReportContainer = (props) => {
-    const {intl, config, title, open} = props
+    const {intl, config, title, isOpen, isDownloadable} = props
     const [reportCurrentPreviewIndex, setReportCurrentPreviewIndex] = useState(0)
     const [pageList, setPageList] = useState([])
     const [isLoading, setLoading] = useState(false)
@@ -119,7 +119,7 @@ const JSReportContainer = (props) => {
         // To develop
     }
 
-    if (open) {
+    if (isOpen) {
         return (
             <div className='js-report'>
                 <div className='report-back'>
@@ -161,7 +161,7 @@ const JSReportContainer = (props) => {
                                     )}
 
                                     <div className='report-top-actions-download-container'>
-                                        {isLoading ? (
+                                        {!isDownloadable || isLoading ? (
                                             <ClipLoader sizeUnit={'px'} size={10} color='#FFFFFF' loading={isLoading} />
                                         ) : (
                                             <div className='report-top-action-download-icons-container'>
