@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions';
@@ -8,12 +8,26 @@ import '../formBuilder.css'
 import { inputStyles } from '../formBuilderStyles';
 
 const ConfigDrivenTextBoxField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
-    const { className = null, onClick = null, onDoubleClick = null, isEditable = false, validations = {} } = config;
+    const { rowData = {}, rowIndex, config = {}, value = '', doNotTranslate } = props;
+    const { className = null, onClick = null, onDoubleClick = null, isEditable = false, validations = {}, validationsOnLoading = false} = config;
     const [isValid, setIsValid] = useState(true);
     const [editable, setEditable] = useState(false);
     const [editedValue, setEditedValue] = useState(false);
+    const validateValue = () => {
+        if(validationsOnLoading && validations.validation){
+            const message = validations.validation(value);
+            if (message) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     const getFieldTitle = () => {
+        if(isInValidName){
+            return doNotTranslate ? "Special characters ',\",<,>,#,&,\\,/ are not allowed." : translation("SpecialCharactersNotAllowedTagName", "Special characters ',\",<,>,#,&,\\,/ are not allowed.");
+        }
         if (onClick) {
             return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
         }
@@ -22,13 +36,25 @@ const ConfigDrivenTextBoxField = (props) => {
         }
         return '';
     }
+    const [isInValidName, setisInValidName] = useState(validateValue());
     const [title, setTitle] = useState(getFieldTitle());
     const [validationmessage, setValidationMessage] = useState({ width: '100%' });
     const [containerWidth, setContainerWidth] = useState({ width: '100%' });
     const { InputRoot } = inputStyles(containerWidth);
     const ref1 = useRef(null);
 
-    const onClickHandler = () => {
+    useEffect(() => {
+        setTitle(getFieldTitle());
+    }, [isInValidName]);
+
+    useEffect(() => {
+        const isValid = validateValue();
+        if (isValid !== isInValidName) {
+            setisInValidName(isValid)
+        }
+    }, [value]);
+
+      const onClickHandler = () => {
         if (onClick) {
             setTextBoxField();
         }
@@ -92,7 +118,7 @@ const ConfigDrivenTextBoxField = (props) => {
         }
     }
 
-    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  onClick ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
         return getFormatedValue();
