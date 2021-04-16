@@ -20,3 +20,8 @@
     color: #152c73;
 }
 
+.formBuilderInvalid {
+    cursor: default;
+    color: red;
+}
+

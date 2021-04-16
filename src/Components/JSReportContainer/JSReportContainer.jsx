@@ -11,12 +11,12 @@ import {IntlProvider} from 'react-intl'
 import {Provider, useStore} from 'react-redux'
 
 const JSReportContainer = (props) => {
-    const {intl, config, title, open} = props
+    const {intl, config, title, isOpen, isDownloadable} = props
     const [reportCurrentPreviewIndex, setReportCurrentPreviewIndex] = useState(0)
     const [pageList, setPageList] = useState([])
     const [isLoading, setLoading] = useState(false)
     const [scrollBarWidth, setScrollBarWidth] = useState(0)
-    
+
     const clickRef = useRef()
     const store = useStore()
 
@@ -119,79 +119,79 @@ const JSReportContainer = (props) => {
         // To develop
     }
 
-    if (open) {
+    if (isOpen) {
         return (
             <div className='js-report'>
                 <div className='report-back'>
                     <div className='report-toolbar-container' ref={clickRef}>
                         <Slide in={true}>
-                            <div className='report-top-action-container'>
-                                <span className='report-top-action-container-title'>{title}</span>
-                                <div className='report-top-action'>
-                                    {reportCurrentPreviewIndex > 0 ? (
-                                        <FontAwesomeIcon
-                                            className='report-top-action-icons'
-                                            icon={faChevronLeft}
-                                            color='#FFFFFF'
-                                            onClick={() => {
-                                                setReportCurrentPreviewIndex(reportCurrentPreviewIndex - 1)
-                                            }}
-                                        />
-                                    ) : (
-                                        <FontAwesomeIcon className='report-top-action-icons-disabled' icon={faChevronLeft} color='#FFFFFF' />
-                                    )}
-
-                                    <span className='report-top-action-page-index-container'>
-                                        <span className='report-top-actions-container-title'>Page</span>
-                                        <span className='report-top-action-page-index-value'>
-                                            <b>{reportCurrentPreviewIndex + 1} </b>/ {pageList.length}
-                                        </span>
-                                    </span>
-                                    {reportCurrentPreviewIndex >= 0 && reportCurrentPreviewIndex < pageList.length - 1 ? (
-                                        <FontAwesomeIcon
-                                            className='report-top-action-icons'
-                                            icon={faChevronRight}
-                                            color='#FFFFFF'
-                                            onClick={() => {
-                                                setReportCurrentPreviewIndex(reportCurrentPreviewIndex + 1)
-                                            }}
-                                        />
-                                    ) : (
-                                        <FontAwesomeIcon className='report-top-action-icons-disabled' icon={faChevronRight} color='#FFFFFF' />
-                                    )}
-
-                                    <div className='report-top-actions-download-container'>
-                                        {isLoading ? (
-                                            <ClipLoader sizeUnit={'px'} size={10} color='#FFFFFF' loading={isLoading} />
+                            <div className='top-action-container'>
+                                <div className='items-container'>
+                                    <div className='title-container'>{title}</div>
+                                    <div className='navigation-container'>
+                                        {reportCurrentPreviewIndex > 0 ? (
+                                            <FontAwesomeIcon
+                                                className='action-icons'
+                                                icon={faChevronLeft}
+                                                color='#FFFFFF'
+                                                onClick={() => {
+                                                    setReportCurrentPreviewIndex(reportCurrentPreviewIndex - 1)
+                                                }}
+                                            />
                                         ) : (
-                                            <div className='report-top-action-download-icons-container'>
-                                                <FontAwesomeIcon
-                                                    className='report-top-action-icons'
-                                                    icon={faFilePdf}
-                                                    color='#FFFFFF'
-                                                    onClick={downloadPDF}
-                                                />
-                                                <FontAwesomeIcon
-                                                    className='report-top-action-icons'
-                                                    icon={faFileWord}
-                                                    color='#FFFFFF'
-                                                    onClick={downloadWord}
-                                                />
+                                            <FontAwesomeIcon className='action-icons disabled' icon={faChevronLeft} color='#FFFFFF' />
+                                        )}
+
+                                        <span className='page-index-container'>
+                                            <span className='page-title'>Page</span>
+                                            <span className='page-index-value'>
+                                                <b>{reportCurrentPreviewIndex + 1} </b>/ {pageList.length}
+                                            </span>
+                                        </span>
+                                        {reportCurrentPreviewIndex >= 0 && reportCurrentPreviewIndex < pageList.length - 1 ? (
+                                            <FontAwesomeIcon
+                                                className='action-icons'
+                                                icon={faChevronRight}
+                                                color='#FFFFFF'
+                                                onClick={() => {
+                                                    setReportCurrentPreviewIndex(reportCurrentPreviewIndex + 1)
+                                                }}
+                                            />
+                                        ) : (
+                                            <FontAwesomeIcon className='action-icons disabled' icon={faChevronRight} color='#FFFFFF' />
+                                        )}
+                                    </div>
+                                    <div className='download-container'>
+                                        {!isDownloadable || isLoading ? (
+                                            <>
+                                                <div className='download-icons-container'>
+                                                    <FontAwesomeIcon className='action-icons disable' icon={faFilePdf} color='#FFFFFF' />
+                                                    <FontAwesomeIcon className='action-icons disable' icon={faFileWord} color='#FFFFFF' />
+                                                </div>
+                                                <div className={`download-status-container`}>
+                                                    <div className='loading-status-message'>{!isDownloadable ? 'Loading data...' : isLoading ? 'Downloading report...' : ''}</div>
+                                                    <ClipLoader sizeUnit={'px'} size={10} color='#FFFFFF' loading />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className='download-icons-container'>
+                                                <FontAwesomeIcon className='action-icons' icon={faFilePdf} color='#FFFFFF' onClick={downloadPDF} />
+                                                <FontAwesomeIcon className='action-icons' icon={faFileWord} color='#FFFFFF' onClick={downloadWord} />
                                             </div>
                                         )}
                                     </div>
                                 </div>
                             </div>
                         </Slide>
-                        <Grow in={true}>
-                            <div className='report-popup'>
-                                {cloneElement(props.children, {
-                                    reportCurrentPreviewIndex: reportCurrentPreviewIndex,
-                                    updateList: (data) => setPageList(data),
-                                })}
-                            </div>
-                        </Grow>
                     </div>
+                    <Grow in={true}>
+                        <div className='report-popup'>
+                            {cloneElement(props.children, {
+                                reportCurrentPreviewIndex: reportCurrentPreviewIndex,
+                                updateList: (data) => setPageList(data),
+                            })}
+                        </div>
+                    </Grow>
                 </div>
             </div>
         )
