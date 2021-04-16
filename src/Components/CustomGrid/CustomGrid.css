@@ -183,3 +183,7 @@
     .customGrid .tableWrapper .rowHighlight {
         background-color: rgba(25, 118, 210, 0.12) !important;
     }
+
+    .customGrid .defaultCursor {
+        cursor: default !important;
+    }

@@ -88,6 +88,7 @@ const CustomGridHead = (props) => {
                       direction={orderBy === cell.name ? order : ascending}
                       onClick={null}
                       hideSortIcon
+                      className="defaultCursor"
                   >
                     {showHeader(cell)}
                   </TableSortLabel>
