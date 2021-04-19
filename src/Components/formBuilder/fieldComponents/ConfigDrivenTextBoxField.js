@@ -83,6 +83,7 @@ const ConfigDrivenTextBoxField = (props) => {
 
     const checkValidation = () => {
         if (editedValue === value) {
+            setIsValid(true);
             setEditable(false);
             return false;
         }
