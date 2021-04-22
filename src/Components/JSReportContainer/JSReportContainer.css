@@ -1,6 +1,15 @@
 .js-report {
     width: 100%;
     height: 100%;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 }
 .js-report .report-back {
     position: fixed;
@@ -134,7 +143,7 @@
     width: 50%;
 }
 
-.js-report .download-status-container .loading-status-message{
+.js-report .download-status-container .loading-status-message {
     transition: all 1s ease-in-out;
 }
 
@@ -148,4 +157,12 @@
 .js-report .page-title {
     color: white;
     font-size: 11px;
+}
+
+#pdf-download-root.js-report * {
+    animation: none !important;
+}
+
+.js-report .fade-in {
+    animation: fadeIn 0.3s;
 }
