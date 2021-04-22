@@ -9,7 +9,7 @@ import AddProject from "../AddProject/addProject";
 const SaveTag = (props) => {
     const { isModalOpen = false, hideComponent = () => { }, customerNameList = [], projectDataList = [],
         projectName = {}, customerName = {}, tagName = {}, contactName = {}, contactEmail = {},
-        contactNumber = {}, saveTagData, existingProjectValidation, errorMsg } = props;
+        contactNumber = {}, saveTagData, existingProjectValidation, errorMsg = '' } = props;
     const [selectedTab, setSelectedTab] = useState(0);
     const [menuList, setMenuList] = useState(customerNameList);
     const [exisitingProjectData, setExisitingProjectData] = useState({});
@@ -19,10 +19,13 @@ const SaveTag = (props) => {
         { tabName: translation("ExistingProject", "Existing Project") },
         { tabName: translation("NewProject", "New Project") }
     ];
-
+    const [errorMessage, setErrorMessage] = useState(errorMsg);
     useEffect(() => {
         setMenuList(customerNameList);
     }, [customerNameList]);
+    useEffect(() => {
+        setErrorMessage(errorMsg);
+    }, [errorMsg]);
 
     const createActionsButton = (disableSave) => {
         return [
@@ -73,6 +76,10 @@ const SaveTag = (props) => {
     }
 
     const handleTabChange = (event, value) => {
+        if(value == 0)
+        {
+            setErrorMessage('')
+        }
         setSelectedTab(value);
         reseTabContent();
     }
@@ -113,7 +120,7 @@ const SaveTag = (props) => {
             hideCancel={false}
             actionButtonList={createActionsButton(disableSave)}
             fullWidth
-            errorMsg={errorMsg}
+            errorMsg={errorMessage}
         >
             <TabsBuilder
                 tabs={tabs}
