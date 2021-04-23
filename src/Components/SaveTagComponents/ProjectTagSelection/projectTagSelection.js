@@ -168,6 +168,7 @@ const ProjectTagSelection = (props) => {
                         {displayProjectNames.map(item => {
                             return (
                                 <FormControlLabel
+                                    key={item.ProjectID}
                                     id={item.ProjectID}
                                     value={item.ProjectName}
                                     classes={{

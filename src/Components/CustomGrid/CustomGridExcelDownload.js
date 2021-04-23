@@ -14,7 +14,7 @@ const CustomGridExcelDownload = (props) => {
                 {headCells.map((head) => {
                     const configItem = config[head.name] || {};
                     const lookUpKey = configItem.lookUpKey || head.name;                    
-                    return <ExcelColumn label={head.name} value={lookUpKey}/>
+                    return <ExcelColumn key={head.name} label={head.name} value={lookUpKey}/>
                 })}
             </ExcelSheet>
         </ExcelFile>

@@ -1,4 +1,5 @@
 import React from 'react';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,10 +10,17 @@ import { IconButton } from '@material-ui/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './ConfirmModal.css';
 
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		maxHeight: '90vh',
+	},
+}));
+
 const ConfirmModal = (props) => {
     const { contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
         modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "", fullWidth = false, fullScreen = false,
         footerComponent = null, hideHeader = false } = props;
+	const classes = useStyles()
     const cancelText = translation("Cancel");
 
     const onCancelButtonClick = () => {
@@ -35,7 +43,7 @@ const ConfirmModal = (props) => {
             onClose={onClose}
             maxWidth={modalWidth}
             scroll="paper"
-            classes={{ paper: { maxHeight: "90vh" } }}
+			classes={{ paper: classes.paper }}
             disableBackdropClick
             fullWidth={fullWidth}
             fullScreen={fullScreen}
@@ -71,6 +79,7 @@ const ConfirmModal = (props) => {
                             {(actionButtonList.length > 0) &&
                                 actionButtonList.map(actionButton => {
                                     return <Button
+                                        key={actionButton.id}
                                         id={actionButton.id}
                                         name={actionButton.name}
                                         icon={actionButton.icon}

@@ -137,15 +137,16 @@ function CustomGridBody(props) {
                       const configItem = config[head.name] || {};
                       const lookUpKey = configItem.lookUpKey || head.name;
                       return (
-                        <TableCell align={row.textAlign || "left"} className={row.className || ""}>
-                          <FormBuilderField
-                            doNotTranslate={doNotTranslate}
-                            rowData={row}
-                            rowIndex={index}
-                            config={configItem}
-                            value={getValueForDynamicKey(row, lookUpKey)}/>
-                        </TableCell>
-                      );
+                          <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || ''}>
+                              <FormBuilderField
+                                  doNotTranslate={doNotTranslate}
+                                  rowData={row}
+                                  rowIndex={index}
+                                  config={configItem}
+                                  value={getValueForDynamicKey(row, lookUpKey)}
+                              />
+                          </TableCell>
+                      )
                 })}
               </TableRow>
             );
