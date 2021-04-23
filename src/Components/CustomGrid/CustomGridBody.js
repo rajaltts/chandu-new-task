@@ -137,7 +137,7 @@ function CustomGridBody(props) {
                       const configItem = config[head.name] || {};
                       const lookUpKey = configItem.lookUpKey || head.name;
                       return (
-                        <TableCell align="left" className={row.className || ""}>
+                        <TableCell align={row.textAlign || "left"} className={row.className || ""}>
                           <FormBuilderField
                             doNotTranslate={doNotTranslate}
                             rowData={row}

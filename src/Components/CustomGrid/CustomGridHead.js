@@ -17,20 +17,21 @@ const CustomGridHead = (props) => {
     };
 
     const showHeader = (cell) => {
+      const { displayName, name, subHeader, showCheckbox} = cell
       return (
         <div className="headerColumn">
             <span>
-              {cell.displayName || cell.name}
-              {cell.showCheckbox &&
+              {displayName || name}
+              {showCheckbox &&
                 <Checkbox
-                  id={`${cell.name}_checkbox`}
+                  id={`${name}_checkbox`}
                   color='primary'
                   onChange={(event) => {cell.onChange && cell.onChange(event.target.checked, cell)}}
                   inputProps={{ 'aria-label': 'select this column' }}
                 />
               }
             </span>
-            <span className="headerColumnSubTitle" >{cell.subHeader}</span>
+            {subHeader && <span className="headerColumnSubTitle" >{subHeader}</span>}
         </div>
       );
     }
@@ -56,45 +57,48 @@ const CustomGridHead = (props) => {
       <TableHead className="tableHead">
         <TableRow>
           {showCheckbox && showCheckboxCell(singleSelectGrid)}
-          {headCellsData.map((cell) => (
-            <TableCell
-              key={cell.name}
-              align={"left"}
-              padding={"default"}
-              sortDirection={orderBy === cell.name ? order : false}
-              IconComponent={false}
-              className={cell.className}
-            >
-                {(sortable && !cell.disableSorting) ?
-                  <TableSortLabel
-                      active={orderBy === cell.name}
-                      direction={orderBy === cell.name ? order : ascending}
-                      onClick={createSortHandler(cell.name)}
-                      IconComponent={ArrowDropDownIcon}
-                  >
-                    {showHeader(cell)}
-                    
-                    {(orderBy === cell.name) ?
-                      <span className='visuallyHidden'>
-                          {order === descending ? "sorted descending" : "sorted ascending"}
-                      </span>
-                      :
-                      null
-                    }
-                  </TableSortLabel>
-                  :
-                  <TableSortLabel
-                      active={false}
-                      direction={orderBy === cell.name ? order : ascending}
-                      onClick={null}
-                      hideSortIcon
-                      className="defaultCursor"
-                  >
-                    {showHeader(cell)}
-                  </TableSortLabel>
-                }
-            </TableCell>
-          ))}
+          {headCellsData.map((cell) => {
+            const { name, disableSorting, className, textAlign } = cell
+            return (
+              <TableCell
+                key={name}
+                align={textAlign || "left"}
+                padding={"default"}
+                sortDirection={orderBy === name ? order : false}
+                IconComponent={false}
+                className={className}
+              >
+                  {(sortable && !disableSorting) ?
+                    <TableSortLabel
+                        active={orderBy === name}
+                        direction={orderBy === name ? order : ascending}
+                        onClick={createSortHandler(name)}
+                        IconComponent={ArrowDropDownIcon}
+                    >
+                      {showHeader(cell)}
+                      
+                      {(orderBy === name) ?
+                        <span className='visuallyHidden'>
+                            {order === descending ? "sorted descending" : "sorted ascending"}
+                        </span>
+                        :
+                        null
+                      }
+                    </TableSortLabel>
+                    :
+                    <TableSortLabel
+                        active={false}
+                        direction={orderBy === name ? order : ascending}
+                        onClick={null}
+                        hideSortIcon
+                        className="defaultCursor"
+                    >
+                      {showHeader(cell)}
+                    </TableSortLabel>
+                  }
+              </TableCell>
+            )}
+          )}
         </TableRow>
       </TableHead>
     );
