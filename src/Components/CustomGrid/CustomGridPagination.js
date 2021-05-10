@@ -1,7 +1,7 @@
-import React from "react";
-import IconButton from '@material-ui/core/IconButton';
+import { faCaretLeft, faCaretRight, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight, faCaretLeft, faStepForward, faStepBackward } from '@fortawesome/free-solid-svg-icons';
+import IconButton from '@material-ui/core/IconButton';
+import React from "react";
 import translation from "../Translation";
 
 const CustomGridPagination = (props) => {
@@ -38,7 +38,14 @@ const CustomGridPagination = (props) => {
     } else {
       displayItem = doNotTranslate ? "Items" : translation("Items", "Items");
     }
-    return doNotTranslate ? `Displaying  ${from}-${to === -1 ? rowsLength : to} of ${rowsLength} ${displayItem}` : translation("DisplayingItems", "Displaying", {From: from, To: to, Length: rowsLength, Display: displayItem});
+    const text = () => {
+      return (
+        <span>
+          Displaying  <b>{from}-{to === -1 ? rowsLength : to}</b> of <b>{rowsLength}</b> {displayItem}
+        </span>
+      )
+    }
+    return doNotTranslate ? text : translation("DisplayingItems", "Displaying", {From: from, To: to, Length: rowsLength, Display: displayItem});
   };
 
   const showRowsSelectionOptions = () => {
