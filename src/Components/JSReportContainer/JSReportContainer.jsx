@@ -112,7 +112,7 @@ const JSReportContainer = (props) => {
                     />
                   ) : (
                     <FontAwesomeIcon
-                      className="action-icons disabled"
+                      className="action-icons disable"
                       icon={faChevronLeft}
                       color="#FFFFFF"
                     />
@@ -138,7 +138,7 @@ const JSReportContainer = (props) => {
                     />
                   ) : (
                     <FontAwesomeIcon
-                      className="action-icons disabled"
+                      className="action-icons disable"
                       icon={faChevronRight}
                       color="#FFFFFF"
                     />
