@@ -45,7 +45,7 @@ const CustomGridPagination = (props) => {
         </span>
       )
     }
-    return doNotTranslate ? text : translation("DisplayingItems", "Displaying", {From: from, To: to, Length: rowsLength, Display: displayItem});
+    return doNotTranslate ? text() : translation("DisplayingItems", "Displaying", {From: from, To: to, Length: rowsLength, Display: displayItem});
   };
 
   const showRowsSelectionOptions = () => {
