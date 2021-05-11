@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactDOM from "react-dom";
 import FileSaver from "file-saver";
 import { IntlProvider } from "react-intl";
