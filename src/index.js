@@ -52,6 +52,7 @@ import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp'
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
 import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
+import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 
 export {
     CheckboxWithDropDown,
@@ -104,5 +105,6 @@ export {
     AutoComplete,
     AddProject,
     SaveTag,
-    JSReportContainer
+    JSReportContainer,
+    pdfDownload
 }
