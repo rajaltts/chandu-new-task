@@ -10,6 +10,7 @@ import CustomGridBody from './CustomGridBody';
 import CustomGridSearch from './CustomGridSearch';
 import './CustomGrid.css';
 import translation from "../Translation";
+import ColumnPicker from "./columnPicker/ColumnPicker";
 
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
@@ -17,10 +18,12 @@ function CustomGrid(props) {
     sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
     pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
-    rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}
+    rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}, columnPicker = false, saveColumnHandler,
+    maxColumnLimit
   } = props;
 
   const [order, setOrder] = useState(sorting);
+  const [columnPickerFilterError, setColumnPickerFilterError] = useState("");
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
   const [page, setPage] = useState(pageNumber || 0);
@@ -158,16 +161,28 @@ function CustomGrid(props) {
     return stateLessGrid ? totalPageCount : rows.length
   }
 
+  const saveColumnPickerFilterError = (errorMessage) => setColumnPickerFilterError(errorMessage);
+
   return (
     <div id={id} className="customGrid">
       {!hideSearch && <CustomGridSearch onSearch={onSearchHandler}/>}
       <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
         <Paper className='paper'>
+          {columnPicker &&
+            <ColumnPicker
+              headCells={headCells}
+              saveColumnHandler={saveColumnHandler}
+              maxColumnLimit={maxColumnLimit || headCells.length}
+              saveColumnPickerFilterError={saveColumnPickerFilterError}
+              columnPickerFilterError={columnPickerFilterError}
+            />
+          }
           {showLinearProgress && <LinearProgress />}
           <div id={`${id}_table`}className={'tableWrapper'}>
             <Table stickyHeader className='table' size={"medium"} >
               <CustomGridHead
                 headCells={headCells}
+                columnPicker={columnPicker}
                 order={order}
                 orderBy={orderBy}
                 sortable={sortable}
@@ -178,12 +193,14 @@ function CustomGrid(props) {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 doNotTranslate={doNotTranslate}
+                columnPickerFilterError={columnPickerFilterError}
               />
               {!!(getRowLength()) &&
                 <CustomGridBody
                   isLoading={isLoading}
                   gridClassName={gridClassName}
                   headCells={headCells}
+                  columnPicker={columnPicker}
                   showCheckbox={showCheckbox}
                   rows={rows}
                   order={order}
@@ -203,6 +220,7 @@ function CustomGrid(props) {
                   rowHighlightClassName={rowHighlightClassName}
                   rowClassName={rowClassName}
                   highlightedRowByDefault={highlightedRowByDefault}
+                  columnPickerFilterError={columnPickerFilterError}
                 />
               }
             </Table>

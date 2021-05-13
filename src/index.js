@@ -44,6 +44,7 @@ import FormBuilderField from './Components/formBuilder/FormBuilderField';
 import ConfigDrivenUrlField from './Components/formBuilder/fieldComponents/ConfigDrivenUrlField';
 import CustomDropdown from './Components/CustomDropdown/CustomDropdown';
 import CustomLoader from './Components/CustomLoader/CustomLoader';
+import Search from './Components/Search/Search';
 import ConfirmModal from './Components/ConfirmModal/ConfirmModal';
 import CustomNotification from './Components/CustomNotification/CustomNotification';
 import NavigationBar from './Components/Navigation/NavigationBar';
@@ -106,5 +107,6 @@ export {
     AddProject,
     SaveTag,
     JSReportContainer,
+    Search,
     pdfDownload
 }
