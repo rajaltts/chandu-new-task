@@ -24,6 +24,9 @@ const SaveTag = (props) => {
         setMenuList(customerNameList);
     }, [customerNameList]);
     useEffect(() => {
+        if(errorMsg && disableSave){
+            setDisableSave(false); 
+        }
         setErrorMessage(errorMsg);
     }, [errorMsg]);
 
@@ -67,6 +70,7 @@ const SaveTag = (props) => {
 
     const saveTagDataHandler = () => {
         if (saveTagData) {
+            setDisableSave(true);
             saveTagData({
                 exisitingProjectData,
                 newProjectData,
