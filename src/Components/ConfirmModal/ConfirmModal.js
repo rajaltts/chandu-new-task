@@ -12,7 +12,7 @@ import './ConfirmModal.css';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		maxHeight: '90vh',
+		maxHeight: '90vh !important',
 	},
 }));
 
