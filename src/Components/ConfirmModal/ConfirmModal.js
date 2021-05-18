@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ConfirmModal = (props) => {
-    const { contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
+    const { dialogClassName={}, contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
         modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "", fullWidth = false, fullScreen = false,
         footerComponent = null, hideHeader = false } = props;
 	const classes = useStyles()
@@ -43,7 +43,7 @@ const ConfirmModal = (props) => {
             onClose={onClose}
             maxWidth={modalWidth}
             scroll="paper"
-			classes={{ paper: classes.paper }}
+			classes={{ paper: classes.paper, paperScrollPaper: dialogClassName }}
             disableBackdropClick
             fullWidth={fullWidth}
             fullScreen={fullScreen}

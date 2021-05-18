@@ -1,5 +1,3 @@
-    
-import uglify from 'rollup-plugin-uglify'
 import babel from 'rollup-plugin-babel'
 import image from 'rollup-plugin-image';
 import postcss from 'rollup-plugin-postcss'
