@@ -52,7 +52,7 @@ const ConfirmModal = (props) => {
                 <span className="customModalTitle">{title}</span>
                 {!disableCloseIcon && (
                     <IconButton className="customModalClose" onClick={onCancelButtonClick}>
-                        <CloseIcon className="customModalCloseIcon" titleAccess='close' />
+                        <CloseIcon className="customModalCloseIcon" titleAccess={translation("close")} />
                     </IconButton>
                 )}
             </div>}
