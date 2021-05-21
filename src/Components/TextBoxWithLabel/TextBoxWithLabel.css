@@ -114,6 +114,7 @@
     color: #aaaaaa;
     margin-top: 0;
     line-height: 25px;
+    display: inline-block;
 }
 
 .TBWLAI-CheckBox {

@@ -9,74 +9,81 @@ import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import './CustomGrid.css';
 
 const CustomGridHead = (props) => {
-    const { ascending, descending } = sortingOrder;
-    const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox, singleSelectGrid, rowCount, numSelected } = props;
+  const { ascending, descending } = sortingOrder;
+  const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox,
+    singleSelectGrid, rowCount, numSelected, columnPicker, columnPickerFilterError } = props;
 
-    const createSortHandler = property => event => {
-      onRequestSort(event, property);
-    };
+  const createSortHandler = property => event => {
+    onRequestSort(event, property);
+  };
 
-    const showHeader = (cell) => {
-      return (
-        <div className="headerColumn">
-            <span>
-              {cell.displayName || cell.name}
-              {cell.showCheckbox &&
-                <Checkbox
-                  id={`${cell.name}_checkbox`}
-                  color='primary'
-                  onChange={(event) => {cell.onChange && cell.onChange(event.target.checked, cell)}}
-                  inputProps={{ 'aria-label': 'select this column' }}
-                />
-              }
-            </span>
-            <span className="headerColumnSubTitle" >{cell.subHeader}</span>
-        </div>
-      );
-    }
-
-    const showCheckboxCell = (singleSelectGrid) => {
-      return (
-        <TableCell padding="checkbox">
-          { (!singleSelectGrid) && 
+  const showHeader = (cell) => {
+    const { displayName, name, subHeader, showCheckbox } = cell
+    return (
+      <div className="headerColumn">
+        <span>
+          {displayName || name}
+          {showCheckbox &&
             <Checkbox
-              id="selectAllRowsCustomGrid"
+              id={`${name}_checkbox`}
               color='primary'
-              checked={rowCount > 0 && numSelected === rowCount}
-              onChange={onSelectAllClick}
-              inputProps={{ 'aria-label': 'select all rows' }}
+              onChange={(event) => { cell.onChange && cell.onChange(event.target.checked, cell) }}
+              inputProps={{ 'aria-label': 'select this column' }}
             />
           }
-        </TableCell>
-      );
-    }
-  
-    const headCellsData = headCells.length ? headCells : [{name: ''}];
+        </span>
+        {subHeader && <span className="headerColumnSubTitle" >{subHeader}</span>}
+      </div>
+    );
+  }
+
+  const showCheckboxCell = (singleSelectGrid) => {
     return (
-      <TableHead className="tableHead">
-        <TableRow>
-          {showCheckbox && showCheckboxCell(singleSelectGrid)}
-          {headCellsData.map((cell) => (
-            <TableCell
-              key={cell.name}
-              align={"left"}
-              padding={"default"}
-              sortDirection={orderBy === cell.name ? order : false}
-              IconComponent={false}
-              className={cell.className}
-            >
-                {(sortable && !cell.disableSorting) ?
+      <TableCell padding="checkbox">
+        { (!singleSelectGrid) &&
+          <Checkbox
+            id="selectAllRowsCustomGrid"
+            color='primary'
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{ 'aria-label': 'select all rows' }}
+          />
+        }
+      </TableCell>
+    );
+  }
+
+  const shouldDisplayHeader = (cell) => (columnPicker) ? ((cell.isSelected && !columnPickerFilterError) || false ) : true;
+
+  const headCellsData = headCells.length ? headCells : [{ name: '' }];
+  return (
+    <TableHead className="tableHead">
+      <TableRow>
+        {showCheckbox && showCheckboxCell(singleSelectGrid)}
+        {headCellsData.map((cell) => {
+          const { name, disableSorting, className, textAlign } = cell
+          return (
+            shouldDisplayHeader(cell) ?
+              <TableCell
+                key={name}
+                align={textAlign || "left"}
+                padding={"default"}
+                sortDirection={orderBy === name ? order : false}
+                IconComponent={false}
+                className={className}
+              >
+                {(sortable && !disableSorting) ?
                   <TableSortLabel
-                      active={orderBy === cell.name}
-                      direction={orderBy === cell.name ? order : ascending}
-                      onClick={createSortHandler(cell.name)}
-                      IconComponent={ArrowDropDownIcon}
+                    active={orderBy === name}
+                    direction={orderBy === name ? order : ascending}
+                    onClick={createSortHandler(name)}
+                    IconComponent={ArrowDropDownIcon}
                   >
                     {showHeader(cell)}
-                    
-                    {(orderBy === cell.name) ?
+
+                    {(orderBy === name) ?
                       <span className='visuallyHidden'>
-                          {order === descending ? "sorted descending" : "sorted ascending"}
+                        {order === descending ? "sorted descending" : "sorted ascending"}
                       </span>
                       :
                       null
@@ -84,19 +91,24 @@ const CustomGridHead = (props) => {
                   </TableSortLabel>
                   :
                   <TableSortLabel
-                      active={false}
-                      direction={orderBy === cell.name ? order : ascending}
-                      onClick={null}
-                      hideSortIcon
+                    active={false}
+                    direction={orderBy === name ? order : ascending}
+                    onClick={null}
+                    hideSortIcon
+                    className="defaultCursor"
                   >
                     {showHeader(cell)}
                   </TableSortLabel>
                 }
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-    );
-  }
+              </TableCell>
+              :
+              null
+          )
+        }
+        )}
+      </TableRow>
+    </TableHead>
+  );
+}
 
 export default CustomGridHead;

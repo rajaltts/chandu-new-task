@@ -24,6 +24,7 @@ const TabsBuilder = (props) => {
                 variant="scrollable">
                     { tabs.map((tab, index) => 
                         <Tab
+                            key={tab.tabName}
                             className={selectedTab === index ? tabsSelected : tabsNotSelected}
                             disableRipple
                             label={tab.tabName}

@@ -44,6 +44,7 @@ import FormBuilderField from './Components/formBuilder/FormBuilderField';
 import ConfigDrivenUrlField from './Components/formBuilder/fieldComponents/ConfigDrivenUrlField';
 import CustomDropdown from './Components/CustomDropdown/CustomDropdown';
 import CustomLoader from './Components/CustomLoader/CustomLoader';
+import Search from './Components/Search/Search';
 import ConfirmModal from './Components/ConfirmModal/ConfirmModal';
 import CustomNotification from './Components/CustomNotification/CustomNotification';
 import NavigationBar from './Components/Navigation/NavigationBar';
@@ -52,6 +53,7 @@ import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp'
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
 import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
+import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 
 export {
     CheckboxWithDropDown,
@@ -104,5 +106,7 @@ export {
     AutoComplete,
     AddProject,
     SaveTag,
-    JSReportContainer
+    JSReportContainer,
+    Search,
+    pdfDownload
 }

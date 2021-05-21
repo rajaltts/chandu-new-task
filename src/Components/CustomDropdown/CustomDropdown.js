@@ -2,10 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faSortDown, faTrashAlt, faEdit, faDownload } from '@fortawesome/free-solid-svg-icons'
 import { guid } from '@carrier/workflowui-globalfunctions';
+import customDropdownStyles from './CustomDropdownStyles';
+import classnames from 'classnames';
 
 function CustomDropdown(props) {
   const node = useRef();
   const [open, setOpen] = React.useState(false);
+  const { tagTemplateName } = customDropdownStyles();
 
   function onDropBtnClick() {
     props.onDropBtnClick(open, props.conceptTemplateType);
@@ -65,15 +68,16 @@ function CustomDropdown(props) {
         <FontAwesomeIcon icon={faSave} className="faCusLeft" />
         {props.HeadingName}
       </button>
-      <button className="Wbtn GroupBtn" onClick={onDropBtnClick}>
+      <button title={props.dropDownName} className={classnames('Wbtn', 'GroupBtn', props.conceptTemplate && tagTemplateName)} onClick={onDropBtnClick}>
         {props.dropDownName}
         <FontAwesomeIcon icon={faSortDown} />
       </button>
       {open ? <ul className="dropdownBox">
         {accordianId() && props.TemplateNames && props.tagTemplates ? props.tagTemplates.map((item) => {
+           const templateTitle = item.TagTemplateName || item.TemplateName || item.Attributes.Description;
           return (
             <li key={guid()}>
-              <span onClick={() => onClickOfDropdownMenu(item)}> {item.TagTemplateName || item.TemplateName || item.Attributes.Description} </span>
+              <span className={tagTemplateName} title={templateTitle} onClick={() => onClickOfDropdownMenu(item)}> {templateTitle} </span>
               {!item.defaultValues &&
                 <div>
                   <span
