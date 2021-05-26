@@ -38,7 +38,7 @@ const HorizontalCheckboxGroupWithImage = (props) => {
                             <img src={`/Images/${value.Attributes.Image}`} alt="icon"/>
                             {isLabel &&
                                 <span className="IWLCG-Label">
-                                    <input type="checkbox" onChange={handleChange} checked={ValueProp.AssignedValue === value.Value} />
+                                    <input type="checkbox" disabled={!Enabled} onChange={handleChange} checked={ValueProp.AssignedValue === value.Value} />
                                     {value.Attributes.Description}
                                 </span>
                             }

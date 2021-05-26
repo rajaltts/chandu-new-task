@@ -64,7 +64,7 @@ const saveTagStyles = makeStyles((theme) => ({
         fontSize: "14px"
     },
     radioRoot: {
-        padding: "0px 2px 1px 0px"
+        padding: "0px 2px 1px 0px !important"
     },
     radioSection: {
         display: "flex",

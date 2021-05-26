@@ -176,7 +176,7 @@ const ProjectTagSelection = (props) => {
                                         label: label
                                     }}
                                     control={<Radio
-                                        color="primary"
+                                        color={isRadioSelected(item.ProjectID) ? "primary" : "default"}
                                         disableRipple
                                         size={"small"}
                                         classes={{
