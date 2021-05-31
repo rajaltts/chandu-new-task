@@ -4,6 +4,7 @@ import { faSave, faSortDown, faTrashAlt, faEdit, faDownload } from '@fortawesome
 import { guid } from '@carrier/workflowui-globalfunctions';
 import customDropdownStyles from './CustomDropdownStyles';
 import classnames from 'classnames';
+import translation from "../Translation";
 
 function CustomDropdown(props) {
   const node = useRef();
@@ -108,7 +109,7 @@ function CustomDropdown(props) {
               }
             </li>
           )
-        }) : "Loading..."}
+        }) : translation("Loading","Loading...")}
       </ul> : null}
     </div>
   )
