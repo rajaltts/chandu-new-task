@@ -1,5 +1,5 @@
 .TBWLAI-container {
-    
+    display: grid;
     max-width: 300px;
     min-height: 30px;
 }
