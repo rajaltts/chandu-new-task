@@ -79,6 +79,11 @@ const saveTagStyles = makeStyles((theme) => ({
         alignItems: "center",
         minHeight: "100px",
         display: "flex",
+    },
+    verticalListItems: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
     }
 }));
 
