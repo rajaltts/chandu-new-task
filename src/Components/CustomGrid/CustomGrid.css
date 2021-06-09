@@ -30,10 +30,6 @@
     .customGrid .tableWrapper {
         overflow-x: auto;
         height: calc(100% - 42px)
-      }
-
-      .customGrid .table {
-        height: 100%;
     }
 
     .customGrid .MuiTableSortLabel-root:hover, .customGrid .MuiTableSortLabel-root:focus, .customGrid .MuiTableCell-head,
