@@ -7,11 +7,19 @@ const HorizontalRadioGroupWithImage = (props) => {
     
     const ErrorMsg = () => {
         let errFlag = false;
-        (ValueProp && ValueProp.Values)  &&
-            ValueProp.Values.forEach(value => {
-                (value.Attributes.VISIBLE === "TRUE") && (value.State === 1) ? errFlag = false : errFlag = true;
-            })
-        return errFlag
+        let errFlag = false;
+        for (let i = 0; i < ValueProp.Values.length; i++) {
+          if (
+            ValueProp.Values[i].Attributes.VISIBLE === "TRUE" &&
+            ValueProp.Values[i].State === 1
+          ) {
+            errFlag = false;
+            break;
+          } else {
+            errFlag = true;
+          }
+        }
+        return errFlag;
     }
 
     const handleChange = (value, index) => {
