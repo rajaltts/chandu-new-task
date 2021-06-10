@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ConfirmModal = (props) => {
-    const { contentClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel, hideActions, disableCloseIcon,
-        modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "", fullWidth = false, fullScreen = false,
-        footerComponent = null, hideHeader = false } = props;
+    const { dialogClassName=null, contentClassName, footerClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel,
+        hideActions, disableCloseIcon, modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "",
+        fullWidth = false, fullScreen = false, footerComponent = null, hideHeader = false } = props;
 	const classes = useStyles()
     const cancelText = translation("Cancel");
 
@@ -43,7 +43,7 @@ const ConfirmModal = (props) => {
             onClose={onClose}
             maxWidth={modalWidth}
             scroll="paper"
-			classes={{ paper: classes.paper }}
+			classes={{ paper: classes.paper, paperScrollPaper: dialogClassName }}
             disableBackdropClick
             fullWidth={fullWidth}
             fullScreen={fullScreen}
@@ -52,7 +52,7 @@ const ConfirmModal = (props) => {
                 <span className="customModalTitle">{title}</span>
                 {!disableCloseIcon && (
                     <IconButton className="customModalClose" onClick={onCancelButtonClick}>
-                        <CloseIcon className="customModalCloseIcon" titleAccess='close' />
+                        <CloseIcon className="customModalCloseIcon" titleAccess={translation("close")} />
                     </IconButton>
                 )}
             </div>}
@@ -60,7 +60,7 @@ const ConfirmModal = (props) => {
                 {children}
             </DialogContent>
             {!hideActions &&
-                <div className="customModalDialogFooter">
+                <div className={footerClassName || "customModalDialogFooter"}>
                     {errorMsg && <div className="customModalDialogError"> {errorMsg} </div>}
                     <DialogActions className="customModalActions">
                     {!footerComponent ?

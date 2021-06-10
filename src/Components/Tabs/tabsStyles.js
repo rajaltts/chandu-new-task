@@ -12,7 +12,7 @@ const tabsStyles = makeStyles((theme) => ({
     },
     tabsSelected: {
         backgroundColor: "#669900 !important",
-        color: "#fff",
+        color: "#fff !important",
         textTransform: "none !important"
     },
     tabsNotSelected: {

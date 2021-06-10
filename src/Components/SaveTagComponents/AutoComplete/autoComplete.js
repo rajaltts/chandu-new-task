@@ -14,7 +14,7 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 const AutoComplete = (props) => {
     const { menuList = [], isError = false, validateField, field, intl } = props;
     const { value = "", id, isDisabled, placeHolder, validation, defaultLabel } = field;
-    const { searchInput, searchInputRoot, popper, errorBorder, nonErrorBorder, paper, noDataAvailable } = saveTagStyles();
+    const { searchInput, searchInputRoot, popper, errorBorder, nonErrorBorder, paper, noDataAvailable, verticalListItems } = saveTagStyles();
     const [open, setOpen] = React.useState(false);
     const [textValue, setTextValue] = React.useState(value);
     const [autoCompleteList, setAutoCompleteList] = React.useState(menuList);
@@ -113,6 +113,7 @@ const AutoComplete = (props) => {
                                 <MenuList
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}
+                                    className={verticalListItems}
                                 >
                                     {
                                         renderMenuList(autoCompleteList.filter(menuList => (menuList.CustomerName.toLowerCase().search(value.toLowerCase()) >= 0)))
