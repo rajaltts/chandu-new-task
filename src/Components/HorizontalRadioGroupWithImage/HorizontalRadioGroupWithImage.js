@@ -79,10 +79,7 @@ const HorizontalRadioGroupWithImage = (props) => {
             })
           : null}
       </div>
-      {ValueProp &&
-        ValueProp.AssignedValue === "NONE" &&
-        !ErrorMsg() &&
-        isRequired && (
+      {ValueProp && ValueProp.AssignedValue === "NONE" && !ErrorMsg() && isRequired && (
           <div style={{ color: "red" }}>This Field is required</div>
         )}
     </Fragment>
