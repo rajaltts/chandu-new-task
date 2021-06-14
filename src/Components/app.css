@@ -21,4 +21,8 @@ input[type=checkbox].checkbox-error-css:checked:before {
     color: red !important;
 }
 
+.ngrc-notAllowed {
+    color: #cc0000;
+}
+
 /* end of css for check box css */
