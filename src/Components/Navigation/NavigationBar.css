@@ -1,8 +1,0 @@
-.App-Breadcrumbs ol li a {
-    text-decoration: none;
-    color: rgb(21, 44, 115);
-}
-.App-Breadcrumbs ol li a:hover {
-        text-decoration: underline;
-        color: #2041ac;
-    }

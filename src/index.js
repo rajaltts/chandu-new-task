@@ -47,7 +47,6 @@ import CustomLoader from './Components/CustomLoader/CustomLoader';
 import Search from './Components/Search/Search';
 import ConfirmModal from './Components/ConfirmModal/ConfirmModal';
 import CustomNotification from './Components/CustomNotification/CustomNotification';
-import NavigationBar from './Components/Navigation/NavigationBar';
 import PanelGroup from './Components/PanelGroup/PanelGroup';
 import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp';
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
@@ -96,7 +95,6 @@ export {
     CustomDropdown,
     CustomLoader,
     CustomNotification,
-    NavigationBar,
     PanelGroup,
     RenameTemplatePopUp,
     TemplatePopUp,
