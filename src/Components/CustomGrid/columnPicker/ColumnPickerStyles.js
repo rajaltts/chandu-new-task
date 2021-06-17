@@ -22,7 +22,8 @@ const columnPickerStyles = makeStyles((theme) => ({
         display: "flex",
         color: "#1891F6",
         alignItems: "center",
-        cursor: "pointer"
+        cursor: "pointer",
+        marginTop: "12px"
     },
     resetIcon: {
         height: "16px",
@@ -44,7 +45,7 @@ const columnPickerStyles = makeStyles((theme) => ({
         marginRight: "47px",
     },
     checkboxRoot: {
-        padding: "0px 2px 1px 0px",
+        padding: "0px 2px 1px 0px !important",
         color: "#1891F6 !important",
     },
     labelRoot: {
@@ -63,7 +64,7 @@ const columnPickerStyles = makeStyles((theme) => ({
     },
     columnDesc: {
         color: "#152C73",
-        fontWeight: "bold",
+        fontWeight: "bold !important",
         height: "19px"
     }
 }));

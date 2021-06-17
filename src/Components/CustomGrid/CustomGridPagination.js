@@ -53,13 +53,13 @@ const CustomGridPagination = (props) => {
     return rowsPerPageOptions.map((rowsCount, index) => {
       if (rowsCount === rowsPerPage && !isAllPaginationSelected) {
         isSelected = true;
-        return <option key={index} value={rowsCount}>{rowsCount}</option>;
+        return <option key={index} selected>{rowsCount}</option>;
       }
       else if (!isSelected && typeof rowsCount === 'string' && rowsCount.toLowerCase() === 'all') {
         isSelected = true;
-        return <option key={index} value={rowsCount}>{rowsCount}</option>;
+        return <option key={index} selected>{rowsCount}</option>;
       }
-      return <option key={index} value={rowsCount}>{rowsCount}</option>;
+      return <option key={index}>{rowsCount}</option>;
     });
   }
 
@@ -67,7 +67,7 @@ const CustomGridPagination = (props) => {
     <div className="footerContainer">
       <div className="footerPagerContainer">
         <span>{doNotTranslate ? "Show" : translation("Show")}</span>
-        <select className="footerSelect" onChange={createhandleChangeRowsPerPage} value={rowsPerPage}>
+        <select className="footerSelect" onChange={createhandleChangeRowsPerPage}>
           {showRowsSelectionOptions()}
         </select>
         {doNotTranslate ? "rows per page" : translation("Rowsperpage")}
