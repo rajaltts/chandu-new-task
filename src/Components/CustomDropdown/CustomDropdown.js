@@ -103,7 +103,7 @@ function CustomDropdown(props) {
                     data-action="TagTemplateExport"
                     onClick={() => exportTagTemplate(item)}
                   >
-                    <FontAwesomeIcon className="columncolor" icon={faDownload} />
+                      <FontAwesomeIcon className="columncolor" icon={props.downloadIcon ? props.downloadIcon : faDownload} />
                   </span>)}                   
                 </div>
               }

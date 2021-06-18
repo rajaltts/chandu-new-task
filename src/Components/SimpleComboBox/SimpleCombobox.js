@@ -4,7 +4,7 @@ import {GetProp} from '@carrier/workflowui-globalfunctions'
 import { FormattedMessage as Culture, injectIntl } from 'react-intl';
 import {FormatTransKey, keyboard, injectIntlTranslation} from '@carrier/workflowui-globalfunctions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useOnClickOutside from 'use-onclickoutside'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 
@@ -15,8 +15,6 @@ function SimpleCombobox(props) {
     const [Enabled, setEnabled] = useState(true)
     const [Valid, setValid] = useState(true)
     const [editedValue, setEditedValue] = useState('');
-    const ref = React.useRef();
-    useOnClickOutside(ref, () => setOpen(false))
 
     let prop = GetProperty(props.PropName)
     
@@ -63,6 +61,10 @@ function SimpleCombobox(props) {
         if (Enabled) {
             setOpen(!Open)
         }
+    }
+
+    function clickAwayHandler() {
+        setOpen(false);
     }
 
     function editHandler(event) {
@@ -118,64 +120,66 @@ function SimpleCombobox(props) {
 
     if(Visible){
         return (
-          <Fragment>
-            {props.isValidationMessage && Valid === false && <span className="ErrorText"> {props.isValidationMessage} </span>}
-            <div ref={ref} id={"ctrl"+ props.PropName}
-                className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
-                <div className={classNames(!Enabled && "SCB-BtnWrapper-Disabled", "SCB-BtnWrapper", search && "SCB-BtnWrapper-noBorder")} onClick= {() => onDropBtnClick()}>
-                    {search && Open ?
-                        <input
-                            type="text"
-                            className="SCB-input-searchable"
-                            placeholder={placeholder || injectIntlTranslation(intl, "Search")}
-                            value={editedValue}
-                            onChange={editHandler}
-                            onClick={updateValue}
-                            onKeyPress={updateValue}
-                        />
-                        :
-                        <React.Fragment>
-                            <span>
-                                {GetSelectedValue()}
-                                {(prop && prop.Value && props.PriceDollar) && <span>{GetPriceDollar(GetSelectedOption().Attributes.MLP)}</span>}
-                            </span>
-                            <div>
-                                {(props.Prices && props.Prices.length > 0) && <span className="SCB-Price">{GetPrice(GetSelectedValue())}</span>}
-                                <FontAwesomeIcon icon={faSortDown} color="#000000" />
+            <Fragment>
+                {props.isValidationMessage && Valid === false && <span className="ErrorText"> {props.isValidationMessage} </span>}
+                <ClickAwayListener onClickAway={clickAwayHandler}>
+                    <div id={"ctrl"+ props.PropName}
+                        className={((prop && prop.IsRelaxed) ? "SCB-Container-notAllowed ": "")+ ("SCB-Container " + props.className)}>
+                        <div className={classNames(!Enabled && "SCB-BtnWrapper-Disabled", "SCB-BtnWrapper", search && "SCB-BtnWrapper-noBorder")} onClick= {() => onDropBtnClick()}>
+                            {search && Open ?
+                                <input
+                                    type="text"
+                                    className="SCB-input-searchable"
+                                    placeholder={placeholder || injectIntlTranslation(intl, "Search")}
+                                    value={editedValue}
+                                    onChange={editHandler}
+                                    onClick={updateValue}
+                                    onKeyPress={updateValue}
+                                />
+                                :
+                                <React.Fragment>
+                                    <span>
+                                        {GetSelectedValue()}
+                                        {(prop && prop.Value && props.PriceDollar) && <span>{GetPriceDollar(GetSelectedOption().Attributes.MLP)}</span>}
+                                    </span>
+                                    <div>
+                                        {(props.Prices && props.Prices.length > 0) && <span className="SCB-Price">{GetPrice(GetSelectedValue())}</span>}
+                                        <FontAwesomeIcon icon={faSortDown} color="#000000" />
+                                    </div>
+                                </React.Fragment>
+                            }
+                        </div>
+                        {Open &&
+                            <div className={classNames("SCB-SubBtnWrapper", search && "SCB-input-searchable-list")}>
+                                {prop.Values.map((value, index) => {
+                                    if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
+                                        return null
+                                    else if (search && editedValue && 
+                                                (filter === "startsWith" ? 
+                                                    !value.Attributes.Description.toLowerCase().startsWith(editedValue.toLowerCase())
+                                                    : !value.Attributes.Description.toLowerCase().includes(editedValue.toLowerCase())
+                                                )
+                                            )
+                                        return null                  
+                                    else if (props.DoNotTranslate)
+                                        return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
+                                                <span>
+                                                    {value.Attributes.Description}
+                                                    {(props.PriceDollar) ? <span>{GetPriceDollar(value.Attributes.MLP)}</span> : null}
+                                                </span>
+                                                {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
+                                            </div>
+                                    else
+                                    return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
+                                                <Culture id={FormatTransKey(props.PropName + "|" +value.Attributes.Description)} key={index}/>
+                                                {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
+                                            </div>
+                                })}
                             </div>
-                        </React.Fragment>
-                    }
-                </div>
-                {Open &&
-                    <div className={classNames("SCB-SubBtnWrapper", search && "SCB-input-searchable-list")}>
-                        {prop.Values.map((value, index) => {
-                            if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
-                                return null
-                            else if (search && editedValue && 
-                                        (filter === "startsWith" ? 
-                                            !value.Attributes.Description.toLowerCase().startsWith(editedValue.toLowerCase())
-                                            : !value.Attributes.Description.toLowerCase().includes(editedValue.toLowerCase())
-                                        )
-                                    )
-                                return null                  
-                            else if (props.DoNotTranslate)
-                                return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
-                                        <span>
-                                            {value.Attributes.Description}
-                                            {(props.PriceDollar) ? <span>{GetPriceDollar(value.Attributes.MLP)}</span> : null}
-                                        </span>
-                                        {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
-                                    </div>
-                            else
-                            return <div valueid={value.Value} onClick={() => ValueChanged(value.Value)} className={(value.State>1? "NotAllowedValue": "")+" SCB-valueContainer"} key={index}>
-                                        <Culture id={FormatTransKey(props.PropName + "|" +value.Attributes.Description)} key={index}/>
-                                        {(props.Prices && props.Prices.length > 0)?<span className="SCB-Price">{GetPrice(value.Attributes.Description)}</span>:null}
-                                    </div>
-                        })}
+                        }
                     </div>
-                }
-            </div>
-          </Fragment>
+                </ClickAwayListener>
+            </Fragment>
         )
     } else {
         return null;
