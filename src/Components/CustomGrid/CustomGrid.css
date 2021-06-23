@@ -7,7 +7,6 @@
     .customGrid .root {
         width: 100%;
         height: auto;
-        margin-top: 10px;
     }
 
     .customGrid .paper {
@@ -113,7 +112,8 @@
         flex-direction: row;
         color: #656565;
         background-color: #f6f6f6;
-
+        border-left: 1px solid rgba(224, 224, 224, 1);
+        border-right: 1px solid rgba(224, 224, 224, 1);
     }
 
     .customGrid .footerContainer .MuiIconButton-root.Mui-disabled {
@@ -170,6 +170,8 @@
         justify-content: center;
         height: 150px;
         width: inherit;
+        border-left: 1px solid rgba(224, 224, 224, 1);
+        border-right: 1px solid rgba(224, 224, 224, 1);
     }
 
     .customGrid .messageContainerDefaultHeight {

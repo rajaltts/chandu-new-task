@@ -3,23 +3,33 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
-import Button from '../Button';
 import translation from '../Translation';
-import { IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ErrorIcon from '@material-ui/icons/Error';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './ConfirmModal.css';
 
 const useStyles = makeStyles((theme) => ({
-	paper: {
-		maxHeight: '90vh !important',
-	},
+    paper: {
+        maxHeight: '90vh !important',
+        padding: '16px 24px'
+    },
+    root: {
+        padding: '0px 0px',
+        marginTop: '16px'
+    },
+    iconButtonRoot: {
+        justifyContent: 'center',
+        padding: '4px !important'
+    }
 }));
 
 const ConfirmModal = (props) => {
     const { dialogClassName=null, contentClassName, footerClassName, title, isModalOpen, onClose, children, cancelDisabled, hideCancel,
         hideActions, disableCloseIcon, modalWidth, overrideFooterCancelButton, id = "", actionButtonList = [], errorMsg = "",
-        fullWidth = false, fullScreen = false, footerComponent = null, hideHeader = false } = props;
+        fullWidth = false, fullScreen = false, footerComponent = null, hideHeader = false, headerIcon } = props;
 	const classes = useStyles()
     const cancelText = translation("Cancel");
 
@@ -34,7 +44,7 @@ const ConfirmModal = (props) => {
     const actionButtonClickHandler = (button) => {
         !button.disabled && button.onClick();
     }
-
+    
     return (
         <Dialog
             id={id}
@@ -49,28 +59,34 @@ const ConfirmModal = (props) => {
             fullScreen={fullScreen}
         >
             {!hideHeader && <div className="customModalHeader">
+                {headerIcon && React.createElement(headerIcon, {className: "customModalHeaderIcon"})}
                 <span className="customModalTitle">{title}</span>
                 {!disableCloseIcon && (
-                    <IconButton className="customModalClose" onClick={onCancelButtonClick}>
-                        <CloseIcon className="customModalCloseIcon" titleAccess={translation("close")} />
+                    <IconButton classes={{root: classes.iconButtonRoot}} onClick={onCancelButtonClick}>
+                        <CloseIcon fontSize="small" className="customModalCloseIcon" titleAccess={translation("close")} />
                     </IconButton>
                 )}
             </div>}
-            <DialogContent className={contentClassName}>
+            <DialogContent classes={{root: classes.root}} className={contentClassName}>
                 {children}
             </DialogContent>
             {!hideActions &&
                 <div className={footerClassName || "customModalDialogFooter"}>
-                    {errorMsg && <div className="customModalDialogError"> {errorMsg} </div>}
-                    <DialogActions className="customModalActions">
+                    {errorMsg &&
+                        <div className="customModalDialogError"> 
+                            <ErrorIcon fontSize="small" className="customModalCloseIcon customModalRightMargin" />
+                            {errorMsg}
+                        </div>
+                    }
+                    <DialogActions classes={{root: classes.iconButtonRoot}} >
                     {!footerComponent ?
                         <>
                             {!hideCancel &&
                                 <Button
                                     id="customModalCancel"
+                                    variant="outlined"
+                                    size="large"
                                     name={cancelText}
-                                    icon={faTimes}
-                                    styles="eButton"
                                     onClick={onCancelButtonClick}
                                     disabled={cancelDisabled}>
                                     {cancelText}
@@ -79,11 +95,12 @@ const ConfirmModal = (props) => {
                             {(actionButtonList.length > 0) &&
                                 actionButtonList.map(actionButton => {
                                     return <Button
+                                        size="large"
+                                        variant="contained"
+                                        color="primary"
                                         key={actionButton.id}
                                         id={actionButton.id}
                                         name={actionButton.name}
-                                        icon={actionButton.icon}
-                                        styles={(actionButton.disabled) ? "eButton eButtondisable" : "eButton eButtonPrimary customModalEmptyRightMargin"}
                                         onClick={() => actionButtonClickHandler(actionButton)}
                                         disabled={actionButton.disabled}
                                     >

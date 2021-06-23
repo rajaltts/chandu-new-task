@@ -1,9 +1,9 @@
 .customModalHeader {
     display: flex;
     flex-direction: row;
-    padding: 12px 16px;
+    padding: 0px 0px 8px 0px;
     align-items: center;
-    background-color: #e5e5e5 !important;
+    border-bottom: 1px solid #E5E7ED;
 }
 
 .customModalTitle {
@@ -13,24 +13,16 @@
     overflow: hidden;
     cursor: default;
     flex: 1 1;
-}
-
-.customModalClose {
-    padding: 1px;
-}
-
-.customModalActions {
-    flex-wrap: wrap;
-    padding: 8px 24px;
+    font-weight: 500;
 }
 
 .customModalCloseIcon {
-    height: 17px;
-    width: 17px;
+    height: 16px !important;
+    width: 16px !important;
 }
 
-.customModalEmptyRightMargin {
-    margin-right: 0px;
+.customModalRightMargin {
+    margin-right: 4px;
 }
 
 .MuiDialog-root {
@@ -42,11 +34,18 @@
 }
 
 .customModalDialogFooter {
-    display: inline-flex;
-    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
 }
 
 .customModalDialogError {
-    color: #FF0000;
-    padding: 15px 70px 15px 15px;
+    color: #FF2A2A;
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.customModalHeaderIcon {
+    color: #1891F6;
+    margin-right: 16px;
 }
