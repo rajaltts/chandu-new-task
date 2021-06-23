@@ -6,6 +6,7 @@ import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions';
 import { injectIntl } from "react-intl";
 import cloneDeep from "lodash/cloneDeep";
 import classNames from 'classnames'
+import { Tooltip } from '@material-ui/core';
 
 const ColumnPicker = (props) => {
     const { intl, headCells, saveColumnHandler = null, saveColumnPickerFilterError = null, columnPickerFilterError = "" } = props;
@@ -89,7 +90,9 @@ const ColumnPicker = (props) => {
                 <span className={columnPickerIconError}>{columnPickerFilterError}</span>
             </span>
             <span id="columnPickerIcon" onClick={toggleColumnPicker} className={filterIcon}>
-                <FilterListIcon className={columnPickerFilterError ? classNames(columnPickerIconError, columnPickerIcon) : columnPickerIcon} />
+                <Tooltip title={injectIntlTranslation(intl, "COLUMN_PICKER", "Column picker")}>
+                    <FilterListIcon className={columnPickerFilterError ? classNames(columnPickerIconError, columnPickerIcon) : columnPickerIcon} />
+                </Tooltip>
             </span>
             <ColumnPickerDialog
                 openDialog={togglePicker}
