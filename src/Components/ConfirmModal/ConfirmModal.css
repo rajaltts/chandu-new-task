@@ -13,7 +13,7 @@
     overflow: hidden;
     cursor: default;
     flex: 1 1;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .customModalCloseIcon {
