@@ -15,7 +15,7 @@ const ColumnPickerDialog = (props) => {
     const { openDialog = false, intl, toggleColumnPicker, isSaveDisabled, saveColumnHandler,
         columnOptions, errorMsg = "", resetToDefault, onSelectionChange, onSearchQueryChange, searchValue = "" } = props;
     const { columnApiError, columnReset, resetIcon, checkboxRoot, checkboxSection, labelRoot,
-        label, columnDesc } = columnPickerStyles();
+        label, columnDesc, dialogContent } = columnPickerStyles();
 
     const createSaveButton = () => {
         return [
@@ -69,6 +69,7 @@ const ColumnPickerDialog = (props) => {
             title={injectIntlTranslation(intl, "COLUMN_PICKER", "Column picker")}
             onClose={toggleColumnPicker}
             actionButtonList={createSaveButton(isSaveDisabled)}
+            contentClassName={dialogContent}
         >
             <Typography variant='body2' className={columnDesc}>
                 {injectIntlTranslation(intl, "COLUMN_PICKER_DESC", "Show these items in the table")}
