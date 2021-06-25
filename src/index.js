@@ -54,7 +54,12 @@ import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
 import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 
+import Checkbox from './v2/Components/Checkbox/Checkbox'
+import Switch from './v2/Components/Switch/Switch'
+
 export {
+    Checkbox,
+    Switch,
     CheckboxWithDropDown,
     ImageWithLabelCheckboxGroup,
     OptionControl,
