@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
     iconButtonRoot: {
         justifyContent: 'center',
         padding: '4px !important'
+    },
+    footerButton: {
+        fontSize: '1rem',
+        lineHeight: '1.2rem',
+        padding: '9px 24px',
+        textTransform: 'none',
+        border: '1px solid rgba(0, 0, 0, 0.23)'
     }
 }));
 
@@ -83,6 +90,7 @@ const ConfirmModal = (props) => {
                         <>
                             {!hideCancel &&
                                 <Button
+                                    classes={{root: classes.footerButton}}
                                     id="customModalCancel"
                                     variant="outlined"
                                     size="large"
@@ -95,6 +103,7 @@ const ConfirmModal = (props) => {
                             {(actionButtonList.length > 0) &&
                                 actionButtonList.map(actionButton => {
                                     return <Button
+                                        classes={{root: classes.footerButton}}
                                         size="large"
                                         variant="contained"
                                         color="primary"

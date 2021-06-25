@@ -58,7 +58,7 @@ const columnPickerStyles = makeStyles((theme) => ({
     checkboxSection: {
         display: "flex",
         flexDirection: "column",
-        maxHeight: "173px",
+        maxHeight: "200px",
         overflowY: "auto",
         overflowX: "hidden"
     },
@@ -66,6 +66,9 @@ const columnPickerStyles = makeStyles((theme) => ({
         color: "#152C73",
         fontWeight: "bold !important",
         height: "19px"
+    },
+    dialogContent: {
+        padding: '4px 0px'
     }
 }));
 
