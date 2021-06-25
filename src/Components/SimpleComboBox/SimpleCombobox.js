@@ -9,7 +9,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 
 function SimpleCombobox(props) {
-    const {isSearchable: { search, placeholder, filter } = {}, intl } = props;
+    const {isSearchable: { search, placeholder, filter, sort } = {}, intl } = props;
     const [Open, setOpen] = useState(false)
     const [Visible, setVisible] = useState(true)
     const [Enabled, setEnabled] = useState(true)
@@ -118,6 +118,19 @@ function SimpleCombobox(props) {
         return !!Value ? (props.isNoMLP ? ` $ ${Value}`:` $ ${Value} MLP`):" $ TBD";
     }
 
+    function sortValues(values){
+        let data =  values.sort((a, b) => {
+            if(a.Value.toLowerCase() === "any"){
+                return -1
+            }
+            if(b.Value.toLowerCase() === "any"){
+                return 1
+            }
+            return a.Value > b.Value ? 1 : -1
+        }) 
+        return data
+    }
+
     if(Visible){
         return (
             <Fragment>
@@ -151,7 +164,7 @@ function SimpleCombobox(props) {
                         </div>
                         {Open &&
                             <div className={classNames("SCB-SubBtnWrapper", search && "SCB-input-searchable-list")}>
-                                {prop.Values.map((value, index) => {
+                                {(sort ? sortValues(prop.Values):prop.Values).map((value, index) => {
                                     if((props.HideNotAllowedValues && value.State===2) || value.Attributes["VISIBLE"] === "FALSE")
                                         return null
                                     else if (search && editedValue && 
