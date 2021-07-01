@@ -1,5 +1,4 @@
 .TBWLAI-container {
-    display: grid;
     max-width: 300px;
     min-height: 30px;
 }
@@ -114,6 +113,7 @@
     margin-top: 0;
     line-height: 25px;
     display: inline-block;
+    width: 100%;
 }
 
 .TBWLAI-CheckBox {
