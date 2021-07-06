@@ -1,15 +1,20 @@
+@Library('ecat-library@develop') _
+uipkg='reactcomponentsui'
+branchname='develop'
+
+packageName = 'package.json' //Location of the package.json file
+property = 'version' // Property name to be updated 
+jenkinsfile = 'Jenkinsfile' // Jenkins file name to be deleted post build
 pipeline {
-	agent { label 'JENKINSSLAVE' }
-  options { 
-	  skipDefaultCheckout true
-	  disableConcurrentBuilds()
-	  timestamps()
-        	buildDiscarder(logRotator(numToKeepStr: '20', daysToKeepStr: '10'))}
-	        //US14403
+  agent { label "${DBNODE}" }
+  options {     
+	//  skipDefaultCheckout true
+	  disableConcurrentBuilds() 
+	  timestamps ()
+	  buildDiscarder(logRotator(numToKeepStr: '20', daysToKeepStr: '10'))}
     parameters 
     {
-        string(name: 'BuildNo', defaultValue: '$Dev_vNo.$BUILD_NUMBER.0', description: 'Build Number')
-		string(name: 'PublishDirectory', defaultValue: 'NGECatPublish', description: 'Publish directory')
+        string(name: 'BuildNo', defaultValue: getparams("defaultbuild"), description: 'Build Number')
     }
   stages {
 	  stage('clean workspace') {
@@ -18,33 +23,43 @@ pipeline {
         checkout scm
       }
     }
-    stage("Set Build Name"){
+    stage("Set Build Name and config values"){
      steps {
-        script {
-            currentBuild.displayName = "${BuildNo}"
-                }
-     }}
-            stage("SonarqubeAnalysis"){
-     steps {
-       		withSonarQubeEnv('Sonar')
-	     {
-		bat '''npm cache clean --force'''
-		bat '''npm install --no-optional"'''
-		bat '''npm audit fix'''
-		bat '''npm run-script build"'''	
-            	bat "sonar-scanner"
-	     }
-               
-           }
-    }
- }
-	 post {
-	 success
+        script 
         {
-	emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: '$ReactTeam'
+          currentBuild.displayName = "${BuildNo}"
+          configs=getjenkinvar.getJsonString(branchname)	
+          Source=getparams("source").toLowerCase()
+          echo " source: ${Source}"
+          getappval=getjsonvalue(configs."${Source}","${uipkg}")
+          emailtoval=getjenkinvar.getemailval(getappval.emailto)	
         }
-   failure {
-        emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: '$ReactTeam'
-    }
+      }
+    } 
+	  
+	stage("Build project"){
+  	steps {	     
+      script{	
+          gitcheckout(branchname, "${DEPLOYMENTSCRIPTSREPO}", 'DeploymentScripts', 'Scripts')    
+          npm.buildVersionUpdate("${WORKSPACE}\\${packageName}", property , BuildNo)
+          npm.install()
+          npm.build()
+          deletedirectory("${WORKSPACE}\\Scripts")
+          deletedirectory("${WORKSPACE}\\configpath")
+          deletefile("${WORKSPACE}\\jenkinsfile")
+          npm.publish()      
+        }	
+      }
     }
   }
+  post {
+    success 
+      {
+          emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: "${emailtoval}"
+      }
+    failure 
+      {
+          emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: "${emailtoval}"
+      }
+    }
+}
