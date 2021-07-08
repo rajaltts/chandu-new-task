@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '9px 24px',
         textTransform: 'none',
         border: '1px solid rgba(0, 0, 0, 0.23)'
-    }
+    },
 }));
 
 const ConfirmModal = (props) => {
