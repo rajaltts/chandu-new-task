@@ -53,6 +53,7 @@ import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
 import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
 import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
+import TabsContainer from './Components/TabsComponent/TabsContainer';
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -111,5 +112,6 @@ export {
     SaveTag,
     JSReportContainer,
     Search,
-    pdfDownload
+    pdfDownload,
+    TabsContainer
 }
