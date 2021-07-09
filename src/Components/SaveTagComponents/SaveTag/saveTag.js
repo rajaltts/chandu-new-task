@@ -32,7 +32,7 @@ const SaveTag = (props) => {
     const classes = saveTagStyles();
     const [menuList, setMenuList] = useState(customerNameList);
     const [exisitingProjectData, setExisitingProjectData] = useState({});
-    const [newProjectData, setNewProjectData] = useState({});
+    const [newProjectData, setNewProjectData] = useState(null);
     const [disableSave, setDisableSave] = useState(true);
     const [selectedProject, setSelectedProject] = useState(null);
     const tabs = [
@@ -145,7 +145,6 @@ const SaveTag = (props) => {
 
     const onProjectSelect = (project) => {
         setSelectedProject(project);
-        setProjectError("");
     };
 
     const getTagNameProps = () => {

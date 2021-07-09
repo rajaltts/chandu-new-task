@@ -63,7 +63,9 @@ const AddProject = (props) => {
 
     useEffect(() => {
         if (customerNameList?.length) {
-            setMenuList(customerNameList.filter(customer => customer.CustomerName));   
+            setMenuList(
+                customerNameList.filter((customer) => customer.CustomerName)
+            );
         }
     }, [customerNameList]);
 
@@ -206,21 +208,39 @@ const AddProject = (props) => {
         }
     };
 
-    const onCustomerValueChange = (event, value, changeType, id, validation) => {
-        handleAddCustomer({ CustomerName: value }, id, validation);
+    const disableFields = (id = "") => {
+        const fields = { ...state };
+        const fieldsToDisable = [
+            "ContactName",
+            "ContactEmail",
+            "ContactNumber",
+        ];
+        Object.keys(fields).forEach((field) => {
+            if (fields[field].id === id) {
+                fields[field].error = "";
+            }
+            if (fieldsToDisable.includes(field)) {
+                fields[field].isDisabled = true;
+            }
+        });
+        updateProjectHandler(fields);
+    };
+
+    const onCustomerValueChange = (
+        event,
+        value,
+        changeType,
+        id,
+        validation
+    ) => {
+        if (value) {
+            handleAddCustomer({ CustomerName: value }, id, validation);
+        } else {
+            disableFields(id);
+        }
         if (changeType === "clear") {
             updateCustomerData();
-            const fields = { ...state };
-            const fieldsToDisable = [contactName, contactEmail, contactNumber];
-            Object.keys(fields).forEach((field) => {
-                if (fields[field].id === id) {
-                    fields[field].error = "";
-                }
-                if (fieldsToDisable.includes(fields[field])) {
-                    fields[field].isDisabled = true;
-                }
-            });
-            updateProjectHandler(fields);
+            disableFields(id);
         }
     };
 

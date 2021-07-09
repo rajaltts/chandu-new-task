@@ -104,13 +104,10 @@ const saveTagStyles = makeStyles((theme) => ({
         marginTop: "25px",
     },
     optionsContainer: {
-        maxHeight: "218px",
         zIndex: 9999999,
-        overflowY: "scroll",
     },
     optionsContainerAddCustomer: {
         zIndex: 9999999,
-        overflowY: "scroll",
         transform: "translate3d(420px, 3610px, 0px)",
     },
     textFieldPlaceholder: {
