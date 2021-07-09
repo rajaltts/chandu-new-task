@@ -29,8 +29,9 @@ const AddProject = (props) => {
         contactEmail = {},
         contactNumber = {},
         saveSelection,
+        tagName,
     } = props;
-    const [menuList, setMenuList] = useState(customerNameList);
+    const [menuList, setMenuList] = useState([]);
     const {
         ContactName,
         ContactEmail,
@@ -61,7 +62,9 @@ const AddProject = (props) => {
     }, []);
 
     useEffect(() => {
-        setMenuList(customerNameList);
+        if (customerNameList?.length) {
+            setMenuList(customerNameList.filter(customer => customer.CustomerName));   
+        }
     }, [customerNameList]);
 
     const updateCustomFields = (fieldData) => {
@@ -138,6 +141,9 @@ const AddProject = (props) => {
                     projectInfo[key] = { id: id, value: value, error };
                 }
             });
+            if (saveSelection && !tagName) {
+                disableSave = true;
+            }
             updateProjectInfo({
                 projectInfo,
                 disableSave: disableSave,
@@ -200,13 +206,18 @@ const AddProject = (props) => {
         }
     };
 
-    const oncCustomerValueChange = (event, value, changeType, id) => {
+    const onCustomerValueChange = (event, value, changeType, id, validation) => {
+        handleAddCustomer({ CustomerName: value }, id, validation);
         if (changeType === "clear") {
             updateCustomerData();
             const fields = { ...state };
+            const fieldsToDisable = [contactName, contactEmail, contactNumber];
             Object.keys(fields).forEach((field) => {
                 if (fields[field].id === id) {
                     fields[field].error = "";
+                }
+                if (fieldsToDisable.includes(fields[field])) {
+                    fields[field].isDisabled = true;
                 }
             });
             updateProjectHandler(fields);
@@ -262,11 +273,12 @@ const AddProject = (props) => {
                                         )
                                     }
                                     onInputChange={(event, value, changeType) =>
-                                        oncCustomerValueChange(
+                                        onCustomerValueChange(
                                             event,
                                             value,
                                             changeType,
-                                            id
+                                            id,
+                                            validation
                                         )
                                     }
                                     filterOptions={(options, params) => {
@@ -298,6 +310,10 @@ const AddProject = (props) => {
                                     renderOption={(option) =>
                                         option.CustomerName
                                     }
+                                    noOptionsText={injectIntlTranslation(
+                                        intl,
+                                        "GridNoData"
+                                    )}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}

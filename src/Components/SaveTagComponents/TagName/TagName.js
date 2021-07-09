@@ -16,6 +16,7 @@ const TagName = (props) => {
             setTagNameForCopySelection,
             tagName: tagInfo = {},
             setProjectError,
+            saveTagActiveTab,
         },
         saveSelection,
     } = props;
@@ -61,9 +62,9 @@ const TagName = (props) => {
             error = validateFormFields(value, validations, validationMessages);
         }
         if (error !== existingErrorTagName) {
-            !isDisabled && setExistingErrorTagName(error);
-        } else if (!selectedProject && saveSelection) {
-            setProjectError(
+            !isDisabled && setExistingErrorTagName && setExistingErrorTagName(error);
+        } else if (!selectedProject && saveSelection && !saveTagActiveTab) {
+            setProjectError && setProjectError(
                 injectIntlTranslation(
                     intl,
                     "validationAtLeastOneProject",

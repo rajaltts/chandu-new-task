@@ -46,6 +46,9 @@ const SaveTag = (props) => {
     const isDisabled = tagName?.isDisabled || false;
 
     useEffect(() => {
+        if (selectedProject) {
+            setProjectError("");
+        }
         let disableSave = false;
         const tagNameStatus = !isDisabled && !tagNameForSaveSelection;
         switch (saveTagActiveTab) {
@@ -155,6 +158,7 @@ const SaveTag = (props) => {
             onValidation: existingProjectValidation,
             setProjectError,
             selectedProject,
+            saveTagActiveTab,
         };
     };
 
@@ -207,6 +211,7 @@ const SaveTag = (props) => {
                     contactEmail={contactEmail}
                     contactNumber={contactNumber}
                     setErrorMessage={setErrorMessage}
+                    tagName={tagNameForSaveSelection}
                     saveSelection
                 />
             </TabPanel>
