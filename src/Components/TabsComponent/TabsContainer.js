@@ -18,36 +18,42 @@ const TabsContainer = (props) => {
     }, [defaultActiveTab]);
 
     return (
-        <Tabs
-            onChange={handleTabChange}
-            value={activeTab}
-            classes={{
-                indicator: classes.activeTabIndicator,
-            }}
-        >
-            {tabs.map((tab, index) => {
-                return (
-                    <Tab
-                        id="simple-tab"
-                        aria-controls="simple-tabpanel"
-                        classes={{
-                            root: classes.tabRoot,
-                        }}
-                        label={
-                            <span
-                                className={`${classes.tabLabels} ${
-                                    activeTab === index
-                                        ? classes.activeLabel
-                                        : classes.inActiveLabel
-                                }`}
-                            >
-                                {tab.name}
-                            </span>
-                        }
-                    />
-                );
-            })}
-        </Tabs>
+        <>
+            <Tabs
+                onChange={handleTabChange}
+                value={activeTab}
+                classes={{
+                    indicator: classes.activeTabIndicator,
+                    fixed: classes.greyBotoomBorder,
+                }}
+            >
+                {tabs.map((tab, index) => {
+                    return (
+                        <Tab
+                            id="simple-tab"
+                            aria-controls="simple-tabpanel"
+                            classes={{
+                                root: classes.tabRoot,
+                            }}
+                            label={
+                                <span
+                                    className={`${classes.tabLabels} ${
+                                        activeTab === index
+                                            ? classes.activeLabel
+                                            : classes.inActiveLabel
+                                    }`}
+                                >
+                                    {tab.name}
+                                </span>
+                            }
+                        />
+                    );
+                })}
+            </Tabs>
+            <div
+                className={`${classes.divisionLine} ${classes.negativeMargin}`}
+            />
+        </>
     );
 };
 

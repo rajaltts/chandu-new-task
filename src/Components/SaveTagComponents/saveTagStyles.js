@@ -97,12 +97,6 @@ const saveTagStyles = makeStyles((theme) => ({
         marginTop: "18px",
         marginBottom: "10px",
     },
-    divisionLine: {
-        border: "1px solid #E5E7ED",
-    },
-    negativeMargin: {
-        marginTop: "-2px",
-    },
     adornmentStyle: {
         top: "calc(50% - 14px)",
     },

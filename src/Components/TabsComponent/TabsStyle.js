@@ -11,6 +11,7 @@ const TabStyles = makeStyles((theme) => ({
         fontWeight: "bold",
         fontSize: "16px",
         lineHeight: "19px",
+        marginBottom: "-10px",
     },
     activeLabel: {
         color: "#1891F6",
@@ -22,6 +23,12 @@ const TabStyles = makeStyles((theme) => ({
         padding: "0px",
         minWidth: "fit-content",
         marginRight: "30px",
+    },
+    divisionLine: {
+        border: "1px solid #E5E7ED",
+    },
+    negativeMargin: {
+        marginTop: "-2px",
     },
 }));
 

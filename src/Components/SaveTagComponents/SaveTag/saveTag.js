@@ -34,7 +34,7 @@ const SaveTag = (props) => {
     const [exisitingProjectData, setExisitingProjectData] = useState({});
     const [newProjectData, setNewProjectData] = useState({});
     const [disableSave, setDisableSave] = useState(true);
-    const [selectedProject, setSelectedProject] = useState();
+    const [selectedProject, setSelectedProject] = useState(null);
     const tabs = [
         { name: translation("ExistingProject", "Existing Project") },
         { name: translation("NewProject", "New Project") },
@@ -161,7 +161,7 @@ const SaveTag = (props) => {
     return (
         <ConfirmModal
             isModalOpen={isModalOpen}
-            title={translation("SaveTo")}
+            title={translation("SaveSelection")}
             onClose={hideComponentHandler}
             hideCancel={false}
             actionButtonList={createActionsButton(disableSave)}
@@ -184,10 +184,6 @@ const SaveTag = (props) => {
                 onTabChange={handleSaveTagTabChange}
                 defaultActiveTab={saveTagActiveTab}
                 tabs={tabs}
-            />
-
-            <div
-                className={`${classes.divisionLine} ${classes.negativeMargin}`}
             />
 
             <TabPanel value={saveTagActiveTab} index={0}>
