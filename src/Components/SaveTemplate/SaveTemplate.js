@@ -12,7 +12,7 @@ const SaveTemplate = (props) => {
     const { CloseSaveTemplate, saveTemplate, dispatch, intl, eCatAppService } = props;
     const {
         isTemplateModalOpen,
-        lookUpKey = "",
+        lookUpKey = "TagTemplateName",
         isLoading = true,
         existingTemplates = [],
         errorMsg = '',
@@ -49,6 +49,7 @@ const SaveTemplate = (props) => {
     const hideComponentHandler = () => {
         setSelectedTab(0);
         reseTabContent();
+        setErrorMessage("")
         CloseSaveTemplate();
     }
 
