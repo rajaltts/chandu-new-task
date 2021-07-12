@@ -54,6 +54,7 @@ import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
 import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
 import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 import TabsContainer from './Components/TabsComponent/TabsContainer';
+import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -113,5 +114,6 @@ export {
     JSReportContainer,
     Search,
     pdfDownload,
-    TabsContainer
+    TabsContainer,
+    SaveTemplate
 }

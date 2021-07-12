@@ -25,7 +25,7 @@ const TabStyles = makeStyles((theme) => ({
         marginRight: "30px",
     },
     divisionLine: {
-        border: "1px solid #E5E7ED",
+        borderBottom: "1px solid #E5E7ED",
     },
     negativeMargin: {
         marginTop: "-2px",
