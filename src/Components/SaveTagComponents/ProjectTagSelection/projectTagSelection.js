@@ -3,7 +3,7 @@ import { injectIntl } from "react-intl";
 import saveTagStyles from "../saveTagStyles";
 import { injectIntlTranslation } from "@carrier/workflowui-globalfunctions";
 import TextField from "@material-ui/core/TextField";
-import { Autocomplete } from "@material-ui/lab";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import TagName from "../TagName/TagName";
 
 const ProjectTagSelection = (props) => {
