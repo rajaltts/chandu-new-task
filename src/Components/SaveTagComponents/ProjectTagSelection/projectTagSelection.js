@@ -23,7 +23,8 @@ const ProjectTagSelection = (props) => {
     } = props;
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
-    const [projectData, setProjectData] = useState(null);
+    const [projectData, setProjectData] = useState(defaultSelectedProject);
+    const [selectProjectError, setSelectProjectError] = useState("");
     const [timer, setTimer] = useState(null);
     const [loading, setLoading] = useState(true);
     const isDisabled = tagName?.isDisabled || false;
@@ -56,11 +57,19 @@ const ProjectTagSelection = (props) => {
 
     const onProjectSelectChange = (event, value, reason) => {
         if (reason === "clear") {
-            onSeachTextChangeHandler("")
             setProjectData(null);
+            setSelectProjectError(
+                injectIntlTranslation(
+                    intl,
+                    "validationAtLeastOneProject",
+                    "Please select a Project."
+                )
+            );
+            onSeachTextChangeHandler("")
             return;
         }
         setProjectData(value);
+        setSelectProjectError("");
     };
 
     const getTagNameProps = () => {
@@ -69,6 +78,8 @@ const ProjectTagSelection = (props) => {
             tagName,
             onValidation,
             intl,
+            setSelectProjectError,
+            projectData,
         };
     };
 
@@ -150,7 +161,9 @@ const ProjectTagSelection = (props) => {
                     />
                 )}
             />
-            <span className={classes.errorMsg}>{projectError || ""}</span>
+            <span className={classes.errorMsg}>
+                {saveSelection ? projectError : selectProjectError || ""}
+            </span>
         </Fragment>
     );
 };

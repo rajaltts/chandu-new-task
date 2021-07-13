@@ -17,6 +17,8 @@ const TagName = (props) => {
             tagName: tagInfo = {},
             setProjectError,
             saveTagActiveTab,
+            setSelectProjectError,
+            projectData,
         },
         saveSelection,
     } = props;
@@ -62,16 +64,22 @@ const TagName = (props) => {
             error = validateFormFields(value, validations, validationMessages);
         }
         if (error !== existingErrorTagName) {
-            !isDisabled && setExistingErrorTagName && setExistingErrorTagName(error);
+            !isDisabled &&
+                setExistingErrorTagName &&
+                setExistingErrorTagName(error);
         } else if (!selectedProject && saveSelection && !saveTagActiveTab) {
-            setProjectError && setProjectError(
-                injectIntlTranslation(
-                    intl,
-                    "validationAtLeastOneProject",
-                    "Please select a Project."
-                )
-            );
+            setProjectError(setProjectSelectError());
+        } else if (!projectData && !saveSelection) {
+            setSelectProjectError(setProjectSelectError());
         }
+    };
+
+    const setProjectSelectError = () => {
+        return injectIntlTranslation(
+            intl,
+            "validationAtLeastOneProject",
+            "Please select a Project."
+        );
     };
 
     return (

@@ -37,7 +37,7 @@ const SaveTag = (props) => {
     const [exisitingProjectData, setExisitingProjectData] = useState({});
     const [newProjectData, setNewProjectData] = useState(null);
     const [disableSave, setDisableSave] = useState(true);
-    const [selectedProject, setSelectedProject] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(defaultSelectedProject);
     const tabs = [
         { name: translation("ExistingProject", "Existing Project") },
         { name: translation("NewProject", "New Project") },
@@ -51,6 +51,14 @@ const SaveTag = (props) => {
     useEffect(() => {
         if (selectedProject) {
             setProjectError("");
+        } else if (!selectedProject && tagNameForSaveSelection) {
+            setProjectError(
+                injectIntlTranslation(
+                    intl,
+                    "validationAtLeastOneProject",
+                    "Please select a Project."
+                )
+            );
         }
         let disableSave = false;
         const tagNameStatus = !isDisabled && !tagNameForSaveSelection;
