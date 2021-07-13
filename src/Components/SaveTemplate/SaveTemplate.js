@@ -63,6 +63,7 @@ const SaveTemplate = (props) => {
             const { newTemplateName, existingTemplateInfo } = templateInfo
             saveTemplateHandler(newTemplateName, existingTemplateInfo, dispatch, intl);
         }
+        hideComponentHandler();
     }
 
     const handleTabChange = (value) => {

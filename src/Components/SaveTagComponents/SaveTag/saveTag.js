@@ -29,6 +29,8 @@ const SaveTag = (props) => {
         errorMsg = "",
         intl,
         onValidation,
+        onSearchTextChange = null,
+        isLoading = false
     } = props;
     const classes = saveTagStyles();
     const [menuList, setMenuList] = useState(customerNameList);
@@ -209,6 +211,8 @@ const SaveTag = (props) => {
                     onValidation={existingProjectValidation}
                     saveSelection
                     defaultSelectedProject={defaultSelectedProject}
+                    onSearchTextChange={onSearchTextChange}
+                    isLoading={isLoading}
                 />
             </TabPanel>
             <TabPanel value={saveTagActiveTab} index={1}>

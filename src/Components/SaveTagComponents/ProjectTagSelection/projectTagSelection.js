@@ -5,6 +5,7 @@ import { injectIntlTranslation } from "@carrier/workflowui-globalfunctions";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TagName from "../TagName/TagName";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ProjectTagSelection = (props) => {
     const {
@@ -16,11 +17,15 @@ const ProjectTagSelection = (props) => {
         onValidation,
         saveSelection,
         onSaveTagData,
-        defaultSelectedProject
+        defaultSelectedProject,
+        onSearchTextChange = null,
+        isLoading = false
     } = props;
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
     const [projectData, setProjectData] = useState(null);
+    const [timer, setTimer] = useState(null);
+    const [loading, setLoading] = useState(true);
     const isDisabled = tagName?.isDisabled || false;
     const classes = saveTagStyles();
 
@@ -28,7 +33,8 @@ const ProjectTagSelection = (props) => {
         if (projectDataList.length) {
             setDisplayProjectNames(projectDataList);
         }
-    }, [projectDataList]);
+        setLoading(isLoading)
+    }, [projectDataList, isLoading]);
 
     useEffect(() => {
         let disableSave = false;
@@ -50,6 +56,7 @@ const ProjectTagSelection = (props) => {
 
     const onProjectSelectChange = (event, value, reason) => {
         if (reason === "clear") {
+            onSeachTextChangeHandler("")
             setProjectData(null);
             return;
         }
@@ -73,6 +80,17 @@ const ProjectTagSelection = (props) => {
         </React.Fragment>
     );
 
+    const onSeachTextChangeHandler = (value) => {
+        if (onSearchTextChange) {
+            setLoading(true)
+            if (timer) clearTimeout(timer);
+            let timeOut = setTimeout(() => {
+                onSearchTextChange(value);
+            }, 300);
+            setTimer(timeOut);
+        }
+    }
+
     const getProjectOptionSelected = (option, value) =>
         option.ProjectName === value.ProjectName;
 
@@ -90,7 +108,9 @@ const ProjectTagSelection = (props) => {
                     option: classes.autoCompleteOptions,
                     listbox: classes.autoCompleteOptionsListContainer,
                 }}
-                options={displayProjectNames}
+                options={loading ? [] : displayProjectNames}
+                loading={loading}
+                loadingText={injectIntlTranslation(intl, "Loading", "Loading...")}
                 getOptionLabel={(option) => option.ProjectName}
                 getOptionSelected={(option, value) =>
                     getProjectOptionSelected(option, value)
@@ -117,6 +137,16 @@ const ProjectTagSelection = (props) => {
                         }
                         size="small"
                         variant="outlined"
+                        onChange={({ target: { value } }) => onSeachTextChangeHandler(value)}
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <React.Fragment>
+                                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                    {params.InputProps.endAdornment}
+                                </React.Fragment>
+                            )
+                        }}
                     />
                 )}
             />
