@@ -25,7 +25,7 @@ const ProjectTagSelection = (props) => {
     const classes = saveTagStyles();
 
     useEffect(() => {
-        if (projectDataList.length > 0) {
+        if (projectDataList.length) {
             setDisplayProjectNames(projectDataList);
         }
     }, [projectDataList]);
@@ -36,22 +36,24 @@ const ProjectTagSelection = (props) => {
         if (tagNameStatus || !projectData) {
             disableSave = true;
         }
-        onSaveTagData && onSaveTagData({ tagName: tagNameForCopySelection, projectData: projectData, disableSave });
+        onSaveTagData &&
+            onSaveTagData({
+                tagName: tagNameForCopySelection,
+                projectData: projectData,
+                disableSave,
+            });
     }, [tagNameForCopySelection, projectData]);
 
     useEffect(() => {
         if (onProjectSelect) onProjectSelect(projectData);
     }, [projectData]);
 
-    const onSelect = (option) => {
-        setProjectData(option);
-    };
-
     const onProjectSelectChange = (event, value, reason) => {
-        const reasons = ["clear", "blur"];
-        if (reasons.includes(reason)) {
+        if (reason === "clear") {
             setProjectData(null);
+            return;
         }
+        setProjectData(value);
     };
 
     const getTagNameProps = () => {
@@ -62,6 +64,17 @@ const ProjectTagSelection = (props) => {
             intl,
         };
     };
+
+    const renderProjectNameOptions = (option, selected) => (
+        <React.Fragment>
+            <span className={selected ? classes.menuItemSelected : ""}>
+                {option.ProjectName}
+            </span>
+        </React.Fragment>
+    );
+
+    const getProjectOptionSelected = (option, value) =>
+        option.ProjectName === value.ProjectName;
 
     return (
         <Fragment>
@@ -78,9 +91,16 @@ const ProjectTagSelection = (props) => {
                     listbox: classes.autoCompleteOptionsListContainer,
                 }}
                 options={displayProjectNames}
-                onChange={onProjectSelectChange}
                 getOptionLabel={(option) => option.ProjectName}
-                getOptionSelected={onSelect}
+                getOptionSelected={(option, value) =>
+                    getProjectOptionSelected(option, value)
+                }
+                renderOption={(option, { selected }) =>
+                    renderProjectNameOptions(option, selected)
+                }
+                onChange={(event, value, changeType) =>
+                    onProjectSelectChange(event, value, changeType)
+                }
                 defaultValue={defaultSelectedProject}
                 noOptionsText={injectIntlTranslation(intl, "GridNoData")}
                 renderInput={(params) => (

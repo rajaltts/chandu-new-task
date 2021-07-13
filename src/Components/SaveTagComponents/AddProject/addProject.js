@@ -244,6 +244,38 @@ const AddProject = (props) => {
         }
     };
 
+    const filterOptions = (options, params) => {
+        const filtered = filter(options, params);
+        // Suggest the creation of a new value
+        if (
+            !options.find(
+                (option) =>
+                    option.CustomerName.toString().toLowerCase() ===
+                    params.inputValue.toString().toLowerCase()
+            ) &&
+            params.inputValue !== ""
+        ) {
+            filtered.push({
+                inputValue: params.inputValue,
+                CustomerName: `Add "${params.inputValue}"`,
+            });
+        }
+        return filtered;
+    };
+
+    const getOptionsLabel = (option) => {
+        // Value selected with enter, right from the input
+        if (typeof option === "string") {
+            return option;
+        }
+        // Add "xxx" option created dynamically
+        if (option.inputValue) {
+            return option.inputValue;
+        }
+        // Regular option
+        return option.CustomerName;
+    };
+
     const createProjectField = (field) => {
         const {
             label,
@@ -301,32 +333,12 @@ const AddProject = (props) => {
                                             validation
                                         )
                                     }
-                                    filterOptions={(options, params) => {
-                                        const filtered = filter(
-                                            options,
-                                            params
-                                        );
-                                        // Suggest the creation of a new value
-                                        if (params.inputValue !== "") {
-                                            filtered.push({
-                                                inputValue: params.inputValue,
-                                                CustomerName: `Add "${params.inputValue}"`,
-                                            });
-                                        }
-                                        return filtered;
-                                    }}
-                                    getOptionLabel={(option) => {
-                                        // Value selected with enter, right from the input
-                                        if (typeof option === "string") {
-                                            return option;
-                                        }
-                                        // Add "xxx" option created dynamically
-                                        if (option.inputValue) {
-                                            return option.inputValue;
-                                        }
-                                        // Regular option
-                                        return option.CustomerName;
-                                    }}
+                                    filterOptions={(options, params) =>
+                                        filterOptions(options, params)
+                                    }
+                                    getOptionLabel={(option) =>
+                                        getOptionsLabel(option)
+                                    }
                                     renderOption={(option) =>
                                         option.CustomerName
                                     }

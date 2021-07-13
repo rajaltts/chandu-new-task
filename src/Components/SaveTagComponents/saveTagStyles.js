@@ -126,9 +126,16 @@ const saveTagStyles = makeStyles((theme) => ({
     autoCompleteOptionsListContainer: {
         padding: "0px",
         border: "1px solid #E5E7ED",
+        maxHeight: "217px",
     },
     autoCompleteOptions: {
         borderBottom: "1px solid #E5E7ED",
+    },
+    menuItemSelected: {
+        color: "#1891F6",
+    },
+    saveTagContent: {
+        padding: "8px 0px !important",
     },
 }));
 

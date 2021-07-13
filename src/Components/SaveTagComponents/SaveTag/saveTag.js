@@ -123,6 +123,14 @@ const SaveTag = (props) => {
     const saveTagDataHandler = () => {
         if (saveTagData) {
             setDisableSave(true);
+            if (
+                !exisitingProjectData?.projectData &&
+                newProjectData.projectInfo
+            ) {
+                newProjectData.projectInfo["TagName"] = {
+                    value: exisitingProjectData.tagName,
+                };
+            }
             saveTagData({
                 exisitingProjectData,
                 newProjectData,
@@ -173,6 +181,7 @@ const SaveTag = (props) => {
             disableCloseIcon
             headerIcon={SaveIcon}
             errorMsg={errorMessage}
+            contentClassName={classes.saveTagContent}
         >
             <TagName tagNameProps={getTagNameProps()} saveSelection />
 
@@ -186,7 +195,7 @@ const SaveTag = (props) => {
 
             <TabsContainer
                 onTabChange={handleSaveTagTabChange}
-                defaultActiveTab={saveTagActiveTab}
+                defaultActiveTab={0}
                 tabs={tabs}
             />
 
