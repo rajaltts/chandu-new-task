@@ -24,6 +24,7 @@ const SaveTag = (props) => {
         contactEmail = {},
         contactNumber = {},
         saveTagData,
+        defaultSelectedProject,
         existingProjectValidation,
         errorMsg = "",
         intl,
@@ -198,6 +199,7 @@ const SaveTag = (props) => {
                     tagName={tagName}
                     onValidation={existingProjectValidation}
                     saveSelection
+                    defaultSelectedProject={defaultSelectedProject}
                 />
             </TabPanel>
             <TabPanel value={saveTagActiveTab} index={1}>

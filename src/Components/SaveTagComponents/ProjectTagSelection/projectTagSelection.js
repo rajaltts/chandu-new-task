@@ -16,6 +16,7 @@ const ProjectTagSelection = (props) => {
         onValidation,
         saveSelection,
         onSaveTagData,
+        defaultSelectedProject
     } = props;
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
@@ -80,6 +81,7 @@ const ProjectTagSelection = (props) => {
                 onChange={onProjectSelectChange}
                 getOptionLabel={(option) => option.ProjectName}
                 getOptionSelected={onSelect}
+                defaultValue={defaultSelectedProject}
                 noOptionsText={injectIntlTranslation(intl, "GridNoData")}
                 renderInput={(params) => (
                     <TextField
