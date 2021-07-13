@@ -221,6 +221,7 @@ const SaveTag = (props) => {
                     defaultSelectedProject={defaultSelectedProject}
                     onSearchTextChange={onSearchTextChange}
                     isLoading={isLoading}
+                    setProjectError={setProjectError}
                 />
             </TabPanel>
             <TabPanel value={saveTagActiveTab} index={1}>

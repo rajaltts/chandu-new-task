@@ -19,7 +19,8 @@ const ProjectTagSelection = (props) => {
         onSaveTagData,
         defaultSelectedProject,
         onSearchTextChange = null,
-        isLoading = false
+        isLoading = false,
+        setProjectError
     } = props;
     const [displayProjectNames, setDisplayProjectNames] = useState([]);
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
@@ -57,20 +58,25 @@ const ProjectTagSelection = (props) => {
 
     const onProjectSelectChange = (event, value, reason) => {
         if (reason === "clear") {
-            setProjectData(null);
-            setSelectProjectError(
-                injectIntlTranslation(
-                    intl,
-                    "validationAtLeastOneProject",
-                    "Please select a Project."
-                )
-            );
+            clearValues();
             onSeachTextChangeHandler("")
             return;
         }
         setProjectData(value);
+        setProjectError && setProjectError("")
         setSelectProjectError("");
     };
+
+    const clearValues = () => {
+        setProjectData(null);
+        const errorText = injectIntlTranslation(
+            intl,
+            "validationAtLeastOneProject",
+            "Please select a Project."
+        )
+        setProjectError && setProjectError(errorText)
+        setSelectProjectError(errorText);
+    }
 
     const getTagNameProps = () => {
         return {
@@ -97,6 +103,7 @@ const ProjectTagSelection = (props) => {
             if (timer) clearTimeout(timer);
             let timeOut = setTimeout(() => {
                 onSearchTextChange(value);
+                clearValues();
             }, 300);
             setTimer(timeOut);
         }
