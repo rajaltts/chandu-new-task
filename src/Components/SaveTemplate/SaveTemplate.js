@@ -61,9 +61,9 @@ const SaveTemplate = (props) => {
     const saveTemplateDataHandler = () => {
         if (saveTemplateHandler) {
             const { newTemplateName, existingTemplateInfo } = templateInfo
+            setSelectedTab(0);
             saveTemplateHandler(newTemplateName, existingTemplateInfo, dispatch, intl);
         }
-        hideComponentHandler();
     }
 
     const handleTabChange = (value) => {
