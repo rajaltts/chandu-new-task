@@ -42,6 +42,7 @@ const ExistingTemplate = ({
                         }}
                         size="small"
                         fullWidth
+                        clearOnBlur={false}
                         onChange={handleTemplateChange}
                         options={existingTemplates}
                         getOptionLabel={(option) => option[lookUpKey]}

@@ -119,6 +119,7 @@ const ProjectTagSelection = (props) => {
                     option: classes.autoCompleteOptions,
                     listbox: classes.autoCompleteOptionsListContainer,
                 }}
+                clearOnBlur={false}
                 options={loading ? [] : displayProjectNames}
                 loading={loading}
                 loadingText={injectIntlTranslation(intl, "Loading", "Loading...")}
