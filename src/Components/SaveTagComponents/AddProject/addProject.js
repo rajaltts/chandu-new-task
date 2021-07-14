@@ -253,7 +253,7 @@ const AddProject = (props) => {
                     option.CustomerName.toString().toLowerCase() ===
                     params.inputValue.toString().toLowerCase()
             ) &&
-            params.inputValue !== ""
+            params.inputValue.trim() !== ""
         ) {
             filtered.push({
                 inputValue: params.inputValue,

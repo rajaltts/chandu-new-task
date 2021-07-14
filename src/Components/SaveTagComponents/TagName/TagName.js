@@ -60,6 +60,11 @@ const TagName = (props) => {
                 )
                     .replace("{0}", 1)
                     .replace("{1}", 100),
+                noBlankSpacesOnly: injectIntlTranslation(
+                    intl,
+                    "NoBlankSpacesOnly",
+                    "Input should not contain blank spaces only"
+                ),
             };
             error = validateFormFields(value, validations, validationMessages);
         }
