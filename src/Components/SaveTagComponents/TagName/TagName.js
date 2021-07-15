@@ -45,8 +45,8 @@ const TagName = (props) => {
             const validationMessages = {
                 nameRequired: injectIntlTranslation(
                     intl,
-                    "Tagnamerequired",
-                    "Tag name required"
+                    "SelectionNameRequired",
+                    "Selection name required"
                 ),
                 notAllowedCharacters: injectIntlTranslation(
                     intl,

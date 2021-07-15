@@ -33,7 +33,12 @@ const ProjectTagSelection = (props) => {
 
     useEffect(() => {
         if (projectDataList.length) {
-            setDisplayProjectNames(projectDataList);
+            setDisplayProjectNames(
+                projectDataList.filter(
+                    (project) =>
+                        project.ProjectName && project.ProjectName.trim() !== ""
+                )
+            );
         }
         setLoading(isLoading)
     }, [projectDataList, isLoading]);
