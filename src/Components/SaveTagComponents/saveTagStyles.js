@@ -137,6 +137,9 @@ const saveTagStyles = makeStyles((theme) => ({
     saveTagContent: {
         padding: "8px 0px !important",
     },
+    errorLabel: {
+        color: "#858585",
+    },
 }));
 
 export default saveTagStyles;

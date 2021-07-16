@@ -61,7 +61,7 @@ const SaveTag = (props) => {
             );
         }
         let disableSave = false;
-        const tagNameStatus = !isDisabled && !tagNameForSaveSelection;
+        const tagNameStatus = !isDisabled && !tagNameForSaveSelection.trim();
         switch (saveTagActiveTab) {
             case 0:
                 if (tagNameStatus || !selectedProject) disableSave = true;

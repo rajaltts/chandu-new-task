@@ -351,7 +351,7 @@ const AddProject = (props) => {
                                             {...params}
                                             className={`${classes.searchInput} ${classes.textFieldPlaceholder}`}
                                             label={
-                                                <span>
+                                                <span className={error ? classes.errorLabel : ""}>
                                                     {translation(
                                                         label,
                                                         defaultLabel
