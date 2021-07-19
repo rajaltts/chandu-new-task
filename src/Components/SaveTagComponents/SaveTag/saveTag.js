@@ -81,11 +81,11 @@ const SaveTag = (props) => {
                 break;
         }
         updateExistingTagInfo({
-            tagName: tagNameForSaveSelection,
+            tagName: tagNameForSaveSelection.trim(),
             projectData: selectedProject,
             disableSave,
         });
-    }, [tagNameForSaveSelection, selectedProject]);
+    }, [tagNameForSaveSelection, selectedProject, newProjectData]);
 
     useEffect(() => {
         setMenuList(customerNameList);
