@@ -11,6 +11,7 @@ import CustomGridSearch from './CustomGridSearch';
 import './CustomGrid.css';
 import translation from "../Translation";
 import ColumnPicker from "./columnPicker/ColumnPicker";
+import { getValueForDynamicKey } from './CustomGridUtils';
 
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
@@ -68,6 +69,10 @@ function CustomGrid(props) {
     }
   },[sorting])
 
+  const getCurrentPageRecord = (records) => {
+    return records.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === ascending;
     setOrder(isAsc ? descending : ascending);
@@ -76,8 +81,8 @@ function CustomGrid(props) {
 
   const handleSelectAllClick = ({ target: { checked }}) => {
     if (checked) {
-      setSelected(rows);
-      rowCheckboxHandler && rowCheckboxHandler(rows);
+      setSelected(sortedRows);
+      rowCheckboxHandler && rowCheckboxHandler(sortedRows);
     }
     else {
       setSelected([]);
@@ -133,6 +138,7 @@ function CustomGrid(props) {
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
+    handleSelectAllClick({target: {checked: false}})
   };
 
   const handleChangeRowsPerPage = ({ target: { value }}) => {
@@ -145,6 +151,7 @@ function CustomGrid(props) {
     }
     setRowsPerPage(parseInt(value, 10));
     setPage(0);
+    handleSelectAllClick({target: {checked: false}})
   };
 
   const onSearchHandler = (event) => {
@@ -162,6 +169,49 @@ function CustomGrid(props) {
   }
 
   const saveColumnPickerFilterError = (errorMessage) => setColumnPickerFilterError(errorMessage);
+
+  const sliceRecords = (records) => {
+    if (!stateLessGrid) {
+      return getCurrentPageRecord(records)
+    }
+    return records;
+  }
+
+  const stableSort = (array, comparator) => {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map(el => el[0]);
+  }
+
+  const getComparator = (order, orderBy) => {
+    if (order === sortingOrder.descending) {
+      return (a, b) => descendingComparator(a, b, orderBy)
+    }
+    else {
+      return (a, b) => -descendingComparator(a, b, orderBy);
+    }
+  }
+
+  const descendingComparator = (a, b, orderBy) => {
+    const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
+    const aValue = getValueForDynamicKey(a, orderByKey);
+    const bValue = getValueForDynamicKey(b, orderByKey);
+    const firstArg = (typeof aValue === 'string') ? aValue.toLowerCase() : aValue;
+    const secondArg = (typeof bValue === 'string') ? bValue.toLowerCase() : bValue;
+    if (secondArg < firstArg) {
+      return -1;
+    }
+    if (secondArg > firstArg) {
+      return 1;
+    }
+    return 0;
+  }
+
+  const sortedRows = sliceRecords(stableSort(rows, getComparator(order, orderBy)));
 
   return (
     <div id={id} className="customGrid">
@@ -187,7 +237,7 @@ function CustomGrid(props) {
                 orderBy={orderBy}
                 sortable={sortable}
                 numSelected={selected.length}
-                rowCount={rows.length}
+                rowCount={sortedRows.length}
                 showCheckbox={showCheckbox}
                 singleSelectGrid={singleSelectGrid}
                 onSelectAllClick={handleSelectAllClick}
@@ -202,11 +252,7 @@ function CustomGrid(props) {
                   headCells={headCells}
                   columnPicker={columnPicker}
                   showCheckbox={showCheckbox}
-                  rows={rows}
-                  order={order}
-                  orderBy={orderBy}
-                  page={page}
-                  rowsPerPage={rowsPerPage}
+                  rows={sortedRows}
                   rowOnclickHandler={rowOnclickHandler}
                   isSelected={isSelected}
                   handleClick={handleClick}
@@ -214,7 +260,6 @@ function CustomGrid(props) {
                   selectionType={singleSelectGrid}
                   config={config}
                   doNotTranslate={doNotTranslate}
-                  stateLessGrid={stateLessGrid}
                   uniqueKey={uniqueKey}
                   clickOnRowHighlight={clickOnRowHighlight}
                   rowHighlightClassName={rowHighlightClassName}
