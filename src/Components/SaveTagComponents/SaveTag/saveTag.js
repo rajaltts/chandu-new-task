@@ -61,7 +61,8 @@ const SaveTag = (props) => {
             );
         }
         let disableSave = false;
-        const tagNameStatus = !isDisabled && !tagNameForSaveSelection.trim();
+        const tagNameValidation = tagNameForSaveSelection.trim();
+        const tagNameStatus = !isDisabled && !tagNameValidation;
         switch (saveTagActiveTab) {
             case 0:
                 if (tagNameStatus || !selectedProject) disableSave = true;
@@ -81,7 +82,7 @@ const SaveTag = (props) => {
                 break;
         }
         updateExistingTagInfo({
-            tagName: tagNameForSaveSelection.trim(),
+            tagName: tagNameValidation,
             projectData: selectedProject,
             disableSave,
         });
