@@ -19,6 +19,7 @@ const TagName = (props) => {
             saveTagActiveTab,
             setSelectProjectError,
             projectData,
+            setTagError,
         },
         saveSelection,
     } = props;
@@ -26,6 +27,11 @@ const TagName = (props) => {
     const { isDisabled = false, value = "" } = tagInfo;
     const [tagData, addTagData] = useState(value);
     const classes = saveTagStyles();
+
+    useEffect(() => {
+        setTagError(existingErrorTagName);
+    }, [existingErrorTagName]);
+
 
     useEffect(() => {
         if (setTagNameForSaveSelection) setTagNameForSaveSelection(tagData);
@@ -111,7 +117,7 @@ const TagName = (props) => {
                                     intl,
                                     "SelectionName",
                                     "Selection name"
-                                )}
+                                ) + " *"}
                             </span>
                         }
                         name="tagName"

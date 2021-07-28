@@ -24,12 +24,13 @@ const NewTemplate = ({
         }
         else {
             const validations = {
-                regExp: /^[^\'"&/#,<>|\\\\]*$/
+                regExp: /^[A-Za-z0-9 _\p{L}]*[A-Za-z0-9\p{L}][A-Za-z0-9 _.\p{L}]*$/gu,
+                maxLength: 100
             };
             const validationMessages = {
                 nameRequired: injectIntlTranslation(intl, "PleaseEnterTagName", "Please enter a Template name"),
                 notAllowedCharacters: injectIntlTranslation(intl, "SpecialCharactersNotAllowed", "Special characters are not allowed."),
-                maxLengthError: ""
+                maxLengthError: injectIntlTranslation(intl, "MaxLengthError100", "Number of characters should not be more than 100")
             }
             errorMsg = validateFormFields(value, validations, validationMessages);
         }
@@ -56,7 +57,7 @@ const NewTemplate = ({
                 }}
                 variant="outlined"
                 fullWidth
-                onChange={({ target: { value } }) => onTemplateNameChange(value)}
+                onChange={({ target: { value } }) => onTemplateNameChange(value.trim())}
                 error={errorMessage}
             />
         </>

@@ -45,6 +45,7 @@ const SaveTag = (props) => {
     const [errorMessage, setErrorMessage] = useState(errorMsg);
     const [saveTagActiveTab, setSaveTagActiveTab] = useState(0);
     const [projectError, setProjectError] = useState("");
+    const [tagError, setTagError] = useState("");
     const [tagNameForSaveSelection, setTagNameForSaveSelection] = useState("");
     const isDisabled = tagName?.isDisabled || false;
 
@@ -61,8 +62,9 @@ const SaveTag = (props) => {
             );
         }
         let disableSave = false;
-        const tagNameValidation = tagNameForSaveSelection.trim();
-        const tagNameStatus = !isDisabled && !tagNameValidation;
+        const tagNameValue = tagNameForSaveSelection.trim();
+        const tagNameStatus =
+            (!isDisabled && !tagNameValue.trim()) || !!tagError;
         switch (saveTagActiveTab) {
             case 0:
                 if (tagNameStatus || !selectedProject) disableSave = true;
@@ -82,7 +84,7 @@ const SaveTag = (props) => {
                 break;
         }
         updateExistingTagInfo({
-            tagName: tagNameValidation,
+            tagName: tagNameValue,
             projectData: selectedProject,
             disableSave,
         });
@@ -178,6 +180,7 @@ const SaveTag = (props) => {
             setProjectError,
             selectedProject,
             saveTagActiveTab,
+            setTagError,
         };
     };
 

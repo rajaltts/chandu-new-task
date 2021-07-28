@@ -26,6 +26,7 @@ const ProjectTagSelection = (props) => {
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
     const [projectData, setProjectData] = useState(defaultSelectedProject);
     const [selectProjectError, setSelectProjectError] = useState("");
+    const [tagError, setTagError] = useState("");
     const [timer, setTimer] = useState(null);
     const [loading, setLoading] = useState(true);
     const isDisabled = tagName?.isDisabled || false;
@@ -45,7 +46,8 @@ const ProjectTagSelection = (props) => {
 
     useEffect(() => {
         let disableSave = false;
-        const tagNameStatus = !isDisabled && !tagNameForCopySelection;
+        const tagNameStatus = (!isDisabled && !tagNameForCopySelection.trim()) ||
+        !!tagError;
         if (tagNameStatus || !projectData) {
             disableSave = true;
         }
@@ -91,6 +93,7 @@ const ProjectTagSelection = (props) => {
             intl,
             setSelectProjectError,
             projectData,
+            setTagError,
         };
     };
 
@@ -156,7 +159,7 @@ const ProjectTagSelection = (props) => {
                                     intl,
                                     "SearchProject",
                                     "Search project here"
-                                )}
+                                ) + " *"}
                             </span>
                         }
                         size="small"
