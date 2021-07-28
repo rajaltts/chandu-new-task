@@ -101,7 +101,7 @@ const saveTagStyles = makeStyles((theme) => ({
         top: "calc(50% - 14px)",
     },
     autocomplete: {
-        marginTop: "25px",
+        marginTop: "4px",
     },
     optionsContainer: {
         zIndex: 9999999,
@@ -140,6 +140,12 @@ const saveTagStyles = makeStyles((theme) => ({
     errorLabel: {
         color: "#858585",
     },
+    infoProject: {
+        height: '14px',
+        marginBottom: '0px',
+        fontSize: '14px',
+        lineHeight: '14px'
+    }
 }));
 
 export default saveTagStyles;
