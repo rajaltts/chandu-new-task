@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TagName from "../TagName/TagName";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import classnames from 'classnames'
 
 const ProjectTagSelection = (props) => {
     const {
@@ -125,6 +126,13 @@ const ProjectTagSelection = (props) => {
             {!saveSelection ? (
                 <TagName tagNameProps={getTagNameProps()} />
             ) : null}
+            <div className={classnames(classes.infoProject, classes.helperText)}>
+                {injectIntlTranslation(
+                    intl,
+                    "LastEdited100Project",
+                    "Last 100 edited projects"
+                )}
+            </div>
             <Autocomplete
                 id="search-project"
                 className={`${classes.searchInput} ${classes.textFieldPlaceholder} ${classes.autocomplete}`}
