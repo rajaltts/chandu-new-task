@@ -61,7 +61,7 @@ const CustomGridHead = (props) => {
       <TableRow>
         {showCheckbox && showCheckboxCell(singleSelectGrid)}
         {headCellsData.map((cell) => {
-          const { name, disableSorting, className, textAlign } = cell
+          const { name, disableSorting, className, textAlign, sortingClassName } = cell
           return (
             shouldDisplayHeader(cell) ?
               <TableCell
@@ -78,6 +78,7 @@ const CustomGridHead = (props) => {
                     direction={orderBy === name ? order : ascending}
                     onClick={createSortHandler(name)}
                     IconComponent={ArrowDropDownIcon}
+                    className={sortingClassName}
                   >
                     {showHeader(cell)}
 
@@ -95,7 +96,7 @@ const CustomGridHead = (props) => {
                     direction={orderBy === name ? order : ascending}
                     onClick={null}
                     hideSortIcon
-                    className="defaultCursor"
+                    className={`defaultCursor ${sortingClassName}`}
                   >
                     {showHeader(cell)}
                   </TableSortLabel>

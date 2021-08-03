@@ -35,15 +35,6 @@
         height: 100%;
     }
 
-    .customGrid .MuiTableSortLabel-root:hover, .customGrid .MuiTableSortLabel-root:focus, .customGrid .MuiTableCell-head,
-    .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active, .customGrid .MuiTableSortLabel-iconDirectionDesc,
-    .customGrid .MuiTableSortLabel-iconDirectionAsc, .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active:hover,
-    .customGrid .MuiTableCell-head:hover, .customGrid .MuiTableSortLabel-iconDirectionDesc:hover, .customGrid .MuiTableSortLabel-iconDirectionAsc:hover{
-        background-color: #f9f9f9;
-        color: #152c73 !important;
-        font-weight: bold !important;
-    }
-
     .customGrid .MuiTableCell-head {
         font-size: 14px  !important;
         line-height: 1.3125rem !important;
