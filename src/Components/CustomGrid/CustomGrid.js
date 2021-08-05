@@ -20,7 +20,7 @@ function CustomGrid(props) {
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
     pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
     rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}, columnPicker = false, saveColumnHandler,
-    maxColumnLimit
+    maxColumnLimit, paginationClass
   } = props;
 
   const [order, setOrder] = useState(sorting);
@@ -296,6 +296,7 @@ function CustomGrid(props) {
               handleChangePage={handleChangePage}
               handleChangeRowsPerPage={handleChangeRowsPerPage}
               doNotTranslate={doNotTranslate}
+              paginationClass={paginationClass}
             />
           }
         </Paper>

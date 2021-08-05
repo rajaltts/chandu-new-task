@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TabStyles from "./TabsStyle";
+import classnames from 'classnames'
 
 const TabsContainer = (props) => {
-    const { tabs, defaultActiveTab, onTabChange } = props;
+    const { tabs, defaultActiveTab, onTabChange, inactiveClassname = null, divisonLineClassname = null } = props;
     const classes = TabStyles();
     const [activeTab, setActiveTab] = useState(defaultActiveTab || 0);
 
@@ -35,12 +36,13 @@ const TabsContainer = (props) => {
                             classes={{
                                 root: classes.tabRoot,
                             }}
+                            disabled={tab.disabled || false}
                             label={
                                 <span
                                     className={`${classes.tabLabels} ${
                                         activeTab === index
                                             ? classes.activeLabel
-                                            : classes.inActiveLabel
+                                            : classnames(inactiveClassname, classes.inActiveLabel)
                                     }`}
                                 >
                                     {tab.name}
@@ -51,7 +53,7 @@ const TabsContainer = (props) => {
                 })}
             </Tabs>
             <div
-                className={`${classes.divisionLine} ${classes.negativeMargin}`}
+                className={classnames(divisonLineClassname, classes.divisionLine, classes.negativeMargin)}
             />
         </>
     );

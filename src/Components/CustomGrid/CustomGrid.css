@@ -12,6 +12,7 @@
     .customGrid .paper {
         width: 100%;
         height: inherit;
+        box-shadow: none;
     }
 
     .customGrid .visuallyHidden {
@@ -103,6 +104,7 @@
     }
 
     .customGrid .footerContainer {
+        height: 42px;
         display: flex;
         flex-direction: row;
         color: #656565;
@@ -144,6 +146,16 @@
         width: 100%;
         display: flex;
         align-items: center;
+    }
+
+    .customGrid .footerItemContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .customGrid .footerLastItemContainer {
+        width: 75%;
+        display: flex;
         justify-content: flex-end;
     }
 
