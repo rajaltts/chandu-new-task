@@ -4,6 +4,7 @@ import ConfigDrivenUrlField from './fieldComponents/ConfigDrivenUrlField';
 import ConfigDrivenDateField from './fieldComponents/ConfigDrivenDateField';
 import ConfigDrivenNumberField from './fieldComponents/ConfigDrivenNumberField';
 import ConfigDrivenTextBoxField from './fieldComponents/ConfigDrivenTextBoxField';
+import ConfigDrivenMeatBallMenuField from './fieldComponents/ConfigDrivenMeatBallMenuField';
 import DynamicIcon from '../DynamicIcon';
 import Button from '../Button';
 
@@ -24,6 +25,8 @@ const FormBuilderField = (props) => {
             return <ConfigDrivenTextBoxField {...props} />
         case columnType.button:
             return <Button name={config.name} styles={config.className} onClick={() => config.onClick(props.rowData)} />
+        case columnType.meatballMenu:
+            return <ConfigDrivenMeatBallMenuField {...props} />
         case columnType.customComponent:
             return config.component ? React.createElement(config.component, {...props}) : null;
         default:

@@ -52,6 +52,7 @@ const CustomGridPagination = (props) => {
   return (
     <div className={classnames(paginationClass, "footerContainer")}>
       <div className="footerPagerContainer">
+        <div className="footerFirstContainer"></div>
         <div className="footerItemContainer">
           <Pagination count={chipsCount} page={page + 1} onChange={handleChange}/>
         </div>
