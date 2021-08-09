@@ -145,7 +145,7 @@ const ConfigDrivenTextBoxField = (props) => {
                     onBlur={updateValue}
                     onClick={handleTextBoxOnClick}
                 />
-                {!isValid && <span className="errorMsg">{validationmessage}</span>}
+                {!isValid && <span className="errorMsg">{doNotTranslate ? validationmessage: translation(validationmessage)}</span>}
             </React.Fragment>
             :
             <Tooltip title={title} arrow>
