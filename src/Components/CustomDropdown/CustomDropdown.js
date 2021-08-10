@@ -9,7 +9,7 @@ import translation from "../Translation";
 function CustomDropdown(props) {
   const node = useRef();
   const [open, setOpen] = React.useState(false);
-  const { tagTemplateName } = customDropdownStyles();
+  const { tagTemplateName, fullWidth } = customDropdownStyles();
 
   function onDropBtnClick() {
     props.onDropBtnClick(open, props.conceptTemplateType);
@@ -78,7 +78,7 @@ function CustomDropdown(props) {
            const templateTitle = item.TagTemplateName || item.TemplateName || item.Attributes.Description;
           return (
             <li key={guid()}>
-              <span className={tagTemplateName} title={templateTitle} onClick={() => onClickOfDropdownMenu(item)}> {templateTitle} </span>
+              <span className={classnames(tagTemplateName, item.defaultValues && fullWidth)} title={templateTitle} onClick={() => onClickOfDropdownMenu(item)}> {templateTitle} </span>
               {!item.defaultValues &&
                 <div>
                   <span
