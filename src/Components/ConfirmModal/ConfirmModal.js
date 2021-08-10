@@ -40,16 +40,16 @@ const ConfirmModal = (props) => {
 	const classes = useStyles()
     const cancelText = translation("Cancel");
 
-    const onCancelButtonClick = () => {
+    const onCancelButtonClick = (event) => {
         if (overrideFooterCancelButton) {
-            overrideFooterCancelButton();
+            overrideFooterCancelButton(event);
         } else if (onClose) {
-            !cancelDisabled && onClose(false);
+            !cancelDisabled && onClose(false, event);
         }
     }
 
-    const actionButtonClickHandler = (button) => {
-        !button.disabled && button.onClick();
+    const actionButtonClickHandler = (event, button) => {
+        !button.disabled && button.onClick(event);
     }
     
     return (
@@ -110,7 +110,7 @@ const ConfirmModal = (props) => {
                                         key={actionButton.id}
                                         id={actionButton.id}
                                         name={actionButton.name}
-                                        onClick={() => actionButtonClickHandler(actionButton)}
+                                        onClick={(event) => actionButtonClickHandler(event, actionButton)}
                                         disabled={actionButton.disabled}
                                     >
                                         {actionButton.name}

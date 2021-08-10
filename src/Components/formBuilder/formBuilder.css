@@ -25,3 +25,10 @@
     color: red;
 }
 
+.formBuilderOpacity {
+    opacity: 0.4;
+    line-height: 1.2;
+    font-size: 13px;
+    letter-spacing: 0px;
+}
+

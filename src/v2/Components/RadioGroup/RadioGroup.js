@@ -4,10 +4,10 @@ import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 import MaterialRadioGroup from '@material-ui/core/RadioGroup'
 import MaterialRadio from '@material-ui/core/Radio'
 
-const RadioGroup = ({ className, row, name, color, label, value, values, disabled, handleChange }) => {
+const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, handleChange }) => {
     return (
         <FormControl component='fieldset' className={className}>
-            {label && <FormLabel component='legend'>{label}</FormLabel>}
+            {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
             <MaterialRadioGroup
                 name={name}
                 value={value}
@@ -34,12 +34,14 @@ RadioGroup.defaultProps = {
     row: false,
     disabled: false,
     color: 'secondary',
+    displayLabel: true
 }
 
 RadioGroup.propTypes = {
     values: PropTypes.array,
     value: PropTypes.string,
     label: PropTypes.string,
+    displayLabel: PropTypes.bool,
     color: PropTypes.oneOf(['default', 'primary', 'secondary']),
     disabled: PropTypes.bool,
     handleChange: PropTypes.func,

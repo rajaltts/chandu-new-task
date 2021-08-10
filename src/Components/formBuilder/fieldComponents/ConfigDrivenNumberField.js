@@ -121,7 +121,7 @@ const ConfigDrivenNumberField = (props) => {
                     onBlur={updateValue}
                     onClick={handleNumberOnClick}
                 />
-                {!isValid && <span className="errorMsg">{validationmessage}</span>}
+                {!isValid && <span className="errorMsg">{doNotTranslate ? validationmessage: translation(validationmessage)}</span>}
             </React.Fragment>
             :
             <Tooltip ref={ref1} title={title} arrow>

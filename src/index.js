@@ -58,6 +58,9 @@ import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
+import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
+import theme from "./themes"
+import { pxToRem, defaultTheme } from "./util"
 
 export {
     Checkbox,
@@ -115,5 +118,9 @@ export {
     Search,
     pdfDownload,
     TabsContainer,
-    SaveTemplate
+    SaveTemplate,
+    RadioGroup,
+    theme,
+    pxToRem,
+    defaultTheme
 }
