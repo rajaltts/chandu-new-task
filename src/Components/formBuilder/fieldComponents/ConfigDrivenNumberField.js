@@ -84,7 +84,7 @@ const ConfigDrivenNumberField = (props) => {
     }
 
     const getFormatedValue = () => {
-        return formatValue(config, value);
+        return formatValue(config, value, rowData);
     }
 
     const handleNumberOnClick = (event) => {
