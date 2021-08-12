@@ -9,8 +9,8 @@ import DynamicIcon from '../DynamicIcon';
 import Button from '../Button';
 
 const FormBuilderField = (props) => {
-    const { config, value } = props;
-    const formattedValue = formatValue(config, value);
+    const { config, value, rowData } = props;
+    const formattedValue = formatValue(config, value, rowData);
     
     switch (config.columnType) {
         case columnType.url:
@@ -24,13 +24,13 @@ const FormBuilderField = (props) => {
         case columnType.textBox:
             return <ConfigDrivenTextBoxField {...props} />
         case columnType.button:
-            return <Button name={config.name} styles={config.className} onClick={() => config.onClick(props.rowData)} />
+            return <Button name={config.name} styles={config.className} onClick={() => config.onClick(rowData)} />
         case columnType.meatballMenu:
             return <ConfigDrivenMeatBallMenuField {...props} />
         case columnType.customComponent:
             return config.component ? React.createElement(config.component, {...props}) : null;
         default:
-            return <Fragment>{formattedValue}</Fragment>;
+            return <span className={config.className} onClick={(event) => config.onClick(event, rowData)}>{formattedValue}</span>;
     };
 }
 

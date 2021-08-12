@@ -57,7 +57,7 @@ const CustomGridPagination = (props) => {
           <Pagination count={chipsCount} page={page + 1} onChange={handleChange}/>
         </div>
         <div className="footerLastItemContainer">
-          {doNotTranslate ? "rows per page :" : translation("Rowsperpage")}
+          {doNotTranslate ? "items per page" : translation("Itemsperpage")} :
           <select className="footerSelect" onChange={createhandleChangeRowsPerPage}>
             {showRowsSelectionOptions()}
           </select>
