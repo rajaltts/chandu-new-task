@@ -4,30 +4,13 @@ import Pagination from '@material-ui/lab/Pagination';
 import classnames from 'classnames';
 
 const CustomGridPagination = (props) => {
-  const { rowsLength, labelRowsPerPage, rowsPerPage, handleChangeRowsPerPage, searchText, initialRowData,
-          rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage, page, doNotTranslate,
-          isAllPaginationSelected, paginationClass } = props;
+  const { rowsLength, rowsPerPage, handleChangeRowsPerPage, rowsPerPageOptions = [5, 10, 25, 50, 100, 'All'], handleChangePage,
+    page, doNotTranslate, isAllPaginationSelected, paginationClass } = props;
   const chipCountValue = Math.ceil(rowsLength / rowsPerPage);
   const chipsCount = isNaN(chipCountValue) ? 0 : chipCountValue;
   
   const createhandleChangeRowsPerPage = event => {
     handleChangeRowsPerPage(event);
-  };
-
-  const handleBackButtonClick = () => {
-    handleChangePage(page - 1);
-  };
-
-  const handleNextButtonClick = () => {
-    handleChangePage(page + 1);
-  };
-
-  const handleFirstButtonClick = () => {
-    handleChangePage(0);
-  };
-
-  const handleLastNextButtonClick = () => {
-    handleChangePage((chipsCount-1));
   };
 
   const showRowsSelectionOptions = () => {
@@ -53,8 +36,8 @@ const CustomGridPagination = (props) => {
     <div className={classnames(paginationClass, "footerContainer")}>
       <div className="footerPagerContainer">
         <div className="footerFirstContainer"></div>
-        <div className="footerItemContainer">
-          <Pagination count={chipsCount} page={page + 1} onChange={handleChange}/>
+        <div className="footerItemContainer" id="CustomGridPaginationContainer">
+          <Pagination id="CustomGridPagination" count={chipsCount} page={page + 1} onChange={handleChange}/>
         </div>
         <div className="footerLastItemContainer">
           {doNotTranslate ? "items per page" : translation("Itemsperpage")} :
