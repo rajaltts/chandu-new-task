@@ -109,33 +109,27 @@
         border-right: 1px solid rgba(224, 224, 224, 1);
     }
 
-    .customGrid .footerContainer .MuiIconButton-root.Mui-disabled {
-        opacity: 0.5;
-    }
-
-    .customGrid .footerContainer .MuiIconButton-root {
-        padding: 12px !important;
-        border-radius: 50%  !important;
-    }
-
-    .customGrid .footerItemsButton {
-        margin: 0 2rem;
-    }
-
-    .customGrid .footerLastFirst {
-        font-size: 12px;
-        color: #656565;
-    }
-
-    .customGrid .footerForwardBackward {
-        font-size: 18px;
-        color: #656565;
-    }
-
     .customGrid .footerSelect {
         width: 50px;
         margin: 0 0.5rem;
         height: 20px;
+        background-color: transparent;
+        color: black;
+        font-weight: bold;
+        border: none;
+        outline: none;
+    }
+
+    .customGrid #CustomGridPagination li:first-child button::after {
+        content: "Prev";
+        margin-left: 16px;
+        margin-right: 8px;
+    }
+
+    .customGrid #CustomGridPagination li:last-child button::before {
+        content: "Next";
+        margin-left: 8px;
+        margin-right: 16px;
     }
 
     .customGrid .footerPagerContainer {
@@ -159,18 +153,7 @@
         width: 30%;
         display: flex;
         justify-content: flex-end;
-    }
-
-    .customGrid .footerChips {
-        color: #fff;
-        border: 1px solid #d1d1d1;
-        background-color: #8c8c8c;
-    }
-
-    .customGrid .footerChipsUnselected {
-        background-color: transparent;
-        color: #656565;
-        border: none;
+        align-items: center;
     }
 
     .customGrid .messageContainer {
@@ -193,4 +176,8 @@
 
     .customGrid .defaultCursor {
         cursor: default !important;
+    }
+
+    .customGrid .sortingIcon {
+        margin-top: -12px
     }

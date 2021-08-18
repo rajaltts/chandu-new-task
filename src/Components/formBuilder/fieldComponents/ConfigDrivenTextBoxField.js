@@ -119,7 +119,7 @@ const ConfigDrivenTextBoxField = (props) => {
         }
     }
 
-    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  (onClick || onDoubleClick) ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
         return getFormatedValue();

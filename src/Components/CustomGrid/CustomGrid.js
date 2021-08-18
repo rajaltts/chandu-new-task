@@ -244,6 +244,7 @@ function CustomGrid(props) {
                 onRequestSort={handleRequestSort}
                 doNotTranslate={doNotTranslate}
                 columnPickerFilterError={columnPickerFilterError}
+                paginationClass={paginationClass}
               />
               {!!(getRowLength()) &&
                 <CustomGridBody

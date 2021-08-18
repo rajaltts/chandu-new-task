@@ -93,7 +93,7 @@ const ConfigDrivenNumberField = (props) => {
         }
     }
 
-    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, (onClick || onDoubleClick) ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
         return getFormatedValue();

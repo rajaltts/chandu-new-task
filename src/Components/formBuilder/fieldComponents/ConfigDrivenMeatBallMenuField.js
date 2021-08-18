@@ -32,7 +32,8 @@ const ConfigDrivenMeatBallMenuField = (props) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
+  const handleToggle = (event) => {
+    event.stopPropagation();
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -40,7 +41,6 @@ const ConfigDrivenMeatBallMenuField = (props) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 

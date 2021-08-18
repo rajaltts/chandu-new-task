@@ -5,12 +5,22 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import './CustomGrid.css';
 
+const sortingIcon = (props) => {
+  return (
+    <div className="headerColumn">
+      <ArrowDropUpIcon fontSize="small"/>
+      <ArrowDropDownIcon fontSize="small" className="sortingIcon"/>
+    </div>
+  )
+}
+
 const CustomGridHead = (props) => {
   const { ascending, descending } = sortingOrder;
-  const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox,
+  const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox, paginationClass,
     singleSelectGrid, rowCount, numSelected, columnPicker, columnPickerFilterError } = props;
 
   const createSortHandler = property => event => {
@@ -77,7 +87,7 @@ const CustomGridHead = (props) => {
                     active={orderBy === name}
                     direction={orderBy === name ? order : ascending}
                     onClick={createSortHandler(name)}
-                    IconComponent={ArrowDropDownIcon}
+                    IconComponent={paginationClass ? sortingIcon : ArrowDropDownIcon}
                     className={sortingClassName}
                   >
                     {showHeader(cell)}
