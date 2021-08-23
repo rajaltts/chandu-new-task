@@ -15,7 +15,8 @@ const searchDropdownStyles = makeStyles((theme) => ({
         height: "inherit"
     },
     searchInputRoot: {
-        minWidth: "66px"
+        minWidth: "174px",
+        height: "9px"
     },
     searchIcon: {
         cursor: "pointer"
