@@ -55,6 +55,7 @@ import JSReportContainer from './Components/JSReportContainer/JSReportContainer.
 import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 import TabsContainer from './Components/TabsComponent/TabsContainer';
 import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
+import TextBoxWithDropdownList from './Components/TextBoxWithDropdownList/TextBoxWithDropdownList'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -122,5 +123,6 @@ export {
     RadioGroup,
     theme,
     pxToRem,
-    defaultTheme
+    defaultTheme,
+    TextBoxWithDropdownList
 }
