@@ -154,7 +154,8 @@ function TextBoxWithDropdownList(props) {
             SetValue(oldValue)
         } else {
             if (Number.parseFloat(oldValue) !== Number.parseFloat(Value)) {
-                props.onValueChanged([{Name: props.PropName, Value: Value.toString().replace(',', '.')}])
+                const displayValue = FormatNumber(Value, UnitProp.Value, props.toPrecisionValue)
+                props.onValueChanged([{Name: props.PropName, Value: displayValue.toString().replace(',', '.')}])
             }
         }
         SetOutOfRange(Value < Min || Value > Max)
@@ -178,9 +179,10 @@ function TextBoxWithDropdownList(props) {
         if (fromUnitDesc && toUnitDesc && fromUnitDesc !== toUnitDesc) {
             let convertedValue = GetUnitConversionExt(Value, fromUnitDesc, toUnitDesc, props.RulesJSON)
             convertedValue = isFinite(convertedValue) ? convertedValue : 0
+            const displayValue = FormatNumber(convertedValue, event.target.value, props.toPrecisionValue)
             props.onValueChanged([
                 {Name: UnitProp.Name, Value: event.target.value},
-                {Name: props.PropName, Value: convertedValue?.toString().replace(',', '.')},
+                {Name: props.PropName, Value: displayValue?.toString().replace(',', '.')},
             ])
         }
     }
