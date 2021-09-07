@@ -30,7 +30,8 @@ const SaveTag = (props) => {
         intl,
         onValidation,
         onSearchTextChange = null,
-        isLoading = false
+        isLoading = false,
+        setError,
     } = props;
     const classes = saveTagStyles();
     const [menuList, setMenuList] = useState(customerNameList);
@@ -122,7 +123,10 @@ const SaveTag = (props) => {
     };
 
     const updateExistingTagInfo = (existingTagInfo) => {
-        const { disableSave } = existingTagInfo;
+        const { disableSave, projectData } = existingTagInfo;
+        if (!projectData) {
+            setError("");
+        }
         setDisableSave(disableSave);
         setExisitingProjectData(existingTagInfo);
     };
@@ -163,6 +167,7 @@ const SaveTag = (props) => {
         setNewProjectData(null);
         setDisableSave(true);
         setProjectError("");
+        setError("");
     };
 
     const onProjectSelect = (project) => {
