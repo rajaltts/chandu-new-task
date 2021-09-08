@@ -31,6 +31,21 @@ const TabStyles = makeStyles((theme) => ({
     negativeMargin: {
         marginTop: "-1px",
     },
+    badgePadding: {
+        paddingRight: '12px'
+    },
+    badgeContent: {
+        width: '10px',
+        minWidth: '10px',
+        height: '10px',
+        fontSize: '0.5rem',
+        fontWeight: 'bold',
+        lineHeight: '8px',
+        padding: '0 3px',
+        color: '#FFFFFF',
+        right: '-5px',
+        backgroundColor: '#1891F6'
+    }
 }));
 
 export default TabStyles;

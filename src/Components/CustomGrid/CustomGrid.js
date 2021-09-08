@@ -200,8 +200,8 @@ function CustomGrid(props) {
     const orderByKey = (config[orderBy] && config[orderBy].lookUpKey) || orderBy;
     const aValue = getValueForDynamicKey(a, orderByKey);
     const bValue = getValueForDynamicKey(b, orderByKey);
-    const firstArg = (typeof aValue === 'string') ? aValue.toLowerCase() : aValue;
-    const secondArg = (typeof bValue === 'string') ? bValue.toLowerCase() : bValue;
+    const firstArg = getValueForCompare(config, aValue);
+    const secondArg = getValueForCompare(config, bValue);
     if (secondArg < firstArg) {
       return -1;
     }
@@ -209,6 +209,16 @@ function CustomGrid(props) {
       return 1;
     }
     return 0;
+  }
+
+  const getValueForCompare = (config, value) => {
+    if (typeof value === 'string') {
+      if (config[orderBy] && config[orderBy].isNumericSort) {
+        return parseFloat(value.toLowerCase());
+      }
+      return value.toLowerCase();
+    }
+    return value;
   }
 
   const sortedRows = sliceRecords(stableSort(rows, getComparator(order, orderBy)));
