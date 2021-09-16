@@ -3,7 +3,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 const InputWithAutoComplete = (props) => {
-    const { label, options, defaultOptions, classes = {}, multiple, disableCloseOnSelect, onChange, outlined } = props
+    const { attrName, label, options, defaultOptions, classes = {}, multiple, disableCloseOnSelect, onChange, outlined } = props
 
     function handleOnChange(event, value, reason){
         if(typeof(onChange) === 'function'){
