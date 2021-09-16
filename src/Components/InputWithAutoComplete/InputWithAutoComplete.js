@@ -3,7 +3,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 const InputWithAutoComplete = (props) => {
-    const { label, options, defaultOptions, classes = {}, multiple, disableCloseOnSelect, onChange, outlined } = props
+    const { attrName, label, options, defaultOptions, classes = {}, multiple, disableCloseOnSelect, onChange, outlined } = props
 
     function handleOnChange(event, value, reason){
         if(typeof(onChange) === 'function'){
@@ -19,7 +19,7 @@ const InputWithAutoComplete = (props) => {
                 size="small"
                 options={options}
                 defaultValue={defaultOptions}
-                getOptionLabel={(option) => option.title}
+                getOptionLabel={(option) => attrName ? option[attrName] : option.title}
                 filterSelectedOptions
                 renderInput={(params) => (
                     <TextField
