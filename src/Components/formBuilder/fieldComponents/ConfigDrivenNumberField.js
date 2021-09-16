@@ -84,7 +84,7 @@ const ConfigDrivenNumberField = (props) => {
     }
 
     const getFormatedValue = () => {
-        return formatValue(config, value);
+        return formatValue(config, value, rowData);
     }
 
     const handleNumberOnClick = (event) => {
@@ -93,7 +93,7 @@ const ConfigDrivenNumberField = (props) => {
         }
     }
 
-    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, (onClick || onDoubleClick) ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
         return getFormatedValue();
@@ -121,7 +121,7 @@ const ConfigDrivenNumberField = (props) => {
                     onBlur={updateValue}
                     onClick={handleNumberOnClick}
                 />
-                {!isValid && <span className="errorMsg">{validationmessage}</span>}
+                {!isValid && <span className="errorMsg">{doNotTranslate ? validationmessage: translation(validationmessage)}</span>}
             </React.Fragment>
             :
             <Tooltip ref={ref1} title={title} arrow>

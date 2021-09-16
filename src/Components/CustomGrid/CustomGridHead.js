@@ -5,12 +5,22 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { sortingOrder } from '@carrier/workflowui-globalfunctions';
 import './CustomGrid.css';
 
+const sortingIcon = (props) => {
+  return (
+    <div className="headerColumn">
+      <ArrowDropUpIcon fontSize="small"/>
+      <ArrowDropDownIcon fontSize="small" className="sortingIcon"/>
+    </div>
+  )
+}
+
 const CustomGridHead = (props) => {
   const { ascending, descending } = sortingOrder;
-  const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox,
+  const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox, paginationClass,
     singleSelectGrid, rowCount, numSelected, columnPicker, columnPickerFilterError } = props;
 
   const createSortHandler = property => event => {
@@ -20,7 +30,7 @@ const CustomGridHead = (props) => {
   const showHeader = (cell) => {
     const { displayName, name, subHeader, showCheckbox } = cell
     return (
-      <div className="headerColumn">
+      <div>
         <span>
           {displayName || name}
           {showCheckbox &&
@@ -61,7 +71,7 @@ const CustomGridHead = (props) => {
       <TableRow>
         {showCheckbox && showCheckboxCell(singleSelectGrid)}
         {headCellsData.map((cell) => {
-          const { name, disableSorting, className, textAlign } = cell
+          const { name, disableSorting, className, textAlign, sortingClassName } = cell
           return (
             shouldDisplayHeader(cell) ?
               <TableCell
@@ -77,7 +87,8 @@ const CustomGridHead = (props) => {
                     active={orderBy === name}
                     direction={orderBy === name ? order : ascending}
                     onClick={createSortHandler(name)}
-                    IconComponent={ArrowDropDownIcon}
+                    IconComponent={paginationClass ? sortingIcon : ArrowDropDownIcon}
+                    className={sortingClassName}
                   >
                     {showHeader(cell)}
 
@@ -95,7 +106,7 @@ const CustomGridHead = (props) => {
                     direction={orderBy === name ? order : ascending}
                     onClick={null}
                     hideSortIcon
-                    className="defaultCursor"
+                    className={`defaultCursor ${sortingClassName}`}
                   >
                     {showHeader(cell)}
                   </TableSortLabel>

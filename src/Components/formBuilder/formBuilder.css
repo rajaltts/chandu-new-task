@@ -3,12 +3,12 @@
 }
 
 .formBuilderPointerCursor {
-    cursor: pointer !important;
+    cursor: pointer;
 }
 
 .formBuilderActive {
-    cursor: pointer !important;
-    color: #152c73;
+    cursor: pointer;
+    color: #152C73;
 }
 
 .formBuilderDisable {
@@ -17,11 +17,18 @@
 
 .formBuilderNormal {
     cursor: default;
-    color: #152c73;
+    color: #152C73;
 }
 
 .formBuilderInvalid {
     cursor: default;
     color: red;
+}
+
+.formBuilderOpacity {
+    opacity: 0.4;
+    line-height: 1.2;
+    font-size: 13px;
+    letter-spacing: 0px;
 }
 

@@ -6,18 +6,19 @@ const TabStyles = makeStyles((theme) => ({
         height: "4px",
     },
     tabLabels: {
-        textTransform: "capitalize",
+        textTransform: "initial",
         fontStyle: "normal",
-        fontWeight: "bold",
         fontSize: "16px",
         lineHeight: "19px",
         marginBottom: "-10px",
     },
     activeLabel: {
         color: "#1891F6",
+        fontWeight: "bold",
     },
     inActiveLabel: {
         color: "#BAC0D0",
+        fontWeight: "normal",
     },
     tabRoot: {
         padding: "0px",
@@ -28,8 +29,23 @@ const TabStyles = makeStyles((theme) => ({
         borderBottom: "1px solid #E5E7ED",
     },
     negativeMargin: {
-        marginTop: "-2px",
+        marginTop: "-1px",
     },
+    badgePadding: {
+        paddingRight: '12px'
+    },
+    badgeContent: {
+        width: '10px',
+        minWidth: '10px',
+        height: '10px',
+        fontSize: '0.5rem',
+        fontWeight: 'bold',
+        lineHeight: '8px',
+        padding: '0 3px',
+        color: '#FFFFFF',
+        right: '-5px',
+        backgroundColor: '#1891F6'
+    }
 }));
 
 export default TabStyles;

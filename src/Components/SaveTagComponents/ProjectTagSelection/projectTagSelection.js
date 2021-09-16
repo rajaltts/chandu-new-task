@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TagName from "../TagName/TagName";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import classnames from 'classnames'
 
 const ProjectTagSelection = (props) => {
     const {
@@ -26,6 +27,7 @@ const ProjectTagSelection = (props) => {
     const [tagNameForCopySelection, setTagNameForCopySelection] = useState("");
     const [projectData, setProjectData] = useState(defaultSelectedProject);
     const [selectProjectError, setSelectProjectError] = useState("");
+    const [tagError, setTagError] = useState("");
     const [timer, setTimer] = useState(null);
     const [loading, setLoading] = useState(true);
     const isDisabled = tagName?.isDisabled || false;
@@ -45,7 +47,8 @@ const ProjectTagSelection = (props) => {
 
     useEffect(() => {
         let disableSave = false;
-        const tagNameStatus = !isDisabled && !tagNameForCopySelection;
+        const tagNameStatus = (!isDisabled && !tagNameForCopySelection.trim()) ||
+        !!tagError;
         if (tagNameStatus || !projectData) {
             disableSave = true;
         }
@@ -91,6 +94,7 @@ const ProjectTagSelection = (props) => {
             intl,
             setSelectProjectError,
             projectData,
+            setTagError,
         };
     };
 
@@ -122,6 +126,13 @@ const ProjectTagSelection = (props) => {
             {!saveSelection ? (
                 <TagName tagNameProps={getTagNameProps()} />
             ) : null}
+            <div className={classnames(classes.infoProject, classes.helperText)}>
+                {injectIntlTranslation(
+                    intl,
+                    "LastEdited100Project",
+                    "Last 100 edited projects"
+                )}
+            </div>
             <Autocomplete
                 id="search-project"
                 className={`${classes.searchInput} ${classes.textFieldPlaceholder} ${classes.autocomplete}`}
@@ -156,7 +167,7 @@ const ProjectTagSelection = (props) => {
                                     intl,
                                     "SearchProject",
                                     "Search project here"
-                                )}
+                                ) + " *"}
                             </span>
                         }
                         size="small"

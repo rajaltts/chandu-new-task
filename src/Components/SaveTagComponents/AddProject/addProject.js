@@ -69,6 +69,10 @@ const AddProject = (props) => {
         }
     }, [customerNameList]);
 
+    const getCustomerDataByName = (name) => {
+        return customerNameList.find((customer) => customer.CustomerName === name);
+    }
+
     const updateCustomFields = (fieldData) => {
         const fields = { ...state };
         fieldData.forEach((customField) => {
@@ -115,10 +119,7 @@ const AddProject = (props) => {
             return CustomerID;
         }
         if (fields.CustomerName.value) {
-            const customer = customerNameList.find(
-                (customer) =>
-                    customer.CustomerName === fields.CustomerName.value
-            );
+            const customer = getCustomerDataByName(fields.CustomerName.value)
             if (customer) {
                 return customer.CustomerID;
             }
@@ -234,13 +235,18 @@ const AddProject = (props) => {
         validation
     ) => {
         if (value) {
-            handleAddCustomer({ CustomerName: value }, id, validation);
+            handleAddCustomer(
+                getCustomerDataByName(value) || { CustomerName: value },
+                id,
+                validation
+            );
         } else {
             disableFields(id);
         }
         if (changeType === "clear") {
             updateCustomerData();
             disableFields(id);
+            setCustomer("");
         }
     };
 
@@ -299,9 +305,9 @@ const AddProject = (props) => {
                             <div>
                                 <Autocomplete
                                     id={id}
-                                    value={customer}
+                                    value={customer || getCustomerDataByName(customerName.value)}
                                     freeSolo
-                                    selectOnFocus
+                                    selectOnFocus={false}
                                     classes={{
                                         endAdornment: classes.adornmentStyle,
                                         popper:
@@ -351,7 +357,13 @@ const AddProject = (props) => {
                                             {...params}
                                             className={`${classes.searchInput} ${classes.textFieldPlaceholder}`}
                                             label={
-                                                <span className={error ? classes.errorLabel : ""}>
+                                                <span
+                                                    className={
+                                                        error
+                                                            ? classes.errorLabel
+                                                            : ""
+                                                    }
+                                                >
                                                     {translation(
                                                         label,
                                                         defaultLabel

@@ -1,10 +1,31 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { injectIntl } from "react-intl";
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+
+const searchDropdownStyles = makeStyles((theme) => ({
+    dropdownAdornedEnd: {
+        paddingRight: "7px",
+        borderRadius: "19px"
+    },
+    endAdornmentIcon: {
+        height: "inherit"
+    },
+    searchInputRoot: {
+        minWidth: "174px",
+        height: "9px"
+    },
+    searchIcon: {
+        cursor: "pointer"
+    }
+}));
 
 const SearchDropdown = (props) => {
     const node = useRef();
+    const { dropdownAdornedEnd, endAdornmentIcon, searchInputRoot, searchIcon } = searchDropdownStyles()
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(props.value || "");
 
@@ -47,32 +68,43 @@ const SearchDropdown = (props) => {
 
     return (
         <div id="SearchComponentContainer" className="searchdropdown" >
-            <div id="SearchDropdownContainer" ref={node} className="searchDropdownButton">
-                <button className="eButtonsimple" onClick={handleBtnClick}>
-                    {injectIntlTranslation(props.filterName)}
-                    {(props.filters.length > 1) && <span className="caret" />}
-                </button>
-                {open && (<ul id="ProjectSearchCriteriaListContainer" className="dropdown-menu">
-                    {props.filters.map((value, idx) => {
-                        return <li id={idx} key={idx} onClick={() => listItemClicked(value)}>{value}</li>
-                    })}
-                </ul>)
-                }
-            </div>
-            <div className="searchContainerProject">
-                <input
-                    id="ProjectSearchTextBox"
-                    className="searchBox"
-                    type="search"
-                    name="search"
-                    placeholder={props.placeholder}
-                    onChange={textChangeHandler}
-                    onKeyPress={props.handleKeyPress}
-                    value={value}
-                />
-                <span onClick={props.onSearchClick}>
-                    <FontAwesomeIcon id="ProjectSearchIcon" icon={faSearch} className="searchIconProject" title={props.title} /></span>
-            </div>
+            <TextField
+                id="ProjectSearchTextBox"
+                variant="outlined"
+                size="small"
+                placeholder={props.placeholder}
+                onChange={textChangeHandler}
+                onKeyPress={props.handleKeyPress}
+                value={value}
+                InputProps={{
+                    classes: {
+                        adornedEnd: dropdownAdornedEnd,
+                        input: searchInputRoot
+                    },
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <SearchIcon className={searchIcon} id="ProjectSearchIcon" onClick={props.onSearchClick} />
+                        </InputAdornment>
+                    ),
+                    endAdornment: (
+                        <InputAdornment className={endAdornmentIcon}>
+                            <Divider orientation="vertical" flexItem />
+                            <div id="SearchDropdownContainer" ref={node} className="searchDropdownButton">
+                                <button className="eButtonsimple" onClick={handleBtnClick}>
+                                    {injectIntlTranslation(props.filterName)}
+                                    {(props.filters.length > 1) && <span className="caret" />}
+                                </button>
+                                {open && (<ul id="ProjectSearchCriteriaListContainer" className="dropdown-menu">
+                                    {props.filters.map((value, idx) => {
+                                        return <li id={idx} key={idx} onClick={() => listItemClicked(value)}>{value}</li>
+                                    })}
+                                </ul>)
+                                }
+                            </div>
+                        </InputAdornment>
+                    )
+                }}
+            />
         </div>
     )
 }

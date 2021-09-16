@@ -30,7 +30,8 @@ const SaveTag = (props) => {
         intl,
         onValidation,
         onSearchTextChange = null,
-        isLoading = false
+        isLoading = false,
+        setError,
     } = props;
     const classes = saveTagStyles();
     const [menuList, setMenuList] = useState(customerNameList);
@@ -45,6 +46,7 @@ const SaveTag = (props) => {
     const [errorMessage, setErrorMessage] = useState(errorMsg);
     const [saveTagActiveTab, setSaveTagActiveTab] = useState(0);
     const [projectError, setProjectError] = useState("");
+    const [tagError, setTagError] = useState("");
     const [tagNameForSaveSelection, setTagNameForSaveSelection] = useState("");
     const isDisabled = tagName?.isDisabled || false;
 
@@ -61,7 +63,9 @@ const SaveTag = (props) => {
             );
         }
         let disableSave = false;
-        const tagNameStatus = !isDisabled && !tagNameForSaveSelection.trim();
+        const tagNameValue = tagNameForSaveSelection.trim();
+        const tagNameStatus =
+            (!isDisabled && !tagNameValue.trim()) || !!tagError;
         switch (saveTagActiveTab) {
             case 0:
                 if (tagNameStatus || !selectedProject) disableSave = true;
@@ -81,7 +85,7 @@ const SaveTag = (props) => {
                 break;
         }
         updateExistingTagInfo({
-            tagName: tagNameForSaveSelection.trim(),
+            tagName: tagNameValue,
             projectData: selectedProject,
             disableSave,
         });
@@ -119,7 +123,10 @@ const SaveTag = (props) => {
     };
 
     const updateExistingTagInfo = (existingTagInfo) => {
-        const { disableSave } = existingTagInfo;
+        const { disableSave, projectData } = existingTagInfo;
+        if (!projectData) {
+            setError("");
+        }
         setDisableSave(disableSave);
         setExisitingProjectData(existingTagInfo);
     };
@@ -160,6 +167,7 @@ const SaveTag = (props) => {
         setNewProjectData(null);
         setDisableSave(true);
         setProjectError("");
+        setError("");
     };
 
     const onProjectSelect = (project) => {
@@ -177,6 +185,7 @@ const SaveTag = (props) => {
             setProjectError,
             selectedProject,
             saveTagActiveTab,
+            setTagError,
         };
     };
 

@@ -110,7 +110,7 @@ const ConfigDrivenTextBoxField = (props) => {
     }
 
     const getFormatedValue = () => {
-        return formatValue(config, value);
+        return formatValue(config, value, rowData);
     }
     
     const handleTextBoxOnClick = (event) => {
@@ -119,38 +119,41 @@ const ConfigDrivenTextBoxField = (props) => {
         }
     }
 
-    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  (onClick || onDoubleClick) ? 'formBuilderActive' : 'formBuilderNormal');
 
     if (!isEditable) {
         return getFormatedValue();
     }
 
     return (
-        editable ?
-            <React.Fragment>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    value={editedValue}
-                    InputProps={{
-                        classes: {
-                            input: InputRoot,
-                        }
-                    }}
-                    autoFocus
-                    margin={'none'}
-                    size={'small'}
-                    onKeyUp={enterKeyPressHandler}
-                    onChange={onChangeHandler}
-                    onBlur={updateValue}
-                    onClick={handleTextBoxOnClick}
-                />
-                {!isValid && <span className="errorMsg">{validationmessage}</span>}
-            </React.Fragment>
-            :
-            <Tooltip title={title} arrow>
-                <div ref={ref1} className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>{getFormatedValue()}</div>
-            </Tooltip>
+        <div ref={ref1}>
+            {editable ?
+                <React.Fragment>
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        value={editedValue}
+                        InputProps={{
+                            classes: {
+                                input: InputRoot,
+                            }
+                        }}
+                        autoFocus
+                        margin={'none'}
+                        size={'small'}
+                        onKeyUp={enterKeyPressHandler}
+                        onChange={onChangeHandler}
+                        onBlur={updateValue}
+                        onClick={handleTextBoxOnClick}
+                    />
+                    {!isValid && <span className="errorMsg">{doNotTranslate ? validationmessage: translation(validationmessage)}</span>}
+                </React.Fragment>
+                :
+                <Tooltip title={title} arrow>
+                    <span className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>{getFormatedValue()}</span>
+                </Tooltip>
+            }
+        </div>
     )
 }
 

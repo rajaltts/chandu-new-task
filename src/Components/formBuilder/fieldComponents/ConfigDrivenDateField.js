@@ -5,7 +5,7 @@ import '../formBuilder.css'
 
 const ConfigDrivenDateField = (props) => {
     const { rowData = {}, rowIndex, config = {}, value = '' } = props;
-    const { format = null, className, onClick = null } = config;
+    const { format = null, className, onClick = null, updatedByKey } = config;
 
     const onClickHandler = (event) => {
         onClick && onClick(event, rowData, rowIndex);
@@ -13,13 +13,12 @@ const ConfigDrivenDateField = (props) => {
 
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
     return (
-        <span className={classes} onClick={onClickHandler}>
-            {format ?
-                getLocalDate(value, format)
-                :
-                value
-            }
-        </span>
+        <div className={classes}>
+            <div onClick={onClickHandler}>
+                { format ? getLocalDate(value, format) : value }
+            </div>
+            { updatedByKey && <div className="formBuilderOpacity">by {rowData[updatedByKey]}</div> }
+        </div>
     )
 }
 

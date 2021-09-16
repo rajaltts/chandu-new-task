@@ -12,6 +12,7 @@
     .customGrid .paper {
         width: 100%;
         height: inherit;
+        box-shadow: none;
     }
 
     .customGrid .visuallyHidden {
@@ -35,15 +36,6 @@
         height: 100%;
     }
 
-    .customGrid .MuiTableSortLabel-root:hover, .customGrid .MuiTableSortLabel-root:focus, .customGrid .MuiTableCell-head,
-    .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active, .customGrid .MuiTableSortLabel-iconDirectionDesc,
-    .customGrid .MuiTableSortLabel-iconDirectionAsc, .customGrid .MuiTableSortLabel-root.MuiTableSortLabel-active:hover,
-    .customGrid .MuiTableCell-head:hover, .customGrid .MuiTableSortLabel-iconDirectionDesc:hover, .customGrid .MuiTableSortLabel-iconDirectionAsc:hover{
-        background-color: #f9f9f9;
-        color: #152c73 !important;
-        font-weight: bold !important;
-    }
-
     .customGrid .MuiTableCell-head {
         font-size: 14px  !important;
         line-height: 1.3125rem !important;
@@ -64,10 +56,6 @@
     }
 
     .customGrid .MuiTableSortLabel-root {
-        width: 100%;
-    }
-
-    .customGrid .headerColumn {
         width: 100%;
     }
 
@@ -112,6 +100,7 @@
     }
 
     .customGrid .footerContainer {
+        height: 42px;
         display: flex;
         flex-direction: row;
         color: #656565;
@@ -120,52 +109,51 @@
         border-right: 1px solid rgba(224, 224, 224, 1);
     }
 
-    .customGrid .footerContainer .MuiIconButton-root.Mui-disabled {
-        opacity: 0.5;
-    }
-
-    .customGrid .footerContainer .MuiIconButton-root {
-        padding: 12px !important;
-        border-radius: 50%  !important;
-    }
-
-    .customGrid .footerItemsButton {
-        margin: 0 2rem;
-    }
-
-    .customGrid .footerLastFirst {
-        font-size: 12px;
-        color: #656565;
-    }
-
-    .customGrid .footerForwardBackward {
-        font-size: 18px;
-        color: #656565;
-    }
-
     .customGrid .footerSelect {
         width: 50px;
         margin: 0 0.5rem;
         height: 20px;
+        background-color: transparent;
+        color: black;
+        font-weight: bold;
+        border: none;
+        outline: none;
+    }
+
+    .customGrid #CustomGridPagination li:first-child button::after {
+        content: "Prev";
+        margin-left: 16px;
+        margin-right: 8px;
+    }
+
+    .customGrid #CustomGridPagination li:last-child button::before {
+        content: "Next";
+        margin-left: 8px;
+        margin-right: 16px;
     }
 
     .customGrid .footerPagerContainer {
         width: 100%;
         display: flex;
         align-items: center;
+    }
+
+    .customGrid .footerFirstContainer {
+        width: 30%;
+        display: flex;
+    }
+
+    .customGrid .footerItemContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .customGrid .footerLastItemContainer {
+        width: 30%;
+        display: flex;
         justify-content: flex-end;
-    }
-
-    .customGrid .footerChips {
-        color: #fff;
-        border: 1px solid #d1d1d1;
-        background-color: #8c8c8c;
-    }
-
-    .customGrid .footerChipsUnselected {
-        background-color: transparent;
-        color: #656565;
-        border: none;
+        align-items: center;
     }
 
     .customGrid .messageContainer {
@@ -188,4 +176,8 @@
 
     .customGrid .defaultCursor {
         cursor: default !important;
+    }
+
+    .customGrid .sortingIcon {
+        margin-top: -12px
     }

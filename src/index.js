@@ -55,9 +55,16 @@ import JSReportContainer from './Components/JSReportContainer/JSReportContainer.
 import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 import TabsContainer from './Components/TabsComponent/TabsContainer';
 import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
+import TextBoxWithDropdownList from './Components/TextBoxWithDropdownList/TextBoxWithDropdownList'
+import InputWithAutoComplete from './Components/InputWithAutoComplete/InputWithAutoComplete'
+import RadaChart from './Components/RadarChart/RadaChart'
+import MinutesTimer from './Components/MinutesTimer'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
+import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
+import theme from "./themes"
+import { pxToRem, defaultTheme } from "./util"
 
 export {
     Checkbox,
@@ -115,5 +122,13 @@ export {
     Search,
     pdfDownload,
     TabsContainer,
-    SaveTemplate
+    SaveTemplate,
+    RadioGroup,
+    theme,
+    pxToRem,
+    defaultTheme,
+    TextBoxWithDropdownList,
+    InputWithAutoComplete,
+    RadaChart,
+    MinutesTimer
 }
