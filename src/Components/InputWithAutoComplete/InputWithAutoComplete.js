@@ -19,7 +19,7 @@ const InputWithAutoComplete = (props) => {
                 size="small"
                 options={options}
                 defaultValue={defaultOptions}
-                getOptionLabel={(option) => option.title}
+                getOptionLabel={(option) => attrName ? option[attrName] : option.title}
                 filterSelectedOptions
                 renderInput={(params) => (
                     <TextField
