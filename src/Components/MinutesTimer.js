@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,31 +15,48 @@ const timerStyles = makeStyles((theme) => ({
 }));
 
 const MinutesTimer = ({ label = "", reset = false, resetCallback = null, timeInterval = 1800 }) => {
+    let timerId = useRef();
     const [time, setTime] = useState(0);
+    const [runTimer, setRunTimer] = useState(false);
     const RESET_INTERVAL_S = timeInterval;
-    const timeRemain = RESET_INTERVAL_S - (time % RESET_INTERVAL_S);
+    const timeRemain = runTimer ? RESET_INTERVAL_S - (time % RESET_INTERVAL_S) : 0;
     const { timerRoot, counter, timerLabel } = timerStyles()
-    const formatTime = (time) =>
-        `${String(Math.floor(time / 60)).padStart(2, "0")}:${String(
-            time % 60
+    const formatTime = (time) => {
+        const timeRemainder = (isNaN(time) ? 0 : time)
+        return `${String(Math.floor(timeRemainder / 60)).padStart(2, "0")}:${String(
+            timeRemainder % 60
         ).padStart(2, "0")}`;
+    }
 
     useEffect(() => {
-        const timerId = setInterval(() => {
-            setTime((t) => t + 1);
-        }, 1000);
-        return () => clearInterval(timerId);
+        setRunTimer(true);
     }, []);
 
     useEffect(() => {
-        if ((time === RESET_INTERVAL_S) && resetCallback) {
-            resetCallback()
+        if (runTimer) {
+            timerId.current = setInterval(() => {
+                setTime((t) => t + 1);
+            }, 1000);
+        }
+        else {
+            if (timerId.current) {
+                clearInterval(timerId.current)
+            }
+        }
+    }, [runTimer]);
+
+    useEffect(() => {
+        if (time === RESET_INTERVAL_S) {
+            setRunTimer(false);
+            setTime(0)
+            resetCallback && resetCallback()
         }
     }, [time]);
 
     useEffect(() => {
-        if (reset && (time === RESET_INTERVAL_S)) {
+        if (reset) {
             setTime(0)
+            setRunTimer(true);
         }
     }, [reset]);
 
