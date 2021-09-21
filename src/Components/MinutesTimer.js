@@ -11,6 +11,9 @@ const timerStyles = makeStyles((theme) => ({
     },
     timerRoot: {
         background: "rgba(0, 0, 0, 0.3)"
+    },
+    timerLabelChip: {
+        padding: "0px 12px !important"
     }
 }));
 
@@ -20,7 +23,7 @@ const MinutesTimer = ({ label = "", reset = false, resetCallback = null, timeInt
     const [runTimer, setRunTimer] = useState(false);
     const RESET_INTERVAL_S = timeInterval;
     const timeRemain = runTimer ? RESET_INTERVAL_S - (time % RESET_INTERVAL_S) : 0;
-    const { timerRoot, counter, timerLabel } = timerStyles()
+    const { timerRoot, counter, timerLabel, timerLabelChip } = timerStyles()
     const formatTime = (time) => {
         const timeRemainder = (isNaN(time) ? 0 : time)
         return `${String(Math.floor(timeRemainder / 60)).padStart(2, "0")}:${String(
@@ -63,7 +66,8 @@ const MinutesTimer = ({ label = "", reset = false, resetCallback = null, timeInt
     return (
         <Chip
             classes={{
-                root: timerRoot
+                root: timerRoot,
+                label: timerLabelChip
             }}
             size="small"
             label={
