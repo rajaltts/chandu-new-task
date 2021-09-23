@@ -114,6 +114,12 @@ function TextBoxWithDropdownList(props) {
         if (!!props.toFixedValue) {
             return convertedValue.toFixed(props.toFixedValue)
         }
+        //significant digit by default
+        if (convertedValue > 0 && convertedValue < 1) {
+            convertedValue = Number.parseFloat(convertedValue).toPrecision(3)
+        } else {
+            convertedValue = Math.round(convertedValue * 100) / 100
+        }
         return convertedValue
     }
 
