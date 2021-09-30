@@ -34,6 +34,9 @@ const RenameTemplatePopUpStyles = makeStyles({
         backgroundColor: 'unset !important',
         margin: "4px 0px"
     },
+    tagNameWrapper: {
+        padding: "0px 4px",
+    }
 });
 
 export default RenameTemplatePopUpStyles;
