@@ -30,7 +30,7 @@ const FormBuilderField = (props) => {
         case columnType.customComponent:
             return config.component ? React.createElement(config.component, {...props}) : null;
         default:
-            return <span className={config.className} onClick={(event) => config.onClick(event, rowData)}>{formattedValue}</span>;
+            return <span className={config.className} onClick={(event) => config.onClick && config.onClick(event, rowData)}>{formattedValue}</span>;
     };
 }
 

@@ -8,7 +8,7 @@ import '../formBuilder.css'
 import { inputStyles } from '../formBuilderStyles';
 
 const ConfigDrivenNumberField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate } = props;
+    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate, setEnableRowClick } = props;
     const { step = "1", min = "-99999999", max = "99999999", className = null, onClick = null,
         onDoubleClick = null, isEditable = false, validations = {} } = config;
     const [editable, setEditable] = useState(false);
@@ -44,12 +44,14 @@ const ConfigDrivenNumberField = (props) => {
     const setNumberField = () => {
         setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
         setEditedValue(getFormatedValue());
+        setEnableRowClick(false);
         setEditable(true);
     }
 
     const updateValue = (event) => {
         if (checkValidation()) {
             setIsValid(true);
+            setEnableRowClick(true)
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
             onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
@@ -59,6 +61,7 @@ const ConfigDrivenNumberField = (props) => {
     const checkValidation = () => {
         if (editedValue === value) {
             setEditable(false);
+            enableRowClickWithDelay();
             return false;
         }
         if (validations.validation) {
@@ -66,10 +69,17 @@ const ConfigDrivenNumberField = (props) => {
             if (message) {
                 setValidationMessage(message);
                 setIsValid(false);
+                enableRowClickWithDelay();
                 return false;
             }
         }
         return true;
+    }
+
+    const enableRowClickWithDelay = () => {
+        setTimeout(() => {
+            setEnableRowClick(true)
+        }, 303);
     }
 
     const enterKeyPressHandler = (event) => {
