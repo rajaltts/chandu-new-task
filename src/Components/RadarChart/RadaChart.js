@@ -5,7 +5,8 @@ const RadaChart = (props) => {
     const { titleConfig = {}, legendConfig = {}, radarConfig={}, data, color, 
         tagAttrName='name', showDataTip=false, height=350, width=700 } = props
 
-    const { isVertical, legendPadding=0 } = legendConfig
+    const { isVertical, legendPadding=0, legendLeft='auto', legendTop='auto', 
+        legendRight='auto', legendBottom='auto' } = legendConfig
 
     const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, 
         splitNumber=4, isPolygon } = radarConfig
@@ -26,7 +27,11 @@ const RadaChart = (props) => {
             legend: {
                 data: getLegendData(),
                 orient: isVertical ? 'vertical' : 'horizontal',
-                padding: legendPadding
+                padding: legendPadding,
+                left: legendLeft,
+                top: legendTop,
+                right: legendRight,
+                bottom: legendBottom
             },
             tooltip: {
                 show: showDataTip,
