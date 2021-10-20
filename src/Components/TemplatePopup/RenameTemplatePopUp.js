@@ -10,7 +10,8 @@ function RenameTemplatePopUp(props) {
   const [tagName, setTagName] = React.useState();
   const [tagValidationError, setTagValidationError] = React.useState();
   const tagNameRef = React.useRef();
-  const { tagNameContainer, tagNameLabel, tagNameField, errorBorder, nonErrorBorder, errorMsg, fieldDisabled } = RenameTemplatePopUpStyles();
+  const { tagNameContainer, tagNameLabel, tagNameField, errorBorder, nonErrorBorder, errorMsg, fieldDisabled,
+          tagNameWrapper } = RenameTemplatePopUpStyles();
   const errorClass = tagValidationError ? errorBorder : nonErrorBorder;
 
   function onToggleEditDialouge() {
@@ -85,6 +86,7 @@ function RenameTemplatePopUp(props) {
         onClose={onToggleEditDialouge}
         footerComponent={createRenameTemplateButtons()}
         className="editTagTemplate-dialog"
+        contentClassName={tagNameWrapper}
       >
         <div className={tagNameContainer}>
           <div className={tagNameLabel}>

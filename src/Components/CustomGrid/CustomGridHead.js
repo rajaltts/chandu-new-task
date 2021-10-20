@@ -30,7 +30,7 @@ const CustomGridHead = (props) => {
   const showHeader = (cell) => {
     const { displayName, name, subHeader, showCheckbox } = cell
     return (
-      <div>
+      <div className="headerColumn">
         <span>
           {displayName || name}
           {showCheckbox &&

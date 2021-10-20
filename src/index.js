@@ -58,6 +58,7 @@ import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
 import TextBoxWithDropdownList from './Components/TextBoxWithDropdownList/TextBoxWithDropdownList'
 import InputWithAutoComplete from './Components/InputWithAutoComplete/InputWithAutoComplete'
 import RadaChart from './Components/RadarChart/RadaChart'
+import MinutesTimer from './Components/MinutesTimer'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -128,5 +129,6 @@ export {
     defaultTheme,
     TextBoxWithDropdownList,
     InputWithAutoComplete,
-    RadaChart
+    RadaChart,
+    MinutesTimer
 }

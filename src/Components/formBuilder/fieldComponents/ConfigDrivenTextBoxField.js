@@ -8,7 +8,7 @@ import '../formBuilder.css'
 import { inputStyles } from '../formBuilderStyles';
 
 const ConfigDrivenTextBoxField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = '', doNotTranslate } = props;
+    const { rowData = {}, rowIndex, config = {}, value = '', doNotTranslate, setEnableRowClick } = props;
     const { className = null, onClick = null, onDoubleClick = null, isEditable = false, validations = {}, validationsOnLoading = false} = config;
     const [isValid, setIsValid] = useState(true);
     const [editable, setEditable] = useState(false);
@@ -69,12 +69,14 @@ const ConfigDrivenTextBoxField = (props) => {
     const setTextBoxField = () => {
         setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
         setEditedValue(getFormatedValue());
+        setEnableRowClick(false);
         setEditable(true);
     }
 
     const updateValue = (event) => {
         if (checkValidation()) {
             setIsValid(true);
+            setEnableRowClick(true);
             setEditable(false);
             onClick && onClick(event, editedValue, rowData, rowIndex);
             onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
@@ -84,6 +86,7 @@ const ConfigDrivenTextBoxField = (props) => {
     const checkValidation = () => {
         if (editedValue === value) {
             setIsValid(true);
+            enableRowClickWithDelay();
             setEditable(false);
             return false;
         }
@@ -92,10 +95,17 @@ const ConfigDrivenTextBoxField = (props) => {
             if (message) {
                 setValidationMessage(message);
                 setIsValid(false);
+                enableRowClickWithDelay();
                 return false;
             }
         }
         return true;
+    }
+
+    const enableRowClickWithDelay = () => {
+        setTimeout(() => {
+            setEnableRowClick(true)
+        }, 303);
     }
 
     const enterKeyPressHandler = (event) => {

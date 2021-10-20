@@ -97,7 +97,7 @@ const SaveTag = (props) => {
 
     useEffect(() => {
         if (errorMsg && disableSave) {
-            setDisableSave(false);
+            setDisableSave(true);
         }
         setErrorMessage(errorMsg);
     }, [errorMsg]);

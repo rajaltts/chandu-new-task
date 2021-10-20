@@ -64,7 +64,7 @@ function SimpleRadioButtonGroup(props) {
         return (
             <div id={"ctrl"+ props.PropName}>
                 {Prop && Prop.Values.map((value, index) => {
-                    if(props.HideNotAllowedValues && value.State===2)
+                    if((props.HideNotAllowedValues && value.State===2) || (props.HideInvisibleValues && value.Attributes["VISIBLE"] === "FALSE"))
                     return null;
                     else
                     return <Fragment>

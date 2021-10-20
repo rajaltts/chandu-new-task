@@ -16,6 +16,7 @@ function CustomGridBody(props) {
   let timer;
 
   const [clickedRow, setClickedRow] = useState(highlightedRowByDefault);
+  const [enableRowClick, setEnableRowClick] = useState(true);
 
   const showSelectionCell = (isItemSelected, row, index, type) => {
     const selectionProps = {
@@ -37,7 +38,7 @@ function CustomGridBody(props) {
     clickOnRowHighlight && setClickedRow(row);
     clearTimeout(timer);
     if (event.detail === 1 && rowOnclickHandler) {
-      timer = setTimeout(() => rowOnclickHandler(row, index, event), 300);
+      timer = setTimeout(() => enableRowClick && rowOnclickHandler(row, index, event), 300);
     }
   }
 
@@ -69,6 +70,7 @@ function CustomGridBody(props) {
                       rowIndex={index}
                       config={configItem}
                       value={getValueForDynamicKey(row, lookUpKey)}
+                      setEnableRowClick={setEnableRowClick}
                     />
                   </TableCell>
                   :

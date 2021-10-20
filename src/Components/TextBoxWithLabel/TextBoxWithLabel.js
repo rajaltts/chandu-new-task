@@ -17,6 +17,8 @@ function TextBoxWithLabel(props) {
     const [OutOfRange, SetOutOfRange] = React.useState(false)
     const [CheckboxProp, SetCheckboxProp] = React.useState(0)
 
+    const { saveSignificantDigit = false } = props
+
     useEffect(() => {
         let VisibleProp
         if(props.Visible)
@@ -51,7 +53,7 @@ function TextBoxWithLabel(props) {
                 if(!UnitNumber && UnitProp.Values.length > 1){
                     //Assign default unit
                     let UnitDefault = GetProperty(props.PropName+".UNIT.DEFAULT").Value
-                    props.onValueChanged([{Name: props.PropName+".UNIT", Value: UnitDefault}])
+                    props.onValueChanged([{ Name: props.PropName + ".UNIT", Value: saveSignificantDigit ? SignificantDigit(UnitDefault) : UnitDefault }])
         
                 }else{
                     if(MainProp){
@@ -109,8 +111,11 @@ function TextBoxWithLabel(props) {
             let NewValue = Value
             if(props.unitSystem === "Metric")
                 NewValue = GetEnglishValue(Value, UnitProp.Value)
-            if(parseFloat(OldValue) !== parseFloat(NewValue))
-                props.onValueChanged([{Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
+            if (parseFloat(OldValue) !== parseFloat(NewValue)) {
+                NewValue = NewValue.toString().replace(',', '.')
+                NewValue = saveSignificantDigit ? SignificantDigit(NewValue) : NewValue
+                props.onValueChanged([{ Name: props.PropName, Value: NewValue }])
+            }
             else
                 SetValue(FormatNumber(OldValue,UnitProp.Value))
             SetOutOfRange(parseFloat(Value) < Min || parseFloat(Value) > Max)
@@ -126,11 +131,16 @@ function TextBoxWithLabel(props) {
 
     function onUnitChanged(event){
         let NewValue = Math.round(SameSystemConversion(UnitProp.Value, event.target.value, Value, props.unitSystem)*100)/100
-        if(props.unitSystem === "Metric")
-            props.onValueChanged([{Name: UnitProp.Name, Value: event.target.value}, {Name: props.PropName, Value: GetEnglishValue(NewValue, event.target.value).toString().replace(',','.')}])
-        else
-            props.onValueChanged([{Name: UnitProp.Name, Value: event.target.value}, {Name: props.PropName, Value: NewValue.toString().replace(',','.')}])
-        
+        if (props.unitSystem === "Metric") {
+            NewValue = GetEnglishValue(NewValue, event.target.value).toString().replace(',', '.')
+            NewValue = saveSignificantDigit ? SignificantDigit(NewValue) : NewValue
+            props.onValueChanged([{ Name: UnitProp.Name, Value: event.target.value }, { Name: props.PropName, Value: NewValue }])
+        }
+        else {
+            NewValue = NewValue.toString().replace(',', '.')
+            NewValue = saveSignificantDigit ? SignificantDigit(NewValue) : NewValue
+            props.onValueChanged([{ Name: UnitProp.Name, Value: event.target.value }, { Name: props.PropName, Value: NewValue }])
+        }
     }
 
     function handleCheckChange(){

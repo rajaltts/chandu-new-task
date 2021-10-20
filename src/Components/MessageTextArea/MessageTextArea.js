@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
-import { GetProp } from '@carrier/workflowui-globalfunctions';
+import { GetProp , FormatTransKey} from '@carrier/workflowui-globalfunctions';
+import {translation} from '@carrier/ngecat-reactcomponents'
 import './MessageTextArea.css';
 const ImageFolderPath = '/Images/'; 
 function MessageTextArea(props) {
@@ -38,12 +39,12 @@ function MessageTextArea(props) {
     return  props.LineDelimiter ?
       <div className="MessageTextArea">
         {getIcon(value)}
-        {getLineDelimiterValue(value.Value)}
+            {props.DoTranslate ? getLineDelimiterValue(translation(FormatTransKey(value.Value), value.Value)) : getLineDelimiterValue(value.Value)}
       </div>
       :
       <p className="MessageTextArea">
         {getIcon(value)}
-        {value.Value}
+            {props.DoTranslate ? translation(FormatTransKey(value.Value), value.Value) : value.Value }
       </p>
     }
 
