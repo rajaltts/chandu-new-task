@@ -24,7 +24,7 @@ const NewTemplate = ({
         }
         else {
             const validations = {
-                regExp: /^[A-Za-z0-9 _\p{L}]*[A-Za-z0-9\p{L}][A-Za-z0-9 _.\p{L}]*$/gu,
+                regExp: /^[^'\"&\/#,<>|\\\\]*$/,
                 maxLength: 100
             };
             const validationMessages = {
