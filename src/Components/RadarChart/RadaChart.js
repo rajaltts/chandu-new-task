@@ -108,9 +108,8 @@ const RadaChart = (props) => {
     function updateIndicator(){
         let indicatorTemp = []
         indicator && indicator.map(item => {
-            let text = injectIntlTranslation(intl, item.text)
             let itemTemp = {
-                text: text,
+                text: injectIntlTranslation(intl, item.text),
                 min: item.isDesc ? -item.max : item.min,
                 max: item.isDesc ? -item.min : item.max,
                 axisLabel:{
