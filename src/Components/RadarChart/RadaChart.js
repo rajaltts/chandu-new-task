@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactEcharts from 'echarts-for-react'
+import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
+import { injectIntl } from "react-intl"
+
 const RadaChart = (props) => {
 
     const { titleConfig = {}, legendConfig = {}, radarConfig={}, data, color, 
-        tagAttrName='name', showDataTip=false, height=350, width=700 } = props
+        tagAttrName='name', showDataTip=false, height=350, width=700, intl } = props
 
     const { isVertical, legendPadding=0, legendLeft='auto', legendTop='auto', 
         legendRight='auto', legendBottom='auto' } = legendConfig
@@ -12,6 +15,13 @@ const RadaChart = (props) => {
         splitNumber=4, isPolygon } = radarConfig
     
     const [option, setOption] = useState(getOption())
+
+    useEffect(() => {
+        let configTemp = JSON.parse(JSON.stringify(option))
+        configTemp.tooltip.formatter = showToolTipData
+        configTemp.radar.indicator = updateIndicator()
+        setOption(configTemp)
+    },[intl])
 
     function getOption(){
         let optionConfig = {
@@ -38,34 +48,34 @@ const RadaChart = (props) => {
                 formatter: showToolTipData
             },
             radar: {
-                    indicator: updateIndicator(),
-                    center: center,
-                    radius: radius,
-                    startAngle: startAngle,
-                    splitNumber: splitNumber,
-                    shape: isPolygon ? 'polygon' : 'circle',
-                    name: {
-                        formatter: '{value}',
-                        textStyle: {
-                            color: radarConfig.textColor ? radarConfig.textColor : '#428BD4'
-                        }
-                    },
-                    splitArea: {
-                        areaStyle: {
-                            color: radarConfig.areaColor ? radarConfig.areaColor : ['#e5ecf6'],
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: radarConfig.axisLineColor ? radarConfig.axisLineColor : '#fff'
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: radarConfig.splitLineColor ? radarConfig.splitLineColor : '#fff'
-                        }
-                    },
+                indicator: updateIndicator(),
+                center: center,
+                radius: radius,
+                startAngle: startAngle,
+                splitNumber: splitNumber,
+                shape: isPolygon ? 'polygon' : 'circle',
+                name: {
+                    formatter: '{value}',
+                    textStyle: {
+                        color: radarConfig.textColor ? radarConfig.textColor : '#428BD4'
+                    }
                 },
+                splitArea: {
+                    areaStyle: {
+                        color: radarConfig.areaColor ? radarConfig.areaColor : ['#e5ecf6'],
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: radarConfig.axisLineColor ? radarConfig.axisLineColor : '#fff'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: radarConfig.splitLineColor ? radarConfig.splitLineColor : '#fff'
+                    }
+                },
+            },
             series: [
                 {
                     name: 'radar',
@@ -90,7 +100,7 @@ const RadaChart = (props) => {
         let dataLine = data[index]
         let dataTip = dataLine[tagAttrName] + '<br />'
         indicator && indicator.map(item => {
-            dataTip = dataTip + '<li>' + item.text + ': ' + dataLine[item.text] + '</li>'
+            dataTip = dataTip + '<li>' + injectIntlTranslation(intl, item.text) + ': ' + dataLine[item.text] + '</li>'
         })
         return dataTip
     }
@@ -99,7 +109,7 @@ const RadaChart = (props) => {
         let indicatorTemp = []
         indicator && indicator.map(item => {
             let itemTemp = {
-                text: item.text,
+                text: injectIntlTranslation(intl, item.text),
                 min: item.isDesc ? -item.max : item.min,
                 max: item.isDesc ? -item.min : item.max,
                 axisLabel:{
@@ -150,4 +160,4 @@ const RadaChart = (props) => {
     )
 }
 
-export default RadaChart
+export default injectIntl(RadaChart)
