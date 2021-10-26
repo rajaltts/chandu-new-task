@@ -25,7 +25,7 @@ function RenameTemplatePopUp(props) {
     setTagName(value);
     const validations = {
       regExp: /^[^'\"&\/#,<>|\\\\]*$/,
-      maxLength: 50
+      maxLength: 100
     }
     const validationMessages = { nameRequired: props.tagNameRequiredText, notAllowedCharacters: props.notAllowedCharactersText, maxLengthError: props.maxLengthError }
 

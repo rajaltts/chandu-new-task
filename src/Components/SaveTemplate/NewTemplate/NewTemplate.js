@@ -25,7 +25,7 @@ const NewTemplate = ({
         else {
             const validations = {
                 regExp: /^[^'\"&\/#,<>|\\\\]*$/,
-                maxLength: 100
+                maxLength: 100,
             };
             const validationMessages = {
                 nameRequired: injectIntlTranslation(intl, "PleaseEnterTagName", "Please enter a Template name"),
