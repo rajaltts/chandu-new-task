@@ -12,7 +12,7 @@ const RadaChart = (props) => {
         legendRight='auto', legendBottom='auto' } = legendConfig
 
     const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, 
-        splitNumber=4, isPolygon } = radarConfig
+        splitNumber=4, isPolygon, lineStyle=[{type: [1, 0]}] } = radarConfig
     
     const [option, setOption] = useState(getOption())
 
@@ -146,6 +146,8 @@ const RadaChart = (props) => {
                 radarLine.push(value)
             })
             radarData.value = radarLine
+            let style = index > lineStyle.length - 1 ? lineStyle[lineStyle.length - 1] : lineStyle[index]
+            radarData.lineStyle = { type: style.type }
             radarDatas.push(radarData)
         })
         return radarDatas
