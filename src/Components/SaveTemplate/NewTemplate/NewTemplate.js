@@ -13,10 +13,6 @@ const NewTemplate = ({
     const { paragraph, field } = saveTemplateStyles();
     const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() => {
-        onTemplateNameChange("")
-    }, [])
-
     const onTemplateNameChange = (value) => {
         let errorMsg = ""
         if (validationHandler) {

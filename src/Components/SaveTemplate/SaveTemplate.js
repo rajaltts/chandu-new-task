@@ -17,9 +17,10 @@ const SaveTemplate = (props) => {
         existingTemplates = [],
         errorMsg = '',
         saveTemplateHandler = null,
-        validationHandler = null
+        validationHandler = null,
+        activeTab = 0,
     } = saveTemplate;
-    const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedTab, setSelectedTab] = useState(activeTab);
     const [disableSave, setDisableSave] = useState(true);
     const tabs = [
         { name: translation("ExistingTemplate", "Existing Template") },
@@ -34,6 +35,10 @@ const SaveTemplate = (props) => {
         }
         setErrorMessage(errorMsg);
     }, [errorMsg]);
+
+    useEffect(() => {
+        setSelectedTab(activeTab);
+    }, [activeTab])
 
     const createActionsButton = (disableSave) => {
         return [
