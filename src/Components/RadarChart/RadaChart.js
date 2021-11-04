@@ -8,11 +8,11 @@ const RadaChart = (props) => {
     const { titleConfig = {}, legendConfig = {}, radarConfig={}, data, color, 
         tagAttrName='name', showDataTip=false, height=350, width=700, intl } = props
 
-    const { isVertical, legendPadding=0, legendLeft='auto', legendTop='auto', 
-        legendRight='auto', legendBottom='auto' } = legendConfig
+    const { isVertical, legendPadding=0, legendLeft='auto', legendTop='auto', legendRight='auto', 
+        legendBottom='auto' } = legendConfig
 
-    const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, 
-        splitNumber=4, isPolygon, lineStyle=[{type: [1, 0]}] } = radarConfig
+    const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, splitNumber=5, 
+        isPolygon, lineStyle=[{}], formatAxisName } = radarConfig
     
     const [option, setOption] = useState(getOption())
 
@@ -55,24 +55,24 @@ const RadaChart = (props) => {
                 splitNumber: splitNumber,
                 shape: isPolygon ? 'polygon' : 'circle',
                 name: {
-                    formatter: '{value}',
-                    textStyle: {
-                        color: radarConfig.textColor ? radarConfig.textColor : '#428BD4'
-                    }
+                    formatter: value => formatAxisName ? formatAxisName(value) : value,
+                    color: radarConfig.textColor||'#428BD4',
+                    fontSize: radarConfig.axisNameFontSize||14,
+                    fontWeight: radarConfig.axisNameFontWeight||400
                 },
                 splitArea: {
                     areaStyle: {
-                        color: radarConfig.areaColor ? radarConfig.areaColor : ['#e5ecf6'],
+                        color: color||radarConfig.areaColor||['#e5ecf6'],
                     }
                 },
                 axisLine: {
                     lineStyle: {
-                        color: radarConfig.axisLineColor ? radarConfig.axisLineColor : '#fff'
+                        color: radarConfig.axisLineColor||'#fff',
                     }
                 },
                 splitLine: {
                     lineStyle: {
-                        color: radarConfig.splitLineColor ? radarConfig.splitLineColor : '#fff'
+                        color: radarConfig.splitLineColor||'#fff'
                     }
                 },
             },
@@ -80,17 +80,9 @@ const RadaChart = (props) => {
                 {
                     name: 'radar',
                     type: 'radar',
-                    emphasis: {
-                        lineStyle: {
-                            width: 3
-                        }
-                    },
                     data: getRadarDatas()
                 },
             ]
-        }
-        if(color){
-            optionConfig.color = color
         }
         return optionConfig
     }
@@ -99,8 +91,11 @@ const RadaChart = (props) => {
         let index = value?.dataIndex
         let dataLine = data[index]
         let dataTip = dataLine[tagAttrName] + '<br />'
-        indicator && indicator.map(item => {
-            dataTip = dataTip + '<li>' + injectIntlTranslation(intl, item.text) + ': ' + dataLine[item.text] + '</li>'
+        indicator && indicator.forEach(item => {
+            let value = dataLine[item.dataIndex || item.text]
+            let formatValue = item.formatValue
+            dataTip = dataTip + '<li>' + injectIntlTranslation(intl, item.text) + ': ' + 
+                (formatValue ? formatValue(value, item) : value) + '</li>'
         })
         return dataTip
     }
@@ -109,18 +104,22 @@ const RadaChart = (props) => {
         let indicatorTemp = []
         indicator && indicator.map(item => {
             let itemTemp = {
-                text: injectIntlTranslation(intl, item.text),
+                text: injectIntlTranslation(intl, item.text || item.dataIndex),
                 min: item.isDesc ? -item.max : item.min,
                 max: item.isDesc ? -item.min : item.max,
                 axisLabel:{
                     show: item.axisLabelShow,
-                    formatter: function(value){
-                        return item.isDesc ? -value : value
+                    formatter: function(value, index){
+                        let temp = item.isDesc ? -value: value
+                        let formatAxis = item.formatAxis
+                        temp = (formatAxis ? formatAxis(temp, item, index) : temp)
+                        return temp
                     },
-                    color: item.axisLabelColor,
+                    color: item.axisLabelColor || '#9d9d9d',
+                    fontSize: item.axisFontSize || 14,
                     showMinLabel: item.showCenterLabel,
                     showMaxLabel: item.showEdgeLabel,
-                }
+                },
             }
             indicatorTemp.push(itemTemp)
         })
@@ -137,17 +136,20 @@ const RadaChart = (props) => {
 
     function getRadarDatas(){
         let radarDatas = []
-        data && data.map(item => {
+        data && data.map((item, index) => {
             let radarData = {}
             radarData.name = item[tagAttrName]
             let radarLine = []
             indicator && indicator.map(key => {
-                let value = key.isDesc ? -item[key.text] : item[key.text]
+                let value = key.isDesc ? -item[key.dataIndex] : item[key.dataIndex]
                 radarLine.push(value)
             })
             radarData.value = radarLine
             let style = index > lineStyle.length - 1 ? lineStyle[lineStyle.length - 1] : lineStyle[index]
-            radarData.lineStyle = { type: style.type }
+            radarData.lineStyle = { 
+                type: style.type||[1, 0], 
+                width: style.width||2
+            }
             radarDatas.push(radarData)
         })
         return radarDatas
