@@ -59,6 +59,7 @@ import TextBoxWithDropdownList from './Components/TextBoxWithDropdownList/TextBo
 import InputWithAutoComplete from './Components/InputWithAutoComplete/InputWithAutoComplete'
 import RadaChart from './Components/RadarChart/RadaChart'
 import MinutesTimer from './Components/MinutesTimer'
+import SelectionRadar from './Components/selectionRadar/SelectionRadar'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -130,5 +131,6 @@ export {
     TextBoxWithDropdownList,
     InputWithAutoComplete,
     RadaChart,
-    MinutesTimer
+    MinutesTimer,
+    SelectionRadar
 }
