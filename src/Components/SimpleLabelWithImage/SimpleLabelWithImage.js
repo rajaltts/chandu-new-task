@@ -1,7 +1,8 @@
 import React from 'react';
-
+import Tooltip from '@material-ui/core/Tooltip'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 const SimpleLabelWithImage = (props) => {
-  const { className, noSpaceLeft, ImageName, Text, children } = props;
+    const { className, noSpaceLeft, ImageName, Text, children, showTooltip = false, tooltipMessage = ''} = props;
   
   return (
     <label className={`SimpleLabel ${className}`}>
@@ -12,6 +13,9 @@ const SimpleLabelWithImage = (props) => {
       }
       {Text}
       {children}
+      {showTooltip && <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
+                          <InfoOutlinedIcon className='HCGWII_Icon'/>
+                      </Tooltip>}
     </label>
   )
 }
