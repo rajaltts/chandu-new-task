@@ -51,8 +51,6 @@ import PanelGroup from './Components/PanelGroup/PanelGroup';
 import RenameTemplatePopUp from './Components/TemplatePopup/RenameTemplatePopUp';
 import TemplatePopUp from './Components/TemplatePopup/TemplatePopUp';
 import LabelWithInput from './Components/LabelWithInput/LabelWithInput'
-import JSReportContainer from './Components/JSReportContainer/JSReportContainer.jsx'
-import pdfDownload from './Components/JSReportContainer/pdfDownload.jsx'
 import TabsContainer from './Components/TabsComponent/TabsContainer';
 import SaveTemplate from './Components/SaveTemplate/SaveTemplate';
 import TextBoxWithDropdownList from './Components/TextBoxWithDropdownList/TextBoxWithDropdownList'
@@ -60,6 +58,11 @@ import InputWithAutoComplete from './Components/InputWithAutoComplete/InputWithA
 import RadaChart from './Components/RadarChart/RadaChart'
 import MinutesTimer from './Components/MinutesTimer'
 import SelectionRadar from './Components/selectionRadar/SelectionRadar'
+
+import ReportPreview from './Components/Reports/preview/ReportPreview';
+import ReportsManager from './Components/Reports/manager/ReportsManager';
+import ReportsCircularProgress from './Components/Reports/progress/ProgressSpinner'
+import pdfDownload from './Components/Reports/pdfDownload'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -119,9 +122,7 @@ export {
     AutoComplete,
     AddProject,
     SaveTag,
-    JSReportContainer,
     Search,
-    pdfDownload,
     TabsContainer,
     SaveTemplate,
     RadioGroup,
@@ -132,5 +133,9 @@ export {
     InputWithAutoComplete,
     RadaChart,
     MinutesTimer,
-    SelectionRadar
+    SelectionRadar,
+    ReportPreview,
+    ReportsManager,
+    ReportsCircularProgress,
+    pdfDownload,
 }
