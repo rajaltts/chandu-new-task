@@ -13,7 +13,7 @@ import {
  * @param {function} {loadingSpeedFactor} Adjust speed of the percentage progress
  * @param {function} {STATUS_CONSTANTS} Status constants. Should contain the following values : LOADING, DOWNLOADING.
  */
-export const ReportsCircularProgress = ({
+const ReportsCircularProgress = ({
   status,
   creationDate,
   loadingSpeedFactor,
@@ -68,3 +68,5 @@ export const ReportsCircularProgress = ({
     </>
   );
 };
+
+export default ReportsCircularProgress;

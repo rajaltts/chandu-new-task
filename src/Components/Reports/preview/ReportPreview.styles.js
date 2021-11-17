@@ -15,13 +15,11 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
   colorSecondary: {
     backgroundColor: (props) =>
-      props.isReportDownloadable
-        ? "#28690f"
-        : theme.palette.secondary.main || "#1891f6",
+      props.isReportDownloadable ? "#28690f" : "#1891f6",
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: theme.palette.grey["150"] || "#dddde1",
+    backgroundColor: theme.palette.grey?.["150"] || "#dddde1",
   },
 }))(LinearProgress);
 
@@ -123,7 +121,7 @@ const useReportPreviewStyles = makeStyles((theme) => ({
   },
 
   subTitle: {
-    color: theme.palette.grey["450"] || "#BAC0D0",
+    color: theme.palette.grey?.["450"] || "#BAC0D0",
     fontSize: 12,
     margin: 0,
   },
@@ -162,7 +160,7 @@ const useReportPreviewStyles = makeStyles((theme) => ({
   },
 
   pageIndexValueSecondary: {
-    color: theme.palette.grey["450"] || "#BAC0D0",
+    color: theme.palette.grey?.["450"] || "#BAC0D0",
   },
 
   navigationContainer: {
@@ -203,7 +201,7 @@ const useReportPreviewStyles = makeStyles((theme) => ({
   },
 
   downloadContainerTitle: {
-    color: theme.palette.grey["450"] || "#BAC0D0",
+    color: theme.palette.grey?.["450"] || "#BAC0D0",
     fontSize: 11,
     textAlign: "center",
     flex: 1,
@@ -225,7 +223,7 @@ const useReportPreviewStyles = makeStyles((theme) => ({
     transition: "all 1s ease-in-out",
     fontSize: 14,
     textAlign: "center",
-    color: theme.palette.grey.main || "#A7AFC3",
+    color: theme.palette.grey?.main || "#A7AFC3",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

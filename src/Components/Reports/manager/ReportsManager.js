@@ -7,7 +7,7 @@ import { Grid, IconButton } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import Button from "@material-ui/core/Button";
-import { ReportsCircularProgress } from "../../progress/ProgressSpinner.jsx";
+import ReportsCircularProgress from "../progress/ProgressSpinner.js";
 import { translation } from "@carrier/ngecat-reactcomponents";
 import useReportManagerStyles from "./ReportsManager.styles.js";
 
