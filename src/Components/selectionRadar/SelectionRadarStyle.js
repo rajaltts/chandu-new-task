@@ -4,14 +4,14 @@ import {makeStyles} from '@material-ui/core/styles'
 const useSelectionRadarStyle = makeStyles((theme) => ({
     rootStyle: {
         display: 'flex',
-        width: '90%',
+        width: '100%',
         margin: 'auto',
     },
     leftStyle: {
-        width: '20%',
+        width: '30%',
     },
     rightStyle: {
-        width: '80%',
+        width: '70%',
     },
     checkBoxStyle: {
         padding:'6px 6px 9px 12px',
@@ -60,6 +60,16 @@ const useSelectionRadarStyle = makeStyles((theme) => ({
     },
     chillerInputStyle: {
       width:'80%'
+    },
+    baselineTextStyle: {
+      display: 'block',
+      marginTop: '40px',
+    },
+    baselineInputStyle: {
+      marginTop: '5px',
+    },
+    chillerKPIStyle: {
+      fontSize: '16px',
     }
 }))
 

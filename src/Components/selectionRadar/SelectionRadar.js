@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import useSelectionRadarStyle from './SelectionRadarStyle'
 import RadaChart from '../RadarChart/RadaChart'
+import InputWithAutoComplete from '../InputWithAutoComplete/InputWithAutoComplete'
 import Checkbox from "@material-ui/core/Checkbox"
 import classNames from 'classnames'
 import translation from '../Translation'
+
 /**
  * 
  * @param {
@@ -16,23 +18,47 @@ import translation from '../Translation'
  */
 const SelectionRadar = (props) => {
 
-    const { tagAttrName, data, kpiConfig } = props
-    const {rootStyle, leftStyle, rightStyle, checkBoxStyle, icon, checkedIcon} = useSelectionRadarStyle()
+    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal} = props
+    const {rootStyle, leftStyle, rightStyle, checkBoxStyle, icon, checkedIcon, chillerInputStyle,
+        baselineTextStyle, baselineInputStyle, chillerKPIStyle} = useSelectionRadarStyle()
     const [KPIs, setKPIs] = useState([])
     const [indicator, setIndicator] = useState([])
     const [minAndMaxValues, setMinAndMaxValues] = useState({})
     const [allKPIs ,setAllKPIs] = useState([])
+    const [autoCompleteVal, setAutoCompleteVal] = useState()
+    const [sortedData, setSortedData] = useState([])
+    
+    useEffect(() => {
+        const allKPIsTemp = getAllKpiConfig()
+        setKPIs(allKPIsTemp)
+        setAllKPIs(allKPIsTemp)
+    },[kpiConfig])
 
     useEffect(() => {
-        let allKPIs = getAllKpiConfig()
-        setKPIs(allKPIs)
-        setAllKPIs(allKPIs)
-        assembleIndicator(allKPIs, getProperMinAndMaxValue(allKPIs))
-    },[])
+        if(allKPIs?.length > 0){
+            setKPIs(allKPIs)
+            getProperMinAndMaxValue(allKPIs)
+            sortDataByBaseline(autoCompleteVal)
+        }   
+    }, [data, allKPIs])
 
     useEffect(() => {
-        assembleIndicator(KPIs, getProperMinAndMaxValue(allKPIs))
-    }, [data])
+        setAutoCompleteVal(autoCompleteDefVal)
+        sortDataByBaseline(autoCompleteDefVal)
+    }, [autoCompleteDefVal])
+
+    function sortDataByBaseline(baseline){
+        if(baseline){
+            let sortedDataTemp = [...data]
+            let index = sortedDataTemp.findIndex(item => baseline.Id === item.Id)
+            let itemTemp = sortedDataTemp[index]
+            sortedDataTemp.splice(index, 1)
+            sortedDataTemp.splice(0, 0, itemTemp)
+            setSortedData(sortedDataTemp)
+        }else{
+            setSortedData([])
+        }
+    }
 
     function getProperMinAndMaxValue(allKPIs){
         let minAndMaxTemp = {}
@@ -79,7 +105,7 @@ const SelectionRadar = (props) => {
             }
         })
         setMinAndMaxValues(minAndMaxTemp)
-        return minAndMaxTemp
+        assembleIndicator(allKPIs, minAndMaxTemp)
     }
 
     function getValidIndexOfNumber(value){
@@ -179,34 +205,51 @@ const SelectionRadar = (props) => {
         setIndicator(indicatorTemp)
     }
 
+    function handleBaselineChange(event, value, reason){
+        setAutoCompleteVal(value)
+        changeAutoCompleteHandler(value)
+    }
+
     return (
         <div className={rootStyle}>
             <div className={leftStyle}>
-                <span>{translation('ChillerKPIsCompare')}</span>
+                <span className={chillerKPIStyle}>{translation('ChillerKPIsCompare')}</span>
                 {allKPIs?.map(item => {
                     return styledCheckbox(item)
                 })}
+                <span className={baselineTextStyle}>{translation('BaselineChiller')}</span>
+                <div key={autoCompleteVal} className={baselineInputStyle}>
+                    <InputWithAutoComplete
+                        attrName={tagAttrName}
+                        options={data}
+                        onChange={handleBaselineChange}
+                        outlined={true}
+                        defaultOptions={autoCompleteVal}
+                        classes={{root: chillerInputStyle}}
+                    />
+                </div>
             </div>
-            {indicator?.length !== 0 && <div className={rightStyle} key={[JSON.stringify(indicator), data]}>
-                <RadaChart
-                    tagAttrName={tagAttrName}
-                    legendConfig={{ 
-                        isVertical: true,
-                        legendRight: 0
-                    }}
-                    radarConfig={{
-                        indicator: indicator,
-                        center: ['40%', '50%'],
-                        splitNumber: 5,
-                        lineStyle : [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}],
-                        radius: 165,
-                    }}
-                    data={data}
-                    height={400} 
-                    width={800}
-                    showDataTip={true}
-                />
-            </div>}
+            <div className={rightStyle} key={[JSON.stringify(indicator), JSON.stringify(sortedData)]}>
+                {indicator?.length !== 0 &&
+                    <RadaChart
+                        tagAttrName={tagAttrName}
+                        legendConfig={{
+                            isVertical: true,
+                            legendRight: 0
+                        }}
+                        radarConfig={{
+                            indicator: indicator,
+                            center: ['40%', '50%'],
+                            splitNumber: 5,
+                            lineStyle : [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}],
+                            radius: 165,
+                        }}
+                        data={sortedData}
+                        height={400} 
+                        width={780}
+                        showDataTip={true}
+                    />}
+            </div>
         </div>
     )
 }
