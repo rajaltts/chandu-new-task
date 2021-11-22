@@ -64,6 +64,7 @@ const useSelectionRadarStyle = makeStyles((theme) => ({
     baselineTextStyle: {
       display: 'block',
       marginTop: '40px',
+      fontSize: '16px',
     },
     baselineInputStyle: {
       marginTop: '5px',
