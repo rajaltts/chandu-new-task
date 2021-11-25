@@ -13,6 +13,7 @@
         width: 100%;
         height: inherit;
         box-shadow: none;
+        background-color: unset;
     }
 
     .customGrid .visuallyHidden {

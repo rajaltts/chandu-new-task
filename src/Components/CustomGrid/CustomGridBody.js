@@ -63,7 +63,7 @@ function CustomGridBody(props) {
               const isHeaderSelectedForDisplay = (columnPicker) ? ((head.isSelected && !columnPickerFilterError) || false) : true;
               return (
                 isHeaderSelectedForDisplay ?
-                  <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || ''}>
+                  <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || configItem.cellClassName || ''}>
                     <FormBuilderField
                       doNotTranslate={doNotTranslate}
                       rowData={row}
