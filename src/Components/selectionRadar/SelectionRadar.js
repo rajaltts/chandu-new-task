@@ -18,9 +18,9 @@ import translation from '../Translation'
  */
 const SelectionRadar = (props) => {
 
-    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal} = props
+    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal, showSetBaseline} = props
     const {rootStyle, leftStyle, rightStyle, checkBoxStyle, icon, checkedIcon, chillerInputStyle,
-        baselineTextStyle, baselineInputStyle, chillerKPIStyle} = useSelectionRadarStyle()
+        baselineTextStyle, baselineInputStyle, chillerKPIStyle, chkGroupWrapperStyle} = useSelectionRadarStyle()
     const [KPIs, setKPIs] = useState([])
     const [indicator, setIndicator] = useState([])
     const [minAndMaxValues, setMinAndMaxValues] = useState({})
@@ -29,14 +29,13 @@ const SelectionRadar = (props) => {
     const [sortedData, setSortedData] = useState([])
     
     useEffect(() => {
-        const allKPIsTemp = getAllKpiConfig()
+        let allKPIsTemp = getAllKpiConfig()
         setKPIs(allKPIsTemp)
         setAllKPIs(allKPIsTemp)
     },[kpiConfig])
 
     useEffect(() => {
         if(allKPIs?.length > 0){
-            setKPIs(allKPIs)
             getProperMinAndMaxValue(allKPIs)
             sortDataByBaseline(autoCompleteVal)
         }   
@@ -64,10 +63,11 @@ const SelectionRadar = (props) => {
         let minAndMaxTemp = {}
         let spliteRange = 4
         data?.length !== 0 && allKPIs.forEach(kpiItem => {
+            let {dataIndex} = kpiItem
             let min = 0
             let max = 0
             data.forEach((dataItem, index) => {
-                let value = dataItem[kpiItem.dataIndex]
+                let value = dataItem[dataIndex]
                 if(index === 0){
                     min = value
                     max = value
@@ -84,28 +84,28 @@ const SelectionRadar = (props) => {
                 let {validIndex, pointIndex, isDecimal} = getValidIndexOfNumber(max)
                 let maxNum = Number(max)
                 if(!isDecimal){
-                    minAndMaxTemp[kpiItem.dataIndex] = {min: maxNum - 1, max: maxNum + 1}
+                    minAndMaxTemp[dataIndex] = {min: maxNum - 1, max: maxNum + 1}
                 }else if(validIndex < pointIndex){
-                    minAndMaxTemp[kpiItem.dataIndex] = {min: Math.floor(max), max: Math.ceil(max)}
+                    minAndMaxTemp[dataIndex] = {min: Math.floor(max), max: Math.ceil(max)}
                 }else if(validIndex > pointIndex){
-                    minAndMaxTemp[kpiItem.dataIndex] = {min: -1, max: 1}
+                    minAndMaxTemp[dataIndex] = {min: -1, max: 1}
                 }
             }else{
                 let range = max - min
                 let {validIndex, pointIndex} = getValidIndexOfNumber(range)
                 if(pointIndex > validIndex){
                     let factor = Math.pow(10, pointIndex - validIndex -1) 
-                    minAndMaxTemp[kpiItem.dataIndex] = {min: Math.floor((min - range/spliteRange) / factor) * factor, 
+                    minAndMaxTemp[dataIndex] = {min: Math.floor((min - range/spliteRange) / factor) * factor, 
                         max: Math.ceil((Number(max) + Number(range/spliteRange)) / factor) * factor}
                 }else{
                     let factor = Math.pow(10, validIndex - pointIndex) 
-                    minAndMaxTemp[kpiItem.dataIndex] = {min: Math.floor((min - range/spliteRange) * factor) / factor, 
+                    minAndMaxTemp[dataIndex] = {min: Math.floor((min - range/spliteRange) * factor) / factor, 
                         max: Math.ceil((Number(max) + Number(range/spliteRange)) * factor) / factor}
                 }
             }
         })
         setMinAndMaxValues(minAndMaxTemp)
-        assembleIndicator(allKPIs, minAndMaxTemp)
+        assembleIndicator(KPIs, minAndMaxTemp)
     }
 
     function getValidIndexOfNumber(value){
@@ -194,11 +194,12 @@ const SelectionRadar = (props) => {
                 showCenterLabel: false,
                 min: minAndMax && minAndMax.min,
                 max: minAndMax && minAndMax.max,
-                isPercentShow: item.isPercentShow,
-                fixedNumber: item.fixedNumber,
                 isDesc: item.isDesc,
                 formatValue: item.formatValue,
                 formatAxis: item.formatAxis,
+                unit: item.unit,
+                axisFontSize: 16,
+                axisFontWeight: 600,
             }
             indicatorTemp.push(axis)
         })
@@ -214,20 +215,26 @@ const SelectionRadar = (props) => {
         <div className={rootStyle}>
             <div className={leftStyle}>
                 <span className={chillerKPIStyle}>{translation('ChillerKPIsCompare')}</span>
-                {allKPIs?.map(item => {
-                    return styledCheckbox(item)
-                })}
-                <span className={baselineTextStyle}>{translation('BaselineChiller')}</span>
-                <div key={autoCompleteVal} className={baselineInputStyle}>
-                    <InputWithAutoComplete
-                        attrName={tagAttrName}
-                        options={data}
-                        onChange={handleBaselineChange}
-                        outlined={true}
-                        defaultOptions={autoCompleteVal}
-                        classes={{root: chillerInputStyle}}
-                    />
+                <div className={chkGroupWrapperStyle}>
+                    {allKPIs?.map(item => {
+                        return styledCheckbox(item)
+                    })}
                 </div>
+                {showSetBaseline &&
+                    <>
+                        <span className={baselineTextStyle}>{translation('BaselineChiller')}</span>
+                        <div key={autoCompleteVal} className={baselineInputStyle}>
+                            <InputWithAutoComplete
+                                attrName={tagAttrName}
+                                options={data}
+                                onChange={handleBaselineChange}
+                                outlined={true}
+                                defaultOptions={autoCompleteVal}
+                                classes={{root: chillerInputStyle}}
+                            />
+                        </div>
+                    </>
+                }
             </div>
             <div className={rightStyle} key={[JSON.stringify(indicator), JSON.stringify(sortedData)]}>
                 {indicator?.length !== 0 &&
@@ -242,11 +249,12 @@ const SelectionRadar = (props) => {
                             center: ['40%', '50%'],
                             splitNumber: 5,
                             lineStyle : [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}],
-                            radius: 165,
+                            radius: 200,
+                            highlightPointData: true,
                         }}
                         data={sortedData}
-                        height={400} 
-                        width={780}
+                        height={480} 
+                        width={900}
                         showDataTip={true}
                     />}
             </div>
