@@ -21,7 +21,8 @@ const sortingIcon = (props) => {
 const CustomGridHead = (props) => {
   const { ascending, descending } = sortingOrder;
   const { order, orderBy, onRequestSort, headCells, sortable, onSelectAllClick, showCheckbox, paginationClass,
-    singleSelectGrid, rowCount, numSelected, columnPicker, columnPickerFilterError } = props;
+    singleSelectGrid, rowCount, numSelected, columnPicker, columnPickerFilterError, columnGrouping,
+    columnGroupConfig } = props;
 
   const createSortHandler = property => event => {
     onRequestSort(event, property);
@@ -63,11 +64,62 @@ const CustomGridHead = (props) => {
     );
   }
 
-  const shouldDisplayHeader = (cell) => (columnPicker) ? ((cell.isSelected && !columnPickerFilterError) || false ) : true;
+  const shouldDisplayHeader = (cell) => (columnPicker) ? ((cell.isSelected && !columnPickerFilterError) || false) : true;
+
+  const showColumnGroups = (headCells = [], showCheckbox = false) => {
+    if (headCells.length) {
+      return (
+        <TableRow>
+          {fetchOccurenceCounts(headCells, "columnGrp1", showCheckbox).map((groupCell) => {
+            const { key, colSpan } = groupCell
+            const configItem = columnGroupConfig[key] || {}
+            const configDefaultItem = columnGroupConfig['default'] || {}
+            const alignment = configItem.alignment || configDefaultItem.alignment || "center"
+            const className = configItem.className || configDefaultItem.className || null
+            return (
+              <TableCell
+                key={key}
+                align={alignment}
+                padding={"default"}
+                colSpan={colSpan}
+                className={className}
+              >
+                <div className="headerColumn">
+                  <span>{key}</span>
+                </div>
+              </TableCell>
+            )
+          })}
+        </TableRow>
+      )
+    }
+    return null
+  }
+
+  const fetchOccurenceCounts = (headCells, key, showCheckbox) => {
+    const countResult = headCells.map(header => header[key] ? header[key] : null)
+    let countOccurence = showCheckbox ? [{ key: null, colSpan: 1 }] : []
+    let count = 0;
+    let countkey = null;
+    countResult.forEach(key => {
+      if (countkey === key) {
+        count++
+      }
+      else {
+        countOccurence.push({ key: [countkey], colSpan: count })
+        count = 0
+        countkey = key
+        count++
+      }
+    })
+    count && (countOccurence.push({ key: [countkey], colSpan: count }))
+    return countOccurence
+  }
 
   const headCellsData = headCells.length ? headCells : [{ name: '' }];
   return (
     <TableHead className="tableHead">
+      {columnGrouping && showColumnGroups(headCells, showCheckbox)}
       <TableRow>
         {showCheckbox && showCheckboxCell(singleSelectGrid)}
         {headCellsData.map((cell) => {
