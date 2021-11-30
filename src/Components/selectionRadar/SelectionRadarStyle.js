@@ -8,10 +8,10 @@ const useSelectionRadarStyle = makeStyles((theme) => ({
         margin: 'auto',
     },
     leftStyle: {
-        width: '30%',
+        width: '22%',
     },
     rightStyle: {
-        width: '70%',
+        width: '78%',
     },
     checkBoxStyle: {
         padding:'6px 6px 9px 12px',
@@ -59,7 +59,7 @@ const useSelectionRadarStyle = makeStyles((theme) => ({
         }
     },
     chillerInputStyle: {
-      width:'80%'
+      width:'100%'
     },
     baselineTextStyle: {
       display: 'block',
@@ -71,6 +71,9 @@ const useSelectionRadarStyle = makeStyles((theme) => ({
     },
     chillerKPIStyle: {
       fontSize: '16px',
+    },
+    chkGroupWrapperStyle: {
+      marginTop: '10px',
     }
 }))
 
