@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import ReactEcharts from 'echarts-for-react'
 import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 import { injectIntl } from "react-intl"
-import cloneDeep from 'lodash/cloneDeep'
 
 const RadaChart = (props) => {
 
@@ -15,24 +14,9 @@ const RadaChart = (props) => {
     const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, splitNumber=5, 
         isPolygon, lineStyle=[{}], formatAxisName, highlightPointData } = radarConfig
     
-    const [option, setOption] = useState(getOption())
     const [mouseX, setMouseX] = useState(0)
     const [mouseY, setMouseY] = useState(0)
-
     const node = useRef()
-
-    useEffect(() => {
-        let configTemp = cloneDeep(option)
-        configTemp.tooltip.formatter = showToolTipData
-        configTemp.radar.indicator = updateIndicator()
-        setOption(configTemp)
-    },[intl])
-
-    useEffect(() => {
-        let configTemp = cloneDeep(option)
-        configTemp.tooltip.formatter = showToolTipData
-        setOption(configTemp)
-    },[mouseX, mouseY])
 
     function getOption(){
         let optionConfig = {
@@ -218,7 +202,7 @@ const RadaChart = (props) => {
             ref={node}
         >
             <ReactEcharts
-                option={option}
+                option={getOption()}
                 style={{height: height, width: width}}
                 className='react_for_echarts'
             />
