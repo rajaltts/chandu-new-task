@@ -27,6 +27,7 @@ const SelectionRadar = (props) => {
     const [allKPIs ,setAllKPIs] = useState([])
     const [autoCompleteVal, setAutoCompleteVal] = useState()
     const [sortedData, setSortedData] = useState([])
+    const [baselineIsSelected, setBaselineIsSelected] = useState(false)
     
     useEffect(() => {
         let allKPIsTemp = getAllKpiConfig()
@@ -47,16 +48,17 @@ const SelectionRadar = (props) => {
     }, [autoCompleteDefVal])
 
     function sortDataByBaseline(baseline){
-        if(baseline){
-            let sortedDataTemp = [...data]
-            let index = sortedDataTemp.findIndex(item => baseline.Id === item.Id)
+        let sortedDataTemp = [...data]
+        let index = sortedDataTemp.findIndex(item => baseline.Id === item.Id)
+        if(index >= 0){
             let itemTemp = sortedDataTemp[index]
             sortedDataTemp.splice(index, 1)
             sortedDataTemp.splice(0, 0, itemTemp)
-            setSortedData(sortedDataTemp)
+            setBaselineIsSelected(true)
         }else{
-            setSortedData([])
+            setBaselineIsSelected(false)
         }
+        setSortedData(sortedDataTemp)
     }
 
     function getProperMinAndMaxValue(allKPIs){
@@ -236,7 +238,7 @@ const SelectionRadar = (props) => {
                     </>
                 }
             </div>
-            <div className={rightStyle} key={[JSON.stringify(indicator), JSON.stringify(sortedData)]}>
+            <div className={rightStyle}>
                 {indicator?.length !== 0 &&
                     <RadaChart
                         tagAttrName={tagAttrName}
@@ -248,7 +250,7 @@ const SelectionRadar = (props) => {
                             indicator: indicator,
                             center: ['40%', '50%'],
                             splitNumber: 5,
-                            lineStyle : [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}],
+                            lineStyle : baselineIsSelected ? [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}] : [{type: [1, 0], width: 3}],
                             radius: 200,
                             highlightPointData: true,
                         }}
