@@ -101,33 +101,29 @@ const RadaChart = (props) => {
     }
 
     function mouseInRadarAxis(dataLine){
-        if(center.length >= 2){
-            let errorRangeAngle = 5
-            let positionY = mouseX - width * (center[0].replace('%', '') / 100)
-            let positionX = mouseY - height * (center[1].replace('%', '') / 100)
-            let pointDistance = Math.sqrt(positionY * positionY + positionX * positionX)
-            let angle = 270 - (startAngle % 360)
-            if(positionY >= 0){
-                angle = Math.acos(positionX / pointDistance) / Math.PI * 180 + angle
-            }else{
-                angle = angle - Math.acos(positionX / pointDistance) / Math.PI * 180
-            }
-            if(angle < 0){
-                angle = angle + 360
-            }
-            let spliteAngle = 360 / indicator.length
-            let extraAngle = angle % spliteAngle
-            if(extraAngle <= errorRangeAngle || spliteAngle - extraAngle <= errorRangeAngle){
-                let axisIndex = Math.round(angle / spliteAngle) % indicator.length
-                let axis = indicator[axisIndex]
-                let {min, max, isDesc} = axis
-                let value = dataLine[axis.dataIndex]
-                let centerValue = isDesc ? max : min
-                let valDistance = radius * Math.abs((value - centerValue) / (max -min))
-                let errorRangeDistance = 7
-                if(pointDistance < valDistance + errorRangeDistance && pointDistance > valDistance - errorRangeDistance){
-                    return axis
-                }
+        let errorRangeAngle = 5
+        let pointDistance = Math.sqrt(mouseY * mouseY + mouseX * mouseX)
+        let angle = 270 - (startAngle % 360)
+        if(mouseX >= 0){
+            angle = Math.acos(mouseY / pointDistance) / Math.PI * 180 + angle
+        }else{
+            angle = angle - Math.acos(mouseY / pointDistance) / Math.PI * 180
+        }
+        if(angle < 0){
+            angle = angle + 360
+        }
+        let spliteAngle = 360 / indicator.length
+        let extraAngle = angle % spliteAngle
+        if(extraAngle <= errorRangeAngle || spliteAngle - extraAngle <= errorRangeAngle){
+            let axisIndex = Math.round(angle / spliteAngle) % indicator.length
+            let axis = indicator[axisIndex]
+            let {min, max, isDesc} = axis
+            let value = dataLine[axis.dataIndex]
+            let centerValue = isDesc ? max : min
+            let valDistance = radius * Math.abs((value - centerValue) / (max -min))
+            let errorRangeDistance = 7
+            if(pointDistance < valDistance + errorRangeDistance && pointDistance > valDistance - errorRangeDistance){
+                return axis
             }
         }
         return undefined
@@ -191,8 +187,15 @@ const RadaChart = (props) => {
     }
 
     function onMouseMoveHandler(e){
-        setMouseX(e.pageX - node.current.offsetLeft)
-        setMouseY(e.pageY - node.current.offsetTop)
+        if(center.length >= 2){
+            let x = e.pageX - node.current.offsetLeft - width * (center[0].replace('%', '') / 100)
+            let y = e.pageY - node.current.offsetTop - height * (center[1].replace('%', '') / 100)
+            let pointDistance = Math.sqrt(x * x + y * y)
+            if(pointDistance <= radius){
+                setMouseX(x)
+                setMouseY(y)
+            }
+        }
     }
 
     return (
