@@ -67,6 +67,14 @@ import pdfDownload from './Components/Reports/pdfDownload'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
 import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
+import DrawerLayout from './v2/Components/Drawers/DrawerLayout'
+import ReportsList from './v2/Components/Drawers/ReportsList'
+import LayoutButton from './v2/Components/Button'
+import LayoutDivider from './v2/Components/LayoutDivider'
+import StickyAside from './v2/Components/StickyAside'
+import CardLayout from './v2/Components/CardLayout'
+import Table from './v2/Components/Table'
+import TabsList from './v2/Components/TabsList/TabsList'
 import theme from "./themes"
 import { pxToRem, defaultTheme } from "./util"
 
@@ -138,4 +146,12 @@ export {
     ReportsManager,
     ReportsCircularProgress,
     pdfDownload,
+    LayoutButton,
+    TabsList,
+    Table,
+    CardLayout,
+    DrawerLayout,
+    ReportsList,
+    LayoutDivider,
+    StickyAside
 }

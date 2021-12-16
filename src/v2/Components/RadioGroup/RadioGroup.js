@@ -4,24 +4,32 @@ import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 import MaterialRadioGroup from '@material-ui/core/RadioGroup'
 import MaterialRadio from '@material-ui/core/Radio'
 
-const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, handleChange }) => {
+const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, handleChange, relaxed }) => {
     return (
         <FormControl component='fieldset' className={className}>
             {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
             <MaterialRadioGroup
+                id={name}
                 name={name}
                 value={value}
                 onChange={(e) => {
                     handleChange(e.target.value, e)
                 }}
+                data-Disabled={`${name}__${disabled}`}
+                data-Error={`${name}__${relaxed}`}
+                data-Value={`${name}__${value}`}
                 row={row}>
                 {values.map((radio) => {
                     return (
                         <FormControlLabel
                             key={radio.value}
                             value={radio.value}
-                            control={<MaterialRadio data-label={radio.label} color={color} disabled={disabled} />}
+                            control={<MaterialRadio id={name} data-label={radio.label} data-Disabled={`${name}__${disabled}`} color={color} disabled={disabled} />}
                             label={radio.label}
+                            data-Disabled={`${name}__${disabled}`}
+                            data-Error={`${name}__${relaxed}`}
+                            data-Value={`${name}__${radio.value}`}
+                            data-Label={`${name}__${radio.label}`}
                         />
                     )
                 })}
@@ -40,7 +48,6 @@ RadioGroup.defaultProps = {
 RadioGroup.propTypes = {
     values: PropTypes.array,
     value: PropTypes.string,
-    label: PropTypes.string,
     displayLabel: PropTypes.bool,
     color: PropTypes.oneOf(['default', 'primary', 'secondary']),
     disabled: PropTypes.bool,
