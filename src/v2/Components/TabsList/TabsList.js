@@ -8,10 +8,10 @@ import { useTheme } from '@material-ui/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
-const TabsList = ({ tabsList = [], activeTab = 0, handleChangeTab = null }) => {
-    const theme = useTheme()
+const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChangeTab = null }) => {
+    const theme = customTheme || useTheme()
     const [mobileTabsDropdownVisible, setMobileTabsDropdownVisible] = useState(false)
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+    const isMobile = theme ? useMediaQuery(theme.breakpoints.down('xs')) : false
     const { tabs, tabBtn, mobileTabsToggler } = tabsListStyles();
 
     useEffect(() => {
