@@ -18,7 +18,7 @@ import translation from '../Translation'
  */
 const SelectionRadar = (props) => {
 
-    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal, showSetBaseline} = props
+    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal, showSetBaseline, defaultSelectedKPIs} = props
     const {rootStyle, leftStyle, rightStyle, checkBoxStyle, icon, checkedIcon, chillerInputStyle,
         baselineTextStyle, baselineInputStyle, chillerKPIStyle, chkGroupWrapperStyle} = useSelectionRadarStyle()
     const [KPIs, setKPIs] = useState([])
@@ -31,7 +31,11 @@ const SelectionRadar = (props) => {
     
     useEffect(() => {
         let allKPIsTemp = getAllKpiConfig()
-        setKPIs(allKPIsTemp)
+        if(defaultSelectedKPIs){
+            setKPIs(filterKPIsByDefault(allKPIsTemp))
+        }else{
+            setKPIs(allKPIsTemp)
+        }
         setAllKPIs(allKPIsTemp)
     },[kpiConfig])
 
@@ -46,6 +50,10 @@ const SelectionRadar = (props) => {
         setAutoCompleteVal(autoCompleteDefVal)
         sortDataByBaseline(autoCompleteDefVal)
     }, [autoCompleteDefVal])
+
+    function filterKPIsByDefault(allKPIsTemp){
+        return allKPIsTemp.filter(item => defaultSelectedKPIs.some(defaultKPI => defaultKPI === item.dataIndex))
+    }
 
     function sortDataByBaseline(baseline){
         let sortedDataTemp = [...data]
@@ -192,7 +200,7 @@ const SelectionRadar = (props) => {
                 text: item.text||item.dataIndex,
                 dataIndex: item.dataIndex,
                 axisLabelShow: true,
-                axisLabelColor: '#9d9d9d',
+                axisLabelColor: '#505050',
                 showCenterLabel: false,
                 min: minAndMax && minAndMax.min,
                 max: minAndMax && minAndMax.max,
@@ -248,14 +256,14 @@ const SelectionRadar = (props) => {
                         }}
                         radarConfig={{
                             indicator: indicator,
-                            center: ['40%', '50%'],
+                            center: ['38%', '50%'],
                             splitNumber: 5,
                             lineStyle : baselineIsSelected ? [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}] : [{type: [1, 0], width: 3}],
-                            radius: 200,
+                            radius: 210,
                             highlightPointData: true,
                         }}
                         data={sortedData}
-                        height={480} 
+                        height={490} 
                         width={900}
                         showDataTip={true}
                     />}
