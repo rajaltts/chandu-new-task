@@ -77,6 +77,7 @@ import Table from './v2/Components/Table'
 import TabsList from './v2/Components/TabsList/TabsList'
 import theme from "./themes"
 import { pxToRem, defaultTheme } from "./util"
+import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelectionSuccessDialog";
 
 export {
     Checkbox,
@@ -153,5 +154,6 @@ export {
     DrawerLayout,
     ReportsList,
     LayoutDivider,
-    StickyAside
+    StickyAside,
+    QuoteSelectionSuccessDialog,
 }
