@@ -77,7 +77,7 @@ const SelectionRadar = (props) => {
             let min = 0
             let max = 0
             data.forEach((dataItem, index) => {
-                let value = dataItem[dataIndex]
+                let value = Number(dataItem[dataIndex]) 
                 if(index === 0){
                     min = value
                     max = value
