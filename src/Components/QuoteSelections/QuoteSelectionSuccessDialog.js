@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
         height: "20px",
     },
     successMessageContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "14px",
@@ -50,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QuoteSelectionSuccessDialog = (props) => {
     const {
-        quoteSelectionSuccessDialog,
+        quoteSelection,
         intl,
         closeQuoteSelectionSuccess,
     } = props;
@@ -58,7 +55,7 @@ const QuoteSelectionSuccessDialog = (props) => {
         showSuccessModal,
         quoteSelectionSuccessHandler = null,
         errorMsg = "",
-    } = quoteSelectionSuccessDialog;
+    } = quoteSelection;
     const { successMessageContainer, successLogo, successContentContainer, footerButton, buttonGradint, marginRight16px } = useStyles();
     const [disableSave, setDisableSave] = useState(false);
     const [errorMessage, setErrorMessage] = useState(errorMsg);

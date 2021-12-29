@@ -78,6 +78,7 @@ import TabsList from './v2/Components/TabsList/TabsList'
 import theme from "./themes"
 import { pxToRem, defaultTheme } from "./util"
 import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelectionSuccessDialog";
+import QuoteSelectionProgressDialog from "./Components/QuoteSelections/QuoteSelectionProgressDialog";
 
 export {
     Checkbox,
@@ -156,4 +157,5 @@ export {
     LayoutDivider,
     StickyAside,
     QuoteSelectionSuccessDialog,
+    QuoteSelectionProgressDialog,
 }
