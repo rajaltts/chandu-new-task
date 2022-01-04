@@ -79,6 +79,7 @@ import theme from "./themes"
 import { pxToRem, defaultTheme } from "./util"
 import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelectionSuccessDialog";
 import QuoteSelectionProgressDialog from "./Components/QuoteSelections/QuoteSelectionProgressDialog";
+import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
 
 export {
     Checkbox,
@@ -158,4 +159,5 @@ export {
     StickyAside,
     QuoteSelectionSuccessDialog,
     QuoteSelectionProgressDialog,
+    QuoteSelection
 }
