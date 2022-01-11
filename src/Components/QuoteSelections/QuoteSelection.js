@@ -151,12 +151,12 @@ const QuoteSelection = (props) => {
                     size="large"
                     variant="contained"
                     color="primary"
-                    id={"SendPros"}
-                    name={injectIntlTranslation(intl, "SendPros")}
+                    id={"OpenPros"}
+                    name={injectIntlTranslation(intl, "OpenPros")}
                     onClick={handleOpenPros}
                     disabled={isSaveDisabled}
                 >
-                    {injectIntlTranslation(intl, "SendPros")}
+                    {injectIntlTranslation(intl, "OpenPros")}
                 </Button>
             </div>
         )
@@ -256,7 +256,7 @@ const QuoteSelection = (props) => {
             id="quoteSelection"
             disableCloseIcon
             errorMsg={errorMessage}
-            title={injectIntlTranslation(intl, "SendPros")}
+            title={injectIntlTranslation(intl, "OpenPros")}
         >
             {createFields(fields)}
         </ConfirmModal>
