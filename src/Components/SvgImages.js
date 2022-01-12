@@ -77,7 +77,7 @@ export const SoundImpact = props => (
 )
 
 export const SelectionToQuoteLoadingIcon = props => (
-    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <svg class={props.className} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <g clip-path="url(#clip0_4025_128273)">
             <path d="M12.627 2C7.10695 2 2.62695 6.48 2.62695 12C2.62695 17.52 7.10695 22 12.627 22C18.147 22 22.627 17.52 22.627 12C22.627 6.48 18.147 2 12.627 2Z" fill="#1891F6"/>
             <rect x="-4.37305" y="-5" width="34" height="34" fill="url(#pattern0)"/>

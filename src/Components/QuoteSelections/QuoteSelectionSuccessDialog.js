@@ -96,12 +96,12 @@ const QuoteSelectionSuccessDialog = (props) => {
                     size="large"
                     variant="contained"
                     color="primary"
-                    id={"OpenPros"}
-                    name={injectIntlTranslation(intl, "OpenPros")}
+                    id={"SendToQuote"}
+                    name={injectIntlTranslation(intl, "SendToQuote")}
                     onClick={handleOpenPros}
                     disabled={disableSave}
                 >
-                    {injectIntlTranslation(intl, "OpenPros")}
+                    {injectIntlTranslation(intl, "SendToQuote")}
                 </Button>
             </div>
         )
