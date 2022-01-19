@@ -16,7 +16,7 @@ import { getValueForDynamicKey } from './CustomGridUtils';
 function CustomGrid(props) {
   const { ascending, descending } = sortingOrder;
   const { selectedRows = [], rows = [], headCells, rowsPerPageOptions, labelRowsPerPage, config = {}, showCheckbox, rowsToShowPerPage,
-    sortable, orderByfield, uniqueKey, rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
+    sortable, orderByfield, uniqueKey = 'customGrid', rowCheckboxHandler, rowOnclickHandler, hidePagination, hideSearch, onSearch, isLoading,
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
     pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
     rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}, columnPicker = false, saveColumnHandler,
@@ -43,7 +43,13 @@ function CustomGrid(props) {
   }, [rows, rowsPerPage, initialRowData]);
 
   useEffect(()=>{
-    setSelected(selected.filter(item => rows.includes(item)))
+    setSelected(selected.filter(item => {
+      const element = rows.find(row => row[uniqueKey] === item[uniqueKey])
+      if (element) {
+        return true;
+      }
+      return false;
+    }))
   },[rows])
   
   useEffect(() => {
@@ -60,7 +66,7 @@ function CustomGrid(props) {
   },[order, orderBy, rowsPerPage, page])
 
   useEffect(() => {
-    (pageNumber >= 0) && handleChangePage(pageNumber);
+    (pageNumber >= 0) && (page !== pageNumber) && handleChangePage(pageNumber);
   },[pageNumber])
 
   useEffect(() => {
