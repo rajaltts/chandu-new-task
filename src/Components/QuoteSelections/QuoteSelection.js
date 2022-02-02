@@ -71,14 +71,15 @@ const QuoteSelection = (props) => {
         quoteSelection,
         intl,
         closeQuoteSelection,
-        dispatch
+        dispatch,
+        selectedTags = [],
+        builderList
     } = props;
     const {
         showQuoteSelectionModal,
         quoteSelectionSaveHandler = null,
         errorMsg = "",
-        quoteSelectionLoadHandler = null,
-        selectedTags = []
+        quoteSelectionLoadHandler = null
     } = quoteSelection;
     const {
         container, footerButton, buttonGradint, marginRight16px, formControl,
@@ -102,8 +103,8 @@ const QuoteSelection = (props) => {
     }, []);
 
     const loadOptions = async () => {
-        const reponse = await quoteSelectionLoadHandler()
-        const { opportunities = [], quotes = [] } = reponse
+        const response = await quoteSelectionLoadHandler(selectedTags, builderList)
+        const { opportunities = [], quotes = [] } = response
         let newFields = [...fields]
         newFields[0].menuList = opportunities
         newFields[1].menuList = quotes
