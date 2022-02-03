@@ -81,6 +81,7 @@ import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelec
 import QuoteSelectionProgressDialog from "./Components/QuoteSelections/QuoteSelectionProgressDialog";
 import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
 import HyperLinks from './JSReport/Components/HyperLinks';
+import CartSection from './v2/Components/Cart/CartSection';
 
 export {
     Checkbox,
@@ -161,5 +162,6 @@ export {
     QuoteSelectionSuccessDialog,
     QuoteSelectionProgressDialog,
     QuoteSelection,
-    HyperLinks
+    HyperLinks,
+    CartSection
 }
