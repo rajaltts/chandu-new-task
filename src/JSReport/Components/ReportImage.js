@@ -7,7 +7,7 @@ import React from 'react';
  */
 const ReportImage = ({
     customImageProps = {
-        src: '/Images/ESPOptimized.png',
+        src: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/png/DefaultReportImage.png',
         alt: "No Image",
         height: 100,
         width: 100,
