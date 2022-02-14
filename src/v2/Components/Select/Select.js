@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import {
     FormControl,
     InputLabel,
-    Select,
+    Select as MaterialSelect,
     MenuItem,
     FormHelperText,
     Tooltip,
@@ -16,7 +16,6 @@ import {
 import WarningIcon from '@material-ui/icons/Warning'
 
 // Styles
-import globalStyles from '../../../styles/globalStyles'
 import selectStyles from './Select.styles'
 
 const Select = ({
@@ -34,7 +33,6 @@ const Select = ({
 }) => {
     const inputLabel = useRef(null)
     const [labelWidth, setLabelWidth] = useState(0)
-    const globalClasses = globalStyles()
     const classes = selectStyles()
 
     useEffect(() => {
@@ -42,10 +40,6 @@ const Select = ({
     }, [])
 
     const menuProps = {
-        classes: {
-            paper: globalClasses.menuWrapper,
-            list: globalClasses.menu,
-        },
         anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'left',
@@ -73,7 +67,7 @@ const Select = ({
                 htmlFor='outlined-age-native-simple'>
                 {label}
             </InputLabel>
-            <Select
+            <MaterialSelect
                 value={value}
                 onChange={(event) => handleChange(event.target.value)}
                 input={
@@ -102,9 +96,7 @@ const Select = ({
                         {v.label}
                         {!v.feasible && (
                             <Tooltip
-                                title={intl.formatMessage({
-                                    id: 'WRONG_VALUE_MESSAGE',
-                                })}>
+                                title='WRONG_VALUE_MESSAGE'>
                                 <IconButton className={classes.unfeasibleTooltipBtn}>
                                     <WarningIcon />
                                 </IconButton>
@@ -113,7 +105,7 @@ const Select = ({
                         {optionAction && excludeActionOption !== v.value && optionAction}
                     </MenuItem>
                 ))}
-            </Select>
+            </MaterialSelect>
             {relaxed && (
                 <FormHelperText>
                     {valueNotCompatibleText}

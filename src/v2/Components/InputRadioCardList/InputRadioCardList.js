@@ -43,7 +43,6 @@ const InputRadioCard = ({
     relaxed,
     className,
     color,
-    intl,
 }) => {
     const classes = useStyles()
     const theme = useTheme()
@@ -70,9 +69,7 @@ const InputRadioCard = ({
             <label htmlFor={name} className={classes.cardLabel}>
                 {!feasible && checked && (
                     <Tooltip
-                        title={intl.formatMessage({
-                            id: 'WRONG_VALUE_MESSAGE',
-                        })}>
+                        title='WRONG_VALUE_MESSAGE'>
                         <IconButton className={classes.unfeasibleTooltipCardBtn}>
                             <WarningIcon />
                         </IconButton>
@@ -159,7 +156,6 @@ export const InputRadioCardList = ({
                                 loading={loading}
                                 feasible={feasible}
                                 relaxed={relaxed}
-                                intl={intl}
                                 color={color}
                             />
                         </Grid>
