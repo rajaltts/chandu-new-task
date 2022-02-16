@@ -7,6 +7,7 @@ import {InfoIcon, Incomp, EfficiencyIcon, CapacityIcon, SoundImpact} from '../Sv
 import { FormattedMessage as Culture, injectIntl } from 'react-intl';
 import { css } from '@emotion/core';
 import { HashLoader } from 'react-spinners';
+import classNames from 'classnames';
 
 const override = css`
     display: block;
@@ -145,9 +146,9 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
         return (
           <div  className="OptionControl-Container">
             <div className="OptionControl-MainContainer">
-              <div onClick={ValueChanged} className={`OptionControl-ClickableContainer ${!EnablePropValue && "OptionControl-NotEnabled"}`}>
+              <div onClick={ValueChanged} className={classNames("OptionControl-ClickableContainer", {OptionControlNotEnabled: !EnablePropValue})}>
                 {Loading?<HashLoader css={override} sizeUnit={"px"} size={25} color={'#123abc'} loading={Loading}/>:
-                <Checkbox color="primary" className={`OptionControl-Checkbox ${!EnablePropValue && "OptionControl-NotEnabled"}`} id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>}            
+                <Checkbox color="primary" className={classNames("OptionControl-Checkbox", {OptionControlNotEnabled: !EnablePropValue})} id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>}            
                 <div className="OptionControl-LabelsContainer">
                     <span className="OptionControl-OptName">{GetOptionDescription(MainProp)}</span>
                     <span className="OptionControl-OptNumber">{MainProp.Values[0].Attributes.OptNumber}</span>
