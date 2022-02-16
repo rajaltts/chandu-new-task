@@ -23,7 +23,7 @@ function OptionControl(props) {
   const [OldValue, SetOldValue] = useState('')
   const { formatMessage } = props.intl
   const EnableProp = GetProperty(props.PropName + ".ENABLED")
-  const EnablePropValue = EnableProp && EnableProp.Value === "FALSE" ? false: true
+  const EnablePropValue = EnableProp && EnableProp.Value.toUpperCase() === "FALSE" ? false: true
 
   useEffect(() => {
     let UpdatedProp = GetProperty(props.PropName)
