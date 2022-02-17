@@ -22,8 +22,8 @@ function OptionControl(props) {
   const [Loading, SetLoading] = useState(false)
   const [OldValue, SetOldValue] = useState('')
   const { formatMessage } = props.intl
-  const EnableProp = GetProperty(props.PropName + ".ENABLED")
-  const EnablePropValue = EnableProp && EnableProp.Value.toUpperCase() === "FALSE" ? false: true
+  const EnabledProp = GetProperty(props.PropName + ".ENABLED")
+  const EnabledPropValue = props.useEnabledProp && EnabledProp && EnabledProp.Value.toUpperCase() === "FALSE" ? false: true
 
   useEffect(() => {
     let UpdatedProp = GetProperty(props.PropName)
@@ -39,7 +39,7 @@ function OptionControl(props) {
   },[props.PropName])
 
   function ValueChanged(){
-    if(!Loading && EnablePropValue){
+    if(!Loading && EnabledPropValue){
       SetLoading(true)
       let UpdatedValue = (Value === "TRUE" ? "FALSE":"TRUE")
       SetOldValue(UpdatedValue)
@@ -146,9 +146,9 @@ if(Object.entries(props.RulesJSON).length > 0 && props.RulesJSON.constructor ===
         return (
           <div  className="OptionControl-Container">
             <div className="OptionControl-MainContainer">
-              <div onClick={ValueChanged} className={classNames("OptionControl-ClickableContainer", {OptionControlNotEnabled: !EnablePropValue})}>
+              <div onClick={ValueChanged} className={classNames("OptionControl-ClickableContainer", {OptionControlNotEnabled: !EnabledPropValue})}>
                 {Loading?<HashLoader css={override} sizeUnit={"px"} size={25} color={'#123abc'} loading={Loading}/>:
-                <Checkbox color="primary" className={classNames("OptionControl-Checkbox", {OptionControlNotEnabled: !EnablePropValue})} id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>}            
+                <Checkbox color="primary" className={classNames("OptionControl-Checkbox", {OptionControlNotEnabled: !EnabledPropValue})} id={"ctrl"+ props.PropName} checked={Value ==="TRUE"?true:false}/>}            
                 <div className="OptionControl-LabelsContainer">
                     <span className="OptionControl-OptName">{GetOptionDescription(MainProp)}</span>
                     <span className="OptionControl-OptNumber">{MainProp.Values[0].Attributes.OptNumber}</span>
