@@ -91,3 +91,7 @@
     color: #928c8c;
 }
 
+.OptionControlNotEnabled {
+    cursor: not-allowed !important;
+}
+
