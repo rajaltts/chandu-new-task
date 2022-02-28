@@ -12,7 +12,7 @@ const RadaChart = (props) => {
         legendBottom='auto' } = legendConfig
 
     const { indicator={}, center=['25%', '50%'], radius=120, startAngle=90, splitNumber=5, 
-        isPolygon, lineStyle=[{}], formatAxisName, highlightPointData } = radarConfig
+        isPolygon, lineStyle=[{}], formatAxisName, highlightPointData, customShowToolTip, nameGap=15 } = radarConfig
     
     const [mouseX, setMouseX] = useState(0)
     const [mouseY, setMouseY] = useState(0)
@@ -40,7 +40,7 @@ const RadaChart = (props) => {
             },
             tooltip: {
                 show: showDataTip,
-                formatter: showToolTipData
+                formatter: (highlightPointData || customShowToolTip) && showToolTipData
             },
             radar: {
                 indicator: updateIndicator(),
@@ -49,6 +49,7 @@ const RadaChart = (props) => {
                 startAngle: startAngle,
                 splitNumber: splitNumber,
                 shape: isPolygon ? 'polygon' : 'circle',
+                nameGap: nameGap,
                 name: {
                     formatter: value => formatAxisName ? formatAxisName(value) : value,
                     color: radarConfig.textColor||'#428BD4',
@@ -83,19 +84,25 @@ const RadaChart = (props) => {
     }
 
     function showToolTipData(value){
-        let index = value?.dataIndex
+        let index = value.dataIndex
         let dataLine = data[index]
         let pointAxis = highlightPointData && mouseInRadarAxis(dataLine)
-        let dataTip = dataLine[tagAttrName] + '<br />'
+        let pointerData = {lineData: dataLine, mouseInAxis: pointAxis, lineName: value.name}
+        return customShowToolTip ? customShowToolTip({...pointerData, indicator: indicator}) : formatToolTip(pointerData)
+    }
+
+    function formatToolTip(data){
+        const {lineData, mouseInAxis, lineName} = data
+        let dataTip = lineData[tagAttrName] + '<br />'
         indicator && indicator.forEach(item => {
-            let value = dataLine[item.dataIndex || item.text]
-            let formatValue = item.formatValue
-            dataTip = pointAxis === item ? 
-                dataTip + '<li style="font-weight: 700">' + injectIntlTranslation(intl, item.text) + ': ' + 
-                (formatValue ? formatValue(value, item) : value) + '</li>'
+            const {dataIndex, text, formatValue} = item
+            let value = lineData[dataIndex || text]
+            dataTip = mouseInAxis === item ? 
+                dataTip + '<li style="font-weight: 700">' + injectIntlTranslation(intl, text || dataIndex) + ': ' + 
+                (formatValue ? formatValue(value, item, lineName) : value) + '</li>'
                 :
-                dataTip + '<li>' + injectIntlTranslation(intl, item.text) + ': ' + 
-                (formatValue ? formatValue(value, item) : value) + '</li>'
+                dataTip + '<li>' + injectIntlTranslation(intl, text || dataIndex) + ': ' + 
+                (formatValue ? formatValue(value, item, lineName) : value) + '</li>'
         })
         return dataTip
     }
