@@ -18,7 +18,9 @@ import translation from '../Translation'
  */
 const SelectionRadar = (props) => {
 
-    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal, showSetBaseline, defaultSelectedKPIs} = props
+    const {tagAttrName, data, kpiConfig, changeAutoCompleteHandler, autoCompleteDefVal, showSetBaseline, defaultSelectedKPIs,
+        customShowToolTip, scaleConfig} = props
+    const {useSameScale, marginRange=0.1, minMaxSelfAdaption=true} = scaleConfig
     const {rootStyle, leftStyle, rightStyle, checkBoxStyle, icon, checkedIcon, chillerInputStyle,
         baselineTextStyle, baselineInputStyle, chillerKPIStyle, chkGroupWrapperStyle} = useSelectionRadarStyle()
     const [KPIs, setKPIs] = useState([])
@@ -28,7 +30,7 @@ const SelectionRadar = (props) => {
     const [autoCompleteVal, setAutoCompleteVal] = useState()
     const [sortedData, setSortedData] = useState([])
     const [baselineIsSelected, setBaselineIsSelected] = useState(false)
-    
+
     useEffect(() => {
         let allKPIsTemp = getAllKpiConfig()
         if(defaultSelectedKPIs){
@@ -69,53 +71,96 @@ const SelectionRadar = (props) => {
         setSortedData(sortedDataTemp)
     }
 
-    function getProperMinAndMaxValue(allKPIs){
+    function getProperMinAndMaxValue(){
+        let minAndMaxTemp = useSameScale ? configSameAxisScale() : configDifferentAsixScale()
+        setMinAndMaxValues(minAndMaxTemp)
+        assembleIndicator(KPIs, minAndMaxTemp)
+    }
+
+    function configDifferentAsixScale(){
         let minAndMaxTemp = {}
-        let spliteRange = 4
         data?.length !== 0 && allKPIs.forEach(kpiItem => {
             let {dataIndex} = kpiItem
             let min = 0
             let max = 0
             data.forEach((dataItem, index) => {
-                let value = Number(dataItem[dataIndex]) 
+                const value = Number(dataItem[dataIndex]) 
+                if(index === 0){
+                    min = max = value
+                }else{
+                    max = value > max ? value : max
+                    min = value < min ? value : min
+                }
+            })
+            const {adjustMin, adjustMax} = adjustMinAndMaxForValue(min, max)
+            minAndMaxTemp[dataIndex] = {min: adjustMin, max: adjustMax}
+        })
+        return minAndMaxTemp
+    }
+
+    function configSameAxisScale(){
+        let minAndMaxTemp = {}
+        let min = 0
+        let max = 0   
+        data.forEach((dataItem, index) => {
+            allKPIs.forEach(kpiItem => {
+                const {dataIndex} = kpiItem
+                const value = Number(dataItem[dataIndex]) 
                 if(index === 0){
                     min = value
                     max = value
                 }else{
-                    if(value > max){
-                        max = value
-                    }
-                    if(value < min){
-                        min = value
-                    }
+                    max = value > max ? value : max
+                    min = value < min ? value : min
                 }
             })
-            if(max === min){
-                let {validIndex, pointIndex, isDecimal} = getValidIndexOfNumber(max)
-                let maxNum = Number(max)
-                if(!isDecimal){
-                    minAndMaxTemp[dataIndex] = {min: maxNum - 1, max: maxNum + 1}
-                }else if(validIndex < pointIndex){
-                    minAndMaxTemp[dataIndex] = {min: Math.floor(max), max: Math.ceil(max)}
-                }else if(validIndex > pointIndex){
-                    minAndMaxTemp[dataIndex] = {min: -1, max: 1}
-                }
-            }else{
-                let range = max - min
-                let {validIndex, pointIndex} = getValidIndexOfNumber(range)
-                if(pointIndex > validIndex){
+        })  
+        const {adjustMin, adjustMax} = adjustMinAndMaxForValue(min, max)
+        allKPIs.forEach(kpiItem => {
+            minAndMaxTemp[kpiItem.dataIndex] = {min: adjustMin, max: adjustMax}
+        })
+        return minAndMaxTemp
+    }
+
+    function adjustMinAndMaxForValue(min, max){
+        let adjustMin = 0, adjustMax = 0
+        if(max === min){
+            const {validIndex, pointIndex, isDecimal} = getValidIndexOfNumber(max)
+            const maxNum = Number(max)
+            if(!isDecimal){
+                adjustMin = maxNum - 1
+                adjustMax = maxNum + 1
+            }else if(validIndex < pointIndex){
+                adjustMin = Math.floor(max)
+                adjustMax = Math.ceil(max)
+            }else if(validIndex > pointIndex){
+                adjustMin = -1
+                adjustMax = 1
+            }
+        }else{
+            const range = max - min
+            const {validIndex, pointIndex} = getValidIndexOfNumber(range)
+            if(pointIndex > validIndex){
+                if(minMaxSelfAdaption){
                     let factor = Math.pow(10, pointIndex - validIndex -1) 
-                    minAndMaxTemp[dataIndex] = {min: Math.floor((min - range/spliteRange) / factor) * factor, 
-                        max: Math.ceil((Number(max) + Number(range/spliteRange)) / factor) * factor}
+                    adjustMin = Math.floor((min - range * marginRange) / factor) * factor
+                    adjustMax = Math.ceil((Number(max) + Number(range * marginRange)) / factor) * factor
                 }else{
+                    adjustMin = min - range * marginRange
+                    adjustMax = Number(max) + Number(range * marginRange)
+                }  
+            }else{
+                if(minMaxSelfAdaption){
                     let factor = Math.pow(10, validIndex - pointIndex) 
-                    minAndMaxTemp[dataIndex] = {min: Math.floor((min - range/spliteRange) * factor) / factor, 
-                        max: Math.ceil((Number(max) + Number(range/spliteRange)) * factor) / factor}
+                    adjustMin = Math.floor((min - range * marginRange) * factor) / factor
+                    adjustMax = Math.ceil((Number(max) + Number(range * marginRange)) * factor) / factor
+                }else{
+                    adjustMin = min - range * marginRange
+                    adjustMax = Number(max) + Number(range * marginRange)
                 }
             }
-        })
-        setMinAndMaxValues(minAndMaxTemp)
-        assembleIndicator(KPIs, minAndMaxTemp)
+        }
+        return {adjustMin: adjustMin, adjustMax: adjustMax}
     }
 
     function getValidIndexOfNumber(value){
@@ -193,21 +238,17 @@ const SelectionRadar = (props) => {
     }
 
     function assembleIndicator(selectedKPIs, minAndMaxValues){
-        let indicatorTemp = []
+        const indicatorTemp = []
         selectedKPIs.forEach(item => {
-            let minAndMax = minAndMaxValues && minAndMaxValues[item.dataIndex]
-            let axis = {
-                text: item.text||item.dataIndex,
-                dataIndex: item.dataIndex,
+            const {dataIndex} = item
+            const minAndMax = minAndMaxValues && minAndMaxValues[dataIndex]
+            const axis = {
+                ...item,
                 axisLabelShow: true,
                 axisLabelColor: '#505050',
                 showCenterLabel: false,
                 min: minAndMax && minAndMax.min,
                 max: minAndMax && minAndMax.max,
-                isDesc: item.isDesc,
-                formatValue: item.formatValue,
-                formatAxis: item.formatAxis,
-                unit: item.unit,
                 axisFontSize: 16,
                 axisFontWeight: 600,
             }
@@ -261,6 +302,7 @@ const SelectionRadar = (props) => {
                             lineStyle : baselineIsSelected ? [{type: [5, 3], width: 3}, {type: [1, 0], width: 3}] : [{type: [1, 0], width: 3}],
                             radius: 210,
                             highlightPointData: true,
+                            customShowToolTip: customShowToolTip,
                         }}
                         data={sortedData}
                         height={490} 
