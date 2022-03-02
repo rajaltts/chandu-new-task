@@ -4,7 +4,7 @@ import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 import MaterialRadioGroup from '@material-ui/core/RadioGroup'
 import MaterialRadio from '@material-ui/core/Radio'
 
-const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, handleChange, relaxed }) => {
+const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, onChange, relaxed, restRadioGroup, restFormControl, restRadio }) => {
     return (
         <FormControl component='fieldset' className={className}>
             {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
@@ -13,23 +13,25 @@ const RadioGroup = ({ className, row, name, color, label, displayLabel, value, v
                 name={name}
                 value={value}
                 onChange={(e) => {
-                    handleChange(e.target.value, e)
+                    onChange(e.target.value, e)
                 }}
-                data-Disabled={`${name}__${disabled}`}
-                data-Error={`${name}__${relaxed}`}
-                data-Value={`${name}__${value}`}
-                row={row}>
+                data-disabled={`${name}__${disabled}`}
+                data-error={`${name}__${relaxed}`}
+                data-value={`${name}__${value}`}
+                row={row}
+                {...restRadioGroup} >
                 {values.map((radio) => {
                     return (
                         <FormControlLabel
                             key={radio.value}
                             value={radio.value}
-                            control={<MaterialRadio id={name} data-label={radio.label} data-Disabled={`${name}__${disabled}`} color={color} disabled={disabled} />}
+                            control={<MaterialRadio id={name} data-label={radio.label} data-disabled={`${name}__${disabled}`} color={color} disabled={disabled} {...restRadio} />}
                             label={radio.label}
-                            data-Disabled={`${name}__${disabled}`}
-                            data-Error={`${name}__${relaxed}`}
-                            data-Value={`${name}__${radio.value}`}
-                            data-Label={`${name}__${radio.label}`}
+                            data-disabled={`${name}__${disabled}`}
+                            data-error={`${name}__${relaxed}`}
+                            data-value={`${name}__${radio.value}`}
+                            data-label={`${name}__${radio.label}`}
+                            {...restFormControl }
                         />
                     )
                 })}
@@ -55,6 +57,9 @@ RadioGroup.propTypes = {
     className: PropTypes.string,
     row: PropTypes.bool,
     name: PropTypes.string,
+    restRadioGroup: PropTypes.RadioGroup,
+    restRadio: PropTypes.Radio,
+    restFormControl: PropTypes.FormControl,
 }
 
 export default RadioGroup

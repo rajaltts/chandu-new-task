@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Select from './Select'
 
 export default {
-    title: 'Selects/Select',
+    title: 'Select',
     component: Select,
     argTypes: {
         id: {
@@ -56,6 +56,12 @@ export default {
         value: {
             defaultValue: 'ANY',
         },
+        tooltipTitleUnfeasible: {
+            defaultValue: 'Not compatible with you selection',
+        },
+        valueNotCompatibleText: {
+            defaultValue: 'Invalid selection',
+        }
     },
 }
 

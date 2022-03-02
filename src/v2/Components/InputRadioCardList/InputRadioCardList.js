@@ -43,6 +43,9 @@ const InputRadioCard = ({
     relaxed,
     className,
     color,
+    elevation,
+    tooltipTitleUnfeasible,
+    
 }) => {
     const classes = useStyles()
     const theme = useTheme()
@@ -55,7 +58,7 @@ const InputRadioCard = ({
             } ${loading ? 'loading' : ''} ${!feasible ? 'unfeasible' : ''} ${!hasMedia ? 'no-media' : ''} ${
                 className || ''
             } color-${color}`}
-            elevation={0}>
+            elevation={elevation}>
             <input
                 className={classes.cardInput}
                 type='radio'
@@ -69,7 +72,7 @@ const InputRadioCard = ({
             <label htmlFor={name} className={classes.cardLabel}>
                 {!feasible && checked && (
                     <Tooltip
-                        title='WRONG_VALUE_MESSAGE'>
+                        title={tooltipTitleUnfeasible}>
                         <IconButton className={classes.unfeasibleTooltipCardBtn}>
                             <WarningIcon />
                         </IconButton>

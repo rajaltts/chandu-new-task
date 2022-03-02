@@ -1,36 +1,9 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import { UI_SIZES } from '../utils/constants'
+import { useStyles } from './DrawerLayout.styles'
 
-const useStyles = makeStyles((theme) => ({
-    drawer: {
-        zIndex: '999!important',
-        [theme.breakpoints.up('sm')]: {
-            zIndex: '1!important',
-        },
-        '& .MuiDrawer-paper': {
-            [theme.breakpoints.only('xs')]: {
-                width: '80%',
-            },
-        },
-    },
-    drawerContent: {
-        display: 'flex',
-        flex: 1,
-        padding: `calc(${UI_SIZES.HEADER_HEIGHT}px + 10px) 0 0`,
-        [theme.breakpoints.up('sm')]: {
-            width: '474px',
-            padding: `calc(${UI_SIZES.HEADER_HEIGHT}px + ${UI_SIZES.STEPPER_HEIGHT}px + 10px) 0 calc(${UI_SIZES.FOOTER_HEIGHT}px + ${UI_SIZES.BOTTOM_ACTIONS_HEIGHT}px)`,
-        },
-        '&:focus': {
-            outline: 'none',
-        },
-    },
-}))
-
-const DrawerLayout = ({ children, isOpen, onClose }) => {
+const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
     const classes = useStyles()
 
     useEffect(() => {
@@ -45,15 +18,20 @@ const DrawerLayout = ({ children, isOpen, onClose }) => {
 
     return (
         <Drawer
-            elevation={3}
+            elevation={elevation}
             className={classes.drawer}
             open={isOpen}
             onClose={onClose}
-            anchor='right'
+            anchor={anchor}
             BackdropProps={{ invisible: true }}>
             <div className={classes.drawerContent}>{children}</div>
         </Drawer>
     )
+}
+
+DrawerLayout.defaultProps = {
+    anchor: 'right',
+    elevation: 3,
 }
 
 DrawerLayout.propTypes = {

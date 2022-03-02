@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core'
 // Styles
 import useStyles from './Input.styles'
 
-const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, required, disabled }) => {
+const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, required, disabled, rest }) => {
     const [currentValue, setCurrentValue] = useState(value)
     const classes = useStyles()
 
@@ -49,6 +49,7 @@ const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, 
             onBlur={handleBlur}
             required={required}
             disabled={disabled}
+            {...rest}
         />
     )
 }
@@ -69,6 +70,7 @@ Input.propTypes = {
     handleChange: PropTypes.func,
     required: PropTypes.bool,
     disabled: PropTypes.bool,
+    rest: PropTypes.object,
 }
 
 export default Input

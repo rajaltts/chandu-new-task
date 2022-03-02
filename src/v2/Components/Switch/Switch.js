@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MaterialSwitch from '@material-ui/core/Switch'
 
-const Switch = ({ value, handleChange, label, color, disabled, size, className }) => {
+const Switch = ({ value, handleChange, label, color, disabled, size, className, rest }) => {
     return (
         <FormControlLabel
             control={
@@ -14,6 +14,7 @@ const Switch = ({ value, handleChange, label, color, disabled, size, className }
                     color={color}
                     size={size}
                     className={`${className || ''}`}
+                    {...rest}
                 />
             }
             label={label}
@@ -35,6 +36,7 @@ Switch.propTypes = {
     color: PropTypes.oneOf(['default', 'primary', 'secondary']),
     size: PropTypes.oneOf(['small', 'medium']),
     className: PropTypes.string,
+    rest: PropTypes.object,
 }
 
 export default Switch

@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
     label: {},
 }))
 
-const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed }) => {
+const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, tooltipTitle, rest }) => {
     const classes = useStyles()
 
     const Label = () => {
         return (
             <>
                 {relaxed ? (
-                    <Tooltip title='Selecting this value will impact further selection'>
+                    <Tooltip title={tooltipTitle}>
                         <span>{label}</span>
                     </Tooltip>
                 ) : (
@@ -46,6 +46,7 @@ const Checkbox = ({ className, value, handleChange, label, color, disabled, rela
                     name={label}
                     color={color}
                     disabled={disabled}
+                    {...rest}
                 />
             }
             label={<Label />}
@@ -67,6 +68,8 @@ Checkbox.propTypes = {
     handleChange: PropTypes.func,
     relaxed: PropTypes.bool,
     className: PropTypes.string,
+    tooltipTitle: PropTypes.string,
+    rest: PropTypes.Checkbox,
 }
 
 export default Checkbox

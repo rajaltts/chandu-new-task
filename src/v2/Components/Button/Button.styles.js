@@ -1,9 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Button } from '@material-ui/core'
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import { makeStyles } from "@material-ui/core"
 
-const buttonStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
     btn: {
         '&.small': {
             height: 28,
@@ -73,49 +70,3 @@ const buttonStyles = makeStyles((theme) => ({
         },
     },
 }))
-
-const LayoutButton = ({ id="LayoutButton", variant, className, size, startIcon, endIcon, onClick, children, disabled }) => {
-    const classes = buttonStyles()
-    let btnClasses
-
-    if (variant === 'contained') {
-        btnClasses = classes.primaryGradientButton
-    } else if (variant === 'outlined') {
-        btnClasses = `${classes.outlineButton} black white-bg`
-    } else if (variant === 'text') {
-        btnClasses = classes.textButton
-    }
-
-    return (
-        <Button
-            id={id}
-            data-Disabled={`LayoutButton__${disabled}`}
-            data-Variant={`LayoutButton__${variant}`}
-            variant={variant}
-            className={`${classes.btn} ${btnClasses} ${className} ${size}`}
-            startIcon={startIcon}
-            endIcon={endIcon}
-            onClick={onClick}
-            disabled={disabled}>
-            {children}
-        </Button>
-    )
-}
-
-LayoutButton.defaultProps = {
-    variant: 'contained',
-    size: 'large',
-}
-
-LayoutButton.propTypes = {
-    variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
-    className: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
-    startIcon: PropTypes.any,
-    endIcon: PropTypes.any,
-    onClick: PropTypes.func,
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.object, PropTypes.array]),
-    disabled: PropTypes.bool,
-}
-
-export default LayoutButton

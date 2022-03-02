@@ -29,7 +29,9 @@ const Select = ({
     relaxed,
     optionAction,
     excludeActionOption,
-    valueNotCompatibleText
+    valueNotCompatibleText,
+    tooltipTitleUnfeasible,
+    rest,
 }) => {
     const inputLabel = useRef(null)
     const [labelWidth, setLabelWidth] = useState(0)
@@ -87,7 +89,8 @@ const Select = ({
                         : null
                 }
                 classes={{ root: classes.selectRoot }}
-                className={`${className || ''}`}>
+                className={`${className || ''}`}
+                {...rest} >
                 {values.map((v) => (
                     <MenuItem
                         key={v.value}
@@ -96,7 +99,7 @@ const Select = ({
                         {v.label}
                         {!v.feasible && (
                             <Tooltip
-                                title='WRONG_VALUE_MESSAGE'>
+                                title={tooltipTitleUnfeasible}>
                                 <IconButton className={classes.unfeasibleTooltipBtn}>
                                     <WarningIcon />
                                 </IconButton>
@@ -136,6 +139,8 @@ Select.propTypes = {
     excludeActionOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     className: PropTypes.string,
     valueNotCompatibleText: PropTypes.string,
+    tooltipTitleUnfeasible: PropTypes.string,
+    rest: PropTypes.object,
 }
 
 export default Select
