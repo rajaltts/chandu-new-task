@@ -212,7 +212,7 @@ const ReportPreview = ({
       </div>
       <Zoom in={true}>
         <div
-          className={`${classes.reportPopup} main ${
+          className={`pdf-download-root ${classes.reportPopup} main ${
             errorMessage ? "popup-error" : ""
           }`}
           ref={popupRef}

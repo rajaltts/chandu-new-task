@@ -63,6 +63,7 @@ import ReportPreview from './Components/Reports/preview/ReportPreview';
 import ReportsManager from './Components/Reports/manager/ReportsManager';
 import ReportsCircularProgress from './Components/Reports/progress/ProgressSpinner'
 import pdfDownload from './Components/Reports/pdfDownload'
+import Page from './Components/Reports/page/Page'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -169,8 +170,9 @@ export {
     QuoteSelection,
     HyperLinks,
     CartSection,
-    Typography,
     ReportImage,
+    Page,
+    Typography,
     MediaCard,
     RadioCard,
     RadioList,
