@@ -88,6 +88,7 @@ import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
 import HyperLinks from './JSReport/Components/HyperLinks';
 import ReportImage from './JSReport/Components/ReportImage';
 import CartSection from './v2/Components/Cart/CartSection';
+import ReportTable from './JSReport/Components/ReportTable';
 
 export {
     Checkbox,
@@ -176,4 +177,5 @@ export {
     MediaCard,
     RadioCard,
     RadioList,
+    ReportTable
 }
