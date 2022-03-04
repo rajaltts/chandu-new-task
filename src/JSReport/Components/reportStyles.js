@@ -1,100 +1,81 @@
 const reportStyles = {
   tableReport: {
-    "width": "100%",
-    "margin-top": "20px",
-    "display": "flex",
-    "flex-direction": "row",
-    "flex-wrap": "wrap",
-    "animation": "fadeIn 0.3s"
-  },
-  column: {
-    flex: "50%",
-    padding: "5px",
+    width: "100%",marginTop: "20px",display: "flex",flexDirection: "row",flexWrap: "wrap",animation: "fadeIn 0.3s"
   },
   table: {
-    "border-collapse": "collapse",
-    "border-spacing": "0",
-    width: "100%"
+    borderCollapse: "collapse",borderSpacing: "0",width: "100%"
   },
   tableData : {
-    "flex" : "1"
+    flex : 1
   },
   tbody : {
-    "width":"100%"
+    width:"100%"
   },
   tableTr: {
-    "height": "auto", 
-    "min-height": "17px",
-    "display": "flex",
-    "flex-direction": "row",
-    "width":"100%"
+    height: "auto", minHeight: "17px",display: "flex",flexDirection: "row",width:"100%"
   },
   tableTd: {
-    "display": "flex",
-    "flex-direction": "row",
-    "border": "1px solid #cccccc",
-    "font-size": "10px",
-    "padding-left": "2px",
-    "padding-right": "2px",
-    "width": "50%",
-    "table-layout":"fixed"
+    display: "flex",flexDirection: "row",border: "1px solid #cccccc",fontSize: "10px",
+    padding: "0px",width: "50%",backgroundColor: "#FFFFFF",alignItems: "center"
   },
   spaceBetween: {
-    "justify-content": "space-between",
+    justifyContent: "space-between",
   },
   justifycenter: {
-    "justify-content": "center",
+    justifyContent: "center",
   },
   ST1: {
-    "background-color": "#ececec"
+    backgroundColor: "#ececec"
   },
   ST2: {
     background:
       "radial-gradient(circle, #d0dce9 15%, #d3e7ff 51%, #c0d7f3 94%)",
-      "border": "1px solid #f2f2f2"
-  },
-  carrier: {
-    background:
-      "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
-  },
-  ciat: {
-    background:
-      "linear-gradient(353deg, #5e5e5e 0%, #8b8b8b 35%, #7a7a7a 100%)",
+    border: "1px solid #f2f2f2"
   },
   tableTitle: {
-    display: "flex",
-    "flex-direction": "row",
-    "justify-content": "center",
-    width: "100%",
-    color: "white",
-    "text-align": "center",
-    "font-size": "12px",
-    "border-top-left-radius": "5px",
-    "border-top-right-radius": "5px",
-    "box-shadow": "0 0 5px #8e8e8e",
-    "padding-top": "2px",
-    "padding-bottom": "2px",
+    display: "flex",flexDirection: "row",justifyContent: "center",width: "100%",color: "white",textAlign: "center",fontZize: "12px",
+    borderTopLeftRadius: "5px",borderTopRightRadius: "5px",boxShadow: "0 0 5px #8e8e8e",paddingTop: "2px",
+    paddingBottom: "2px",background:
+      "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
   },
   center: {
-    "text-align": "center",
+    textAlign: "center",
   },
   left: {
-    "text-align": "left",
+    textAlign: "left",
   },
   right: {
-    "text-align": "right",
+    textAlign: "right",
   },
-  normal: {
-    "font-weight": "normal",
+  whiteSpace : {
+    whiteSpace : "nowrap"
   },
-  bold: {
-    "font-weight": "bold",
+  paddingLeftRight : {
+    padding: "0px 2px"
   },
-  width100: {
-    width: "100%",
+  h1 : {
+    fontSize : "32px",
+    fontWeight: "700"
   },
-  width50: {
-    width: "50%",
+  h2 : {
+    fontSize : "24px",
+    fontWeight: "700"
+  },
+  h3 : {
+    fontSize : "18px",
+    fontWeight: "700"
+  },
+  h4 : {
+    fontSize : "16px",
+    fontWeight: "700"
+  },
+  h5 : {
+    fontSize : "13px",
+    fontWeight: "700"
+  },
+  h6 : {
+    fontSize : "12px",
+    fontWeight: "700"
   }
 };
 

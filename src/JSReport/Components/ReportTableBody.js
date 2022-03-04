@@ -1,50 +1,54 @@
 import React from "react";
 import reportStyles from "./reportStyles";
-const ReportTableBody = ({rowData}) => {
+const ReportTableBody = ({ rowData }) => {
+  const {
+    ST1,
+    spaceBetween,
+    justifycenter,
+    paddingLeftRight,
+    tableTd,
+    whiteSpace,
+    tableTr,
+  } = reportStyles;
+
+  const tableTdData = (item) => {
+    return (
+      <>
+        {item["value"] ? item["value"] : ""}
+        {item["supValue"] ? <sup> {item["supValue"]}</sup> : ""}
+        {item["subValue"] ? <sub> {item["subValue"]} </sub> : ""}
+      </>
+    );
+  };
   return (
-    <tr style={reportStyles["tableTr"]}>
+    <tr style={tableTr}>
       {rowData.map((item, index) => {
+        const styleType = item.styleType ? reportStyles[item.styleType] : ST1;
+        const style = item.style ? item.style : {};
+        const positionType = item.positionType ? item.positionType : "left";
         return (
           <td
             style={{
-              ...reportStyles["tableTd"],
-              ...reportStyles[item.styleType],
-              ...(item.isBold ? reportStyles["bold"] : reportStyles["normal"]),
-              ...((item.positionType === "left") ? reportStyles["spaceBetween"] : reportStyles["justifycenter"])
+              ...tableTd,
+              ...styleType,
+              ...style,
+              ...(positionType === "left" || positionType === "right"
+                ? spaceBetween
+                : justifycenter),
             }}
           >
-            <span>
-              {item.primaryText["value"] ? item.primaryText["value"] : ""}
-              {item.primaryText["supValue"] ? (
-                <sup> {item.primaryText["supValue"]}</sup>
-              ) : (
-                ""
-              )}
-              {item.primaryText["subValue"] ? (
-                <sub> {item.primaryText["subValue"]} </sub>
-              ) : (
-                ""
-              )}
-            </span>
-            {item.secondaryText["value"] ? (
-              <span>
-                {item.secondaryText["value"]}
-                {item.secondaryText["supValue"] ? (
-                  <sup> {item.secondaryText["supValue"]}</sup>
-                ) : (
-                  ""
-                )}
-                {item.secondaryText["subValue"] ? (
-                  <sub> {item.secondaryText["subValue"]} </sub>
-                ) : (
-                  ""
-                )}
+            <span style={{ ...paddingLeftRight,...reportStyles[item.headerType] }}>
+                {tableTdData(item.primaryText)}
+              </span>
+            {item.secondaryText ? (
+              <span style={{ ...reportStyles[item.headerType], ...paddingLeftRight, ...whiteSpace }}>
+                {tableTdData(item.secondaryText)}
               </span>
             ) : (
               ""
             )}
           </td>
-        );
+        )
       })}
     </tr>
   );

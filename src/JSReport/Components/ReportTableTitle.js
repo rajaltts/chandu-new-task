@@ -4,11 +4,14 @@ import reportStyles from "./reportStyles";
 const ReportTableTitle = ({
   titleInformation
 }) => {
+  const styleType = titleInformation.styleType ? reportStyles[titleInformation.styleType] : reportStyles["tableTitle"];
+  const style = titleInformation.style ? titleInformation.style : "";
   return (
+    
     <div
       style={{
-        ...reportStyles[titleInformation.styleType],
-        ...reportStyles[titleInformation.brand],
+        ...styleType,
+        ...style,
       }}
     >
       {titleInformation.title}

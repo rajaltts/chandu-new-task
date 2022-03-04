@@ -10,7 +10,6 @@ const ReportTable = ({
     <div style={reportStyles["tableReport"]}>
       {titleInformation["title"] && <ReportTableTitle titleInformation={titleInformation} />}
       <div style={reportStyles["tableData"]}>
-        
             <table style={reportStyles["table"]}>
               <tbody style={reportStyles["tbody"]}>
               {TableData.map((rowData, index) => {
@@ -18,8 +17,6 @@ const ReportTable = ({
               })}
               </tbody>
             </table>
-          
-       
       </div>
     </div>
   );
