@@ -124,7 +124,8 @@ const reportStyles = {
   },
   listContainer: {
     display: "flex",
-    wordBreak: "break-all"
+    wordBreak: "break-all",
+    alignItems: "end"
   },
   flexGrow: {
     flexGrow: "1"

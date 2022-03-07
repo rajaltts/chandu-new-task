@@ -12,21 +12,22 @@ const ContentList = (props) => {
   const createContentList = () => {
     return content.map((item, index) => {
       const { label, value } = item;
+      const labelValue = `${label}${label ? ":" : ""}`
       return (
         <div style={reportStyles['listContainer']} key={index}>
-          <div style={labelStyle}>{`${label}:`}</div>
+          <div style={labelStyle}>{labelValue}</div>
           <div style={reportStyles["flexGrow"]}>
-            <hr style={reportStyles['dottedBorder']}/>
+            <hr style={reportStyles['dottedBorder']} />
           </div>
-          <div style={{...reportStyles['boldFont'], ...valueStyle}}>{value}</div>
+          <div style={{ ...reportStyles['boldFont'], ...valueStyle }}>{value}</div>
         </div>
       );
     });
   };
   return (
     <>
-      <h6 style={{...reportStyles['smallFont'], ...reportStyles['zeroMargin']}}>{header}</h6>
-      <div style={{...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container}}>{createContentList()}</div>
+      <h6 style={{ ...reportStyles['smallFont'], ...reportStyles['zeroMargin'] }}>{header}</h6>
+      <div style={{ ...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container }}>{createContentList()}</div>
     </>
   );
 };
