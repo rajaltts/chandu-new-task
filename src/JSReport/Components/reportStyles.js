@@ -87,6 +87,13 @@ const reportStyles = {
     fontSize : "10px",
     fontWeight: "700"
   },
+  smallFont: {
+    fontSize: "small",
+    fontWeight: "700"
+  },
+  smallerFont: {
+    fontSize: "smaller"
+  },
   zeroMargin: {
     margin: "0px"
   },
@@ -106,7 +113,7 @@ const reportStyles = {
   notesContainer: {
     display: "flex",
     flexDirection: "column",
-    fontSize: "14px",
+    fontSize: "smaller",
     padding: "0px 0px 0px 15px",
     margin: "0px"
   },
@@ -124,6 +131,9 @@ const reportStyles = {
   },
   contentTable: {
     margin: "10px"
+  },
+  rowContainer: {
+    display: "flex"
   }
 };
 

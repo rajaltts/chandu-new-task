@@ -25,8 +25,8 @@ const ContentList = (props) => {
   };
   return (
     <>
-      <h6 style={{...reportStyles['h4'], ...reportStyles['zeroMargin']}}>{header}</h6>
-      <div style={{...reportStyles['contentListContainer'], ...reportStyles['nonBoldH5'], ...container}}>{createContentList()}</div>
+      <h6 style={{...reportStyles['smallFont'], ...reportStyles['zeroMargin']}}>{header}</h6>
+      <div style={{...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container}}>{createContentList()}</div>
     </>
   );
 };
