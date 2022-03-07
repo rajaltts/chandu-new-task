@@ -80,10 +80,51 @@ const reportStyles = {
     fontSize : "13px",
     fontWeight: "700"
   },
+  nonBoldH5 : {
+    fontSize : "13px"
+  },
   h6 : {
     fontSize : "10px",
     fontWeight: "700"
   },
+  zeroMargin: {
+    margin: "0px"
+  },
+  boldFont: {
+    fontWeight: "bold"
+  },
+  dottedBorder: {
+    borderTop: "1px dotted black"
+  },
+  noListDisc: {
+    listStyleType: "none"
+  },
+  romanList: {
+    listStyleType: "lower-roman",
+    padding: "0px 0px 0px 28px"
+  },
+  notesContainer: {
+    display: "flex",
+    flexDirection: "column",
+    fontSize: "14px",
+    padding: "0px 0px 0px 15px",
+    margin: "0px"
+  },
+  contentListContainer: {
+    margin: "0px 15px",
+    minHeight: "20px",
+    maxWidth: "100%"
+  },
+  listContainer: {
+    display: "flex",
+    wordBreak: "break-all"
+  },
+  flexGrow: {
+    flexGrow: "1"
+  },
+  contentTable: {
+    margin: "10px"
+  }
 };
 
 export default reportStyles;
