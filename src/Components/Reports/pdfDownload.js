@@ -74,7 +74,7 @@ const pdfDownload = ({
       );
 
       const renderingDoc = document.createElement("html");
-      renderingDoc.classList.add("pdf-download-root");
+      renderingDoc.classList.add("pdf-download-root-main");
       ReactDOM.render(reportEl, renderingDoc);
 
       const pagesNumbers = Array.from(

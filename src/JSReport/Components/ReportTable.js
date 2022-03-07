@@ -7,18 +7,16 @@ const ReportTable = ({
   titleInformation = {}
 }) => {
   return (
-    <div style={reportStyles["tableReport"]}>
-      {titleInformation["title"] && <ReportTableTitle titleInformation={titleInformation} />}
-      <div style={reportStyles["tableData"]}>
-            <table style={reportStyles["table"]}>
-              <tbody style={reportStyles["tbody"]}>
-              {TableData.map((rowData, index) => {
-                return (<ReportTableBody rowData={rowData} />)
-              })}
-              </tbody>
-            </table>
-      </div>
-    </div>
+    <>
+      {titleInformation["title"] && (
+        <ReportTableTitle titleInformation={titleInformation} />
+      )}
+      <table style={reportStyles["table"]}>
+        {TableData.map((rowData, index) => {
+          return <ReportTableBody rowData={rowData} />;
+        })}
+      </table>
+    </>
   );
 };
 

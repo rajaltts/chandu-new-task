@@ -8,15 +8,12 @@ const reportStyles = {
   tableData : {
     flex : 1
   },
-  tbody : {
-    width:"100%"
-  },
   tableTr: {
-    height: "auto", minHeight: "17px",display: "flex",flexDirection: "row",width:"100%"
+    height: "auto", minHeight: "17px",width:"100%"
   },
   tableTd: {
-    display: "flex",flexDirection: "row",border: "1px solid #cccccc",fontSize: "10px",
-    padding: "0px",width: "50%",backgroundColor: "#FFFFFF",alignItems: "center"
+    border: "1px solid #cccccc",padding: "0px",backgroundColor: "#FFFFFF",alignItems: "center",
+    fontSize : "10px"
   },
   spaceBetween: {
     justifyContent: "space-between",
@@ -32,9 +29,19 @@ const reportStyles = {
       "radial-gradient(circle, #d0dce9 15%, #d3e7ff 51%, #c0d7f3 94%)",
     border: "1px solid #f2f2f2"
   },
+  ST3 :{
+    backgroundColor: "#FFFFFF"
+  },
+  ST4 :{
+    backgroundColor: "#D68999"
+  },
+  ST5 :{
+    background:
+    "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)"
+  },
   tableTitle: {
-    display: "flex",flexDirection: "row",justifyContent: "center",width: "100%",color: "white",textAlign: "center",fontZize: "12px",
-    borderTopLeftRadius: "5px",borderTopRightRadius: "5px",boxShadow: "0 0 5px #8e8e8e",paddingTop: "2px",
+    display: "flex",flexDirection: "row",justifyContent: "center",width: "100%",color: "white",textAlign: "center",
+    borderTopLeftRadius: "5px",borderTopRightRadius: "5px",boxShadow: "0 0 5px #8e8e8e",paddingTop: "2px",fontSize:"12px",
     paddingBottom: "2px",background:
       "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
   },
@@ -74,9 +81,9 @@ const reportStyles = {
     fontWeight: "700"
   },
   h6 : {
-    fontSize : "12px",
+    fontSize : "10px",
     fontWeight: "700"
-  }
+  },
 };
 
 export default reportStyles;

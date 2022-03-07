@@ -15,15 +15,16 @@ import { css } from '@emotion/core'
  * @param  {boolean} {sup} Display as an exponent the string between ^ characters in content
  * @returns {React.ReactElement} Loading spinner if no data or props.loading, or content (translated or not, depending on translate input props)
  */
-export const Format = ({ children, loading, translate, isPropName, sup }) => {
+export const Format = ({ children, loading, translate, isPropName, sup, sub }) => {
+  
     if (children === null || children === undefined) return <></>
     if (children === '' && loading)
         return (
             <BarLoader
                 css={css`
                     display: block;
-                    margin: 0 auto;
-                    width: 50%;
+                    margin: 2px;
+                    width: "50%";
                 `}
                 size={7}
                 height={7}
@@ -48,16 +49,29 @@ export const Format = ({ children, loading, translate, isPropName, sup }) => {
                     )
                     .filter(Boolean)}
             </div>
-        ) : (
-            <div>{children}</div>
-        )
+        ) : ""
+      else if (sub)
+        return children.match(/(\^.*?\^)/g) !== null ? (
+            <div>
+                {children
+                    .split('^')
+                    .map((e, i) =>
+                        i === 1 ? (
+                            <sub key={`format-sup-${i}`}>{e}</sub>
+                        ) : (
+                            e && <span key={`format-span-${i}`}>{e}</span>
+                        )
+                    )
+                    .filter(Boolean)}
+            </div>
+        ) : ""
     else if (Array.isArray(children))
         return (
-            <div className={'flex-space-around'}>
-                {children.map((child, i) => (
-                    <div key={`child-${i}`}>{child}</div>
-                ))}
-            </div>
+          <>           
+            {children.map((child, i) => (
+                <div key={`child-${i}`}>{child}</div>
+            ))}
+            </>
         )
     return children
 }
