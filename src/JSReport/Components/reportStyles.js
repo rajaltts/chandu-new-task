@@ -1,9 +1,9 @@
 const reportStyles = {
   jsreportPageWrapper: {
     "width": "793px",
-    "height": "1150px",
+    "height": "1120px",
     "max-width": "793px",
-    "max-height": "1150px",
+    "max-height": "1120px",
     "background-color": "white",
     "page-break-after": "always",
     "overflow": "hidden"
@@ -18,9 +18,6 @@ const reportStyles = {
     "maxHeight": "calc(100% - 6mm)",
     "maxWidth": "calc(100% - 6mm)",
     "backgroundColor": "#f8f8f8",
-    "-borderColor": "#e7e7e7",
-    "-carrierColor": "#152c73",
-    "-ciatColor": "grey",
     "justifyContent": "flex-start",
     "alignContent": "center"
   },
