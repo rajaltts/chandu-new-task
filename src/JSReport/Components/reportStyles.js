@@ -289,6 +289,15 @@ const reportStyles = {
   },
   rowContainer: {
     display: "flex"
+  },
+  reportContainer: {
+    width : "100%",
+    height : "auto",
+    display : "flex",
+    marginBottom: "10px"
+  },
+  reportItemContainer: {
+    padding: "5px"
   }
 };
 

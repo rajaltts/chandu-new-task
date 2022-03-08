@@ -19,7 +19,7 @@ const ReportImage = ({
 }) => {
     const {
         text = { "font-weight": "bold" },
-        container = { "display": "flex", "flex-direction": "column", "text-align": "center", "margin": "10px" }
+        container = { "display": "flex", "flex-direction": "column", "text-align": "center","align-items":"center" ,"margin": "10px" }
     } = classes
     return (
         <div id={id} key={id} style={container}>
