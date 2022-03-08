@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
 import { translation } from '@carrier/ngecat-reactcomponents'
-import './PageStyles.css';
+import reportStyles from '../../../JSReport/Components/reportStyles';
 
 /**
  * @category Customer Reports 📁
@@ -63,25 +63,25 @@ const Page = ({
     })
 
     return (
-        <div className='jsreport-page-wrapper'>
-            <div className='page' ref={pageRef}>
+        <div style={reportStyles.jsreportPageWrapper}>
+            <div style={reportStyles.page} ref={pageRef}>
                 {!hideHeader &&
-                    <div className='header' ref={headerRef}>
-                        <div className='left-area'>
-                            <img className='brand-logo' src={modelBrandLogo} alt='Brand logo' />
-                            <div className='sub-infos'>
-                                <span className='preparator-name'>{fullName}</span>
-                                <span className='date'>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                    <div style={{...reportStyles.pageHeader, ...reportStyles.roundBorder}} ref={headerRef}>
+                        <div style={reportStyles.pageHeaderLeftArea}>
+                            <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
+                            <div style={reportStyles.pageHeaderSubInfos}>
+                                <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
+                                <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
                             </div>
                         </div>
 
-                        {modelBrand === 'carrier' && <div className='report-title carrier'>{title}</div>}
+                        {modelBrand === 'carrier' && <div style={{...reportStyles.pageHeaderReportTitle, ...reportStyles.pageHeaderReportTitleCarrier}}>{title}</div>}
                         {modelBrand === 'ciat' && (
-                            <div className='report-title ciat'>
+                            <div style={reportStyles.pageHeaderReportTitle}>
                                 {title}
                                 {model && 
-                                    <div className='main-title ciat'>
-                                        <span className='model'>
+                                    <div style={reportStyles.pageHeaderMainTitle}>
+                                        <span style={reportStyles.pageHeaderMainTitleModel}>
                                             <Format loading sup>{model}</Format>
                                         </span>
                                     </div>
@@ -89,44 +89,44 @@ const Page = ({
                             </div>
                         )}
 
-                        <div className='info-wrapper'>
+                        <div style={reportStyles.pageHeaderInfoWrapper}>
                             {projectName && (
                                 <>
-                                    <span className='info-title'>{projectNameLabel}</span>
-                                    <span className='project-name'>{projectName}</span>
+                                    <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{projectNameLabel}</span>
+                                    <span style={reportStyles.pageHeaderInfoWrapperProjectName}>{projectName}</span>
                                 </>
                             )}
                             {tagName && (
                                 <>
-                                    <span className='info-title'>{tagNameLabel}</span>
-                                    <span className='tag-name'>{tagName}</span>
+                                    <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{tagNameLabel}</span>
+                                    <span style={reportStyles.pageHeaderInfoWrapperTagName}>{tagName}</span>
                                 </>
                             )}
                         </div>
                     </div>
                 }
-                <div className='main' ref={mainRef}>
+                <div style={{...reportStyles.pageMain, ...reportStyles.roundBorder}} ref={mainRef}>
                     {children}
                 </div>
                 {!hideFooter &&
-                    <div className='footer' ref={footerRef}>
-                        <div className='left-area'>
+                    <div style={{...reportStyles.pageFooter, ...reportStyles.roundBorder}} ref={footerRef}>
+                        <div style={reportStyles.pageFooterLeftArea}>
                             {footNotes.descriptions && footNotes.descriptions.length > 0 && (
-                                <div className='footnote'>
+                                <div style={reportStyles.pageFooterLeftAreaFootNote}>
                                     {footNotes.image && (
-                                        <img className='footnote-image' src={footNotes.image} alt='Certification image' />
+                                        <img style={reportStyles.pageFooterLeftAreaFootNoteImage} src={footNotes.image} alt='Certification image' />
                                     )}
                                     {footNotes.descriptions.map((description, i) => (
-                                        <div className='footnote-description' key={`footnote-description-${i}`}>
+                                        <div style={reportStyles.pageFooterLeftAreaFootNoteDescription} key={`footnote-description-${i}`}>
                                             {description}
                                         </div>
                                     ))}
                                 </div>
                             )}
 
-                            <span className='package-version'>{builderInfo}</span>
+                            <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
                         </div>
-                        <div className='info-wrapper'>
+                        <div style={reportStyles.pageFooterInfoWrapper}>
                             <span>
                                 {translation('Page')} <span className='page-number'>{reportCurrentPreviewIndex}</span>/
                                 <span className='number-of-pages'>{pageList}</span>

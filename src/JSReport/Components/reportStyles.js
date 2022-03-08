@@ -1,4 +1,161 @@
 const reportStyles = {
+  jsreportPageWrapper: {
+    "width": "793px",
+    "height": "1150px",
+    "max-width": "793px",
+    "max-height": "1150px",
+    "background-color": "white",
+    "page-break-after": "always",
+    "overflow": "hidden"
+  },
+  page: {
+    "display": "flex",
+    "flexDirection": "column",
+    "flexWrap": "nowrap",
+    "padding": "3mm",
+    "height": "calc(100% - 6mm)",
+    "width": "calc(100% - 6mm)",
+    "maxHeight": "calc(100% - 6mm)",
+    "maxWidth": "calc(100% - 6mm)",
+    "backgroundColor": "#f8f8f8",
+    "-borderColor": "#e7e7e7",
+    "-carrierColor": "#152c73",
+    "-ciatColor": "grey",
+    "justifyContent": "flex-start",
+    "alignContent": "center"
+  },
+  roundBorder: {
+    "border-radius": "10px",
+    "background-color": "#ffffff",
+    "box-shadow": "0px 0px 4px #dedede"
+  },
+  pageHeader: {
+    "display": "flex",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "minHeight": "1.7cm",
+    "maxHeight": "1.7cm",
+    "padding": "9px",
+    "marginBottom": "6px"
+  },
+  pageHeaderLeftArea: {
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "space-between",
+    "alignItems": "flex-start",
+    "flex": "1"
+  },
+  pageHeaderBrandLogo: {
+    "maxWidth": "2.5cm",
+    "maxHeight": "1.2cm"
+  },
+  pageHeaderSubInfos: {
+    "fontSize": "11px"
+  },
+  pageHeaderSubInfosPreparatorName: {
+    "marginRight": "5px",
+    "fontWeight": "600"
+  },
+  pageHeaderReportTitle: {
+    "display": "flex",
+    "flexDirection": "column",
+    "alignItems": "center",
+    "fontSize": "19px",
+    "fontWeight": "700",
+    "justifyContent": "flex-start",
+    "flex": "1"
+  },
+  pageHeaderReportTitleCarrier: {
+    "color": "#152c73"
+  },
+  pageHeaderReportTitleCiat: {
+    "color": "grey"
+  },
+  pageHeaderMainTitle: {
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "flex-start",
+    "alignItems": "flex-start"
+  },
+  pageHeaderMainTitleModel: {
+    "fontSize": "19px",
+    "fontWeight": "bold"
+  },
+  pageHeaderInfoWrapper: {
+    "display": "flex",
+    "flex": "1",
+    "justifyContent": "flex-end",
+    "alignItems": "flex-end",
+    "flexDirection": "column",
+    "fontSize": "11px",
+    "height": "100%"
+  },
+  pageHeaderInfoWrapperInfoTitle: {
+    "fontWeight": "bold",
+    "marginTop": "5px"
+  },
+  pageHeaderInfoWrapperProjectName: {
+    "color": "#131313"
+  },
+  pageHeaderInfoWrapperTagName: {
+    "color": "#131313"
+  },
+  pageMain: {
+    "display": "flex",
+    "flexDirection": "column",
+    "padding": "5mm",
+    "width": "calc(100% - 10mm)",
+    "maxWidth": "calc(100% - 10mm)",
+    "flex": "1",
+    "animation": "turn 4s linear 1.75s infinite !important"
+  },
+  pageFooter: {
+    "display": "flex",
+    "flexDirection": "row",
+    "minHeight": "2cm",
+    "maxHeight": "2cm",
+    "paddingLeft": "10px",
+    "justifyContent": "space-evenly",
+    "marginTop": "6px"
+  },
+  pageFooterLeftArea: {
+    "display": "flex",
+    "flexDirection": "column",
+    "height": "100%",
+    "justifyContent": "space-around",
+    "alignItems": "flex-start",
+    "width": "90%"
+  },
+  pageFooterLeftAreaFootNote: {
+    "height": "60%",
+    "display": "flex",
+    "flexDirection": "column",
+    "flexWrap": "wrap",
+    "justifyContent": "center"
+  },
+  pageFooterLeftAreaFootNoteImage: {
+    "maxHeight": "100%",
+    "marginRight": "5px",
+    "maxWidth": "20%"
+  },
+  pageFooterLeftAreaFootNoteDescription: {
+    "fontSize": "8px",
+    "maxWidth": "calc(80% - 5px)"
+  },
+  pageFooterLeftAreaPackageVersion: {
+  },
+  pageFooterInfoWrapper: {
+    "display": "flex",
+    "flex": "1",
+    "justifyContent": "center",
+    "alignItems": "flex-end",
+    "flexDirection": "column",
+    "fontSize": "11px",
+    "height": "100%",
+    "marginBottom": "6px",
+    "marginRight": "6px"
+  },
   tableReport: {
     width: "100%",marginTop: "20px",display: "flex",flexDirection: "row",flexWrap: "wrap",animation: "fadeIn 0.3s"
   },
