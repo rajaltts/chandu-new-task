@@ -7,7 +7,6 @@ import { useStyles } from './RadioCard.styles'
 
 const RadioCard = ({ label, onClick, selected, loading, feasible, relaxed, tooltipTitleUnfeasible, mediaCardProps, typographyProps }) => {
     const classes = useStyles()
-    debugger
 
     return (
         <Box className={classes.root}>

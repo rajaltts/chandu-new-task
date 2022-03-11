@@ -2,6 +2,8 @@
 
 A large store of UI components shared between Framework, builders or any ECAT web application.  
 
+See them directly on github: https://scegithub.apps.carrier.com/pages/SCE/NGECAT-ReactComponents/
+
 Under `src/Components` folder, you'll find legacy components used in the most of builders. This components often are rules driven.  
 
 Under `src/v2/Components` folder, you'll find components that : 
