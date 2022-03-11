@@ -59,11 +59,11 @@ import RadaChart from './Components/RadarChart/RadaChart'
 import MinutesTimer from './Components/MinutesTimer'
 import SelectionRadar from './Components/selectionRadar/SelectionRadar'
 
-import ReportPreview from './Components/Reports/preview/ReportPreview';
-import ReportsManager from './Components/Reports/manager/ReportsManager';
-import ReportsCircularProgress from './Components/Reports/progress/ProgressSpinner'
-import pdfDownload from './Components/Reports/pdfDownload'
-import Page from './Components/Reports/page/Page'
+import ReportPreview from './JSReport/Reports/preview/ReportPreview';
+import ReportsManager from './JSReport/Reports/manager/ReportsManager';
+import ReportsCircularProgress from './JSReport/Reports/progress/ProgressSpinner'
+import pdfDownload from './JSReport/Reports/pdfDownload'
+import Page from './JSReport/Reports/page/Page'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'

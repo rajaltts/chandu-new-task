@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import reportStyles from "../reportStyles";
 
-const ReportNotes = ({ notes = [], type = "", classes = {} }) => {
+const ReportNotes = ({ notes = [], type = "", classes = {}, headerType = "" }) => {
     const { olList = {}, liList = {} } = classes
 
     const createNotes = () => {
@@ -22,7 +22,7 @@ const ReportNotes = ({ notes = [], type = "", classes = {} }) => {
                 break;
         }
         return (
-            <ol style={{ ...containerStyle, ...bulletType, ...olList }}>
+            <ol style={{ ...containerStyle, ...bulletType, ...reportStyles[headerType] ,...olList }}>
                 {notes.map((note, index) => {
                     const noteValue = olClassType === 'numeric' ? `(${index+1}) ${note}` : note
                     return (
