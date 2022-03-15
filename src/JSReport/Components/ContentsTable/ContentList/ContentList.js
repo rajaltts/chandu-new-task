@@ -1,5 +1,5 @@
 import React from "react";
-import reportStyles from "../reportStyles";
+import reportStyles from "../../reportStyles";
 
 const ContentList = (props) => {
   const {
@@ -7,7 +7,7 @@ const ContentList = (props) => {
     header = "Lorem Ipsum",
     classes = {}
   } = props;
-  const { container = {}, labelStyle = {}, valueStyle = {} } = classes
+  const { container = {}, labelStyle = {}, valueStyle = {}, headerStyle =  {} } = classes
 
   const createContentList = () => {
     return content.map((item, index) => {
@@ -26,7 +26,7 @@ const ContentList = (props) => {
   };
   return (
     <>
-      <h6 style={{ ...reportStyles['smallFont'], ...reportStyles['zeroMargin'] }}>{header}</h6>
+      <h6 style={{ ...reportStyles['smallFont'], ...reportStyles['zeroMargin'], ...headerStyle }}>{header}</h6>
       <div style={{ ...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container }}>{createContentList()}</div>
     </>
   );

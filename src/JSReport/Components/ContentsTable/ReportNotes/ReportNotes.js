@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import reportStyles from "../reportStyles";
+import reportStyles from "../../reportStyles";
 
 const ReportNotes = ({ notes = [], type = "", classes = {}, headerType = "" }) => {
     const { olList = {}, liList = {} } = classes

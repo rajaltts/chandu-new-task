@@ -86,12 +86,12 @@ import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelec
 import QuoteSelectionProgressDialog from "./Components/QuoteSelections/QuoteSelectionProgressDialog";
 import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
 import HyperLinks from './JSReport/Components/HyperLinks';
-import ReportImage from './JSReport/Components/ReportImage';
+import ReportImage from './JSReport/Components/ReportImage/ReportImage';
 import CartSection from './v2/Components/Cart/CartSection';
 import ReportTable from './JSReport/Components/ReportTable';
-import ContentList from './JSReport/Components/ContentsTable/ContentList';
+import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList';
 import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
-import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes';
+import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes';
 import ReportContainer from './JSReport/Components/ReportContainer';
 import ReportItemContainer from './JSReport/Components/ReportItemContainer';
 export {

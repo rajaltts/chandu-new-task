@@ -1,4 +1,5 @@
 import React from 'react';
+import reportStyles from '../reportStyles';
 
 /**
  * @category Customer Reports 📁 Page #1 - Standard
@@ -18,8 +19,8 @@ const ReportImage = ({
     classes = {}
 }) => {
     const {
-        text = { "font-weight": "bold" },
-        container = { "display": "flex", "flex-direction": "column", "text-align": "center","align-items":"center" ,"margin": "10px" }
+        text = reportStyles['boldFont'],
+        container = reportStyles['reportImageDefault']
     } = classes
     return (
         <div id={id} key={id} style={container}>

@@ -298,6 +298,13 @@ const reportStyles = {
   },
   reportItemContainer: {
     padding: "5px"
+  },
+  reportImageDefault: {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    alignItems:"center",
+    margin: "10px"
   }
 };
 

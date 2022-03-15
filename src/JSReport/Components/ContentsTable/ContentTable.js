@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import ContentList from "./ContentList"
-import ReportNotes from "./ReportNotes"
+import ContentList from "./ContentList/ContentList"
+import ReportNotes from "./ReportNotes/ReportNotes"
 import reportStyles  from "../reportStyles";
 
 const ContentTable = ({
