@@ -6,6 +6,7 @@ const ReportTableBody = ({ rowData }) => {
     ST1,
     spaceBetween,
     justifycenter,
+    justifyend,
     paddingLeftRight,
     tableTd,
     whiteSpace,
@@ -13,18 +14,18 @@ const ReportTableBody = ({ rowData }) => {
     rowContainer
   } = reportStyles;
 
-  const showTableElements = (text,item,hideLoader) => {
-    const textStyle = item["style"] || {};
+  const showTableElements = (text,textData,item) => {
+    const textStyle = textData["style"] || {};
     return(
       <span style={{ ...paddingLeftRight, ...textStyle,
       ...(text === "secondaryText" ? whiteSpace : {}), }}>
-        {tableTdData(item,hideLoader)}
+        {tableTdData(textData,item)}
       </span>
     )
   }
-  const tableTdData = (item,hideLoader) => {
-    if(!item["value"]){
-      if(hideLoader){
+  const tableTdData = (textData,item) => {
+    if(!textData["value"]){
+      if(item.hideLoader){
         return "";
       }
       return <Format loading>{''}</Format>
@@ -32,9 +33,9 @@ const ReportTableBody = ({ rowData }) => {
     else {
       return (
          <>
-          {item["value"]}
-          {item["supValue"] ? <sup> {item["supValue"]}</sup> : ""}
-          {item["subValue"] ? <sub> {item["subValue"]} </sub> : ""}
+          {textData["value"]}
+          {textData["supValue"] ? <sup> {textData["supValue"]}</sup> : ""}
+          {textData["subValue"] ? <sub> {textData["subValue"]} </sub> : ""}
           </>
       );
     }
@@ -56,13 +57,14 @@ const ReportTableBody = ({ rowData }) => {
           ...style,
         }}>
           <div style={{...rowContainer,
-          ...(positionType === "left" || positionType === "right"? spaceBetween : justifycenter),
+          ...(positionType === "left" ? spaceBetween : positionType === "right" ? justifyend : justifycenter)
           }}>
+            
             {item.primaryText ? (
-              showTableElements("primaryText",item.primaryText,item.hideLoader)
+              showTableElements("primaryText",item.primaryText,item)
             ) : "" }
             {item.secondaryText ? (
-              showTableElements("secondaryText",item.secondaryText,item.hideLoader)
+              showTableElements("secondaryText",item.secondaryText,item)
             ) : "" }
           </div>
         </td>

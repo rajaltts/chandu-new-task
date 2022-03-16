@@ -175,6 +175,9 @@ const reportStyles = {
   justifycenter: {
     justifyContent: "center",
   },
+  justifyend: {
+    justifyContent: "end",
+  },
   ST1: {
     backgroundColor: "#ececec"
   },
@@ -192,6 +195,9 @@ const reportStyles = {
   ST5 :{
     background:
     "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)"
+  },
+  ST6 : {
+    backgroundColor: "#83AAD8"
   },
   tableTitle: {
     display: "flex",flexDirection: "row",justifyContent: "center",width: "100%",color: "white",textAlign: "center",
@@ -241,6 +247,9 @@ const reportStyles = {
     fontSize : "10px",
     fontWeight: "700"
   },
+  h7 : {
+    fontSize : "8px"
+  },
   smallFont: {
     fontSize: "small",
     fontWeight: "700"
@@ -268,8 +277,9 @@ const reportStyles = {
     display: "flex",
     flexDirection: "column",
     fontSize: "smaller",
-    padding: "0px 0px 0px 15px",
-    margin: "0px"
+    padding: "0px 0px 0px 5px",
+    margin: "0px",
+    letterSpacing : "-0.4px"
   },
   contentListContainer: {
     margin: "0px 15px",
@@ -305,6 +315,14 @@ const reportStyles = {
     textAlign: "center",
     alignItems:"center",
     margin: "10px"
+  },
+  imgHeight :{
+    height :"15px"
+  },
+  link: {
+    color: "#0000EE",
+    fontWeight: "bold",
+    cursor : "pointer"
   }
 };
 

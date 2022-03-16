@@ -1,24 +1,22 @@
-import React from 'react'
+import React from 'react';
+import reportStyles from "./reportStyles";
 import Link from '@material-ui/core/Link';
-
-function HyperLinks(props) {
-    const { children, divClass, preTextClass, postTextClass, linkClass, component, underline, href, target, style, preText, postText } = props;
-
+const HyperLinks = ({ href, type, value}) => {
+    const {
+      link,
+      imgHeight
+    } = reportStyles;
+    const hrefAttributes = href ? {href: href} : {}
     return (
-        <div className={divClass}>
-            <pre>
-               <span className={preTextClass}>{preText}</span>
-                <Link
-                    rel="noopener noreferrer"
-                    className={linkClass}
-                    {...props}
-                >
-                    {children}
-                </Link>
-                <span className={postTextClass}>{postText}</span>
-            </pre>
-        </div>
-    )
+      <Link
+        style={{ ...link }}
+        rel="noopener noreferrer"
+        {...hrefAttributes}
+        target="_blank"
+      >
+        {type === "pdf" && <img src={value} style={imgHeight} />}
+        {type === "link" && value}
+      </Link>
+    );
 }
-
 export default HyperLinks;
