@@ -19,13 +19,13 @@ const ReportImage = ({
     classes = {}
 }) => {
     const {
-        text = reportStyles['boldFont'],
-        container = reportStyles['reportImageDefault']
+        text = {},
+        container = {}
     } = classes
     return (
-        <div id={id} key={id} style={container}>
+        <div id={id} key={id} style={{...container, ...reportStyles['reportImageDefault']}}>
             <img {...customImageProps} />
-            {label && <span style={text}>{label}</span>}
+            {label && <span style={{...text, ...reportStyles['boldFont']}}>{label}</span>}
         </div>
     )
 }

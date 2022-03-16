@@ -1,3 +1,13 @@
+const flexColumn = {
+  "display": "flex",
+  "flexDirection": "column",
+}
+
+const flexRow = {
+  "display": "flex",
+  "flexDirection": "row",
+}
+
 const reportStyles = {
   jsreportPageWrapper: {
     "width": "793px",
@@ -9,8 +19,7 @@ const reportStyles = {
     "overflow": "hidden"
   },
   page: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "flexWrap": "nowrap",
     "padding": "3mm",
     "height": "calc(100% - 6mm)",
@@ -27,8 +36,7 @@ const reportStyles = {
     "box-shadow": "0px 0px 4px #dedede"
   },
   pageHeader: {
-    "display": "flex",
-    "flexDirection": "row",
+    ...flexRow,
     "justifyContent": "space-between",
     "alignItems": "center",
     "minHeight": "1.7cm",
@@ -37,8 +45,7 @@ const reportStyles = {
     "marginBottom": "6px"
   },
   pageHeaderLeftArea: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "justifyContent": "space-between",
     "alignItems": "flex-start",
     "flex": "1"
@@ -55,8 +62,7 @@ const reportStyles = {
     "fontWeight": "600"
   },
   pageHeaderReportTitle: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "alignItems": "center",
     "fontSize": "19px",
     "fontWeight": "700",
@@ -70,8 +76,7 @@ const reportStyles = {
     "color": "grey"
   },
   pageHeaderMainTitle: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "justifyContent": "flex-start",
     "alignItems": "flex-start"
   },
@@ -80,11 +85,10 @@ const reportStyles = {
     "fontWeight": "bold"
   },
   pageHeaderInfoWrapper: {
-    "display": "flex",
+    ...flexColumn,
     "flex": "1",
     "justifyContent": "flex-end",
     "alignItems": "flex-end",
-    "flexDirection": "column",
     "fontSize": "11px",
     "height": "100%"
   },
@@ -99,8 +103,7 @@ const reportStyles = {
     "color": "#131313"
   },
   pageMain: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "padding": "5mm",
     "width": "calc(100% - 10mm)",
     "maxWidth": "calc(100% - 10mm)",
@@ -108,8 +111,7 @@ const reportStyles = {
     "animation": "turn 4s linear 1.75s infinite !important"
   },
   pageFooter: {
-    "display": "flex",
-    "flexDirection": "row",
+    ...flexRow,
     "minHeight": "2cm",
     "maxHeight": "2cm",
     "paddingLeft": "10px",
@@ -117,17 +119,15 @@ const reportStyles = {
     "marginTop": "6px"
   },
   pageFooterLeftArea: {
-    "display": "flex",
-    "flexDirection": "column",
+    ...flexColumn,
     "height": "100%",
     "justifyContent": "space-around",
     "alignItems": "flex-start",
     "width": "90%"
   },
   pageFooterLeftAreaFootNote: {
+    ...flexColumn,
     "height": "60%",
-    "display": "flex",
-    "flexDirection": "column",
     "flexWrap": "wrap",
     "justifyContent": "center"
   },
@@ -143,31 +143,41 @@ const reportStyles = {
   pageFooterLeftAreaPackageVersion: {
   },
   pageFooterInfoWrapper: {
-    "display": "flex",
+    ...flexColumn,
     "flex": "1",
     "justifyContent": "center",
     "alignItems": "flex-end",
-    "flexDirection": "column",
     "fontSize": "11px",
     "height": "100%",
     "marginBottom": "6px",
     "marginRight": "6px"
   },
   tableReport: {
-    width: "100%",marginTop: "20px",display: "flex",flexDirection: "row",flexWrap: "wrap",animation: "fadeIn 0.3s"
+    width: "100%",
+    marginTop: "20px",
+    ...flexRow,
+    flexWrap: "wrap",
+    animation: "fadeIn 0.3s"
   },
   table: {
-    borderCollapse: "collapse",borderSpacing: "0",width: "100%"
+    borderCollapse: "collapse",
+    borderSpacing: "0",
+    width: "100%"
   },
-  tableData : {
-    flex : 1
+  tableData: {
+    flex: 1
   },
   tableTr: {
-    height: "auto", minHeight: "17px",width:"100%"
+    height: "auto",
+    minHeight: "17px",
+    width: "100%"
   },
   tableTd: {
-    border: "1px solid #cccccc",padding: "0px",backgroundColor: "#FFFFFF",alignItems: "center",
-    fontSize : "10px"
+    border: "1px solid #cccccc",
+    padding: "0px",
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    fontSize: "10px"
   },
   spaceBetween: {
     justifyContent: "space-between",
@@ -182,28 +192,34 @@ const reportStyles = {
     backgroundColor: "#ececec"
   },
   ST2: {
-    background:
-      "radial-gradient(circle, #d0dce9 15%, #d3e7ff 51%, #c0d7f3 94%)",
+    background: "radial-gradient(circle, #d0dce9 15%, #d3e7ff 51%, #c0d7f3 94%)",
     border: "1px solid #f2f2f2"
   },
-  ST3 :{
+  ST3: {
     backgroundColor: "#FFFFFF"
   },
-  ST4 :{
+  ST4: {
     backgroundColor: "#D68999"
   },
-  ST5 :{
-    background:
-    "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)"
+  ST5: {
+    background: "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)"
   },
   ST6 : {
     backgroundColor: "#83AAD8"
   },
   tableTitle: {
-    display: "flex",flexDirection: "row",justifyContent: "center",width: "100%",color: "white",textAlign: "center",
-    borderTopLeftRadius: "5px",borderTopRightRadius: "5px",boxShadow: "0 0 5px #8e8e8e",paddingTop: "2px",fontSize:"12px",
-    paddingBottom: "2px",background:
-      "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
+    ...flexRow,
+    justifyContent: "center",
+    width: "100%",
+    color: "white",
+    textAlign: "center",
+    borderTopLeftRadius: "5px",
+    borderTopRightRadius: "5px",
+    boxShadow: "0 0 5px #8e8e8e",
+    paddingTop: "2px",
+    fontSize: "12px",
+    paddingBottom: "2px",
+    background: "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
   },
   center: {
     textAlign: "center",
@@ -214,37 +230,37 @@ const reportStyles = {
   right: {
     textAlign: "right",
   },
-  whiteSpace : {
-    whiteSpace : "nowrap"
+  whiteSpace: {
+    whiteSpace: "nowrap"
   },
-  paddingLeftRight : {
+  paddingLeftRight: {
     padding: "0px 2px"
   },
-  h1 : {
-    fontSize : "32px",
+  h1: {
+    fontSize: "32px",
     fontWeight: "700"
   },
-  h2 : {
-    fontSize : "24px",
+  h2: {
+    fontSize: "24px",
     fontWeight: "700"
   },
-  h3 : {
-    fontSize : "18px",
+  h3: {
+    fontSize: "18px",
     fontWeight: "700"
   },
-  h4 : {
-    fontSize : "16px",
+  h4: {
+    fontSize: "16px",
     fontWeight: "700"
   },
-  h5 : {
-    fontSize : "13px",
+  h5: {
+    fontSize: "13px",
     fontWeight: "700"
   },
-  nonBoldH5 : {
-    fontSize : "13px"
+  nonBoldH5: {
+    fontSize: "13px"
   },
-  h6 : {
-    fontSize : "10px",
+  h6: {
+    fontSize: "10px",
     fontWeight: "700"
   },
   h7 : {
@@ -274,8 +290,7 @@ const reportStyles = {
     padding: "0px 0px 0px 28px"
   },
   notesContainer: {
-    display: "flex",
-    flexDirection: "column",
+    ...flexColumn,
     fontSize: "smaller",
     padding: "0px 0px 0px 5px",
     margin: "0px",
@@ -301,19 +316,18 @@ const reportStyles = {
     display: "flex"
   },
   reportContainer: {
-    width : "100%",
-    height : "auto",
-    display : "flex",
+    width: "100%",
+    height: "auto",
+    display: "flex",
     marginBottom: "10px"
   },
   reportItemContainer: {
     padding: "5px"
   },
   reportImageDefault: {
-    display: "flex",
-    flexDirection: "column",
+    ...flexColumn,
     textAlign: "center",
-    alignItems:"center",
+    alignItems: "center",
     margin: "10px"
   },
   imgHeight :{

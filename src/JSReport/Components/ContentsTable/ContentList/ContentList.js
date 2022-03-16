@@ -27,7 +27,7 @@ const ContentList = (props) => {
   return (
     <>
       <h6 style={{ ...reportStyles['smallFont'], ...reportStyles['zeroMargin'], ...headerStyle }}>{header}</h6>
-      <div style={{ ...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container }}>{createContentList()}</div>
+      {!!content.length && <div style={{ ...reportStyles['contentListContainer'], ...reportStyles['smallerFont'], ...container }}>{createContentList()}</div>}
     </>
   );
 };

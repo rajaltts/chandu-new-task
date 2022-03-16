@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
-import { translation } from '@carrier/ngecat-reactcomponents'
+import translation from '../../../Components/Translation'
 import reportStyles from '../../../JSReport/Components/reportStyles';
 
 /**

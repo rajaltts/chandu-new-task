@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormatTransKey } from '@carrier/workflowui-globalfunctions'
-import { translation } from '@carrier/ngecat-reactcomponents'
+import translation from '../../../Components/Translation'
 import BarLoader from 'react-spinners/BarLoader'
 import { css } from '@emotion/core'
 
