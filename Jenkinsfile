@@ -49,7 +49,7 @@ pipeline {
           deletedirectory("${WORKSPACE}\\configpath")
           deletefile("${WORKSPACE}\\jenkinsfile")
           npm.publish()
-          stash includes: 'storybook-static/**/*', name: 'storybook'
+          stash includes: 'docs/**/*', name: 'storybook'
         }	
       }
     }
@@ -58,11 +58,8 @@ pipeline {
       steps {
         script {
           bat 'git stash' // ignore package.json, package-lock.json
-          deletedirectory("${WORKSPACE}\\storybook-static")
           bat 'git checkout gh-pages'
           unstash 'storybook'
-          deletedirectory("${WORKSPACE}\\docs")
-          bat 'ren storybook-static docs'
           bat 'git add docs'
           bat 'git diff-index --quiet HEAD || git commit -m "storybook: update"'
           bat 'git push origin gh-pages'
