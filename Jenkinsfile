@@ -44,30 +44,31 @@ pipeline {
           npm.buildVersionUpdate("${WORKSPACE}\\${packageName}", property , BuildNo)
           npm.install()
           npm.build()
-          //bat 'npm run build-storybook'
+          bat 'npm run build-storybook'
           deletedirectory("${WORKSPACE}\\Scripts")
           deletedirectory("${WORKSPACE}\\configpath")
           deletefile("${WORKSPACE}\\jenkinsfile")
-          //npm.publish()
-          //stash includes: 'storybook-static/**/*', name: 'storybook'
+          npm.publish()
+          stash includes: 'storybook-static/**/*', name: 'storybook'
         }	
       }
     }
 
-    // stage("Publish storybook"){
-    //   steps {
-    //     script {
-    //       bat 'git stash' // ignore package.json, package-lock.json
-    //       deletedirectory("${WORKSPACE}\\storybook-static")
-    //       bat 'git checkout gh-pages'
-    //       unstash 'storybook'
-    //       bat 'ren storybook-static docs'
-    //       bat 'git add docs'
-    //       bat 'git diff-index --quiet HEAD || git commit -m "storybook: update"'
-    //       bat 'git push origin gh-pages'
-    //     }
-    //   }
-    // }
+    stage("Publish storybook"){
+      steps {
+        script {
+          bat 'git stash' // ignore package.json, package-lock.json
+          deletedirectory("${WORKSPACE}\\storybook-static")
+          bat 'git checkout gh-pages'
+          unstash 'storybook'
+          deletedirectory("${WORKSPACE}\\docs")
+          bat 'ren storybook-static docs'
+          bat 'git add docs'
+          bat 'git diff-index --quiet HEAD || git commit -m "storybook: update"'
+          bat 'git push origin gh-pages'
+        }
+      }
+    }
   }
   post {
     success 
