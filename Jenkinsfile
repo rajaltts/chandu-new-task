@@ -58,6 +58,7 @@ pipeline {
       steps {
         script {
           bat 'git stash' // ignore package.json, package-lock.json
+          deletedirectory("${WORKSPACE}\\docs")
           bat 'git checkout gh-pages'
           unstash 'storybook'
           bat 'git add docs'
