@@ -1,11 +1,11 @@
 import React from "react";
 import reportStyles from "./reportStyles";
-const ReportContainer = ({children}) => {
+const ReportContainer = ({ children, style = {} }) => {
   const {
     reportContainer
   } = reportStyles;
   return (
-    <div style={{...reportContainer}}>
+    <div style={{ ...reportContainer, ...style }}>
       {children}
     </div>
   );
