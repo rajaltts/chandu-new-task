@@ -73,7 +73,8 @@ const QuoteSelection = (props) => {
         closeQuoteSelection,
         dispatch,
         selectedTags = [],
-        builderList
+        builderList,
+        apis
     } = props;
     const {
         showQuoteSelectionModal,
@@ -122,6 +123,9 @@ const QuoteSelection = (props) => {
                 selectedTags,
                 opportunities: fields[0].menuList,
                 quotes: fields[1].menuList,
+                apis,
+                builderList,
+                intl
             }
             dispatch(quoteSelectionSaveHandler(payload));
             closeQuoteSelection();
@@ -256,7 +260,6 @@ const QuoteSelection = (props) => {
             headerIcon={QuotePro}
             id="quoteSelection"
             disableCloseIcon
-            errorMsg={errorMessage}
             title={injectIntlTranslation(intl, "OpenPros")}
         >
             {createFields(fields)}
