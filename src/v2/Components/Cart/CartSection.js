@@ -2,21 +2,24 @@
 import React from 'react'
 import { injectIntl } from 'react-intl'
 
-// Material
-import { Box, IconButton } from '@material-ui/core'
+// Material UI
+import { Box, Grid, IconButton } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import RightArrowIcon from '@material-ui/icons/ArrowForwardIos'
 
-// Carrier
+//Constants
+import { CART_SECTIONTYPE } from '@carrier/workflowui-globalfunctions'
+
+// Utility Methods
 import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
 // Styles
 import cartStyles from './Cart.styles'
 
-// CartConfig
-import BasePriceColumn from './BasePriceColumn'
-import SectionTotal from "./SectionTotal"
+// Components
+import CartSectionBaseunit from './CartSectionBaseunit'
 import CartSectionColumns from "./CartSectionColumns"
+import CartSectionTotal from "./CartSectionTotal"
 
 const CartSection = ({
     intl,
@@ -25,24 +28,24 @@ const CartSection = ({
     getPriceAndLabel = () => { },
     getPriceString = () => { },
     isOverSelectedOptions = false,
-    priceDescriptionList = [],
     cartConfig = [],
     dndReference = null
 }) => {
+
     const {
         dropZone, optionDrawerContainer, optionDrawerMainContent, drawerCloseBtn, drawerIcon
     } = cartStyles()
 
-    const getPriceAndLabelHandler = (label, priceUnit, baseTagName) => {
+    const getPriceAndLabelHandler = (label, priceUnit, pricePropName) => {
         if (getPriceAndLabel) {
-            return getPriceAndLabel(label, priceUnit, baseTagName)
+            return getPriceAndLabel(label, priceUnit, pricePropName)
         }
         return {}
     }
     
-    const getPriceStringHandler = (priceUnit, total) => {
+    const getPriceStringHandler = (priceUnit, pricePropName) => {
         if (getPriceString) {
-            return getPriceString(priceUnit, total)
+            return getPriceString(priceUnit, pricePropName)
         }
         return ''
     }
@@ -50,46 +53,74 @@ const CartSection = ({
     return (
         <div className={optionDrawerContainer}>
             <div className={optionDrawerMainContent}>
-                <IconButton className={drawerCloseBtn} onClick={() => closeCart()}>
-                    <RightArrowIcon className={drawerIcon} />
-                </IconButton>
-                <Box>
-                    <Typography variant='h2' color='primary' style={{ paddingBottom: '24px' }}>
-                        {injectIntlTranslation(intl, 'OPTIONS_INCLUDED_UNIT_PRICE')}
-                    </Typography>
-                </Box>
-                <BasePriceColumn
-                    getPriceAndLabel={getPriceAndLabelHandler}
-                    priceDescriptionList={priceDescriptionList}
-                />
+
+                {/* Shopping Cart close button and header */}
+                <Grid container alignItems='center'>
+                    <Grid item xs={1}>
+                        <IconButton className={drawerCloseBtn} onClick={() => closeCart()}>
+                            <RightArrowIcon className={drawerIcon} />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={10} >
+                        <Typography variant='h2' color='primary' align='center' style={{padding: '0px'}}>
+                            {injectIntlTranslation(intl, 'SHOPPING_CART')}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                </Grid>
+                
+                {/* Iterate through sections in the Cart Configuration */}
                 {cartConfig.map(config => {
-                    const { tagName, headerTitle, priceUnit, total } = config
+                    const { sectionType, tagName, headerTitle, priceUnit, columns, total } = config
                     const cartPrice = getPriceStringHandler(priceUnit, total)
-                    return (
-                        tagName ? (
-                            <Box key={tagName} ref={dndReference} className={`options-wrapper`}>
-                                <CartSectionColumns
-                                    priceDescriptionList={priceDescriptionList}
-                                    headerId={headerTitle}
+
+                    switch (sectionType) {
+                        //Base Unit section
+                        case CART_SECTIONTYPE.BASEUNIT:
+                            return (
+                                <CartSectionBaseunit
+                                    cartSectionConfig={config}
+                                    getPriceString={getPriceStringHandler}                    
                                 />
-                                {renderOptions(config)}
-                                <SectionTotal
-                                    labelId='SUB_TOTAL'
+                            )
+
+                        //Options section (options, accessories, warranties, quote controls, startup, etc.)
+                        case CART_SECTIONTYPE.OPTION:
+                            if (tagName) {
+                                return (
+                                    <Box key={tagName} ref={dndReference} className={`options-wrapper`}>
+                                        <CartSectionColumns
+                                            columnList={columns}
+                                            headerId={headerTitle}
+                                        />
+                                        {renderOptions(config)}
+                                        <CartSectionTotal
+                                            labelId='SUB_TOTAL'
+                                            price={cartPrice}
+                                        />
+                                        <div className={`${dropZone} ${isOverSelectedOptions ? 'is-visible' : ''}`} />
+                                    </Box>
+                                )
+                            } else return null;
+
+                        //Total Price section
+                        case CART_SECTIONTYPE.TOTAL:
+                            return (
+                                <CartSectionTotal
+                                    key={sectionType}
+                                    labelId='TOTAL'
+                                    headingVariant='h2'
                                     price={cartPrice}
                                 />
-                                <div className={`${dropZone} ${isOverSelectedOptions ? 'is-visible' : ''}`} />
-                            </Box>
-                        ) : (
-                            <SectionTotal
-                                key={tagName}
-                                labelId='TOTAL'
-                                headingVariant='h2'
-                                price={cartPrice}
-                            />
-                        )
-                    )
+                            )
+                    
+                        default:
+                            return null;
+                    }
                 })}
             </div>
+
+            {/* Bottom spacer */}
             <Box position="fixed" bottom="0" height="80px" width="100%" style={{ backgroundColor: 'white' }} />
         </div>
     )

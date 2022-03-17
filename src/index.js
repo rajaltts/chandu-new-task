@@ -88,6 +88,9 @@ import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
 import HyperLinks from './JSReport/Components/HyperLinks';
 import ReportImage from './JSReport/Components/ReportImage/ReportImage';
 import CartSection from './v2/Components/Cart/CartSection';
+import CartSectionBaseunit from './v2/Components/Cart/CartSectionBaseunit';
+import CartSectionColumns from './v2/Components/Cart/CartSectionColumns';
+import CartSectionTotal from './v2/Components/Cart/CartSectionTotal';
 import ReportTable from './JSReport/Components/ReportTable';
 import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList';
 import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
@@ -175,6 +178,9 @@ export {
     QuoteSelection,
     HyperLinks,
     CartSection,
+    CartSectionBaseunit,
+    CartSectionColumns,
+    CartSectionTotal,
     ReportImage,
     Page,
     Typography,

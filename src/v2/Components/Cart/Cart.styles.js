@@ -47,15 +47,14 @@ const cartStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 2),
         position: 'relative',
         [theme.breakpoints.up('sm')]: {
-            height: 80,
+            height: 40,
         },
     },
     totalRecapTitle: {
-        marginRight: theme.spacing(4),
+        marginRight: theme.spacing(1),
+        padding: 0,
         [theme.breakpoints.only('xs')]: {
-            position: 'absolute',
-            top: theme.spacing(1),
-            left: theme.spacing(1),
+            position: 'relative',
             fontSize: 14,
         },
     },
