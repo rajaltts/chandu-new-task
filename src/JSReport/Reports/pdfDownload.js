@@ -1,8 +1,5 @@
 import React, { Fragment } from "react";
-import ReactDOM from "react-dom";
 import FileSaver from "file-saver";
-import { IntlProvider } from "react-intl";
-import { Provider } from "react-redux";
 import { ApiService } from "@carrier/workflowui-globalfunctions";
 
 // Default file name cleanup
@@ -23,64 +20,43 @@ const defaultCleanup = (input) =>
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
 const pdfDownload = ({
   pageList,
-  store,
-  intl,
   reportConfig,
   jsReportApi,
   fileName,
   cleanup = defaultCleanup,
 }) =>
   new Promise((resolve, reject) => {
-    const RootEl = ({ children }) => {
-      return store ? (
-        <Provider store={store}>
-          <IntlProvider locale={intl.locale} messages={intl.messages}>
-            {children}
-          </IntlProvider>
-        </Provider>
-      ) : (
-        <IntlProvider locale={intl.locale} messages={intl.messages}>
-          {children}
-        </IntlProvider>
-      );
-    };
-
     try {
-      const reportEl = (
-        <>
-          <head>
-            <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
-            {reportConfig?.styles.files.map((file, i) => (
-              <link
-                key={i}
-                rel="stylesheet"
-                type="text/css"
-                href={`${reportConfig.styles.url}${file}`}
-              />
-            ))}
-          </head>
-          <body>
-            <RootEl>
-              <>
-                {pageList.map((elem, i) => (
-                  <Fragment key={`js-report-download-page-${i}`}>
-                    {elem}
-                  </Fragment>
-                ))}
-              </>
-            </RootEl>
-          </body>
-        </>
-      );
-
       const renderingDoc = document.createElement("html");
-      renderingDoc.classList.add("pdf-download-root-main");
-      ReactDOM.render(reportEl, renderingDoc);
+
+      const head = document.createElement('head');
+      const meta = document.createElement('meta');
+      meta.httpEquiv = "Content-Type";
+      meta.content = "text/html; charset=UTF-8";
+
+      head.appendChild(meta)
+
+      reportConfig?.styles.files.forEach((file, i) => {
+        const link = document.createElement('link');
+        link.key = `${i}`
+        link.rel = 'stylesheet'
+        link.type = 'text/css'
+        link.href = `${reportConfig.styles.url}${file}`
+        head.appendChild(link)
+      })
+
+      const body = document.createElement('body');
+      const reportContent = document.getElementById('jsReportAllContent');
+
+      reportContent && body.appendChild(reportContent)
+
+      renderingDoc.appendChild(head)
+      renderingDoc.appendChild(body)
 
       const pagesNumbers = Array.from(
         renderingDoc.getElementsByClassName("jsreport-page-wrapper")
       );
-      pagesNumbers.map((element, pageNumber) => {
+      pagesNumbers && !!pagesNumbers.length && pagesNumbers.map((element, pageNumber) => {
         if (element.getElementsByClassName("page-number").length > 0) {
           element.getElementsByClassName("page-number")[0].textContent =
             pageNumber + 1;

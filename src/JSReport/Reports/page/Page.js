@@ -53,7 +53,7 @@ const Page = ({
                     pageRef.current.clientHeight - (headerRef.current.clientHeight + footerRef.current.clientHeight) + 1
 
                 if (footerBottom > pageBottom || mainRef.current.clientHeight > maxChildrenHeight) {
-                    setOverflow({
+                    setOverflow && setOverflow({
                         overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
                         minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
                     })

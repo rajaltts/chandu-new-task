@@ -212,6 +212,7 @@ const ReportPreview = ({
       </div>
       <Zoom in={true}>
         <div
+          id="jsReportAllContent"
           className={`pdf-download-root-main ${classes.reportPopup} main ${
             errorMessage ? "popup-error" : ""
           }`}
