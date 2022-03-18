@@ -18,3 +18,8 @@ export const LayoutButton = (props) => {
         <Button {...props} classes={ { ...props.classes, root: btnClasses } }/>
     )
 }
+
+LayoutButton.defaultProps = {
+    variant: 'contained',
+    size: 'large',
+}

@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import { makeStyles } from '@material-ui/core'
 
 export const buttonStyles = makeStyles((theme) => ({
     btn: {
@@ -15,19 +15,15 @@ export const buttonStyles = makeStyles((theme) => ({
     primaryGradientButton: {
         background: 'linear-gradient(99.7deg, #15205E -19.43%, #0076F4 80.93%)',
         boxShadow: '0px 11px 12px -10px rgba(4, 105, 221, 0.7)',
-
-        '&.MuiButtonBase-root': {
-            textTransform: 'capitalize',
-            color: 'white',
-            padding: '0 20px',
-            minWidth: '128px',
-            borderRadius: '4px',
-            transition: 'all .2s',
-
-            '&:hover': {
-                background:
-                    'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), linear-gradient(99.7deg, #15205E -19.43%, #0076F4 80.93%)',
-            },
+        textTransform: 'capitalize',
+        color: 'white',
+        padding: '0 20px',
+        minWidth: '128px',
+        borderRadius: '4px',
+        transition: 'all .2s',
+        '&:hover': {
+            background:
+                'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), linear-gradient(99.7deg, #15205E -19.43%, #0076F4 80.93%)',
         },
 
         '&.Mui-disabled': {
