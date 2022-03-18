@@ -3,8 +3,6 @@ import {GetProp} from '@carrier/workflowui-globalfunctions'
 import './SimpleRadioButtonGroup.css';
 import { FormattedMessage as Culture } from 'react-intl';
 import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
-import { Incomp } from '../SvgImages';
-import Tooltip from '@material-ui/core/Tooltip'
 
 function SimpleRadioButtonGroup(props) {
     const {notAllowedDefaultState = false, checkEnabledRule = false, useValueAsKey = false, highlightNotAllowed = false, tooltipMessage = ''} = props
@@ -67,29 +65,27 @@ function SimpleRadioButtonGroup(props) {
             <div id={"ctrl"+ props.PropName}>
                 {Prop && Prop.Values.map((value, index) => {
                     if((props.HideNotAllowedValues && value.State===2) || (props.HideInvisibleValues && value.Attributes["VISIBLE"] === "FALSE"))
-                      return null;
-                    else{
-                      return <Fragment>
-                        <label key={index} className={((value.State === 2 && (notAllowedDefaultState || Prop.AssignedValue === value.Value))?"SRBG-radio-notAllowed ":"") + GetClassName()}>
-                            <input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false} disabled={!Enabled}/>
-                            {props.DoNotTranslate ?
-                                <span>{value.Attributes.Description}</span>
-                                :
-                                <Culture id={FormatTransKey(props.PropName + "|" + (useValueAsKey ? value.Value : value.Attributes.Description))} defaultMessage={value.Attributes.Description} />
-                            }
-                            {highlightNotAllowed && value.State === 2 && Prop.AssignedValue === value.Value ? 
-                              <span className='SRBG-highlight-notAllowed'>
-                                <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
-                                  <Incomp width='16px' color='#FF9900'/>
-                                </Tooltip> 
-                              </span> : null}
-                        </label>
-                        {(!!value.Attributes.Note && props.vertical)?<div> {value.Attributes.Note.split("||").map((value, index)=>{
-                            return <li className={props.NoteclassName}>{value}</li>
-                        })}</div>:""}
-                      </Fragment>
-                    }
-                    
+                    return null;
+                    else
+                    return <Fragment>
+                    <label key={index} className={((value.State === 2 && (notAllowedDefaultState || Prop.AssignedValue === value.Value))?"SRBG-radio-notAllowed ":"") + GetClassName()}>
+                        <input id={"ctrl"+ props.PropName+ value.Value} className="SRBG-radio" type="radio"  name={props.PropName} value={value.Value} onChange={handleChange} checked={Prop.AssignedValue === value.Value ? true: false} disabled={!Enabled}/>
+                        {props.DoNotTranslate ?
+                            <span>{value.Attributes.Description}</span>
+                            :
+                            <Culture id={FormatTransKey(props.PropName + "|" + (useValueAsKey ? value.Value : value.Attributes.Description))} defaultMessage={value.Attributes.Description} />
+                        }
+                        {highlightNotAllowed && value.State === 2 && Prop.AssignedValue === value.Value ? 
+                          <span className='SRBG-highlight-notAllowed'>
+                            <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
+                              <Incomp width='16px' color='#FF9900'/>
+                            </Tooltip> 
+                          </span> : null}
+                    </label>
+                     {(!!value.Attributes.Note && props.vertical)?<div> {value.Attributes.Note.split("||").map((value, index)=>{
+                        return <li className={props.NoteclassName}>{value}</li>
+                     })}</div>:""}
+                    </Fragment>
                 })}
             </div>
         );
