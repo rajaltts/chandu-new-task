@@ -68,6 +68,7 @@ import Page from './JSReport/Reports/page/Page'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
 import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
+import ButtonGroup from './v2/Components/ButtonGroup/ButtonGroup' 
 import DrawerLayout from './v2/Components/Drawers/DrawerLayout'
 import ReportsList from './v2/Components/ReportList/ReportsList'
 import MediaCard from './v2/Components/MediaCard/MediaCard'
@@ -127,6 +128,7 @@ export {
     SimpleHorizontalTabs,
     Button,
     Button2,
+    ButtonGroup,
     ConfirmModal,
     DynamicIcon,
     SearchDropdown,
