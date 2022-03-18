@@ -23,3 +23,7 @@
 .SRBG-radio-notAllowed {
     color: #cc0000;
 }
+
+.SRBG-highlight-notAllowed {
+    margin-left: 10px;
+}

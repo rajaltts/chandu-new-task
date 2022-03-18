@@ -5,7 +5,7 @@ import { FormattedMessage as Culture } from 'react-intl';
 import {FormatTransKey} from '@carrier/workflowui-globalfunctions'
 
 function SimpleRadioButtonGroup(props) {
-    const {notAllowedDefaultState = false, checkEnabledRule = false, useValueAsKey = false} = props
+    const {notAllowedDefaultState = false, checkEnabledRule = false, useValueAsKey = false, highlightNotAllowed = false, tooltipMessage = ''} = props
     const [Visibility, SetVisibility] = useState(false)
     const [Enabled, SetEnabled] = useState(true)
     const [Prop, SetProp] = useState(null)
@@ -75,6 +75,12 @@ function SimpleRadioButtonGroup(props) {
                             :
                             <Culture id={FormatTransKey(props.PropName + "|" + (useValueAsKey ? value.Value : value.Attributes.Description))} defaultMessage={value.Attributes.Description} />
                         }
+                        {highlightNotAllowed && value.State === 2 && Prop.AssignedValue === value.Value ? 
+                          <span className='SRBG-highlight-notAllowed'>
+                            <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
+                              <Incomp width='16px' color='#FF9900'/>
+                            </Tooltip> 
+                          </span> : null}
                     </label>
                      {(!!value.Attributes.Note && props.vertical)?<div> {value.Attributes.Note.split("||").map((value, index)=>{
                         return <li className={props.NoteclassName}>{value}</li>
