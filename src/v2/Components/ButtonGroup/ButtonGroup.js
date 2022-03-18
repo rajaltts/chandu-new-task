@@ -1,5 +1,6 @@
 import React from 'react'
-import { ButtonGroup as MaterialButtonGroup, Button } from '@material-ui/core'
+import { ButtonGroup as MaterialButtonGroup } from '@material-ui/core'
+import { Button } from '../Button/Button'
 
 const ButtonGroup = ({ value, values = [], onChange, buttonProps, ...rest }) => {
     return (
@@ -18,6 +19,10 @@ const ButtonGroup = ({ value, values = [], onChange, buttonProps, ...rest }) => 
             </MaterialButtonGroup>
         </>
     )
+}
+
+ButtonGroup.defaultProps = {
+    color: 'primary',
 }
 
 export default ButtonGroup
