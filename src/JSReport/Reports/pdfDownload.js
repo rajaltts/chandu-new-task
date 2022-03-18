@@ -46,7 +46,7 @@ const pdfDownload = ({
       })
 
       const body = document.createElement('body');
-      const reportContent = document.getElementById('jsReportAllContent');
+      const reportContent = document.getElementById('jsReportAllContent').cloneNode(true);
 
       reportContent && body.appendChild(reportContent)
 
