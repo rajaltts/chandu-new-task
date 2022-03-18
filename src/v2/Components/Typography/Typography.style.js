@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import { makeStyles } from '@material-ui/core'
 
 const useTypographyStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xs')]: {
