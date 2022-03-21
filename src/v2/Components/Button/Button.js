@@ -4,8 +4,8 @@ import classnames from 'classnames'
 import { useButtonStyle } from './Button.styles'
 
 export const Button = (props) => {
-    const classes = useButtonStyle()
     const { variant, selected, children, className, ...rest } = props
+    const classes = useButtonStyle(props)
 
     return (
         <MaterialButton
