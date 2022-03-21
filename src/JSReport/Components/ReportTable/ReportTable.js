@@ -12,7 +12,7 @@ const ReportTable = ({
         <ReportTableTitle titleInformation={titleInformation} />
       )}
       {
-        !!TableData.length &&
+        TableData && !!TableData.length &&
         <table style={reportStyles["table"]}>
           {TableData.map((rowData, index) => {
             return <ReportTableBody rowData={rowData} />;
