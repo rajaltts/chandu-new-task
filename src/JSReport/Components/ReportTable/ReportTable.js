@@ -1,7 +1,7 @@
 import React from "react";
-import ReportTableTitle from "./ReportTableTitle";
-import ReportTableBody from "./ReportTableBody";
-import reportStyles from "./reportStyles";
+import ReportTableTitle from "../ReportTableTitle/ReportTableTitle";
+import ReportTableBody from "../ReportTableBody/ReportTableBody";
+import reportStyles from "../reportStyles";
 const ReportTable = ({
   TableData = [],
   titleInformation = {}
@@ -12,7 +12,7 @@ const ReportTable = ({
         <ReportTableTitle titleInformation={titleInformation} />
       )}
       {
-        TableData && TableData.length != 0 &&
+        !!TableData.length &&
         <table style={reportStyles["table"]}>
           {TableData.map((rowData, index) => {
             return <ReportTableBody rowData={rowData} />;

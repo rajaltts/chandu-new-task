@@ -1,16 +1,15 @@
 import React from "react";
-import reportStyles from "./reportStyles";
+import reportStyles from "../reportStyles";
 
 const ReportTableTitle = ({
   titleInformation
 }) => {
-  const styleType = titleInformation.styleType ? reportStyles[titleInformation.styleType] : reportStyles["tableTitle"];
   const style = titleInformation.style ? titleInformation.style : "";
   return (
     
     <div
       style={{
-        ...styleType,
+        ...reportStyles["tableTitle"],
         ...style,
       }}
     >

@@ -188,23 +188,22 @@ const reportStyles = {
   justifyend: {
     justifyContent: "end",
   },
-  ST1: {
+  bgGrey: {
     backgroundColor: "#ececec"
   },
-  ST2: {
+  bgLightBlue: {
     background: "radial-gradient(circle, #d0dce9 15%, #d3e7ff 51%, #c0d7f3 94%)",
-    border: "1px solid #f2f2f2"
   },
-  ST3: {
+  bgWhite: {
     backgroundColor: "#FFFFFF"
   },
-  ST4: {
+  bgLightRed: {
     backgroundColor: "#D68999"
   },
-  ST5: {
+  bgCarrierBlue: {
     background: "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)"
   },
-  ST6 : {
+  bgSeaBlue : {
     backgroundColor: "#83AAD8"
   },
   tableTitle: {
@@ -220,6 +219,7 @@ const reportStyles = {
     fontSize: "12px",
     paddingBottom: "2px",
     background: "linear-gradient(353deg, #020029 0%, #323267 35%, #004090 100%)",
+    marginTop: "10px"
   },
   center: {
     textAlign: "center",
@@ -265,6 +265,12 @@ const reportStyles = {
   },
   h7 : {
     fontSize : "8px"
+  },
+  h8 : {
+    fontSize : "14px"
+  },
+  h9 : {
+    fontSize : "20px"
   },
   smallFont: {
     fontSize: "small",
@@ -328,7 +334,8 @@ const reportStyles = {
     ...flexColumn,
     textAlign: "center",
     alignItems: "center",
-    margin: "10px"
+    margin: "10px",
+    fontSize: "8px"
   },
   imgHeight :{
     height :"15px"
@@ -337,6 +344,12 @@ const reportStyles = {
     color: "#0000EE",
     fontWeight: "bold",
     cursor : "pointer"
+  },
+  preTextStyle : {
+    "margin": "2px"
+  },
+  postTextStyle : {
+    "margin": "2px"
   }
 };
 

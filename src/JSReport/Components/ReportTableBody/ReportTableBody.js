@@ -1,9 +1,9 @@
 import React from "react";
-import reportStyles from "./reportStyles";
-import {Format} from '../Reports/page/Format';
+import reportStyles from "../reportStyles";
+import {Format} from '../../Reports/page/Format';
 const ReportTableBody = ({ rowData }) => {
   const {
-    ST1,
+    bgGrey,
     spaceBetween,
     justifycenter,
     justifyend,
@@ -43,7 +43,7 @@ const ReportTableBody = ({ rowData }) => {
   return (
     <tr style={{...tableTr}}>
       {rowData.map((item, index) => {
-        const styleType = item.styleType ? reportStyles[item.styleType] : ST1;
+        const bgType = item.bgType ? reportStyles[item.bgType] : bgGrey;
         const rowSpan = item.rowSpan || 1;
         const colSpan = item.colSpan || 1;
         const style = item.style ? item.style : {};
@@ -52,7 +52,7 @@ const ReportTableBody = ({ rowData }) => {
         return <td colSpan={colSpan} rowSpan={rowSpan} 
         style={{
           ...tableTd,
-          ...styleType,
+          ...bgType,
           ...reportStyles[headerType],
           ...style,
         }}>

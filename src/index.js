@@ -87,13 +87,13 @@ import { pxToRem, defaultTheme } from "./util"
 import QuoteSelectionSuccessDialog from "./Components/QuoteSelections/QuoteSelectionSuccessDialog";
 import QuoteSelectionProgressDialog from "./Components/QuoteSelections/QuoteSelectionProgressDialog";
 import QuoteSelection from "./Components/QuoteSelections/QuoteSelection";
-import HyperLinks from './JSReport/Components/HyperLinks';
+import HyperLinks from './JSReport/Components/HyperLinks/HyperLinks';
 import ReportImage from './JSReport/Components/ReportImage/ReportImage';
 import CartSection from './v2/Components/Cart/CartSection';
 import CartSectionBaseunit from './v2/Components/Cart/CartSectionBaseunit';
 import CartSectionColumns from './v2/Components/Cart/CartSectionColumns';
 import CartSectionTotal from './v2/Components/Cart/CartSectionTotal';
-import ReportTable from './JSReport/Components/ReportTable';
+import ReportTable from './JSReport/Components/ReportTable/ReportTable';
 import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList';
 import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes';
