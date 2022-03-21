@@ -1,6 +1,5 @@
 import React from 'react'
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import { Divider } from '@material-ui/core'
+import { Divider, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     divider: {
