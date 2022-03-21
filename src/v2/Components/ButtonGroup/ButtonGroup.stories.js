@@ -15,6 +15,7 @@ export const Basic = ButtonGroupTemplate.bind({})
 Basic.args = {
     values: [{ label: 'one', value: 1, feasible: true }, { label: 'two', value: 2, feasible: true }],
     value: 1,
+    color: 'secondary',
 }
 
 export const Disabled = ButtonGroupTemplate.bind({})

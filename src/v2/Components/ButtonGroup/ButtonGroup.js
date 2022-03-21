@@ -22,7 +22,7 @@ const ButtonGroup = ({ value, values = [], onChange, buttonProps, ...rest }) => 
 }
 
 ButtonGroup.defaultProps = {
-    color: 'primary',
+    color: 'secondary',
 }
 
 export default ButtonGroup
