@@ -100,6 +100,9 @@ import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes';
 import ReportContainer from './JSReport/Components/ReportContainer';
 import ReportItemContainer from './JSReport/Components/ReportItemContainer';
+
+import Chart from './Chart/Chart';
+
 export {
     Checkbox,
     Switch,
@@ -198,5 +201,6 @@ export {
     ContentList,
     ContentTable,
     ReportContainer,
-    ReportItemContainer
+    ReportItemContainer,
+    Chart
 }
