@@ -1,9 +1,23 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
-import MockIntl from '../../../utils/mockIntl'
 
 import Select from './Select'
+
+import { IntlProvider } from 'react-intl'
+
+const messages = {
+    VALUE_NOT_COMPATIBLE: 'Value is not compatible',
+    WRONG_VALUE_MESSAGE: 'Value is wrong',
+}
+
+const MockIntl = ({ children }) => {
+    return (
+        <IntlProvider locale='en' messages={messages}>
+            {children}
+        </IntlProvider>
+    )
+}
 
 let container = null
 beforeEach(() => {
