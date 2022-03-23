@@ -100,6 +100,7 @@ import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes';
 import ReportContainer from './JSReport/Components/ReportContainer';
 import ReportItemContainer from './JSReport/Components/ReportItemContainer';
+import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon';
 
 import Chart from './Chart/Chart';
 
@@ -202,5 +203,6 @@ export {
     ContentTable,
     ReportContainer,
     ReportItemContainer,
-    Chart
+    Chart,
+    SimpleLabelWithImageWarnIcon
 }
