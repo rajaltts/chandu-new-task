@@ -10,11 +10,11 @@ import { getValueForDynamicKey } from './CustomGridUtils';
 import './CustomGrid.css';
 
 function CustomGridBody(props) {
-  const { rows, config, headCells, showCheckbox, selectionType = false, isSelected,
-    handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, uniqueKey, clickOnRowHighlight,
+  const { rows, config, headCells, showCheckbox, selectionType = false, isSelected, editMode, handleEditModeSelectionHandler,
+    handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, uniqueKey, clickOnRowHighlight, showDivider,
     rowHighlightClassName, rowClassName, highlightedRowByDefault, columnPicker, columnPickerFilterError } = props;
   let timer;
-
+  const { enable: editModeEnabled = false, editModeRowHighlight = false } = editMode
   const [clickedRow, setClickedRow] = useState(highlightedRowByDefault);
   const [enableRowClick, setEnableRowClick] = useState(true);
 
@@ -36,9 +36,19 @@ function CustomGridBody(props) {
 
   const handleOnClick = (row, index, event) => {
     clickOnRowHighlight && setClickedRow(row);
+    if (editModeEnabled) {
+      if (event.ctrlKey) {
+        handleEditModeSelectionHandler(event, row, index)
+      }
+      else {
+        handleEditModeSelectionHandler(event, [], 0, true)
+      }
+    }
     clearTimeout(timer);
     if (event.detail === 1 && rowOnclickHandler) {
-      timer = setTimeout(() => enableRowClick && rowOnclickHandler(row, index, event), 300);
+      timer = setTimeout(() => {
+        enableRowClick && rowOnclickHandler(row, index, event)
+      }, 300);
     }
   }
 
@@ -48,36 +58,39 @@ function CustomGridBody(props) {
         const isItemSelected = isSelected(row);
         const rowHighlight = (clickOnRowHighlight && uniqueKey && row[uniqueKey] === clickedRow[uniqueKey]);
         return (
-          <TableRow
-            role="checkbox"
-            aria-checked={isItemSelected}
-            tabIndex={-1}
-            key={index}
-            className={classNames(rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
-            onClick={(event) => handleOnClick(row, index, event)}
-          >
-            {(showCheckbox && !columnPickerFilterError) && showSelectionCell(isItemSelected, row, index, selectionType)}
-            {headCells.map((head) => {
-              const configItem = config[head.name] || {};
-              const lookUpKey = configItem.lookUpKey || head.name;
-              const isHeaderSelectedForDisplay = (columnPicker) ? ((head.isSelected && !columnPickerFilterError) || false) : true;
-              return (
-                isHeaderSelectedForDisplay ?
-                  <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || configItem.cellClassName || ''}>
-                    <FormBuilderField
-                      doNotTranslate={doNotTranslate}
-                      rowData={row}
-                      rowIndex={index}
-                      config={configItem}
-                      value={getValueForDynamicKey(row, lookUpKey)}
-                      setEnableRowClick={setEnableRowClick}
-                    />
-                  </TableCell>
-                  :
-                  null
-              )
-            })}
-          </TableRow>
+          <>
+            <TableRow
+              role="checkbox"
+              aria-checked={isItemSelected}
+              tabIndex={-1}
+              key={index}
+              className={classNames((editModeEnabled && editModeRowHighlight && isItemSelected) ? "editModeRowHighlight" : "", rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
+              onClick={(event) => handleOnClick(row, index, event)}
+            >
+              {(showCheckbox && !columnPickerFilterError) && showSelectionCell(isItemSelected, row, index, selectionType)}
+              {headCells.map((head) => {
+                const configItem = config[head.name] || {};
+                const lookUpKey = configItem.lookUpKey || head.name;
+                const isHeaderSelectedForDisplay = (columnPicker) ? ((head.isSelected && !columnPickerFilterError) || false) : true;
+                return (
+                  isHeaderSelectedForDisplay ?
+                    <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || configItem.cellClassName || ''}>
+                      <FormBuilderField
+                        doNotTranslate={doNotTranslate}
+                        rowData={row}
+                        rowIndex={index}
+                        config={configItem}
+                        value={getValueForDynamicKey(row, lookUpKey)}
+                        setEnableRowClick={setEnableRowClick}
+                      />
+                    </TableCell>
+                    :
+                    null
+                )
+              })}
+            </TableRow>
+            {showDivider ? <div className="customGridTdDivider"/> : null}
+          </>
         );
       })}
     </TableBody>

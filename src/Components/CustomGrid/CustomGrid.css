@@ -35,6 +35,7 @@
 
     .customGrid .table {
         height: 100%;
+        border-collapse: collapse;
     }
 
     .customGrid .MuiTableCell-head {
@@ -181,4 +182,16 @@
 
     .customGrid .sortingIcon {
         margin-top: -12px
+    }
+    
+    .customGrid .editModeRowHighlight {
+        border: 2px solid #1891F6;
+        background-color: transparent;
+    }
+    
+    .customGrid .editModeRowHighlight td {
+        border-bottom: none !important
+    }
+    .customGrid .customGridTdDivider {
+        height: 6px
     }
