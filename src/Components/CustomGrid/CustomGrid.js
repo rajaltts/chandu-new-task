@@ -147,7 +147,7 @@ function CustomGrid(props) {
     return selectedIndex
   }
 
-  const handleEditModeSelectionHandler = (event, row, index, clearSelected = false) => {
+  const handleEditModeSelectionHandler = (row, index, clearSelected = false) => {
     if (clearSelected) {
       handleSelectAllClick({ target: { checked: false }})
     }

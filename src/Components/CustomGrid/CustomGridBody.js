@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
@@ -17,6 +17,12 @@ function CustomGridBody(props) {
   const { enable: editModeEnabled = false, editModeRowHighlight = false } = editMode
   const [clickedRow, setClickedRow] = useState(highlightedRowByDefault);
   const [enableRowClick, setEnableRowClick] = useState(true);
+  const defaultEventData = {
+    keyCode: null,
+    ctrlKey: null,
+    button: null,
+  }
+  const eventData = useRef(defaultEventData);
 
   const showSelectionCell = (isItemSelected, row, index, type) => {
     const selectionProps = {
@@ -36,20 +42,29 @@ function CustomGridBody(props) {
 
   const handleOnClick = (row, index, event) => {
     clickOnRowHighlight && setClickedRow(row);
-    if (editModeEnabled) {
-      if (event.ctrlKey) {
-        handleEditModeSelectionHandler(event, row, index)
-      }
-      else {
-        handleEditModeSelectionHandler(event, [], 0, true)
-      }
-    }
     clearTimeout(timer);
-    if (event.detail === 1 && rowOnclickHandler) {
+    if (event.detail === 1) {
+      if (editModeEnabled) {
+        eventData.current.ctrlKey = event.ctrlKey
+        eventData.current.button = event.button
+      }
       timer = setTimeout(() => {
-        enableRowClick && rowOnclickHandler(row, index, event)
+        enableRowClick && rowOnclickHandler && rowOnclickHandler(row, index, event)
+        if (editModeEnabled) {
+          const { ctrlKey, button, keyCode } = eventData.current 
+          if (ctrlKey && button === 0 && keyCode === 17) {
+            handleEditModeSelectionHandler(row, index)
+          }
+          else {
+            handleEditModeSelectionHandler([], 0, true)
+          }
+        }
       }, 300);
     }
+  }
+
+  const keyCodeHandler = (event) => {
+    editModeEnabled && (eventData.current.keyCode = event.keyCode)
   }
 
   return (
@@ -66,6 +81,7 @@ function CustomGridBody(props) {
               key={index}
               className={classNames((editModeEnabled && editModeRowHighlight && isItemSelected) ? "editModeRowHighlight" : "", rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
               onClick={(event) => handleOnClick(row, index, event)}
+              onKeyDown={keyCodeHandler}
             >
               {(showCheckbox && !columnPickerFilterError) && showSelectionCell(isItemSelected, row, index, selectionType)}
               {headCells.map((head) => {
