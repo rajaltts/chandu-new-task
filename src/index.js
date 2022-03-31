@@ -103,6 +103,7 @@ import ReportItemContainer from './JSReport/Components/ReportItemContainer';
 import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon';
 
 import Chart from './Chart/Chart';
+import ReactCharts from './Chart/ReactCharts';
 
 export {
     Checkbox,
@@ -204,5 +205,6 @@ export {
     ReportContainer,
     ReportItemContainer,
     Chart,
+    ReactCharts,
     SimpleLabelWithImageWarnIcon
 }
