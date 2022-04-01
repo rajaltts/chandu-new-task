@@ -43,6 +43,7 @@ pipeline {
           gitcheckout(branchname, "${DEPLOYMENTSCRIPTSREPO}", 'DeploymentScripts', 'Scripts')    
           npm.buildVersionUpdate("${WORKSPACE}\\${packageName}", property , BuildNo)
           npm.install()
+          npm.test()
           npm.build()
           bat 'npm run build-storybook'
           deletedirectory("${WORKSPACE}\\Scripts")

@@ -127,7 +127,7 @@ const InputRange = ({
                                 })}
                                 </Menu>
                             </>)}
-                            { units == null && unit ? unit : ''}
+                            { (units == null || units.length === 1) && unit ? unit : ''}
                         </InputAdornment>
                     ) : (
                         ''

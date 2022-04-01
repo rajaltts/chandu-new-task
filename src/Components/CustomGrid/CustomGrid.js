@@ -20,7 +20,7 @@ function CustomGrid(props) {
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
     pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
     rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}, columnPicker = false, saveColumnHandler,
-    maxColumnLimit, paginationClass, columnGrouping = false, columnGroupConfig = {}
+    maxColumnLimit, paginationClass, columnGrouping = false, columnGroupConfig = {}, editMode = {}, showDivider = false
   } = props;
 
   const [order, setOrder] = useState(sorting);
@@ -118,21 +118,14 @@ function CustomGrid(props) {
     }
   }
 
-  const handleMultiSelectClick = (checked, row, index) => {
+  const handleMultiSelectClick = (checked, row, index, selectedRowIndex) => {
     let newSelected = [...selected];
     if (checked) {
       newSelected.push(row);
       setSelected(newSelected);
     }
     else {
-      let selectedIndex = -1;
-      newSelected.some((item, index) => {
-        if (item[uniqueKey] === row[uniqueKey]) {
-          selectedIndex = index;
-          return true;
-        }
-        return false;
-      });
+      const selectedIndex = selectedRowIndex || findSelectedRowIndex(newSelected, row)
       newSelected.splice(selectedIndex, 1)
       setSelected([...newSelected]);
     }
@@ -141,6 +134,29 @@ function CustomGrid(props) {
       rowCheckboxHandler(newSelected);
     }
   };
+
+  const findSelectedRowIndex = (selectedRows, row) => {
+    let selectedIndex = -1;
+    selectedRows.some((item, index) => {
+      if (item[uniqueKey] === row[uniqueKey]) {
+        selectedIndex = index;
+        return true;
+      }
+      return false;
+    });
+    return selectedIndex
+  }
+
+  const handleEditModeSelectionHandler = (row, index, clearSelected = false) => {
+    if (clearSelected) {
+      handleSelectAllClick({ target: { checked: false }})
+    }
+    else {
+      const selectedIndex = findSelectedRowIndex([...selected], row) 
+      const isUnChecked = (selectedIndex > -1) ? false : true
+      handleMultiSelectClick(isUnChecked, row, index, selectedIndex)
+    }
+  }
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -285,6 +301,9 @@ function CustomGrid(props) {
                   rowClassName={rowClassName}
                   highlightedRowByDefault={highlightedRowByDefault}
                   columnPickerFilterError={columnPickerFilterError}
+                  editMode={editMode}
+                  handleEditModeSelectionHandler={handleEditModeSelectionHandler}
+                  showDivider={showDivider}
                 />
               }
             </Table>

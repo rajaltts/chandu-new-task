@@ -27,7 +27,7 @@ const Page = ({
     projectName,
     tagNameLabel,
     tagName,
-    modelBrand,
+    modelBrand = 'carrier',
     footNotes,
     builderInfo,
     pageList = 1,

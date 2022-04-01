@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles, Tooltip } from '@material-ui/core'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import MaterialCheckbox from '@material-ui/core/Checkbox'
+import { makeStyles, Tooltip, Checkbox as MaterialCheckbox, FormControlLabel } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     relaxed: {
@@ -14,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     label: {},
 }))
 
-const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, tooltipTitle, rest }) => {
+const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, tooltipTitle, ...rest }) => {
     const classes = useStyles()
 
     const Label = () => {
@@ -69,7 +67,6 @@ Checkbox.propTypes = {
     relaxed: PropTypes.bool,
     className: PropTypes.string,
     tooltipTitle: PropTypes.string,
-    rest: PropTypes.Checkbox,
 }
 
 export default Checkbox
