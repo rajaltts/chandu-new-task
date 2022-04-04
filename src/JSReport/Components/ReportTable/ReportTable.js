@@ -15,6 +15,9 @@ const ReportTable = ({
         TableData && !!TableData.length &&
         <table style={reportStyles["table"]}>
           {TableData.map((rowData, index) => {
+            if (rowData && !rowData.length) {
+              return null;
+            }
             return <ReportTableBody rowData={rowData} />;
           })}
         </table>
