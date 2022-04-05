@@ -56,12 +56,13 @@ function CustomGridBody(props) {
           if (ctrlKey && button === 0 && keyCode === 17) {
             handleEditModeRowSelection(row, index)
           }
-          else if (button === 0) {
+          else if (button === 0 && !ctrlKey && keyCode === null) {
             handleEditModeRowSelection(row, index, true)
           }
           else {
             handleEditModeRowSelection([], 0, false, true)
           }
+          eventData.current = defaultEventData
         }
       }, 300);
     }
@@ -84,12 +85,13 @@ function CustomGridBody(props) {
           if (ctrlKey && button === 0 && keyCode === 17) {
             handleEditModeCellSelection(row, columnName, uniqueKeyValue)
           }
-          else if (button === 0) {
+          else if (button === 0 && !ctrlKey && keyCode === null) {
             handleEditModeCellSelection(row, columnName, uniqueKeyValue, true)
           }
           else {
             handleEditModeCellSelection([], '', '', false, true)
           }
+          eventData.current = defaultEventData
         }, 300);
       }
     }
