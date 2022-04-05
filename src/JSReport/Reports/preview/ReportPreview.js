@@ -23,7 +23,7 @@ import useReportPreviewStyles, {
  * Navigation between pages / download
  * @param {Array<JSX.Element>} {children} Report.
  * Should be a React fragment containing elements representing pages.
- * Each page element should have a 'jsreport-page-wrapper' class.
+ * Each page element should have a 'jsreport-page-main-wrapper' class.
  * @param {string} {title} Title of the preview header (e.g Report Preview)
  * @param {boolean} {isOpen} Opening boolean
  * @param {function} {onClose} Closing callback
@@ -45,7 +45,7 @@ import useReportPreviewStyles, {
  * @param {function} {downloadPdf} Download pdf report
  * @param {function} {downloadWord} Optional, Download word report
  * @param {React.MutableRefObject} {popupRef} Ref of global preview popup, used for report close detection
- * @param {React.MutableRefObject} {topBarContainerRef} Ref of top bar parent component, used for report close detection
+ * @param {React.MutableRefObject} {topActionsContainerRef} Ref of top bar parent component, used for report close detection
  * @param {React.MutableRefObject} {topBarRef} Ref of top bar component, used for report close detection
  * @author Samy Belaloui-Bertot
  * @see https://scegithub.apps.carrier.com/SCE/NGECAT-PackagedChillersEMEA/tree/develop/docs/tutorials/reports/js-reports.md
@@ -67,29 +67,29 @@ const ReportPreview = ({
   downloadWord,
   errorMessage,
   popupRef,
-  topBarContainerRef,
+  topActionsContainerRef,
   topBarRef,
 }) => {
   const classes = useReportPreviewStyles();
 
   return isOpen ? (
     <div className={`${classes.reportBack} report-back`}>
-      <div className={classes.reportToolbarContainer} ref={topBarContainerRef}>
-        <header className={classes.topActionContainer} ref={topBarRef}>
+      <div className={classes.reportToolbarContainer} ref={topActionsContainerRef}>
+        <div id="ReportPreviewHeader" className={classes.topActionContainer} ref={topBarRef}>
           <div className={classes.itemsContainer}>
-            <section
+            <div
               className={`${classes.titleContainer} vertical-bar align-left`}
             >
               {reportConfig && (
-                <h3 className={classes.title}>
+                <div className={classes.title}>
                   {translation(reportConfig.key)}
-                </h3>
+                </div>
               )}
-              <p className={classes.subTitle}>
+              <div className={classes.subTitle}>
                 {translation(title, "Report preview")}
-              </p>
-            </section>
-            <nav className={classes.navigationContainer}>
+              </div>
+            </div>
+            <div className={classes.navigationContainer}>
               {reportCurrentPreviewIndex > 0 && !errorMessage ? (
                 <FontAwesomeIcon
                   className={classes.actionIcons}
@@ -106,7 +106,7 @@ const ReportPreview = ({
               )}
 
               <span className={classes.pageIndexContainer}>
-                <p className={classes.pageTitle}>{translation("Page")}</p>
+                <span className={classes.pageTitle}>{translation("Page")}</span>
                 <span className={classes.pageIndexValue}>
                   <b>{reportCurrentPreviewIndex + 1} </b>
                   <span className={classes.pageIndexValueSecondary}>
@@ -130,11 +130,11 @@ const ReportPreview = ({
                   icon={faChevronRight}
                 />
               )}
-            </nav>
+            </div>
             <div className={classes.downloadContainer}>
               {!isReportDownloadable || isLoading || errorMessage ? (
                 <>
-                  <nav className={classes.downloadIconsContainer}>
+                  <div className={classes.downloadIconsContainer}>
                     <FontAwesomeIcon
                       className={`${classes.actionIcons} disable`}
                       icon={faFilePdf}
@@ -143,8 +143,8 @@ const ReportPreview = ({
                       className={`${classes.actionIcons} disable`}
                       icon={faFileWord}
                     />
-                  </nav>
-                  <section className={classes.downloadContainerTitle}>
+                  </div>
+                  <div className={classes.downloadContainerTitle}>
                     {errorMessage?.title ??
                       ((!isReportDownloadable || isLoading) && (
                         <span className={classes.statusMessage}>
@@ -154,10 +154,10 @@ const ReportPreview = ({
                           {"..."}
                         </span>
                       ))}
-                  </section>
+                  </div>
                 </>
               ) : (
-                <nav className={classes.downloadIconsContainer}>
+                <div className={classes.downloadIconsContainer}>
                   <Tooltip
                     title={translation("DownloadAsPDF", "Download as PDF")}
                     PopperProps={{ container: topBarRef.current }}
@@ -182,10 +182,10 @@ const ReportPreview = ({
                       icon={faFileWord}
                     />
                   )}
-                </nav>
+                </div>
               )}
             </div>
-            <nav
+            <div
               className={`${classes.closeContainer} ${classes.verticalBar} align-right`}
             >
               <Tooltip
@@ -199,7 +199,7 @@ const ReportPreview = ({
                   />
                 </IconButton>
               </Tooltip>
-            </nav>
+            </div>
           </div>
           {(!isReportDownloadable || isLoading) && !errorMessage && (
             <BorderLinearProgress
@@ -208,7 +208,7 @@ const ReportPreview = ({
               isLoading={isLoading}
             />
           )}
-        </header>
+        </div>
       </div>
       <Zoom in={true}>
         <div

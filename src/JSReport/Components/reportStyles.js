@@ -48,7 +48,8 @@ const reportStyles = {
     ...flexColumn,
     "justifyContent": "space-between",
     "alignItems": "flex-start",
-    "flex": "1"
+    "flex": "1",
+    "height": "100%"
   },
   pageHeaderBrandLogo: {
     "maxWidth": "2.5cm",
@@ -67,7 +68,8 @@ const reportStyles = {
     "fontSize": "19px",
     "fontWeight": "700",
     "justifyContent": "flex-start",
-    "flex": "1"
+    "flex": "1",
+    "height": "100%"
   },
   pageHeaderReportTitleCarrier: {
     "color": "#152c73"

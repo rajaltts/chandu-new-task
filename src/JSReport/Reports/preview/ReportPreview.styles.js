@@ -8,6 +8,14 @@ const REPORT = {
   WIDTH: 793,
 };
 
+const contentStyle = {
+  content: `''`,
+  position: 'relative',
+  display: 'block',
+  width: '1px',
+  border: '30px solid #565656',
+}
+
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     width: "100%",
@@ -82,12 +90,10 @@ const useReportPreviewStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexWrap: "wrap",
-
     width: "100%",
     height: TOOLBAR.HEIGHT,
     backdropFilter: "blur(3px)",
-    background: "inherit",
-    backgroundColor: "#001530c2",
+    backgroundColor: "#3d3d3df2",
     boxShadow: "0px 0px 7px #212121",
     zIndex: 9999,
   },
@@ -156,7 +162,7 @@ const useReportPreviewStyles = makeStyles((theme) => ({
   },
 
   pageIndexValue: {
-    fontSize: 20,
+    fontSize: 18.5,
   },
 
   pageIndexValueSecondary: {
@@ -189,15 +195,6 @@ const useReportPreviewStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     flexWrap: "wrap",
-
-    "&:before": {
-      content: "",
-      position: "relative",
-      display: "block",
-      borderTop: "30px solid #565656",
-      width: 1,
-      marginRight: 15,
-    },
   },
 
   downloadContainerTitle: {

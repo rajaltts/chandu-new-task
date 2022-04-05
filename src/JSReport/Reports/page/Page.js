@@ -63,7 +63,7 @@ const Page = ({
     })
 
     return (
-        <div style={reportStyles.jsreportPageWrapper}>
+        <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
             <div style={reportStyles.page} ref={pageRef}>
                 {!hideHeader &&
                     <div style={{...reportStyles.pageHeader, ...reportStyles.roundBorder}} ref={headerRef}>

@@ -60,9 +60,10 @@ import MinutesTimer from './Components/MinutesTimer'
 import SelectionRadar from './Components/selectionRadar/SelectionRadar'
 
 import ReportPreview from './JSReport/Reports/preview/ReportPreview';
+import ReportPreviewContainer from './JSReport/Reports/preview/ReportPreviewContainer';
 import ReportsManager from './JSReport/Reports/manager/ReportsManager';
 import ReportsCircularProgress from './JSReport/Reports/progress/ProgressSpinner'
-import pdfDownload from './JSReport/Reports/pdfDownload'
+import pdfDownload from './JSReport/Reports/preview/pdfDownload'
 import Page from './JSReport/Reports/page/Page'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
@@ -173,6 +174,7 @@ export {
     MinutesTimer,
     SelectionRadar,
     ReportPreview,
+    ReportPreviewContainer,
     ReportsManager,
     ReportsCircularProgress,
     pdfDownload,

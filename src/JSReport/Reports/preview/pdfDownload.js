@@ -18,6 +18,7 @@ const defaultCleanup = (input) =>
  * @param {string} {jsReportApi} js report api (e.g store.api.jsReport)
  * @param {string} {fileName} Name of the file (can contain special characters - will be cleaned up)
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
+
 const pdfDownload = ({
   pageList,
   reportConfig,
@@ -53,8 +54,8 @@ const pdfDownload = ({
       renderingDoc.appendChild(head)
       renderingDoc.appendChild(body)
 
-      const pagesNumbers = Array.from(
-        renderingDoc.getElementsByClassName("jsreport-page-wrapper")
+/*       const pagesNumbers = Array.from(
+        renderingDoc.getElementsByClassName("jsreport-page-main-wrapper")
       );
       pagesNumbers && !!pagesNumbers.length && pagesNumbers.map((element, pageNumber) => {
         if (element.getElementsByClassName("page-number").length > 0) {
@@ -64,7 +65,7 @@ const pdfDownload = ({
             pageList.length;
         }
       });
-
+ */
       ApiService(
         `${jsReportApi}api/report`,
         "POST",
