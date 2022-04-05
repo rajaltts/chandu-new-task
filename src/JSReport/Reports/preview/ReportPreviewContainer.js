@@ -123,7 +123,6 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
     const downloadPdf = async () => {
         setLoading(true)
         await pdfDownload({
-            pageList,
             store,
             intl,
             reportConfig,

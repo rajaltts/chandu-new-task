@@ -20,7 +20,6 @@ const defaultCleanup = (input) =>
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
 
 const pdfDownload = ({
-  pageList,
   reportConfig,
   jsReportApi,
   fileName,
@@ -37,7 +36,7 @@ const pdfDownload = ({
 
       head.appendChild(meta)
 
-      reportConfig?.styles.files.forEach((file, i) => {
+      reportConfig?.styles?.files?.forEach((file, i) => {
         const link = document.createElement('link');
         link.key = `${i}`
         link.rel = 'stylesheet'
@@ -54,18 +53,6 @@ const pdfDownload = ({
       renderingDoc.appendChild(head)
       renderingDoc.appendChild(body)
 
-/*       const pagesNumbers = Array.from(
-        renderingDoc.getElementsByClassName("jsreport-page-main-wrapper")
-      );
-      pagesNumbers && !!pagesNumbers.length && pagesNumbers.map((element, pageNumber) => {
-        if (element.getElementsByClassName("page-number").length > 0) {
-          element.getElementsByClassName("page-number")[0].textContent =
-            pageNumber + 1;
-          element.getElementsByClassName("number-of-pages")[0].textContent =
-            pageList.length;
-        }
-      });
- */
       ApiService(
         `${jsReportApi}api/report`,
         "POST",
