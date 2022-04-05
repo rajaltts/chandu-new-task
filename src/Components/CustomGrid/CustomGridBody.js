@@ -10,11 +10,11 @@ import { getValueForDynamicKey } from './CustomGridUtils';
 import './CustomGrid.css';
 
 function CustomGridBody(props) {
-  const { rows, config, headCells, showCheckbox, selectionType = false, isSelected, editMode, handleEditModeSelectionHandler,
-    handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, uniqueKey, clickOnRowHighlight, showDivider,
-    rowHighlightClassName, rowClassName, highlightedRowByDefault, columnPicker, columnPickerFilterError } = props;
-  let timer;
-  const { enable: editModeEnabled = false, editModeRowHighlight = false } = editMode
+  const { rows, config, headCells, showCheckbox, selectionType = false, isSelected, editMode, handleEditModeRowSelection,
+    handleClick, handleSelectOnClick, rowOnclickHandler, doNotTranslate, uniqueKey, clickOnRowHighlight, showDivider, isCellSelected,
+    rowHighlightClassName, rowClassName, highlightedRowByDefault, columnPicker, columnPickerFilterError, handleEditModeCellSelection } = props;
+  let timer, cellTimer;
+  const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
   const [clickedRow, setClickedRow] = useState(highlightedRowByDefault);
   const [enableRowClick, setEnableRowClick] = useState(true);
   const defaultEventData = {
@@ -51,12 +51,16 @@ function CustomGridBody(props) {
       timer = setTimeout(() => {
         enableRowClick && rowOnclickHandler && rowOnclickHandler(row, index, event)
         if (editModeEnabled) {
+          handleEditModeCellSelection([], '', '', false, true)
           const { ctrlKey, button, keyCode } = eventData.current 
           if (ctrlKey && button === 0 && keyCode === 17) {
-            handleEditModeSelectionHandler(row, index)
+            handleEditModeRowSelection(row, index)
+          }
+          else if (button === 0) {
+            handleEditModeRowSelection(row, index, true)
           }
           else {
-            handleEditModeSelectionHandler([], 0, true)
+            handleEditModeRowSelection([], 0, false, true)
           }
         }
       }, 300);
@@ -65,6 +69,30 @@ function CustomGridBody(props) {
 
   const keyCodeHandler = (event) => {
     editModeEnabled && (eventData.current.keyCode = event.keyCode)
+  }
+
+  const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
+    if (isCellHighlightEnabled && editModeEnabled) {
+      event.stopPropagation();
+      handleEditModeRowSelection([], 0, false, true)
+      clearTimeout(cellTimer);
+      if (event.detail === 1) {
+        eventData.current.ctrlKey = event.ctrlKey
+        eventData.current.button = event.button
+        cellTimer = setTimeout(() => {
+          const { ctrlKey, button, keyCode } = eventData.current
+          if (ctrlKey && button === 0 && keyCode === 17) {
+            handleEditModeCellSelection(row, columnName, uniqueKeyValue)
+          }
+          else if (button === 0) {
+            handleEditModeCellSelection(row, columnName, uniqueKeyValue, true)
+          }
+          else {
+            handleEditModeCellSelection([], '', '', false, true)
+          }
+        }, 300);
+      }
+    }
   }
 
   return (
@@ -79,7 +107,7 @@ function CustomGridBody(props) {
               aria-checked={isItemSelected}
               tabIndex={-1}
               key={index}
-              className={classNames((editModeEnabled && editModeRowHighlight && isItemSelected) ? "editModeRowHighlight" : "", rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
+              className={classNames((editModeEnabled && editModeHighlight && isItemSelected) ? "editModeRowHighlight" : "", rowHighlight ? rowHighlightClassName || "rowHighlight" : '', rowClassName)}
               onClick={(event) => handleOnClick(row, index, event)}
               onKeyDown={keyCodeHandler}
             >
@@ -88,17 +116,21 @@ function CustomGridBody(props) {
                 const configItem = config[head.name] || {};
                 const lookUpKey = configItem.lookUpKey || head.name;
                 const isHeaderSelectedForDisplay = (columnPicker) ? ((head.isSelected && !columnPickerFilterError) || false) : true;
+                const isCellHighlighted = (editModeEnabled && editModeHighlight) ? isCellSelected(getValueForDynamicKey(row, uniqueKey), lookUpKey) : false
+                const cellHighlightStyle = (editModeEnabled && editModeHighlight && isCellHighlighted) ? "editModeCellHighlight" : ""
                 return (
                   isHeaderSelectedForDisplay ?
-                    <TableCell key={head.name} align={row.textAlign || 'left'} className={row.className || configItem.cellClassName || ''}>
-                      <FormBuilderField
-                        doNotTranslate={doNotTranslate}
-                        rowData={row}
-                        rowIndex={index}
-                        config={configItem}
-                        value={getValueForDynamicKey(row, lookUpKey)}
-                        setEnableRowClick={setEnableRowClick}
-                      />
+                    <TableCell id={cellHighlightStyle} key={head.name} align={row.textAlign || 'left'} className={row.className || configItem.cellClassName || ''}>
+                      <div onKeyDown={keyCodeHandler} onClick={(event) => onCellClick(event, row, lookUpKey, getValueForDynamicKey(row, uniqueKey), (configItem.isCellHighlightEnabled || true))}>
+                        <FormBuilderField
+                          doNotTranslate={doNotTranslate}
+                          rowData={row}
+                          rowIndex={index}
+                          config={configItem}
+                          value={getValueForDynamicKey(row, lookUpKey)}
+                          setEnableRowClick={setEnableRowClick}
+                        />
+                        </div>
                     </TableCell>
                     :
                     null

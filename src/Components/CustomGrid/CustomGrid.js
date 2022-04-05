@@ -27,6 +27,7 @@ function CustomGrid(props) {
   const [columnPickerFilterError, setColumnPickerFilterError] = useState("");
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
+  const [selectedCells, setSelectedCells] = useState({});
   const [page, setPage] = useState(pageNumber || 0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsToShowPerPage);
   const [initialRowData, setInitialRowData] = useState(rows);
@@ -147,15 +148,81 @@ function CustomGrid(props) {
     return selectedIndex
   }
 
-  const handleEditModeSelectionHandler = (row, index, clearSelected = false) => {
+  const handleEditModeRowSelection = (row, index, isSingleSelect = false, clearSelected = false) => {
     if (clearSelected) {
       handleSelectAllClick({ target: { checked: false }})
     }
     else {
-      const selectedIndex = findSelectedRowIndex([...selected], row) 
+      const selectedIndex = findSelectedRowIndex([...selected], row)
       const isUnChecked = (selectedIndex > -1) ? false : true
-      handleMultiSelectClick(isUnChecked, row, index, selectedIndex)
+      if (isSingleSelect) {
+        if (isUnChecked) {
+          handleSingleSelectClick(row)
+        }
+        else {
+          handleSelectAllClick({ target: { checked: false }})
+        }
+      }
+      else {
+        handleMultiSelectClick(isUnChecked, row, index, selectedIndex)
+      }
     }
+  }
+
+  const handleEditModeCellSelection = (row, columnName, id, isSingleSelect = false, clearSelections = false) => {
+    handleSelectAllClick({ target: { checked: false } })
+    if (clearSelections) {
+      setSelectedCells({})
+    }
+    else {
+      let updateInfo = {
+        [id]: {
+          rowData: row,
+          columnNames: [columnName]
+        }
+      }
+      const isContainsKey = selectedCells.hasOwnProperty(id)
+      if (isSingleSelect) {
+        if (isContainsKey) {
+          if (selectedCells[id].columnNames.indexOf(columnName) > -1) {
+            setSelectedCells({})
+          }
+          else {
+            setSelectedCells(updateInfo)
+          }
+        }
+        else {
+          setSelectedCells(updateInfo)
+        }
+      }
+      else if (isContainsKey){
+        let newColumns = [...selectedCells[id].columnNames]
+        if (newColumns.indexOf(columnName) > -1) {
+          newColumns = newColumns.filter(column => column !== columnName)
+        }
+        else {
+          newColumns = [...newColumns, columnName]
+        }
+        updateInfo[id].columnNames = newColumns
+        setSelectedCells({
+          ...selectedCells,
+          ...updateInfo
+        })
+      }
+      else {
+        setSelectedCells({
+          ...selectedCells,
+          ...updateInfo
+        })
+      }
+    }
+  }
+
+  const isCellSelected = (uniqueKeyValue, columnName) => {
+    if (selectedCells.hasOwnProperty(uniqueKeyValue)) {
+      return selectedCells[uniqueKeyValue].columnNames.indexOf(columnName) > -1
+    }
+    return false
   }
 
   const handleChangePage = (newPage) => {
@@ -302,7 +369,9 @@ function CustomGrid(props) {
                   highlightedRowByDefault={highlightedRowByDefault}
                   columnPickerFilterError={columnPickerFilterError}
                   editMode={editMode}
-                  handleEditModeSelectionHandler={handleEditModeSelectionHandler}
+                  handleEditModeRowSelection={handleEditModeRowSelection}
+                  handleEditModeCellSelection={handleEditModeCellSelection}
+                  isCellSelected={isCellSelected}
                   showDivider={showDivider}
                 />
               }

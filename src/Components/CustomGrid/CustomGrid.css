@@ -189,6 +189,10 @@
         background-color: transparent;
     }
     
+    .customGrid #editModeCellHighlight {
+        border: 2px solid #1891F6 !important;
+    }
+    
     .customGrid .editModeRowHighlight td {
         border-bottom: none !important
     }
