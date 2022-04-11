@@ -80,6 +80,7 @@ import { LayoutButton } from './v2/Components/LayoutButton/LayoutButton'
 import { Button as Button2 } from './v2/Components/Button/Button'
 import InputRange from './v2/Components/InputRange/InputRange';
 import LayoutDivider from './v2/Components/LayoutDivider'
+import { SelectedModel } from './v2/Components/SelectedModel/SelectedModel';
 import StickyAside from './v2/Components/StickyAside'
 import CardLayout from './v2/Components/CardLayout'
 import Table from './v2/Components/Table'
@@ -208,5 +209,6 @@ export {
     ReportItemContainer,
     Chart,
     ReactCharts,
-    SimpleLabelWithImageWarnIcon
+    SimpleLabelWithImageWarnIcon,
+    SelectedModel
 }
