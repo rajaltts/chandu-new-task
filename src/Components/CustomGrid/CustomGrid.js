@@ -20,20 +20,33 @@ function CustomGrid(props) {
     gridClassName, singleSelectGrid = false, doNotTranslate = true, id = 'customGrid', sorting = ascending, gridStateHandler,
     pageNumber, stateLessGrid = false, totalPageCount = rows.length, showLinearProgress = false, clickOnRowHighlight = false,
     rowHighlightClassName = null, rowClassName = null, highlightedRowByDefault = {}, columnPicker = false, saveColumnHandler,
-    maxColumnLimit, paginationClass, columnGrouping = false, columnGroupConfig = {}, editMode = {}, showDivider = false
+    maxColumnLimit, paginationClass, columnGrouping = false, columnGroupConfig = {}, editMode = {}, showDivider = false, reset = false
   } = props;
-
+  const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
   const [order, setOrder] = useState(sorting);
   const [columnPickerFilterError, setColumnPickerFilterError] = useState("");
   const [orderBy, setOrderBy] = useState(orderByfield);
   const [selected, setSelected] = useState(selectedRows);
   const [selectedCells, setSelectedCells] = useState({});
   const [page, setPage] = useState(pageNumber || 0);
+  const [resetGrid, setResetGrid] = useState(reset);
   const [rowsPerPage, setRowsPerPage] = useState(rowsToShowPerPage);
   const [initialRowData, setInitialRowData] = useState(rows);
   const [searchText, setSearchText] = useState('');
   const [isAllPaginationSelected, setIsAllPaginationSelected] = useState(false);
 
+  useEffect(()=> {
+    setResetGrid(reset)
+  }, [reset]);
+  
+  useEffect(()=> {
+    if (resetGrid) {
+      handleSelectAllClick({ target: { checked: false }})
+      editModeEnabled && setSelectedCells({})
+      setResetGrid(false)
+    }
+  }, [resetGrid]);
+  
   useEffect(()=> {
     if (!rowsPerPage || isAllPaginationSelected) {
       setRowsPerPage(rows.length);
@@ -89,10 +102,12 @@ function CustomGrid(props) {
   const handleSelectAllClick = ({ target: { checked }}) => {
     if (checked) {
       setSelected(sortedRows);
+      editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: sortedRows, selectedColumns: {}})
       rowCheckboxHandler && rowCheckboxHandler(sortedRows);
     }
     else {
       setSelected([]);
+      editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: {}})
       rowCheckboxHandler && rowCheckboxHandler([]);
     }
   };
@@ -110,6 +125,9 @@ function CustomGrid(props) {
     setSelected([row]);
     if (rowCheckboxHandler) {
       rowCheckboxHandler([row]);
+    }
+    if (editModeSelectionsHandler) {
+      editModeSelectionsHandler({selectedRows: [row], selectedColumns: {}})
     }
   };
 
@@ -133,6 +151,9 @@ function CustomGrid(props) {
 
     if (rowCheckboxHandler) {
       rowCheckboxHandler(newSelected);
+    }
+    if (editModeSelectionsHandler) {
+      editModeSelectionsHandler({selectedRows: newSelected, selectedColumns: {}})
     }
   };
 
@@ -173,6 +194,7 @@ function CustomGrid(props) {
     handleSelectAllClick({ target: { checked: false } })
     if (clearSelections) {
       setSelectedCells({})
+      editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: {}})
     }
     else {
       let updateInfo = {
@@ -186,13 +208,16 @@ function CustomGrid(props) {
         if (isContainsKey) {
           if (selectedCells[id].columnNames.indexOf(columnName) > -1) {
             setSelectedCells({})
+            editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: {}})
           }
           else {
             setSelectedCells(updateInfo)
+            editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: updateInfo})
           }
         }
         else {
           setSelectedCells(updateInfo)
+          editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: updateInfo})
         }
       }
       else if (isContainsKey){
@@ -204,16 +229,23 @@ function CustomGrid(props) {
           newColumns = [...newColumns, columnName]
         }
         updateInfo[id].columnNames = newColumns
-        setSelectedCells({
+        const updatedCells = {
           ...selectedCells,
           ...updateInfo
-        })
+        }
+        const filteredCells = Object.keys(updatedCells)
+          .filter(key => !!updatedCells[key].columnNames.length)
+          .reduce((res, key) => (res[key] = updatedCells[key], res), {})
+        setSelectedCells(filteredCells)
+        editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: filteredCells})
       }
       else {
-        setSelectedCells({
+        const updatedCells = {
           ...selectedCells,
           ...updateInfo
-        })
+        }
+        setSelectedCells(updatedCells)
+        editModeSelectionsHandler && editModeSelectionsHandler({selectedRows: [], selectedColumns: updatedCells})
       }
     }
   }
