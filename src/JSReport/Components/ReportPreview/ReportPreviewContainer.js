@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, memo, useMemo } from 'react'
-import { useStore, useSelector } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import ReportPreview from './ReportPreview.js'
 import pdfDownload from './pdfDownload.js'
@@ -9,11 +8,9 @@ import pdfDownload from './pdfDownload.js'
  * @component
  * @description Logic part of report preview. Manage scroll to pages, download, preview exit.
  */
-const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading = false, reportDownloadable = true, intl, reportConfig={} }) => {
+const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading = false, reportDownloadable = true, intl,
+    reportConfig={}, jsReportApi='', cleanup=undefined }) => {
     const { preLoadedStoreIndex, preLoadedReport, title, fileName = 'Test' } = reportConfig.options ?? {}
-
-    const store = useStore()
-    const api = useSelector((state) => state.api)
 
     const [isReportDownloadable, setReportDownloadable] = useState(reportDownloadable)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -123,11 +120,10 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
     const downloadPdf = async () => {
         setLoading(true)
         await pdfDownload({
-            store,
-            intl,
             reportConfig,
-            jsReportApi: api.jsReport,
+            jsReportApi,
             fileName,
+            cleanup
         })
         setLoading(false)
     }

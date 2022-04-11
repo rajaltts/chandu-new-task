@@ -330,7 +330,8 @@ const reportStyles = {
     marginBottom: "10px"
   },
   reportItemContainer: {
-    padding: "5px"
+    padding: "5px",
+    width: "100%"
   },
   reportImageDefault: {
     ...flexColumn,

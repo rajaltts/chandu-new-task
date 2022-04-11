@@ -12,8 +12,8 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import Tooltip from "@material-ui/core/Tooltip";
 import { IconButton } from "@material-ui/core";
 
-import { ConfirmModal } from "@carrier/ngecat-reactcomponents";
-import { translation } from "@carrier/ngecat-reactcomponents";
+import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
+import translation from "../../../Components/Translation";
 
 import useReportPreviewStyles, {
   BorderLinearProgress,

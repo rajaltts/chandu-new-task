@@ -59,12 +59,12 @@ import RadaChart from './Components/RadarChart/RadaChart'
 import MinutesTimer from './Components/MinutesTimer'
 import SelectionRadar from './Components/selectionRadar/SelectionRadar'
 
-import ReportPreview from './JSReport/Reports/preview/ReportPreview';
-import ReportPreviewContainer from './JSReport/Reports/preview/ReportPreviewContainer';
-import ReportsManager from './JSReport/Reports/manager/ReportsManager';
-import ReportsCircularProgress from './JSReport/Reports/progress/ProgressSpinner'
-import pdfDownload from './JSReport/Reports/preview/pdfDownload'
-import Page from './JSReport/Reports/page/Page'
+import ReportPreview from './JSReport/Components/ReportPreview/ReportPreview';
+import ReportPreviewContainer from './JSReport/Components/ReportPreview/ReportPreviewContainer';
+import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager';
+import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
+import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
+import Page from './JSReport/Components/page/Page'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
@@ -99,8 +99,8 @@ import ReportTable from './JSReport/Components/ReportTable/ReportTable';
 import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList';
 import ContentTable from './JSReport/Components/ContentsTable/ContentTable';
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes';
-import ReportContainer from './JSReport/Components/ReportContainer';
-import ReportItemContainer from './JSReport/Components/ReportItemContainer';
+import ReportContainer from './JSReport/Components/ReportContainer/ReportContainer';
+import ReportItemContainer from './JSReport/Components/ReportItemContainer/ReportItemContainer';
 import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon';
 
 import Chart from './Chart/Chart';
