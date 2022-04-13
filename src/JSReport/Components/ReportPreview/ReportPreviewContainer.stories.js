@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReportPreviewContainer from './ReportPreviewContainer'
-//import Page from '../page/Page'
+import Page from '../ReportPage/Page'
 
 export default {
     title: 'Report Preview Container',

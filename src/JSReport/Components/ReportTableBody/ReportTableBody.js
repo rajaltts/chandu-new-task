@@ -1,6 +1,6 @@
 import React from 'react'
 import reportStyles from '../reportStyles'
-import { Format } from '../page/Format'
+import { Format } from '../ReportPage/Format'
 const ReportTableBody = ({ rowData }) => {
     const {
         bgGrey,
