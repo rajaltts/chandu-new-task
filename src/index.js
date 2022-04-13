@@ -66,6 +66,7 @@ import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/Progr
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
 import Page from './JSReport/Components/ReportPage/Page'
 
+import Select from "./v2/Components/Select/Select";
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
 import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
@@ -210,5 +211,6 @@ export {
     Chart,
     ReactCharts,
     SimpleLabelWithImageWarnIcon,
-    SelectedModel
+    SelectedModel,
+    Select
 }
