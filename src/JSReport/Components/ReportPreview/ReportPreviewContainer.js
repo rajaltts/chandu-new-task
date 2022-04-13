@@ -38,10 +38,10 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
 
         const getLastElementVisibleOnScreen = (elements) => {
             const pagesNumbers = Array.from(elements)
-                .map((element, pageNumber) => {
+                .map((element, pageNumber, pageArray) => {
                     if (element.getElementsByClassName('page-number').length > 0) {
                         element.getElementsByClassName('page-number')[0].textContent = pageNumber + 1
-                        element.getElementsByClassName('number-of-pages')[0].textContent = pageList.length
+                        element.getElementsByClassName('number-of-pages')[0].textContent = pageArray.length
                     }
 
                     const position = element.getBoundingClientRect()
@@ -64,7 +64,9 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
                 setReportCurrentPreviewIndex(lastPageNumberVisible - 1)
             }
         }
-        if (baseElem) baseElem.addEventListener('scroll', handleScroll)
+        if (baseElem) {
+            baseElem.addEventListener('scroll', handleScroll)
+        }
 
         return () => {
             document.removeEventListener('mousedown', handleClick)
@@ -113,8 +115,11 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
 
     const onClose = () => {
         setPageList([])
+        setLoading(false);
+        setReportDownloadable(true)
+        setErrorMessage('')
         setReportCurrentPreviewIndex(0)
-        closeReportPreview()
+        closeReportPreview && closeReportPreview()
     }
 
     const downloadPdf = async () => {

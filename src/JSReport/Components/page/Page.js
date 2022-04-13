@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
 import translation from '../../../Components/Translation'
-import reportStyles from '../../../JSReport/Components/reportStyles';
+import reportStyles from '../reportStyles';
 
 /**
  * @category Customer Reports 📁
@@ -30,8 +30,6 @@ const Page = ({
     modelBrand = 'carrier',
     footNotes,
     builderInfo,
-    pageList = 1,
-    reportCurrentPreviewIndex = 1,
     hideHeader = false,
     hideFooter = false,
 }) => {
@@ -128,8 +126,8 @@ const Page = ({
                         </div>
                         <div style={reportStyles.pageFooterInfoWrapper}>
                             <span>
-                                {translation('Page')} <span className='page-number'>{reportCurrentPreviewIndex}</span>/
-                                <span className='number-of-pages'>{pageList}</span>
+                                {translation('Page')} <span className='page-number'></span>/
+                                <span className='number-of-pages'></span>
                             </span>
                         </div>
                     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import reportStyles from "../reportStyles";
 import Link from '@material-ui/core/Link';
-const HyperLinks = ({ preText = "",postText = "", type, value,href = "", style= {} }) => {
+
+const HyperLinks = ({ preText = "", postText = "", type, value, href = "", style= {} }) => {
     const {
       link,
       imgHeight,
@@ -25,4 +26,5 @@ const HyperLinks = ({ preText = "",postText = "", type, value,href = "", style= 
       </div>
     );
 }
+
 export default HyperLinks;
