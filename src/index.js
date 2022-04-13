@@ -64,7 +64,7 @@ import ReportPreviewContainer from './JSReport/Components/ReportPreview/ReportPr
 import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager';
 import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
-import Page from './JSReport/Components/Page/Page'
+import Page from './JSReport/Components/ReportPage/Page'
 
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
