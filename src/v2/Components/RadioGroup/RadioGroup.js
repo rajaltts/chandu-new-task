@@ -4,7 +4,22 @@ import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 import MaterialRadioGroup from '@material-ui/core/RadioGroup'
 import MaterialRadio from '@material-ui/core/Radio'
 
-const RadioGroup = ({ className, row, name, color, label, displayLabel, value, values, disabled, onChange, relaxed, restRadioGroup, restFormControl, restRadio }) => {
+const RadioGroup = ({
+    className,
+    row,
+    name,
+    color,
+    label,
+    displayLabel,
+    value,
+    values,
+    disabled,
+    onChange,
+    relaxed,
+    restRadioGroup,
+    restFormControl,
+    restRadio,
+}) => {
     return (
         <FormControl component='fieldset' className={className}>
             {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
@@ -19,19 +34,29 @@ const RadioGroup = ({ className, row, name, color, label, displayLabel, value, v
                 data-error={`${name}__${relaxed}`}
                 data-value={`${name}__${value}`}
                 row={row}
-                {...restRadioGroup} >
+                {...restRadioGroup}
+            >
                 {values.map((radio) => {
                     return (
                         <FormControlLabel
                             key={radio.value}
                             value={radio.value}
-                            control={<MaterialRadio id={name} data-label={radio.label} data-disabled={`${name}__${disabled}`} color={color} disabled={disabled} {...restRadio} />}
+                            control={
+                                <MaterialRadio
+                                    id={name}
+                                    data-label={radio.label}
+                                    data-disabled={`${name}__${disabled}`}
+                                    color={color}
+                                    disabled={disabled}
+                                    {...restRadio}
+                                />
+                            }
                             label={radio.label}
                             data-disabled={`${name}__${disabled}`}
                             data-error={`${name}__${relaxed}`}
                             data-value={`${name}__${radio.value}`}
                             data-label={`${name}__${radio.label}`}
-                            {...restFormControl }
+                            {...restFormControl}
                         />
                     )
                 })}
@@ -44,7 +69,7 @@ RadioGroup.defaultProps = {
     row: false,
     disabled: false,
     color: 'secondary',
-    displayLabel: true
+    displayLabel: true,
 }
 
 RadioGroup.propTypes = {

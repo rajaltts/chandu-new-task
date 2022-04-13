@@ -8,8 +8,17 @@ import pdfDownload from './pdfDownload.js'
  * @component
  * @description Logic part of report preview. Manage scroll to pages, download, preview exit.
  */
-const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading = false, reportDownloadable = true, intl,
-    reportConfig={}, jsReportApi='', cleanup=undefined }) => {
+const ReportPreviewContainer = ({
+    isOpen,
+    closeReportPreview,
+    children,
+    loading = false,
+    reportDownloadable = true,
+    intl,
+    reportConfig = {},
+    jsReportApi = '',
+    cleanup = undefined,
+}) => {
     const { preLoadedStoreIndex, preLoadedReport, title, fileName = 'Test' } = reportConfig.options ?? {}
 
     const [isReportDownloadable, setReportDownloadable] = useState(reportDownloadable)
@@ -75,10 +84,11 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
     })
 
     const autoScrollToPage = (pageIndex) => {
-        const target = document.getElementsByClassName('jsreport-page-main-wrapper')[pageIndex];
+        const target = document.getElementsByClassName('jsreport-page-main-wrapper')[pageIndex]
         if (isOpen && target && topActionsContainerRef.current) {
             const baseElem = document.getElementsByClassName('report-back')[0]
-            const y = target.getBoundingClientRect().top + baseElem.scrollTop - topActionsContainerRef.current.offsetHeight;
+            const y =
+                target.getBoundingClientRect().top + baseElem.scrollTop - topActionsContainerRef.current.offsetHeight
             baseElem.scrollTo({ top: y, behavior: 'smooth' })
         }
     }
@@ -128,7 +138,7 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
             reportConfig,
             jsReportApi,
             fileName,
-            cleanup
+            cleanup,
         })
         setLoading(false)
     }
@@ -152,7 +162,8 @@ const ReportPreviewContainer = ({ isOpen, closeReportPreview, children, loading 
                 popupRef,
                 topBarRef,
                 topActionsContainerRef,
-            }}>
+            }}
+        >
             {children}
         </ReportPreview>
     )

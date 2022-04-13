@@ -24,9 +24,9 @@ Default.args = {
         disabled: false,
         imgProps: {
             src: 'https://stecatbuildersdev.blob.core.windows.net/rooftopbuilder/assemblies/2D/C0.png',
-            width: 300
-        }
-    }
+            width: 300,
+        },
+    },
 }
 
 export const SelectedRelaxed = RadioCardTemplate.bind({})
@@ -34,6 +34,5 @@ SelectedRelaxed.args = {
     ...Default.args,
     selected: true,
     feasible: false,
-    tooltipTitleUnfeasible: 'Invalid selection'
+    tooltipTitleUnfeasible: 'Invalid selection',
 }
-

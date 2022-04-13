@@ -1,17 +1,17 @@
-import React from 'react';
-import { formatValue } from '@carrier/workflowui-globalfunctions';
+import React from 'react'
+import { formatValue } from '@carrier/workflowui-globalfunctions'
 import classNames from 'classnames'
 import '../formBuilder.css'
 
 const ConfigDrivenUrlField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = '' } = props;
-    const { href, className, onClick = null } = config;
+    const { rowData = {}, rowIndex, config = {}, value = '' } = props
+    const { href, className, onClick = null } = config
 
     const onClickHandler = (event) => {
-        onClick && onClick(event, rowData, rowIndex);
-    };
+        onClick && onClick(event, rowData, rowIndex)
+    }
 
-    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal')
     return (
         <a href={href} className={classes} target='_blank' onClick={onClickHandler}>
             {formatValue(config, value, rowData)}
@@ -19,4 +19,4 @@ const ConfigDrivenUrlField = (props) => {
     )
 }
 
-export default ConfigDrivenUrlField;
+export default ConfigDrivenUrlField

@@ -1,10 +1,9 @@
-import React, { Fragment } from "react";
-import FileSaver from "file-saver";
-import { ApiService } from "@carrier/workflowui-globalfunctions";
+import React, { Fragment } from 'react'
+import FileSaver from 'file-saver'
+import { ApiService } from '@carrier/workflowui-globalfunctions'
 
 // Default file name cleanup
-const defaultCleanup = (input) =>
-  typeof input === "string" ? input.replace(/[^a-zA-Z0-9]+/g, " ").trim() : "";
+const defaultCleanup = (input) => (typeof input === 'string' ? input.replace(/[^a-zA-Z0-9]+/g, ' ').trim() : '')
 
 /**
  * @description Download a list of hooks as a pdf file
@@ -19,64 +18,59 @@ const defaultCleanup = (input) =>
  * @param {string} {fileName} Name of the file (can contain special characters - will be cleaned up)
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
 
-const pdfDownload = ({
-  reportConfig,
-  jsReportApi,
-  fileName,
-  cleanup = defaultCleanup,
-}) =>
-  new Promise((resolve, reject) => {
-    try {
-      const renderingDoc = document.createElement("html");
+const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCleanup }) =>
+    new Promise((resolve, reject) => {
+        try {
+            const renderingDoc = document.createElement('html')
 
-      const head = document.createElement('head');
-      const meta = document.createElement('meta');
-      meta.httpEquiv = "Content-Type";
-      meta.content = "text/html; charset=UTF-8";
+            const head = document.createElement('head')
+            const meta = document.createElement('meta')
+            meta.httpEquiv = 'Content-Type'
+            meta.content = 'text/html; charset=UTF-8'
 
-      head.appendChild(meta)
+            head.appendChild(meta)
 
-      reportConfig?.styles?.files?.forEach((file, i) => {
-        const link = document.createElement('link');
-        link.key = `${i}`
-        link.rel = 'stylesheet'
-        link.type = 'text/css'
-        link.href = `${reportConfig.styles.url}${file}`
-        head.appendChild(link)
-      })
+            reportConfig?.styles?.files?.forEach((file, i) => {
+                const link = document.createElement('link')
+                link.key = `${i}`
+                link.rel = 'stylesheet'
+                link.type = 'text/css'
+                link.href = `${reportConfig.styles.url}${file}`
+                head.appendChild(link)
+            })
 
-      const body = document.createElement('body');
-      const reportContent = document.getElementById('jsReportAllContent').cloneNode(true);
+            const body = document.createElement('body')
+            const reportContent = document.getElementById('jsReportAllContent').cloneNode(true)
 
-      reportContent && body.appendChild(reportContent)
+            reportContent && body.appendChild(reportContent)
 
-      renderingDoc.appendChild(head)
-      renderingDoc.appendChild(body)
+            renderingDoc.appendChild(head)
+            renderingDoc.appendChild(body)
 
-      ApiService(
-        `${jsReportApi}api/report`,
-        "POST",
-        JSON.stringify({
-          template: {
-            shortid: "l1DbOPsN5",
-            content: renderingDoc.outerHTML,
-            recipe: "chrome-pdf",
-            engine: "handlebars",
-            chrome: {
-              width: "793px",
-              height: "1122px",
-            },
-          },
-        }),
-        "blob"
-      ).then((jsReportReponse) => {
-        FileSaver.saveAs(jsReportReponse.data, `${cleanup(fileName)}.pdf`);
-        resolve();
-      });
-    } catch (err) {
-      console.error(err);
-      reject();
-    }
-  });
+            ApiService(
+                `${jsReportApi}api/report`,
+                'POST',
+                JSON.stringify({
+                    template: {
+                        shortid: 'l1DbOPsN5',
+                        content: renderingDoc.outerHTML,
+                        recipe: 'chrome-pdf',
+                        engine: 'handlebars',
+                        chrome: {
+                            width: '793px',
+                            height: '1122px',
+                        },
+                    },
+                }),
+                'blob'
+            ).then((jsReportReponse) => {
+                FileSaver.saveAs(jsReportReponse.data, `${cleanup(fileName)}.pdf`)
+                resolve()
+            })
+        } catch (err) {
+            console.error(err)
+            reject()
+        }
+    })
 
-export default pdfDownload;
+export default pdfDownload

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
 import translation from '../../../Components/Translation'
-import reportStyles from '../reportStyles';
+import reportStyles from '../../../JSReport/Components/reportStyles'
 
 /**
  * @category Customer Reports 📁
@@ -20,7 +20,7 @@ const Page = ({
     title = 'Report',
     children,
     modelBrandLogo = 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/carrier.webp',
-    fullName = "",
+    fullName = '',
     creationDate,
     model,
     projectNameLabel,
@@ -33,7 +33,7 @@ const Page = ({
     hideHeader = false,
     hideFooter = false,
 }) => {
-    const date = creationDate ? new Date(creationDate) : new Date();
+    const date = creationDate ? new Date(creationDate) : new Date()
 
     const pageRef = useRef(null)
     const mainRef = useRef(null)
@@ -51,10 +51,11 @@ const Page = ({
                     pageRef.current.clientHeight - (headerRef.current.clientHeight + footerRef.current.clientHeight) + 1
 
                 if (footerBottom > pageBottom || mainRef.current.clientHeight > maxChildrenHeight) {
-                    setOverflow && setOverflow({
-                        overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
-                        minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
-                    })
+                    setOverflow &&
+                        setOverflow({
+                            overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
+                            minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
+                        })
                 }
             }
         }, 1000)
@@ -63,8 +64,8 @@ const Page = ({
     return (
         <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
             <div style={reportStyles.page} ref={pageRef}>
-                {!hideHeader &&
-                    <div style={{...reportStyles.pageHeader, ...reportStyles.roundBorder}} ref={headerRef}>
+                {!hideHeader && (
+                    <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
                         <div style={reportStyles.pageHeaderLeftArea}>
                             <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
                             <div style={reportStyles.pageHeaderSubInfos}>
@@ -73,17 +74,27 @@ const Page = ({
                             </div>
                         </div>
 
-                        {modelBrand === 'carrier' && <div style={{...reportStyles.pageHeaderReportTitle, ...reportStyles.pageHeaderReportTitleCarrier}}>{title}</div>}
+                        {modelBrand === 'carrier' && (
+                            <div
+                                style={{
+                                    ...reportStyles.pageHeaderReportTitle,
+                                    ...reportStyles.pageHeaderReportTitleCarrier,
+                                }}>
+                                {title}
+                            </div>
+                        )}
                         {modelBrand === 'ciat' && (
                             <div style={reportStyles.pageHeaderReportTitle}>
                                 {title}
-                                {model && 
+                                {model && (
                                     <div style={reportStyles.pageHeaderMainTitle}>
                                         <span style={reportStyles.pageHeaderMainTitleModel}>
-                                            <Format loading sup>{model}</Format>
+                                            <Format loading sup>
+                                                {model}
+                                            </Format>
                                         </span>
                                     </div>
-                                }
+                                )}
                             </div>
                         )}
 
@@ -102,20 +113,26 @@ const Page = ({
                             )}
                         </div>
                     </div>
-                }
-                <div style={{...reportStyles.pageMain, ...reportStyles.roundBorder}} ref={mainRef}>
+                )}
+                <div style={{ ...reportStyles.pageMain, ...reportStyles.roundBorder }} ref={mainRef}>
                     {children}
                 </div>
-                {!hideFooter &&
-                    <div style={{...reportStyles.pageFooter, ...reportStyles.roundBorder}} ref={footerRef}>
+                {!hideFooter && (
+                    <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>
                         <div style={reportStyles.pageFooterLeftArea}>
                             {footNotes.descriptions && footNotes.descriptions.length > 0 && (
                                 <div style={reportStyles.pageFooterLeftAreaFootNote}>
                                     {footNotes.image && (
-                                        <img style={reportStyles.pageFooterLeftAreaFootNoteImage} src={footNotes.image} alt='Certification image' />
+                                        <img
+                                            style={reportStyles.pageFooterLeftAreaFootNoteImage}
+                                            src={footNotes.image}
+                                            alt='Certification image'
+                                        />
                                     )}
                                     {footNotes.descriptions.map((description, i) => (
-                                        <div style={reportStyles.pageFooterLeftAreaFootNoteDescription} key={`footnote-description-${i}`}>
+                                        <div
+                                            style={reportStyles.pageFooterLeftAreaFootNoteDescription}
+                                            key={`footnote-description-${i}`}>
                                             {description}
                                         </div>
                                     ))}
@@ -131,7 +148,7 @@ const Page = ({
                             </span>
                         </div>
                     </div>
-                }
+                )}
             </div>
         </div>
     )

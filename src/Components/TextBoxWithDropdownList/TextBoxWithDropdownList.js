@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
-import {GetProp, getBooleanValue} from '@carrier/workflowui-globalfunctions'
-import {GetUnitConversionExt, GetUnitDesc} from '@carrier/ngecat-unitsconversion'
+import React, { useEffect } from 'react'
+import { GetProp, getBooleanValue } from '@carrier/workflowui-globalfunctions'
+import { GetUnitConversionExt, GetUnitDesc } from '@carrier/ngecat-unitsconversion'
 import Tooltip from '@material-ui/core/Tooltip'
 
 function TextBoxWithDropdownList(props) {
@@ -57,7 +57,7 @@ function TextBoxWithDropdownList(props) {
             if (!unitNumber && rulesUnitProp.Values.length > 1) {
                 //Assign default unit
                 let unitDefault = GetProperty(props.PropName + '.UNIT.DEFAULT').Value
-                props.onValueChanged([{Name: props.PropName + '.UNIT', Value: unitDefault}])
+                props.onValueChanged([{ Name: props.PropName + '.UNIT', Value: unitDefault }])
             } else {
                 SetMinMaxValues(mainProp, unitNumber)
                 SetUnitProp(rulesUnitProp)
@@ -151,7 +151,7 @@ function TextBoxWithDropdownList(props) {
         SetDisplayMinMax(false)
         if (!UnitProp) {
             //the condition is for text box doesn't have unit
-            props.onValueChanged([{Name: props.PropName, Value: Value}])
+            props.onValueChanged([{ Name: props.PropName, Value: Value }])
             SetOutOfRange(Value < Min || Value > Max)
             return
         }
@@ -161,7 +161,7 @@ function TextBoxWithDropdownList(props) {
         } else {
             if (Number.parseFloat(oldValue) !== Number.parseFloat(Value)) {
                 const displayValue = FormatNumber(Value, UnitProp.Value, props.toPrecisionValue)
-                props.onValueChanged([{Name: props.PropName, Value: displayValue.toString().replace(',', '.')}])
+                props.onValueChanged([{ Name: props.PropName, Value: displayValue.toString().replace(',', '.') }])
             }
         }
         SetOutOfRange(Value < Min || Value > Max)
@@ -187,21 +187,28 @@ function TextBoxWithDropdownList(props) {
             convertedValue = isFinite(convertedValue) ? convertedValue : 0
             const displayValue = FormatNumber(convertedValue, event.target.value, props.toPrecisionValue)
             props.onValueChanged([
-                {Name: UnitProp.Name, Value: event.target.value},
-                {Name: props.PropName, Value: displayValue?.toString().replace(',', '.')},
+                { Name: UnitProp.Name, Value: event.target.value },
+                { Name: props.PropName, Value: displayValue?.toString().replace(',', '.') },
             ])
         }
     }
 
     function handleCheckChange() {
-        props.onValueChanged([{Name: props.CheckboxPropName, Value: CheckboxProp.Value === 'TRUE' ? 'FALSE' : 'TRUE'}])
+        props.onValueChanged([
+            { Name: props.CheckboxPropName, Value: CheckboxProp.Value === 'TRUE' ? 'FALSE' : 'TRUE' },
+        ])
     }
 
     function PaintLabel() {
         if (Unit) {
             if (UnitProp && UnitProp.Values.length > 1) {
                 return (
-                    <select className='TBWLAI-Select' onChange={onUnitChanged} value={UnitProp.Value} disabled={!Enabled}>
+                    <select
+                        className='TBWLAI-Select'
+                        onChange={onUnitChanged}
+                        value={UnitProp.Value}
+                        disabled={!Enabled}
+                    >
                         {UnitProp.Values.map((unit, index) => {
                             return (
                                 <option key={index} className='TBWLAI-SelectOption' value={unit.Value}>
@@ -221,7 +228,11 @@ function TextBoxWithDropdownList(props) {
 
     if (Visibility) {
         return (
-            <div className={'TBWLAI-container ' + (Relaxed && !DisplayMinMax ? 'RelaxedHighlight ' : '') + props.className}>
+            <div
+                className={
+                    'TBWLAI-container ' + (Relaxed && !DisplayMinMax ? 'RelaxedHighlight ' : '') + props.className
+                }
+            >
                 <div className='TBWLAI-InputContainer'>
                     {props.Image ? (
                         <div className={'TBWLAI-ImageContainer' + (!Valid ? ' error-checkbox-wrapper ' : '')}>
@@ -253,7 +264,11 @@ function TextBoxWithDropdownList(props) {
                         onBlur={onInputFocusOut}
                         className={
                             (Enabled ? (OutOfRange ? 'ErrorCss ' : '') : '') +
-                            (Unit !== '' ? (props.CheckboxPropName || props.Image ? 'TBWLAI-input' : 'TBWLAI-input-label') : 'TBWLAI-input-full')
+                            (Unit !== ''
+                                ? props.CheckboxPropName || props.Image
+                                    ? 'TBWLAI-input'
+                                    : 'TBWLAI-input-label'
+                                : 'TBWLAI-input-full')
                         }
                         value={CheckboxIsEnabled && CheckboxIsChecked ? Value : ''}
                         onChange={onChange}
@@ -268,8 +283,9 @@ function TextBoxWithDropdownList(props) {
                 )}
             </div>
         )
-    } else if (props.KeepSpaceWhenHidden) return <div style={{visibility: 'hidden'}} className='TBWLAI-container'></div>
+    } else if (props.KeepSpaceWhenHidden)
+        return <div style={{ visibility: 'hidden' }} className='TBWLAI-container'></div>
     else return null
 }
 
-export default TextBoxWithDropdownList;
+export default TextBoxWithDropdownList

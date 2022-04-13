@@ -45,7 +45,6 @@ const InputRadioCard = ({
     color,
     elevation,
     tooltipTitleUnfeasible,
-    
 }) => {
     const classes = useStyles()
     const theme = useTheme()
@@ -58,7 +57,8 @@ const InputRadioCard = ({
             } ${loading ? 'loading' : ''} ${!feasible ? 'unfeasible' : ''} ${!hasMedia ? 'no-media' : ''} ${
                 className || ''
             } color-${color}`}
-            elevation={elevation}>
+            elevation={elevation}
+        >
             <input
                 className={classes.cardInput}
                 type='radio'
@@ -71,8 +71,7 @@ const InputRadioCard = ({
             />
             <label htmlFor={name} className={classes.cardLabel}>
                 {!feasible && checked && (
-                    <Tooltip
-                        title={tooltipTitleUnfeasible}>
+                    <Tooltip title={tooltipTitleUnfeasible}>
                         <IconButton className={classes.unfeasibleTooltipCardBtn}>
                             <WarningIcon />
                         </IconButton>
@@ -131,9 +130,7 @@ export const InputRadioCardList = ({
                     <IconButton className={classes.unfeasibleTooltipBtn}>
                         <WarningIcon />
                     </IconButton>
-                    <Typography color='error'>
-                        {wrongValueText}
-                    </Typography>
+                    <Typography color='error'>{wrongValueText}</Typography>
                 </Box>
             )}
             <Grid container spacing={isMobile ? 1 : 2}>
@@ -144,7 +141,8 @@ export const InputRadioCardList = ({
                             key={id}
                             item
                             xs={12 / nbItemsPerRowMobile}
-                            sm={nbItemsPerRow === 5 ? 3 : 12 / nbItemsPerRow}>
+                            sm={nbItemsPerRow === 5 ? 3 : 12 / nbItemsPerRow}
+                        >
                             <InputRadioCard
                                 id={id}
                                 name={name}

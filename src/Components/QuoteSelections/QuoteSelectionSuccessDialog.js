@@ -1,33 +1,29 @@
-import React, { memo, useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { injectIntl } from "react-intl";
-import {
-    closeQuoteSelectionSuccess,
-    injectIntlTranslation,
-} from "@carrier/workflowui-globalfunctions";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import { Button, Grid, makeStyles } from "@material-ui/core";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-
+import React, { memo, useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { injectIntl } from 'react-intl'
+import { closeQuoteSelectionSuccess, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
+import ConfirmModal from '../ConfirmModal/ConfirmModal'
+import { Button, Grid, makeStyles } from '@material-ui/core'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 
 const useStyles = makeStyles((theme) => ({
     successLogo: {
-        color: "#61b549",
-        marginBottom: "10px",
-        width: "20px",
-        height: "20px",
+        color: '#61b549',
+        marginBottom: '10px',
+        width: '20px',
+        height: '20px',
     },
     successMessageContainer: {
-        fontStyle: "normal",
-        fontWeight: "normal",
-        fontSize: "14px",
-        lineHeight: "112%",
-        color: "#333333",
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '112%',
+        color: '#333333',
     },
     successContentContainer: {
-        marginTop: "0px !important",
-        paddingTop: "0px !important",
-        width: "415px !important",
+        marginTop: '0px !important',
+        paddingTop: '0px !important',
+        width: '415px !important',
     },
     footerButton: {
         fontSize: '1rem',
@@ -37,71 +33,70 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid rgba(0, 0, 0, 0.23)',
     },
     buttonGradint: {
-        background: "linear-gradient(99.7deg, #15205E -19.43%, #0076F4 80.93%)",
-        boxShadow: "0px 11px 12px -10px rgba(4, 105, 221, 0.7)",
+        background: 'linear-gradient(99.7deg, #15205E -19.43%, #0076F4 80.93%)',
+        boxShadow: '0px 11px 12px -10px rgba(4, 105, 221, 0.7)',
     },
     marginRight16px: {
-        marginRight: "16px",
-    }
-}));
+        marginRight: '16px',
+    },
+}))
 
 const QuoteSelectionSuccessDialog = (props) => {
+    const { quoteSelection, intl, closeQuoteSelectionSuccess } = props
+    const { showSuccessModal, quoteSelectionSuccessHandler = null, errorMsg = '' } = quoteSelection
     const {
-        quoteSelection,
-        intl,
-        closeQuoteSelectionSuccess,
-    } = props;
-    const {
-        showSuccessModal,
-        quoteSelectionSuccessHandler = null,
-        errorMsg = "",
-    } = quoteSelection;
-    const { successMessageContainer, successLogo, successContentContainer, footerButton, buttonGradint, marginRight16px } = useStyles();
-    const [disableSave, setDisableSave] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(errorMsg);
+        successMessageContainer,
+        successLogo,
+        successContentContainer,
+        footerButton,
+        buttonGradint,
+        marginRight16px,
+    } = useStyles()
+    const [disableSave, setDisableSave] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(errorMsg)
 
     useEffect(() => {
         if (errorMsg && disableSave) {
-            setDisableSave(true);
+            setDisableSave(true)
         }
-        setErrorMessage(errorMsg);
-    }, [errorMsg]);
+        setErrorMessage(errorMsg)
+    }, [errorMsg])
 
     const handleOpenPros = () => {
         if (quoteSelectionSuccessHandler) {
-            quoteSelectionSuccessHandler();
+            quoteSelectionSuccessHandler()
         }
-    };
+    }
 
     const hideComponentHandler = () => {
-        setErrorMessage("");
-        closeQuoteSelectionSuccess();
-    };
+        setErrorMessage('')
+        closeQuoteSelectionSuccess()
+    }
 
     const customFooterButtons = () => {
         return (
             <div>
                 <Button
-                    classes={{root: `${footerButton} ${marginRight16px}` }}
-                    id="customModalCancel"
-                    variant="outlined"
-                    size="large"
-                    name="Close"
+                    classes={{ root: `${footerButton} ${marginRight16px}` }}
+                    id='customModalCancel'
+                    variant='outlined'
+                    size='large'
+                    name='Close'
                     onClick={hideComponentHandler}
                 >
                     Close
                 </Button>
                 <Button
-                    classes={{root: `${footerButton} ${buttonGradint}`}}
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    id={"SendToQuote"}
-                    name={injectIntlTranslation(intl, "SendToQuote")}
+                    classes={{ root: `${footerButton} ${buttonGradint}` }}
+                    size='large'
+                    variant='contained'
+                    color='primary'
+                    id={'SendToQuote'}
+                    name={injectIntlTranslation(intl, 'SendToQuote')}
                     onClick={handleOpenPros}
                     disabled={disableSave}
                 >
-                    {injectIntlTranslation(intl, "SendToQuote")}
+                    {injectIntlTranslation(intl, 'SendToQuote')}
                 </Button>
             </div>
         )
@@ -117,26 +112,16 @@ const QuoteSelectionSuccessDialog = (props) => {
             contentClassName={successContentContainer}
             footerComponent={customFooterButtons()}
         >
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-            >
+            <Grid container spacing={0} direction='column' alignItems='center' justify='center'>
                 <Grid>
                     <CheckCircleIcon className={successLogo} />
                 </Grid>
                 <Grid className={successMessageContainer}>
-                    {injectIntlTranslation(intl, "SelectionSuccessfulToPros")}
+                    {injectIntlTranslation(intl, 'SelectionSuccessfulToPros')}
                 </Grid>
             </Grid>
         </ConfirmModal>
-    );
-};
-
-export default injectIntl(
-    connect(null, { closeQuoteSelectionSuccess })(
-        memo(QuoteSelectionSuccessDialog)
     )
-);
+}
+
+export default injectIntl(connect(null, { closeQuoteSelectionSuccess })(memo(QuoteSelectionSuccessDialog)))

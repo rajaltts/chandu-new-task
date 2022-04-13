@@ -1,5 +1,5 @@
-import React from 'react';
-import reportStyles from '../reportStyles';
+import React from 'react'
+import reportStyles from '../reportStyles'
 
 /**
  * @category Customer Reports 📁 Page #1 - Standard
@@ -9,23 +9,20 @@ import reportStyles from '../reportStyles';
 const ReportImage = ({
     customImageProps = {
         src: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/png/DefaultReportImage.png',
-        alt: "No Image",
+        alt: 'No Image',
         height: 100,
         width: 100,
-        style: {}
+        style: {},
     },
     label = null,
     id = 'customImage',
-    classes = {}
+    classes = {},
 }) => {
-    const {
-        text = {},
-        container = {}
-    } = classes
+    const { text = {}, container = {} } = classes
     return (
-        <div id={id} key={id} style={{...container, ...reportStyles['reportImageDefault']}}>
+        <div id={id} key={id} style={{ ...container, ...reportStyles['reportImageDefault'] }}>
             <img {...customImageProps} />
-            {label && <span style={{...text, ...reportStyles['boldFont']}}>{label}</span>}
+            {label && <span style={{ ...text, ...reportStyles['boldFont'] }}>{label}</span>}
         </div>
     )
 }

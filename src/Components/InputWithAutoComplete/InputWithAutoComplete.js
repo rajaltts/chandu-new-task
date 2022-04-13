@@ -1,33 +1,37 @@
-import React from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
+import React from 'react'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import TextField from '@material-ui/core/TextField'
 
 const InputWithAutoComplete = (props) => {
-    const { attrName, label, options, defaultOptions, classes = {}, multiple, disableCloseOnSelect, onChange, outlined } = props
+    const {
+        attrName,
+        label,
+        options,
+        defaultOptions,
+        classes = {},
+        multiple,
+        disableCloseOnSelect,
+        onChange,
+        outlined,
+    } = props
 
-    function handleOnChange(event, value, reason){
-        if(typeof(onChange) === 'function'){
+    function handleOnChange(event, value, reason) {
+        if (typeof onChange === 'function') {
             onChange(event, value, reason)
         }
     }
 
-    return(
+    return (
         <div className={classes.root}>
             <Autocomplete
                 multiple={multiple}
                 id={label}
-                size="small"
+                size='small'
                 options={options}
                 defaultValue={defaultOptions}
-                getOptionLabel={(option) => attrName ? option[attrName] : option.title}
+                getOptionLabel={(option) => (attrName ? option[attrName] : option.title)}
                 filterSelectedOptions
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant={outlined&&"outlined"}
-                        label={label}
-                    />
-                )}
+                renderInput={(params) => <TextField {...params} variant={outlined && 'outlined'} label={label} />}
                 disableCloseOnSelect={disableCloseOnSelect}
                 onChange={handleOnChange}
             />
@@ -35,4 +39,4 @@ const InputWithAutoComplete = (props) => {
     )
 }
 
-export default InputWithAutoComplete;
+export default InputWithAutoComplete

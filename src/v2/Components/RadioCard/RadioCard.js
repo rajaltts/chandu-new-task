@@ -5,15 +5,23 @@ import MediaCard from '../MediaCard/MediaCard'
 import Typography from '../Typography/Typography'
 import { useStyles } from './RadioCard.styles'
 
-const RadioCard = ({ label, onClick, selected, loading, feasible, relaxed, tooltipTitleUnfeasible, mediaCardProps, typographyProps }) => {
+const RadioCard = ({
+    label,
+    onClick,
+    selected,
+    loading,
+    feasible,
+    relaxed,
+    tooltipTitleUnfeasible,
+    mediaCardProps,
+    typographyProps,
+}) => {
     const classes = useStyles()
 
     return (
         <Box className={classes.root}>
             {!feasible && selected && (
-                <Tooltip
-                    data-simplecard-tooltip
-                    title={tooltipTitleUnfeasible}>
+                <Tooltip data-simplecard-tooltip title={tooltipTitleUnfeasible}>
                     <Icon className={classes.warningIcon}>
                         <WarningIcon />
                     </Icon>
@@ -24,7 +32,8 @@ const RadioCard = ({ label, onClick, selected, loading, feasible, relaxed, toolt
                 disabled={loading || !feasible}
                 error={relaxed}
                 onClick={onClick}
-                {...mediaCardProps}>
+                {...mediaCardProps}
+            >
                 <Typography bold variant='body1' align='center' {...typographyProps}>
                     {label}
                 </Typography>

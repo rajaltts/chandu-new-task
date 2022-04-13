@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectionToQuoteLoadingIcon } from "../../SvgImages";
+import { SelectionToQuoteLoadingIcon } from '../../SvgImages'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
@@ -25,4 +25,4 @@ const LoadingIcon = ({ width }) => {
     )
 }
 
-export default LoadingIcon;
+export default LoadingIcon

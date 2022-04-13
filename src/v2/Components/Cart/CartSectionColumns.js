@@ -16,7 +16,7 @@ const CartSectionColumns = ({ intl, columnList = [], headerId = '' }) => {
     return (
         <>
             {/* Header for the section */}
-            <Typography variant='h2' color='primary' style={{padding: '0px'}}>
+            <Typography variant='h2' color='primary' style={{ padding: '0px' }}>
                 {injectIntlTranslation(intl, headerId)}
             </Typography>
 
@@ -24,10 +24,16 @@ const CartSectionColumns = ({ intl, columnList = [], headerId = '' }) => {
             <Grid container style={{ marginBottom: '4px', padding: '0px 16px' }}>
                 <Grid item xs={2}></Grid>
                 <Grid item xs={10} container>
-                    {columnList.map(col => {
+                    {columnList.map((col) => {
                         const { label = '', columnWidth } = col
                         return (
-                            <Grid key={label} item sm={columnWidth} className={priceItem} style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }} >
+                            <Grid
+                                key={label}
+                                item
+                                sm={columnWidth}
+                                className={priceItem}
+                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}
+                            >
                                 <Typography variant='caption' className={legend}>
                                     {injectIntlTranslation(intl, label)}
                                 </Typography>

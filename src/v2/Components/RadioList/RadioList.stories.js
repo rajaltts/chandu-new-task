@@ -31,10 +31,12 @@ const RadioListTemplate = ({ value, ...args }) => {
 export const Default = RadioListTemplate.bind({})
 Default.args = {
     value: 1,
-    values: [ { value: 1, label: 'First', feasible: true },
-    { value: 2, label: 'Second', feasible: true },
-    { value: 3, label: 'Third', feasible: false },
-    { value: 4, label: 'Fourth', feasible: true }],
+    values: [
+        { value: 1, label: 'First', feasible: true },
+        { value: 2, label: 'Second', feasible: true },
+        { value: 3, label: 'Third', feasible: false },
+        { value: 4, label: 'Fourth', feasible: true },
+    ],
     defaultItemProps: fct,
     tooltipLabelUnfeasible: 'Invalid selection',
 }
@@ -43,10 +45,35 @@ export const WithImage = RadioListTemplate.bind({})
 WithImage.args = {
     ...Default.args,
     values: [
-    { value: 1, name: 'y_model', label: 'Y Model', feasible: true, media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/ymodel.svg' },
-    { value: 2, name: 'i_model', label: 'I Model', feasible: false, media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/imodel.svg' },
-    { value: 3, name: 'u_model', label: 'U Model', feasible: true, media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/imodel.svg' },
-    { value: 4, name: 'h_model', label: 'H Model', feasible: true, media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/hmodel.svg' }],
+        {
+            value: 1,
+            name: 'y_model',
+            label: 'Y Model',
+            feasible: true,
+            media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/ymodel.svg',
+        },
+        {
+            value: 2,
+            name: 'i_model',
+            label: 'I Model',
+            feasible: false,
+            media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/imodel.svg',
+        },
+        {
+            value: 3,
+            name: 'u_model',
+            label: 'U Model',
+            feasible: true,
+            media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/imodel.svg',
+        },
+        {
+            value: 4,
+            name: 'h_model',
+            label: 'H Model',
+            feasible: true,
+            media: 'https://stecatbuildersdev.blob.core.windows.net/fancoilsbuilder/hmodel.svg',
+        },
+    ],
 }
 
 export const WithImageLoading = RadioListTemplate.bind({})

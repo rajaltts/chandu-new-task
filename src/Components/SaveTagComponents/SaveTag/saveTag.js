@@ -1,15 +1,15 @@
-import React, { memo, useState, useEffect, Fragment } from "react";
-import ConfirmModal from "../../ConfirmModal/ConfirmModal";
-import translation from "../../Translation";
-import ProjectTagSelection from "../ProjectTagSelection/projectTagSelection";
-import SaveIcon from "@material-ui/icons/Save";
-import faSave from "@fortawesome/free-solid-svg-icons/faSave";
-import AddProject from "../AddProject/addProject";
-import saveTagStyles from "../saveTagStyles";
-import { injectIntlTranslation } from "@carrier/workflowui-globalfunctions";
-import TabPanel from "../../TabsComponent/TabPanel";
-import TabsContainer from "../../TabsComponent/TabsContainer";
-import TagName from "../TagName/TagName";
+import React, { memo, useState, useEffect, Fragment } from 'react'
+import ConfirmModal from '../../ConfirmModal/ConfirmModal'
+import translation from '../../Translation'
+import ProjectTagSelection from '../ProjectTagSelection/projectTagSelection'
+import SaveIcon from '@material-ui/icons/Save'
+import faSave from '@fortawesome/free-solid-svg-icons/faSave'
+import AddProject from '../AddProject/addProject'
+import saveTagStyles from '../saveTagStyles'
+import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
+import TabPanel from '../../TabsComponent/TabPanel'
+import TabsContainer from '../../TabsComponent/TabsContainer'
+import TagName from '../TagName/TagName'
 
 const SaveTag = (props) => {
     const {
@@ -26,153 +26,143 @@ const SaveTag = (props) => {
         saveTagData,
         defaultSelectedProject,
         existingProjectValidation,
-        errorMsg = "",
+        errorMsg = '',
         intl,
         onValidation,
         onSearchTextChange = null,
         isLoading = false,
         setError,
-    } = props;
-    const classes = saveTagStyles();
-    const [menuList, setMenuList] = useState(customerNameList);
-    const [exisitingProjectData, setExisitingProjectData] = useState({});
-    const [newProjectData, setNewProjectData] = useState(null);
-    const [disableSave, setDisableSave] = useState(true);
-    const [selectedProject, setSelectedProject] = useState(defaultSelectedProject);
+    } = props
+    const classes = saveTagStyles()
+    const [menuList, setMenuList] = useState(customerNameList)
+    const [exisitingProjectData, setExisitingProjectData] = useState({})
+    const [newProjectData, setNewProjectData] = useState(null)
+    const [disableSave, setDisableSave] = useState(true)
+    const [selectedProject, setSelectedProject] = useState(defaultSelectedProject)
     const tabs = [
-        { name: translation("ExistingProject", "Existing Project") },
-        { name: translation("NewProject", "New Project") },
-    ];
-    const [errorMessage, setErrorMessage] = useState(errorMsg);
-    const [saveTagActiveTab, setSaveTagActiveTab] = useState(0);
-    const [projectError, setProjectError] = useState("");
-    const [tagError, setTagError] = useState("");
-    const [tagNameForSaveSelection, setTagNameForSaveSelection] = useState("");
-    const isDisabled = tagName?.isDisabled || false;
+        { name: translation('ExistingProject', 'Existing Project') },
+        { name: translation('NewProject', 'New Project') },
+    ]
+    const [errorMessage, setErrorMessage] = useState(errorMsg)
+    const [saveTagActiveTab, setSaveTagActiveTab] = useState(0)
+    const [projectError, setProjectError] = useState('')
+    const [tagError, setTagError] = useState('')
+    const [tagNameForSaveSelection, setTagNameForSaveSelection] = useState('')
+    const isDisabled = tagName?.isDisabled || false
 
     useEffect(() => {
         if (selectedProject) {
-            setProjectError("");
+            setProjectError('')
         } else if (!selectedProject && tagNameForSaveSelection) {
-            setProjectError(
-                injectIntlTranslation(
-                    intl,
-                    "validationAtLeastOneProject",
-                    "Please select a Project."
-                )
-            );
+            setProjectError(injectIntlTranslation(intl, 'validationAtLeastOneProject', 'Please select a Project.'))
         }
-        let disableSave = false;
-        const tagNameValue = tagNameForSaveSelection.trim();
-        const tagNameStatus =
-            (!isDisabled && !tagNameValue.trim()) || !!tagError;
+        let disableSave = false
+        const tagNameValue = tagNameForSaveSelection.trim()
+        const tagNameStatus = (!isDisabled && !tagNameValue.trim()) || !!tagError
         switch (saveTagActiveTab) {
             case 0:
-                if (tagNameStatus || !selectedProject) disableSave = true;
-                break;
+                if (tagNameStatus || !selectedProject) disableSave = true
+                break
             case 1:
                 if (tagNameStatus) {
-                    disableSave = true;
+                    disableSave = true
                 }
                 if (newProjectData?.projectInfo) {
-                    const { projectInfo } = newProjectData;
+                    const { projectInfo } = newProjectData
                     Object.keys(projectInfo).forEach((key) => {
                         if (projectInfo[key].error) {
-                            disableSave = true;
+                            disableSave = true
                         }
-                    });
+                    })
                 }
-                break;
+                break
         }
         updateExistingTagInfo({
             tagName: tagNameValue,
             projectData: selectedProject,
             disableSave,
-        });
-    }, [tagNameForSaveSelection, selectedProject, newProjectData]);
+        })
+    }, [tagNameForSaveSelection, selectedProject, newProjectData])
 
     useEffect(() => {
-        setMenuList(customerNameList);
-    }, [customerNameList]);
+        setMenuList(customerNameList)
+    }, [customerNameList])
 
     useEffect(() => {
         if (errorMsg && disableSave) {
-            setDisableSave(true);
+            setDisableSave(true)
         }
-        setErrorMessage(errorMsg);
-    }, [errorMsg]);
+        setErrorMessage(errorMsg)
+    }, [errorMsg])
 
     const createActionsButton = (disableSave) => {
         return [
             {
-                id: "Save",
-                name: translation("Save", "Save"),
+                id: 'Save',
+                name: translation('Save', 'Save'),
                 icon: faSave,
                 onClick: saveTagDataHandler,
                 disabled: disableSave,
             },
-        ];
-    };
+        ]
+    }
 
     const hideComponentHandler = () => {
         if (hideComponent) {
-            setSaveTagActiveTab(0);
-            reseTabContent(reseTabContent);
-            hideComponent();
+            setSaveTagActiveTab(0)
+            reseTabContent(reseTabContent)
+            hideComponent()
         }
-    };
+    }
 
     const updateExistingTagInfo = (existingTagInfo) => {
-        const { disableSave, projectData } = existingTagInfo;
+        const { disableSave, projectData } = existingTagInfo
         if (!projectData) {
-            setError("");
+            setError('')
         }
-        setDisableSave(disableSave);
-        setExisitingProjectData(existingTagInfo);
-    };
+        setDisableSave(disableSave)
+        setExisitingProjectData(existingTagInfo)
+    }
 
     const updateProjectInfo = (selectedNewProjectInfo) => {
-        const { disableSave } = selectedNewProjectInfo;
-        setDisableSave(disableSave);
-        setNewProjectData(selectedNewProjectInfo);
-    };
+        const { disableSave } = selectedNewProjectInfo
+        setDisableSave(disableSave)
+        setNewProjectData(selectedNewProjectInfo)
+    }
 
     const saveTagDataHandler = () => {
         if (saveTagData) {
-            setDisableSave(true);
-            if (
-                !exisitingProjectData?.projectData &&
-                newProjectData.projectInfo
-            ) {
-                newProjectData.projectInfo["TagName"] = {
+            setDisableSave(true)
+            if (!exisitingProjectData?.projectData && newProjectData.projectInfo) {
+                newProjectData.projectInfo['TagName'] = {
                     value: exisitingProjectData.tagName,
-                };
+                }
             }
             saveTagData({
                 exisitingProjectData,
                 newProjectData,
                 saveTagActiveTab,
-            });
+            })
         }
-    };
+    }
 
     const handleSaveTagTabChange = (activeTab) => {
-        setSaveTagActiveTab(activeTab);
-        reseTabContent();
-    };
+        setSaveTagActiveTab(activeTab)
+        reseTabContent()
+    }
 
     const reseTabContent = () => {
-        setSelectedProject(null);
-        setExisitingProjectData({});
-        setNewProjectData(null);
-        setDisableSave(true);
-        setProjectError("");
-        setError("");
-    };
+        setSelectedProject(null)
+        setExisitingProjectData({})
+        setNewProjectData(null)
+        setDisableSave(true)
+        setProjectError('')
+        setError('')
+    }
 
     const onProjectSelect = (project) => {
-        setSelectedProject(project);
-    };
+        setSelectedProject(project)
+    }
 
     const getTagNameProps = () => {
         return {
@@ -186,13 +176,13 @@ const SaveTag = (props) => {
             selectedProject,
             saveTagActiveTab,
             setTagError,
-        };
-    };
+        }
+    }
 
     return (
         <ConfirmModal
             isModalOpen={isModalOpen}
-            title={translation("SaveSelection")}
+            title={translation('SaveSelection')}
             onClose={hideComponentHandler}
             hideCancel={false}
             actionButtonList={createActionsButton(disableSave)}
@@ -207,16 +197,12 @@ const SaveTag = (props) => {
             <div className={classes.helperText}>
                 {injectIntlTranslation(
                     intl,
-                    "SaveTagHelperMessage",
-                    "Associate the selection to an existing or a new project."
+                    'SaveTagHelperMessage',
+                    'Associate the selection to an existing or a new project.'
                 )}
             </div>
 
-            <TabsContainer
-                onTabChange={handleSaveTagTabChange}
-                defaultActiveTab={0}
-                tabs={tabs}
-            />
+            <TabsContainer onTabChange={handleSaveTagTabChange} defaultActiveTab={0} tabs={tabs} />
 
             <TabPanel value={saveTagActiveTab} index={0}>
                 <ProjectTagSelection
@@ -248,7 +234,7 @@ const SaveTag = (props) => {
                 />
             </TabPanel>
         </ConfirmModal>
-    );
-};
+    )
+}
 
-export default memo(SaveTag);
+export default memo(SaveTag)

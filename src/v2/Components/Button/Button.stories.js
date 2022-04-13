@@ -13,5 +13,5 @@ export const Basic = ButtonTemplate.bind({})
 Basic.args = {
     variant: 'contained',
     children: 'Click me',
-    color: 'primary'
+    color: 'primary',
 }

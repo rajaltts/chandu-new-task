@@ -10,7 +10,7 @@ export default {
         },
         anchor: {
             defaultValue: 'left',
-        }
+        },
     },
 }
 

@@ -104,4 +104,4 @@ const tabsListStyles = makeStyles((theme) => ({
     },
 }))
 
-export default tabsListStyles;
+export default tabsListStyles

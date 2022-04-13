@@ -11,7 +11,7 @@ const useTypographyStyles = makeStyles((theme) => ({
         uppercase: {
             textTransform: 'uppercase',
         },
-    }
+    },
 }))
 
 export default useTypographyStyles

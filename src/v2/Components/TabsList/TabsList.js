@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import tabsListStyles from "./TabsList.styles"
+import tabsListStyles from './TabsList.styles'
 
 // Material
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -12,7 +12,7 @@ const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChan
     const theme = customTheme || useTheme()
     const [mobileTabsDropdownVisible, setMobileTabsDropdownVisible] = useState(false)
     const isMobile = theme ? useMediaQuery(theme.breakpoints.down('xs')) : false
-    const { tabs, tabBtn, mobileTabsToggler } = tabsListStyles();
+    const { tabs, tabBtn, mobileTabsToggler } = tabsListStyles()
 
     useEffect(() => {
         setMobileTabsDropdownVisible(false)
@@ -41,9 +41,7 @@ const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChan
 
     return (
         <>
-            <button
-                className={`${mobileTabsToggler} js-mobile-tabs-toggler`}
-                onClick={handleMobileTabsToggle}>
+            <button className={`${mobileTabsToggler} js-mobile-tabs-toggler`} onClick={handleMobileTabsToggle}>
                 <ArrowDropDownIcon />
             </button>
             {isMobile && mobileTabsDropdownVisible && createTabs()}
@@ -52,4 +50,4 @@ const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChan
     )
 }
 
-export default TabsList;
+export default TabsList

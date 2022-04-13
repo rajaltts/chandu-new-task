@@ -1,42 +1,42 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 const RenameTemplatePopUpStyles = makeStyles({
     tagNameContainer: {
-        display: "flex",
-        flexDirection: "row",
-        columnGap:"20px",
-        alignItems:"center"
+        display: 'flex',
+        flexDirection: 'row',
+        columnGap: '20px',
+        alignItems: 'center',
     },
     tagNameLabel: {
-        display: "flex",
-        width:"20%"
+        display: 'flex',
+        width: '20%',
     },
     tagNameField: {
-        flex: "1"
+        flex: '1',
     },
     fieldDisabled: {
-        backgroundColor: "#eee",
-        border: "1px dashed ",
-        color: "rgba(0, 0, 0, 0.38)",
-        borderRadius: "4px"
+        backgroundColor: '#eee',
+        border: '1px dashed ',
+        color: 'rgba(0, 0, 0, 0.38)',
+        borderRadius: '4px',
     },
     errorBorder: {
-        borderColor: "#c00000 !important"
+        borderColor: '#c00000 !important',
     },
     nonErrorBorder: {
-        borderColor: "#bcbcbc !important",
+        borderColor: '#bcbcbc !important',
         color: 'black !important',
         backgroundColor: 'unset !important',
     },
     errorMsg: {
-        display: "block",
-        color: "#c00000",
+        display: 'block',
+        color: '#c00000',
         backgroundColor: 'unset !important',
-        margin: "4px 0px"
+        margin: '4px 0px',
     },
     tagNameWrapper: {
-        padding: "0px 4px",
-    }
-});
+        padding: '0px 4px',
+    },
+})
 
-export default RenameTemplatePopUpStyles;
+export default RenameTemplatePopUpStyles

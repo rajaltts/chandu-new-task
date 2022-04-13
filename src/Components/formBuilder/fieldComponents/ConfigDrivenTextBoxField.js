@@ -1,152 +1,168 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
-import TextField from '@material-ui/core/TextField';
-import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions';
-import translation from "../../Translation";
+import React, { useState, useRef, useEffect } from 'react'
+import Tooltip from '@material-ui/core/Tooltip'
+import TextField from '@material-ui/core/TextField'
+import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions'
+import translation from '../../Translation'
 import classNames from 'classnames'
 import '../formBuilder.css'
-import { inputStyles } from '../formBuilderStyles';
+import { inputStyles } from '../formBuilderStyles'
 
 const ConfigDrivenTextBoxField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = '', doNotTranslate, setEnableRowClick } = props;
-    const { className = null, onClick = null, onDoubleClick = null, isEditable = false, validations = {}, validationsOnLoading = false} = config;
-    const [isValid, setIsValid] = useState(true);
-    const [editable, setEditable] = useState(false);
-    const [editedValue, setEditedValue] = useState(false);
+    const { rowData = {}, rowIndex, config = {}, value = '', doNotTranslate, setEnableRowClick } = props
+    const {
+        className = null,
+        onClick = null,
+        onDoubleClick = null,
+        isEditable = false,
+        validations = {},
+        validationsOnLoading = false,
+    } = config
+    const [isValid, setIsValid] = useState(true)
+    const [editable, setEditable] = useState(false)
+    const [editedValue, setEditedValue] = useState(false)
     const validateValue = () => {
-        if(validationsOnLoading && validations.validation){
-            const message = validations.validation(value);
+        if (validationsOnLoading && validations.validation) {
+            const message = validations.validation(value)
             if (message) {
-                return true;
+                return true
             }
-            return false;
+            return false
         }
-        return false;
+        return false
     }
 
     const getFieldTitle = () => {
-        if(isInValidName){
-            return doNotTranslate ? "Special characters ',\",<,>,#,&,\\,/ are not allowed." : translation("SpecialCharactersNotAllowedTagName", "Special characters ',\",<,>,#,&,\\,/ are not allowed.");
+        if (isInValidName) {
+            return doNotTranslate
+                ? 'Special characters \',",<,>,#,&,\\,/ are not allowed.'
+                : translation(
+                      'SpecialCharactersNotAllowedTagName',
+                      'Special characters \',",<,>,#,&,\\,/ are not allowed.'
+                  )
         }
         if (onClick) {
-            return doNotTranslate ? "Click to Edit" : translation("ClickToEdit", "Click to Edit");
+            return doNotTranslate ? 'Click to Edit' : translation('ClickToEdit', 'Click to Edit')
         }
         if (onDoubleClick) {
-            return doNotTranslate ? "Doubleclick to Edit" : translation("DoubleclickToEdit", "Doubleclick to Edit");
+            return doNotTranslate ? 'Doubleclick to Edit' : translation('DoubleclickToEdit', 'Doubleclick to Edit')
         }
-        return '';
+        return ''
     }
-    const [isInValidName, setisInValidName] = useState(validateValue());
-    const [title, setTitle] = useState(getFieldTitle());
-    const [validationmessage, setValidationMessage] = useState({ width: '100%' });
-    const [containerWidth, setContainerWidth] = useState({ width: '100%' });
-    const { InputRoot } = inputStyles(containerWidth);
-    const ref1 = useRef(null);
+    const [isInValidName, setisInValidName] = useState(validateValue())
+    const [title, setTitle] = useState(getFieldTitle())
+    const [validationmessage, setValidationMessage] = useState({ width: '100%' })
+    const [containerWidth, setContainerWidth] = useState({ width: '100%' })
+    const { InputRoot } = inputStyles(containerWidth)
+    const ref1 = useRef(null)
 
     useEffect(() => {
-        setTitle(getFieldTitle());
-    }, [isInValidName]);
+        setTitle(getFieldTitle())
+    }, [isInValidName])
 
     useEffect(() => {
-        const isValid = validateValue();
+        const isValid = validateValue()
         if (isValid !== isInValidName) {
             setisInValidName(isValid)
         }
-    }, [value]);
+    }, [value])
 
-      const onClickHandler = () => {
+    const onClickHandler = () => {
         if (onClick) {
-            setTextBoxField();
+            setTextBoxField()
         }
-    };
+    }
 
     const onDoubleClickHandler = () => {
         if (onDoubleClick) {
-            setTextBoxField();
+            setTextBoxField()
         }
     }
 
     const setTextBoxField = () => {
-        setContainerWidth({ width: `${(ref1.current.offsetWidth - 5)}px` });
-        setEditedValue(getFormatedValue());
-        setEnableRowClick(false);
-        setEditable(true);
+        setContainerWidth({ width: `${ref1.current.offsetWidth - 5}px` })
+        setEditedValue(getFormatedValue())
+        setEnableRowClick(false)
+        setEditable(true)
     }
 
     const updateValue = (event) => {
         if (checkValidation()) {
-            setIsValid(true);
-            setEnableRowClick(true);
-            setEditable(false);
-            onClick && onClick(event, editedValue, rowData, rowIndex);
-            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex);
+            setIsValid(true)
+            setEnableRowClick(true)
+            setEditable(false)
+            onClick && onClick(event, editedValue, rowData, rowIndex)
+            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex)
         }
     }
 
     const checkValidation = () => {
         if (editedValue === value) {
-            setIsValid(true);
-            enableRowClickWithDelay();
-            setEditable(false);
-            return false;
+            setIsValid(true)
+            enableRowClickWithDelay()
+            setEditable(false)
+            return false
         }
         if (validations.validation) {
-            const message = validations.validation(editedValue);
+            const message = validations.validation(editedValue)
             if (message) {
-                setValidationMessage(message);
-                setIsValid(false);
-                enableRowClickWithDelay();
-                return false;
+                setValidationMessage(message)
+                setIsValid(false)
+                enableRowClickWithDelay()
+                return false
             }
         }
-        return true;
+        return true
     }
 
     const enableRowClickWithDelay = () => {
         setTimeout(() => {
             setEnableRowClick(true)
-        }, 303);
+        }, 303)
     }
 
     const enterKeyPressHandler = (event) => {
-        event.stopPropagation();
+        event.stopPropagation()
         if (event.key === keyboard.ENTER) {
             updateValue(event)
         }
     }
 
     const onChangeHandler = (event) => {
-        setEditedValue(event.target.value);
+        setEditedValue(event.target.value)
     }
 
     const getFormatedValue = () => {
-        return formatValue(config, value, rowData);
+        return formatValue(config, value, rowData)
     }
-    
+
     const handleTextBoxOnClick = (event) => {
         if (onDoubleClick) {
-            event.stopPropagation();
+            event.stopPropagation()
         }
     }
 
-    const classes = classNames(className, isInValidName && 'formBuilderInvalid',  (onClick || onDoubleClick) ? 'formBuilderActive' : 'formBuilderNormal');
+    const classes = classNames(
+        className,
+        isInValidName && 'formBuilderInvalid',
+        onClick || onDoubleClick ? 'formBuilderActive' : 'formBuilderNormal'
+    )
 
     if (!isEditable) {
-        return getFormatedValue();
+        return getFormatedValue()
     }
 
     return (
         <div ref={ref1}>
-            {editable ?
+            {editable ? (
                 <React.Fragment>
                     <TextField
                         fullWidth
-                        variant="outlined"
+                        variant='outlined'
                         value={editedValue}
                         InputProps={{
                             classes: {
                                 input: InputRoot,
-                            }
+                            },
                         }}
                         autoFocus
                         margin={'none'}
@@ -156,15 +172,21 @@ const ConfigDrivenTextBoxField = (props) => {
                         onBlur={updateValue}
                         onClick={handleTextBoxOnClick}
                     />
-                    {!isValid && <span className="errorMsg">{doNotTranslate ? validationmessage: translation(validationmessage)}</span>}
+                    {!isValid && (
+                        <span className='errorMsg'>
+                            {doNotTranslate ? validationmessage : translation(validationmessage)}
+                        </span>
+                    )}
                 </React.Fragment>
-                :
+            ) : (
                 <Tooltip title={title} arrow>
-                    <span className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>{getFormatedValue()}</span>
+                    <span className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>
+                        {getFormatedValue()}
+                    </span>
                 </Tooltip>
-            }
+            )}
         </div>
     )
 }
 
-export default ConfigDrivenTextBoxField;
+export default ConfigDrivenTextBoxField
