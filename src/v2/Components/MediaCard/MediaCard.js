@@ -28,13 +28,15 @@ const MediaCard = ({
                     'no-media': !imgProps?.src,
                 }),
             }}
-            {...props}>
+            {...props}
+        >
             <CardActionArea className={classes.cardActionArea}>
                 <CardContent
                     {...contentProps}
                     className={classNames(classes.cardContent, contentProps?.className, {
                         [classes.cardContentColumn]: direction === 'column',
-                    })}>
+                    })}
+                >
                     {(imgProps?.src || src) && (
                         <img
                             {...imgProps}

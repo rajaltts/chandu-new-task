@@ -126,7 +126,7 @@ const cartStyles = makeStyles((theme) => ({
         },
     },
     priceLabel: {
-        color: theme.palette.grey[450]
+        color: theme.palette.grey[450],
     },
     legend: {
         marginBottom: theme.spacing(1),
@@ -137,8 +137,8 @@ const cartStyles = makeStyles((theme) => ({
         },
     },
     priceItem: {
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+    },
 }))
 
 export default cartStyles

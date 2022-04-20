@@ -18,23 +18,20 @@ import cartStyles from './Cart.styles'
 
 // Components
 import CartSectionBaseunit from './CartSectionBaseunit'
-import CartSectionColumns from "./CartSectionColumns"
-import CartSectionTotal from "./CartSectionTotal"
+import CartSectionColumns from './CartSectionColumns'
+import CartSectionTotal from './CartSectionTotal'
 
 const CartSection = ({
     intl,
-    renderOptions = () => { },
-    closeCart = () => { },
-    getPriceAndLabel = () => { },
-    getPriceString = () => { },
+    renderOptions = () => {},
+    closeCart = () => {},
+    getPriceAndLabel = () => {},
+    getPriceString = () => {},
     isOverSelectedOptions = false,
     cartConfig = [],
-    dndReference = null
+    dndReference = null,
 }) => {
-
-    const {
-        dropZone, optionDrawerContainer, optionDrawerMainContent, drawerCloseBtn, drawerIcon
-    } = cartStyles()
+    const { dropZone, optionDrawerContainer, optionDrawerMainContent, drawerCloseBtn, drawerIcon } = cartStyles()
 
     const getPriceAndLabelHandler = (label, priceUnit, pricePropName) => {
         if (getPriceAndLabel) {
@@ -42,7 +39,7 @@ const CartSection = ({
         }
         return {}
     }
-    
+
     const getPriceStringHandler = (priceUnit, pricePropName) => {
         if (getPriceString) {
             return getPriceString(priceUnit, pricePropName)
@@ -53,7 +50,6 @@ const CartSection = ({
     return (
         <div className={optionDrawerContainer}>
             <div className={optionDrawerMainContent}>
-
                 {/* Shopping Cart close button and header */}
                 <Grid container alignItems='center'>
                     <Grid item xs={1}>
@@ -61,16 +57,16 @@ const CartSection = ({
                             <RightArrowIcon className={drawerIcon} />
                         </IconButton>
                     </Grid>
-                    <Grid item xs={10} >
-                        <Typography variant='h2' color='primary' align='center' style={{padding: '0px'}}>
+                    <Grid item xs={10}>
+                        <Typography variant='h2' color='primary' align='center' style={{ padding: '0px' }}>
                             {injectIntlTranslation(intl, 'SHOPPING_CART')}
                         </Typography>
                     </Grid>
                     <Grid item xs={1}></Grid>
                 </Grid>
-                
+
                 {/* Iterate through sections in the Cart Configuration */}
-                {cartConfig.map(config => {
+                {cartConfig.map((config) => {
                     const { sectionType, tagName, headerTitle, priceUnit, columns, total } = config
                     const cartPrice = getPriceStringHandler(priceUnit, total)
 
@@ -80,7 +76,7 @@ const CartSection = ({
                             return (
                                 <CartSectionBaseunit
                                     cartSectionConfig={config}
-                                    getPriceString={getPriceStringHandler}                    
+                                    getPriceString={getPriceStringHandler}
                                 />
                             )
 
@@ -89,19 +85,13 @@ const CartSection = ({
                             if (tagName) {
                                 return (
                                     <Box key={tagName} ref={dndReference} className={`options-wrapper`}>
-                                        <CartSectionColumns
-                                            columnList={columns}
-                                            headerId={headerTitle}
-                                        />
+                                        <CartSectionColumns columnList={columns} headerId={headerTitle} />
                                         {renderOptions(config)}
-                                        <CartSectionTotal
-                                            labelId='SUB_TOTAL'
-                                            price={cartPrice}
-                                        />
+                                        <CartSectionTotal labelId='SUB_TOTAL' price={cartPrice} />
                                         <div className={`${dropZone} ${isOverSelectedOptions ? 'is-visible' : ''}`} />
                                     </Box>
                                 )
-                            } else return null;
+                            } else return null
 
                         //Total Price section
                         case CART_SECTIONTYPE.TOTAL:
@@ -113,15 +103,15 @@ const CartSection = ({
                                     price={cartPrice}
                                 />
                             )
-                    
+
                         default:
-                            return null;
+                            return null
                     }
                 })}
             </div>
 
             {/* Bottom spacer */}
-            <Box position="fixed" bottom="0" height="80px" width="100%" style={{ backgroundColor: 'white' }} />
+            <Box position='fixed' bottom='0' height='80px' width='100%' style={{ backgroundColor: 'white' }} />
         </div>
     )
 }

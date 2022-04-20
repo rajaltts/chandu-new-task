@@ -1,9 +1,9 @@
 import React from 'react'
-import ReportContainer from './ReportContainer';
+import ReportContainer from './ReportContainer'
 
 export default {
     title: 'Report Container',
-    component: ReportContainer
+    component: ReportContainer,
 }
 
 const ReportContainerTemplate = ({ ...args }) => {
@@ -12,9 +12,9 @@ const ReportContainerTemplate = ({ ...args }) => {
 
 export const Basic = ReportContainerTemplate.bind({})
 Basic.args = {
-    style: {backgroundColor: 'grey'},
+    style: { backgroundColor: 'grey' },
 }
 export const WithStyles = ReportContainerTemplate.bind({})
 WithStyles.args = {
-    style: {height: '300px', backgroundColor: 'Yellow'},
+    style: { height: '300px', backgroundColor: 'Yellow' },
 }

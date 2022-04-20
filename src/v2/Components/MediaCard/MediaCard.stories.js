@@ -17,23 +17,21 @@ Default.args = {
     selected: false,
     error: false,
     disabled: false,
-    children: 'Default content'
+    children: 'Default content',
 }
 
-export const WithImage = MediaCardTemplate.bind({});
+export const WithImage = MediaCardTemplate.bind({})
 WithImage.args = {
     ...Default.args,
     children: '',
     imgProps: {
         src: 'https://stecatbuildersdev.blob.core.windows.net/rooftopbuilder/assemblies/2D/C0.png',
-        width: 300
-    }
+        width: 300,
+    },
 }
 
-export const WithImageDisabled = MediaCardTemplate.bind({});
+export const WithImageDisabled = MediaCardTemplate.bind({})
 WithImageDisabled.args = {
     ...WithImage.args,
     disabled: true,
 }
-
-

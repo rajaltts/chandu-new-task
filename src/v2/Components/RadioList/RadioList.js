@@ -139,9 +139,7 @@ const RadioList = ({
                     <IconButton className={classes.unfeasibleTooltipBtn}>
                         <WarningIcon />
                     </IconButton>
-                    <Typography color='error'>
-                        {tooltipLabelUnfeasible}
-                    </Typography>
+                    <Typography color='error'>{tooltipLabelUnfeasible}</Typography>
                 </Box>
             )}
             <Grid container spacing={1} {...gridProps}>

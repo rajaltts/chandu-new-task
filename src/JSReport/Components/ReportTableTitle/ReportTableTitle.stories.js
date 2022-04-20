@@ -3,16 +3,16 @@ import ReportTableTitle from './ReportTableTitle'
 
 export default {
     title: 'Report Table Title',
-    component: ReportTableTitle
+    component: ReportTableTitle,
 }
 
 const titleInformation = {
-  title: "Title Information",
-  style : {fontSize : "14px",color:"red",background : "lightblue"}
+    title: 'Title Information',
+    style: { fontSize: '14px', color: 'red', background: 'lightblue' },
 }
 
 const defaultTitleInformation = {
-  title: "Title Information",
+    title: 'Title Information',
 }
 
 const ReportTableTitleTemplate = ({ ...args }) => {
@@ -26,5 +26,5 @@ ReportTableTitleWithProps.args = {
 
 export const ReportTableTitleWithDefaultData = ReportTableTitleTemplate.bind({})
 ReportTableTitleWithDefaultData.args = {
-    titleInformation: defaultTitleInformation
+    titleInformation: defaultTitleInformation,
 }

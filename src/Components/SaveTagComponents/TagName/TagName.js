@@ -1,10 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import saveTagStyles from "../saveTagStyles";
-import {
-    validateFormFields,
-    injectIntlTranslation,
-} from "@carrier/workflowui-globalfunctions";
+import React, { Fragment, useEffect, useState } from 'react'
+import TextField from '@material-ui/core/TextField'
+import saveTagStyles from '../saveTagStyles'
+import { validateFormFields, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
 const TagName = (props) => {
     const {
@@ -22,76 +19,65 @@ const TagName = (props) => {
             setTagError,
         },
         saveSelection,
-    } = props;
-    const [existingErrorTagName, setExistingErrorTagName] = useState("");
-    const { isDisabled = false, value = "" } = tagInfo;
-    const [tagData, addTagData] = useState(value);
-    const classes = saveTagStyles();
+    } = props
+    const [existingErrorTagName, setExistingErrorTagName] = useState('')
+    const { isDisabled = false, value = '' } = tagInfo
+    const [tagData, addTagData] = useState(value)
+    const classes = saveTagStyles()
 
     useEffect(() => {
-        setTagError(existingErrorTagName);
-    }, [existingErrorTagName]);
-
+        setTagError(existingErrorTagName)
+    }, [existingErrorTagName])
 
     useEffect(() => {
-        if (setTagNameForSaveSelection) setTagNameForSaveSelection(tagData);
-        if (setTagNameForCopySelection) setTagNameForCopySelection(tagData);
-    }, [tagData]);
+        if (setTagNameForSaveSelection) setTagNameForSaveSelection(tagData)
+        if (setTagNameForCopySelection) setTagNameForCopySelection(tagData)
+    }, [tagData])
 
     const validateTagName = (value) => {
-        addTagData(value);
-        let error = "";
+        addTagData(value)
+        let error = ''
         if (onValidation) {
-            error = onValidation(value);
+            error = onValidation(value)
         } else {
             const validations = {
                 regExp: /^[^'\"&\/#,<>|\\\\]*$/,
                 maxLength: 100,
-            };
+            }
             const validationMessages = {
-                nameRequired: injectIntlTranslation(
-                    intl,
-                    "SelectionNameRequired",
-                    "Selection name required"
-                ),
+                nameRequired: injectIntlTranslation(intl, 'SelectionNameRequired', 'Selection name required'),
                 notAllowedCharacters: injectIntlTranslation(
                     intl,
-                    "OnlyAlphabetsAndUnderscoreMessage",
-                    "Input should contain alphabets and underscore only"
+                    'OnlyAlphabetsAndUnderscoreMessage',
+                    'Input should contain alphabets and underscore only'
                 ),
                 maxLengthError: injectIntlTranslation(
                     intl,
-                    "TextRangeValidationMessage",
-                    "Number of characters should be between {0} and {1}"
+                    'TextRangeValidationMessage',
+                    'Number of characters should be between {0} and {1}'
                 )
-                    .replace("{0}", 1)
-                    .replace("{1}", 100),
+                    .replace('{0}', 1)
+                    .replace('{1}', 100),
                 noBlankSpacesOnly: injectIntlTranslation(
                     intl,
-                    "NoBlankSpacesOnly",
-                    "Input should not contain blank spaces only"
+                    'NoBlankSpacesOnly',
+                    'Input should not contain blank spaces only'
                 ),
-            };
-            error = validateFormFields(value, validations, validationMessages);
+            }
+            error = validateFormFields(value, validations, validationMessages)
         }
         if (error !== existingErrorTagName) {
-            !isDisabled &&
-                setExistingErrorTagName &&
-                setExistingErrorTagName(error);
+            !isDisabled && setExistingErrorTagName && setExistingErrorTagName(error)
         } else if (!selectedProject && saveSelection && !saveTagActiveTab) {
-            setProjectError(setProjectSelectError());
+            setProjectError(setProjectSelectError())
         } else if (!projectData && !saveSelection) {
-            setSelectProjectError(setProjectSelectError());
+            setSelectProjectError(setProjectSelectError())
         }
-    };
+    }
 
     const setProjectSelectError = () => {
-        return injectIntlTranslation(
-            intl,
-            "validationAtLeastOneProject",
-            "Please select a Project."
-        );
-    };
+        return injectIntlTranslation(intl, 'validationAtLeastOneProject', 'Please select a Project.')
+    }
 
     return (
         <Fragment>
@@ -100,7 +86,7 @@ const TagName = (props) => {
                     <TextField
                         className={`${classes.searchInput} ${classes.textFieldPlaceholder}`}
                         value={tagData}
-                        variant="outlined"
+                        variant='outlined'
                         InputProps={{
                             classes: {
                                 input: classes.searchInputRoot,
@@ -111,29 +97,17 @@ const TagName = (props) => {
                             },
                         }}
                         disabled={isDisabled}
-                        label={
-                            <span>
-                                {injectIntlTranslation(
-                                    intl,
-                                    "SelectionName",
-                                    "Selection name"
-                                ) + " *"}
-                            </span>
-                        }
-                        name="tagName"
-                        margin={"dense"}
-                        size={"small"}
-                        onChange={(event) =>
-                            validateTagName(event.target.value)
-                        }
+                        label={<span>{injectIntlTranslation(intl, 'SelectionName', 'Selection name') + ' *'}</span>}
+                        name='tagName'
+                        margin={'dense'}
+                        size={'small'}
+                        onChange={(event) => validateTagName(event.target.value)}
                     />
-                    <span className={classes.errorMsg}>
-                        {existingErrorTagName || ""}
-                    </span>
+                    <span className={classes.errorMsg}>{existingErrorTagName || ''}</span>
                 </div>
             </div>
         </Fragment>
-    );
-};
+    )
+}
 
-export default TagName;
+export default TagName

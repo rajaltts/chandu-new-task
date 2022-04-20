@@ -3,7 +3,7 @@ import ReportNotes from './ReportNotes'
 
 export default {
     title: 'Report Notes',
-    component: ReportNotes
+    component: ReportNotes,
 }
 
 const ReportNotesTemplate = ({ ...args }) => {
@@ -13,12 +13,12 @@ const ReportNotesTemplate = ({ ...args }) => {
 export const Decimal = ReportNotesTemplate.bind({})
 Decimal.args = {
     type: 'numeric',
-    notes: ['text 1', 'text 2']
+    notes: ['text 1', 'text 2'],
 }
 export const Star = ReportNotesTemplate.bind({})
 Star.args = {
     type: 'star',
-    notes: ['***text 1', '** text 2']
+    notes: ['***text 1', '** text 2'],
 }
 export const Roman = ReportNotesTemplate.bind({})
 Roman.args = {
@@ -29,14 +29,14 @@ export const HeaderType = ReportNotesTemplate.bind({})
 HeaderType.args = {
     type: 'roman',
     notes: ['text 1', 'text 2'],
-    headerType: 'h3'
+    headerType: 'h3',
 }
 
 const olList = {
-    width: "200px"
+    width: '200px',
 }
 const liList = {
-    color: 'green'
+    color: 'green',
 }
 
 export const StyleControlled = ReportNotesTemplate.bind({})
@@ -46,6 +46,6 @@ StyleControlled.args = {
     headerType: 'h3',
     classes: {
         olList: olList,
-        liList: liList
-    }
+        liList: liList,
+    },
 }

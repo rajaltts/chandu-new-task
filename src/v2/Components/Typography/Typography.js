@@ -1,9 +1,9 @@
-import { Typography as MaterialTypography } from "@material-ui/core"
+import { Typography as MaterialTypography } from '@material-ui/core'
 import useTypographyStyles from './Typography.style'
 import React from 'react'
 import classNames from 'classnames'
 
-const Typography = ({ bold, uppercase, className, ...rest}) => {
+const Typography = ({ bold, uppercase, className, ...rest }) => {
     const classes = useTypographyStyles()
     return (
         <MaterialTypography

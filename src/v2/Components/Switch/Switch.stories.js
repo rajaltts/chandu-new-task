@@ -16,14 +16,14 @@ export default {
         },
         handleChange: {
             table: {
-                disable: true
-            }
+                disable: true,
+            },
         },
         className: {
             table: {
-                disable: true
-            }
-        }
+                disable: true,
+            },
+        },
     },
 }
 

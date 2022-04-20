@@ -16,7 +16,6 @@ import { css } from '@emotion/core'
  * @returns {React.ReactElement} Loading spinner if no data or props.loading, or content (translated or not, depending on translate input props)
  */
 export const Format = ({ children, loading, translate, isPropName, sup, sub }) => {
-  
     if (children === null || children === undefined) return <></>
     if (children === '' && loading)
         return (
@@ -24,7 +23,7 @@ export const Format = ({ children, loading, translate, isPropName, sup, sub }) =
                 css={css`
                     display: block;
                     margin: 2px;
-                    width: "50%";
+                    width: '50%';
                 `}
                 size={7}
                 height={7}
@@ -49,8 +48,10 @@ export const Format = ({ children, loading, translate, isPropName, sup, sub }) =
                     )
                     .filter(Boolean)}
             </div>
-        ) : ""
-      else if (sub)
+        ) : (
+            ''
+        )
+    else if (sub)
         return children.match(/(\^.*?\^)/g) !== null ? (
             <div>
                 {children
@@ -64,13 +65,15 @@ export const Format = ({ children, loading, translate, isPropName, sup, sub }) =
                     )
                     .filter(Boolean)}
             </div>
-        ) : ""
+        ) : (
+            ''
+        )
     else if (Array.isArray(children))
         return (
-          <>           
-            {children.map((child, i) => (
-                <div key={`child-${i}`}>{child}</div>
-            ))}
+            <>
+                {children.map((child, i) => (
+                    <div key={`child-${i}`}>{child}</div>
+                ))}
             </>
         )
     return children

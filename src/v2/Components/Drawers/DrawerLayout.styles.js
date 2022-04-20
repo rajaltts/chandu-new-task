@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core"
+import { makeStyles } from '@material-ui/core'
 import { UI_SIZES } from '../utils/constants'
 
 export const useStyles = makeStyles((theme) => ({

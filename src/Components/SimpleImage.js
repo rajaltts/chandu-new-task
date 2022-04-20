@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 const ImageFolderPath = '/Images/'
 
 function SimpleImage(props) {
@@ -6,20 +6,17 @@ function SimpleImage(props) {
 
     useEffect(() => {
         let SelectedValue
-        if(props.Prop)
-            SelectedValue = props.Prop.Value
-        if (SelectedValue){
+        if (props.Prop) SelectedValue = props.Prop.Value
+        if (SelectedValue) {
             let ImageValue = props.Prop.Values.find((value) => {
                 return value.Value === SelectedValue
-            }) 
+            })
             SetImagePath(ImageFolderPath + ImageValue.Attributes.Image)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.Prop])
 
-    return (
-        <img alt="ImageAlt"  src={ImagePath}/>
-    );
+    return <img alt='ImageAlt' src={ImagePath} />
 }
 
-export default SimpleImage;
+export default SimpleImage

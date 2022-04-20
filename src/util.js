@@ -46,14 +46,14 @@ let defaultTheme = {
         text: {
             primary: '#333333',
             secondary: '#A7AFC3',
-            grey: '#a7abb6'
+            grey: '#a7abb6',
         },
         warning: {
             main: '#FF2A2A',
         },
         background: {
-            white: 'white'
-        }
+            white: 'white',
+        },
     },
     typography: {
         fontFamily: 'Roboto, sans-serif',
@@ -102,7 +102,7 @@ let defaultTheme = {
             height: pxToRem(16),
             letterSpacing: pxToRem(1),
             fontWeight: 600,
-        }
+        },
     },
     breakpoints: {
         values: {
@@ -121,7 +121,7 @@ let defaultTheme = {
         400: 400,
         500: 500,
         600: 600,
-        bold: "bold"
+        bold: 'bold',
     },
     rem: {
         9: pxToRem(9),
@@ -129,26 +129,26 @@ let defaultTheme = {
         16: pxToRem(16),
         80: pxToRem(80),
         109: pxToRem(109),
-        125: pxToRem(125)
+        125: pxToRem(125),
     },
     alignPosition: {
-        center: "center"
+        center: 'center',
     },
     common: {
         overFlowEllipsis: {
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap"
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
         },
         displayFlexRow: {
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
         },
         displayFlexColumn: {
-            display: "flex",
-            flexDirection: "column",
-        }
-    }
+            display: 'flex',
+            flexDirection: 'column',
+        },
+    },
 }
 
 export { pxToRem, defaultTheme }

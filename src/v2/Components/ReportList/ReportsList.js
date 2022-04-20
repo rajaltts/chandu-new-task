@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     drawerIcon: {
         color: theme.palette.grey.main,
         fontSize: 16,
-    }
+    },
 }))
 
 const ReportsList = ({ closeReportDrawer, intl }) => {
@@ -57,7 +57,7 @@ const ReportsList = ({ closeReportDrawer, intl }) => {
                     <RightArrowIcon className={drawerIcon} />
                 </IconButton>
                 <Typography variant='h2' color='primary'>
-                    {injectIntlTranslation(intl, "GENERATE_REPORTS")}
+                    {injectIntlTranslation(intl, 'GENERATE_REPORTS')}
                 </Typography>
             </div>
         </div>

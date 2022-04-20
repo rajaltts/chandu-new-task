@@ -101,33 +101,37 @@ const InputRange = ({
                     },
                     endAdornment: unit ? (
                         <InputAdornment position='end' className={`${classes.adornment} ${disabled ? 'disabled' : ''}`}>
-                            { units && units.length > 1 && (
+                            {units && units.length > 1 && (
                                 <>
-                                <Button
-                                    className={classes.dropdownButton}
-                                    variant='text'
-                                    onClick={openDropdown}
-                                    endIcon={<ArrowDropDownIcon />}>
-                                    {unit}
-                                </Button>
-                                <Menu
-                                    id={`menu-${id}`}
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={closeMenu}>
-                                    {units.map((option) => {
-                                        return (
-                                            <MenuItem
-                                                key={option}
-                                                selected={unit === option}
-                                                onClick={() => handleMenuItemClick(option)}>
-                                                {option}
-                                            </MenuItem>
-                                        )
-                                })}
-                                </Menu>
-                            </>)}
-                            { (units == null || units.length === 1) && unit ? unit : ''}
+                                    <Button
+                                        className={classes.dropdownButton}
+                                        variant='text'
+                                        onClick={openDropdown}
+                                        endIcon={<ArrowDropDownIcon />}
+                                    >
+                                        {unit}
+                                    </Button>
+                                    <Menu
+                                        id={`menu-${id}`}
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={closeMenu}
+                                    >
+                                        {units.map((option) => {
+                                            return (
+                                                <MenuItem
+                                                    key={option}
+                                                    selected={unit === option}
+                                                    onClick={() => handleMenuItemClick(option)}
+                                                >
+                                                    {option}
+                                                </MenuItem>
+                                            )
+                                        })}
+                                    </Menu>
+                                </>
+                            )}
+                            {(units == null || units.length === 1) && unit ? unit : ''}
                         </InputAdornment>
                     ) : (
                         ''

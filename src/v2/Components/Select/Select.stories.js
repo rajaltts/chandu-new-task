@@ -61,7 +61,7 @@ export default {
         },
         valueNotCompatibleText: {
             defaultValue: 'Invalid selection',
-        }
+        },
     },
 }
 

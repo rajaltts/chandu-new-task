@@ -61,12 +61,14 @@ const Select = ({
                 root: classes.formControl,
             }}
             disabled={disabled}
-            error={relaxed}>
+            error={relaxed}
+        >
             <InputLabel
                 classes={{ root: classes.formLabel }}
                 shrink
                 ref={inputLabel}
-                htmlFor='outlined-age-native-simple'>
+                htmlFor='outlined-age-native-simple'
+            >
                 {label}
             </InputLabel>
             <MaterialSelect
@@ -90,16 +92,17 @@ const Select = ({
                 }
                 classes={{ root: classes.selectRoot }}
                 className={`${className || ''}`}
-                {...rest} >
+                {...rest}
+            >
                 {values.map((v) => (
                     <MenuItem
                         key={v.value}
                         value={v.value}
-                        className={`${classes.optionItem} ${!v.feasible ? 'unfeasible' : ''}`}>
+                        className={`${classes.optionItem} ${!v.feasible ? 'unfeasible' : ''}`}
+                    >
                         {v.label}
                         {!v.feasible && (
-                            <Tooltip
-                                title={tooltipTitleUnfeasible}>
+                            <Tooltip title={tooltipTitleUnfeasible}>
                                 <IconButton className={classes.unfeasibleTooltipBtn}>
                                     <WarningIcon />
                                 </IconButton>
@@ -109,11 +112,7 @@ const Select = ({
                     </MenuItem>
                 ))}
             </MaterialSelect>
-            {relaxed && (
-                <FormHelperText>
-                    {valueNotCompatibleText}
-                </FormHelperText>
-            )}
+            {relaxed && <FormHelperText>{valueNotCompatibleText}</FormHelperText>}
         </FormControl>
     )
 }

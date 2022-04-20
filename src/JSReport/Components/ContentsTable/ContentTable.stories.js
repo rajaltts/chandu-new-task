@@ -3,43 +3,43 @@ import ContentTable from './ContentTable'
 
 export default {
     title: 'Contents Table',
-    component: ContentTable
+    component: ContentTable,
 }
 
 const labelStyle = {
-    fontWeight: "bold",
-    color: "blue"
+    fontWeight: 'bold',
+    color: 'blue',
 }
 
 const valueStyle = {
-    fontSize: "15px",
-    color: "red"
+    fontSize: '15px',
+    color: 'red',
 }
 
 const container = {
-    width: "400px"
+    width: '400px',
 }
 
 const olList = {
-    width: "200px"
+    width: '200px',
 }
 
 const liList = {
-    color: 'green'
+    color: 'green',
 }
 
 const shippingDimensions = [
-    { label: "Unit Length", value: "13' 9''" },
-    { label: "Unit Width", value: "7' 10''" },
-    { label: "Unit Height", value: "6' 1''" },
-    { label: "", value: "" },
-    { label: "Unit Operating Weight", value: "4145 lb" },
-    { label: "Unit Shipping Weight", value: "4182 lb" },
+    { label: 'Unit Length', value: "13' 9''" },
+    { label: 'Unit Width', value: "7' 10''" },
+    { label: 'Unit Height', value: "6' 1''" },
+    { label: '', value: '' },
+    { label: 'Unit Operating Weight', value: '4145 lb' },
+    { label: 'Unit Shipping Weight', value: '4182 lb' },
 ]
 
 const shippingDimNotes = [
-    "***Weights and dimensions are approximate. Weight does not include curbs and accessories. Approximate dimensions are provided primarily for shipping purposes. For exact dimensions refer to certified drawings",
-    "**Shipping Weight does not include extended leadtime options"
+    '***Weights and dimensions are approximate. Weight does not include curbs and accessories. Approximate dimensions are provided primarily for shipping purposes. For exact dimensions refer to certified drawings',
+    '**Shipping Weight does not include extended leadtime options',
 ]
 
 const ContentsTableTemplate = ({ ...args }) => {
@@ -50,14 +50,14 @@ export const DefaultWithNoProps = ContentsTableTemplate.bind({})
 export const ContentTableWithNotes = ContentsTableTemplate.bind({})
 ContentTableWithNotes.args = {
     content: shippingDimensions,
-    header: "Shipping Dimensions",
-    notes: shippingDimNotes
+    header: 'Shipping Dimensions',
+    notes: shippingDimNotes,
 }
 
 export const ContentTableStyleControlled = ContentsTableTemplate.bind({})
 ContentTableStyleControlled.args = {
     content: shippingDimensions,
-    header: "Shipping Dimensions",
+    header: 'Shipping Dimensions',
     notes: shippingDimNotes,
     notesType: 'numeric',
     classes: {
@@ -65,6 +65,6 @@ ContentTableStyleControlled.args = {
         valueStyle: valueStyle,
         container: container,
         olList: olList,
-        liList: liList
-    }
+        liList: liList,
+    },
 }
