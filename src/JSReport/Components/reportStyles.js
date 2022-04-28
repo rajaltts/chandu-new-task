@@ -113,7 +113,7 @@ const reportStyles = {
         animation: 'turn 4s linear 1.75s infinite !important',
     },
     pageFooter: {
-        ...flexRow,
+        ...flexColumn,
         minHeight: '2cm',
         maxHeight: '2cm',
         paddingLeft: '10px',
@@ -124,8 +124,7 @@ const reportStyles = {
         ...flexColumn,
         height: '100%',
         justifyContent: 'space-around',
-        alignItems: 'flex-start',
-        width: '90%',
+        width: '100%',
     },
     pageFooterLeftAreaFootNote: {
         ...flexColumn,
@@ -144,10 +143,9 @@ const reportStyles = {
     },
     pageFooterLeftAreaPackageVersion: {},
     pageFooterInfoWrapper: {
-        ...flexColumn,
+        ...flexRow,
         flex: '1',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
+        justifyContent: 'space-between',
         fontSize: '11px',
         height: '100%',
         marginBottom: '6px',

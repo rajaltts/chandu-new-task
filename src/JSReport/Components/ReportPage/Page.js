@@ -139,9 +139,9 @@ const Page = ({
                                 </div>
                             )}
 
-                            <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
                         </div>
                         <div style={reportStyles.pageFooterInfoWrapper}>
+                            <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
                             <span>
                                 {translation('Page')} <span className='page-number'></span>/
                                 <span className='number-of-pages'></span>
