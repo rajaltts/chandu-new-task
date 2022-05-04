@@ -46,7 +46,7 @@ const reportStyles = {
     },
     pageHeaderLeftArea: {
         ...flexColumn,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'flex-start',
         flex: '1',
         height: '100%',
@@ -67,7 +67,7 @@ const reportStyles = {
         alignItems: 'center',
         fontSize: '19px',
         fontWeight: '700',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         flex: '1',
         height: '100%',
     },
@@ -75,7 +75,10 @@ const reportStyles = {
         color: '#152c73',
     },
     pageHeaderReportTitleCiat: {
-        color: 'grey',
+        color: '#FF0000',
+    },
+    pageHeaderReportTitleDefault: {
+        color: '#000000',
     },
     pageHeaderMainTitle: {
         ...flexColumn,

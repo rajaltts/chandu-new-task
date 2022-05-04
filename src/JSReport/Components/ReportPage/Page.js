@@ -32,6 +32,7 @@ const Page = ({
     builderInfo,
     hideHeader = false,
     hideFooter = false,
+    hideDate = false
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
@@ -69,34 +70,34 @@ const Page = ({
                         <div style={reportStyles.pageHeaderLeftArea}>
                             <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
                             <div style={reportStyles.pageHeaderSubInfos}>
-                                <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
-                                <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                                { 
+                                    (fullName.length !== 0) && 
+                                    <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
+                                }
+                                {
+                                    !hideDate && <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                                }
                             </div>
                         </div>
 
-                        {modelBrand === 'carrier' && (
-                            <div
-                                style={{
-                                    ...reportStyles.pageHeaderReportTitle,
-                                    ...reportStyles.pageHeaderReportTitleCarrier,
-                                }}>
-                                {title}
+                        <div
+                            style={{
+                                ...reportStyles.pageHeaderReportTitle,
+                                ...(modelBrand === 'carrier'
+                                ? reportStyles.pageHeaderReportTitleCarrier
+                                : modelBrand === 'ciat' 
+                                ? reportStyles.pageHeaderReportTitleCiat
+                                : reportStyles.pageHeaderReportTitleDefault),
+                            }}>
+                            <span>{title}</span>
+                            <div style={reportStyles.pageHeaderMainTitle}>
+                                <span style={reportStyles.pageHeaderMainTitleModel}>
+                                    <Format loading sup>
+                                        {model}
+                                    </Format>
+                                </span>
                             </div>
-                        )}
-                        {modelBrand === 'ciat' && (
-                            <div style={reportStyles.pageHeaderReportTitle}>
-                                {title}
-                                {model && (
-                                    <div style={reportStyles.pageHeaderMainTitle}>
-                                        <span style={reportStyles.pageHeaderMainTitleModel}>
-                                            <Format loading sup>
-                                                {model}
-                                            </Format>
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                        </div>
 
                         <div style={reportStyles.pageHeaderInfoWrapper}>
                             {projectName && (
