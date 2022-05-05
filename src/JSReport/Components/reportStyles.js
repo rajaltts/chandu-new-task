@@ -46,7 +46,6 @@ const reportStyles = {
     },
     pageHeaderLeftArea: {
         ...flexColumn,
-        justifyContent: 'center',
         alignItems: 'flex-start',
         flex: '1',
         height: '100%',
@@ -56,8 +55,7 @@ const reportStyles = {
         maxHeight: '1.2cm',
     },
     pageHeaderSubInfos: {
-        fontSize: '11px',
-        marginTop: '5px'
+        fontSize: '11px'
     },
     pageHeaderSubInfosPreparatorName: {
         marginRight: '5px',

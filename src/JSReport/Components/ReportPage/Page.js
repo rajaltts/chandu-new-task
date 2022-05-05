@@ -67,7 +67,8 @@ const Page = ({
             <div style={reportStyles.page} ref={pageRef}>
                 {!hideHeader && (
                     <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
-                        <div style={reportStyles.pageHeaderLeftArea}>
+                        <div style={{...reportStyles.pageHeaderLeftArea,
+                        ...((fullName.length !== 0 || !hideDate) ? reportStyles.spaceBetween : reportStyles.justifycenter)}}>
                             <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
                             <div style={reportStyles.pageHeaderSubInfos}>
                                 { 
