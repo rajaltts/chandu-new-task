@@ -86,6 +86,7 @@ import StickyAside from './v2/Components/StickyAside'
 import CardLayout from './v2/Components/CardLayout'
 import Table from './v2/Components/Table'
 import TabsList from './v2/Components/TabsList/TabsList'
+import Section from './v2/Components/Section/Section'
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
 import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
@@ -214,4 +215,5 @@ export {
     SimpleLabelWithImageWarnIcon,
     SelectedModel,
     Select,
+    Section,
 }
