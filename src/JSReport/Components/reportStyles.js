@@ -57,6 +57,7 @@ const reportStyles = {
     },
     pageHeaderSubInfos: {
         fontSize: '11px',
+        marginTop: '5px'
     },
     pageHeaderSubInfosPreparatorName: {
         marginRight: '5px',
