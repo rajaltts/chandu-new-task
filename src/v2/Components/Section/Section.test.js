@@ -23,7 +23,7 @@ it('should be displayed', () => {
     act(() => {
         render(<Section title={title} />, container)
     })
-    const box = container.querySelector('.MuiBox-root')
+    const box = container.querySelector('#testSectionBox')
     expect(box).not.toBeNull()
 })
 
@@ -31,8 +31,8 @@ it('should display title', () => {
     act(() => {
         render(<Section title={title} />, container)
     })
-    const box = container.querySelector('.MuiBox-root')
-    const titleTypo = box.querySelector('.titleTypo')
+    const box = container.querySelector('#testSectionBox')
+    const titleTypo = box.querySelector('#testSectionTypo')
     expect(titleTypo).not.toBeNull()
     expect(titleTypo.textContent).toBe(title)
 })
@@ -41,8 +41,8 @@ it('should display divider', () => {
     act(() => {
         render(<Section title={title} />, container)
     })
-    const box = container.querySelector('.MuiBox-root')
-    const divider = box.querySelector('.MuiDivider-root')
+    const box = container.querySelector('#testSectionBox')
+    const divider = box.querySelector('#testSectionDivider')
     expect(divider).not.toBeNull()
 })
 
@@ -50,7 +50,7 @@ it('should not be displayed', () => {
     act(() => {
         render(<Section title={title} visible={false} />, container)
     })
-    const box = container.querySelector('.MuiBox-root')
+    const box = container.querySelector('#testSectionBox')
     expect(box).toBeNull()
 })
 
@@ -58,17 +58,20 @@ it('should not display divider', () => {
     act(() => {
         render(<Section title={title} divider={false} />, container)
     })
-    const box = container.querySelector('.MuiBox-root')
-    const divider = box.querySelector('.MuiDivider-root')
+    const box = container.querySelector('#testSectionBox')
+    const divider = box.querySelector('#testSectionDivider')
     expect(divider).toBeNull()
 })
 
 it('should display custom typo title', () => {
     act(() => {
-        render(<Section title={title} typographyProps={{align: 'center', variant : 'h3'}} />, container)
+        render(
+            <Section title={title} typographyProps={{align: 'center', color: 'secondary', variant : 'h3'}} />,
+            container
+        )
     })
-    const box = container.querySelector('.MuiBox-root')
-    const titleTypo = box.querySelector('.titleTypo')
+    const box = container.querySelector('#testSectionBox')
+    const titleTypo = box.querySelector('#testSectionTypo')
     expect(titleTypo).not.toBeNull()
     expect(titleTypo.textContent).toBe(title)
     // expect(titleTypo).toHaveStyle('text-align: center')

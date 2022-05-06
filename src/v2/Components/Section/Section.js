@@ -18,9 +18,9 @@ const Section = ({
     const classes = useStyles()
     if (!visible) return null
     return (
-        <Box {...rest} classes={{ root: classes.root, ...rest?.classes }}>
-            {divider && <Divider {...dividerProps} classes={{ root: classes.divider, ...dividerProps?.classes }} />}
-            <Typography paragraph variant='h2' className={`titleTypo ${classes.typography}`} {...typographyProps}>
+        <Box id='testSectionBox' {...rest} classes={{ root: classes.root, ...rest?.classes }}>
+            {divider && <Divider id='testSectionDivider' {...dividerProps} classes={{ root: classes.divider, ...dividerProps?.classes }} />}
+            <Typography id='testSectionTypo' paragraph variant='h2' className={`titleTypo ${classes.typography}`} {...typographyProps}>
                 {title}
             </Typography>
             {children}
