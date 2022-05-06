@@ -17,61 +17,66 @@ afterEach(() => {
     container = null
 })
 
+const id = 'forTest'
 const title = 'Section Title'
+
+const boxID = `#sectionBox_${id}`
+const sectionTypoID = `#sectionTypo_${id}`
+const sectionDividerID = `#sectionDivider_${id}`
 
 it('should be displayed', () => {
     act(() => {
-        render(<Section title={title} />, container)
+        render(<Section id={id} title={title} />, container)
     })
-    const box = container.querySelector('#testSectionBox')
+    const box = container.querySelector(boxID)
     expect(box).not.toBeNull()
 })
 
 it('should display title', () => {
     act(() => {
-        render(<Section title={title} />, container)
+        render(<Section id={id} title={title} />, container)
     })
-    const box = container.querySelector('#testSectionBox')
-    const titleTypo = box.querySelector('#testSectionTypo')
+    const box = container.querySelector(boxID)
+    const titleTypo = box.querySelector(sectionTypoID)
     expect(titleTypo).not.toBeNull()
     expect(titleTypo.textContent).toBe(title)
 })
 
 it('should display divider', () => {
     act(() => {
-        render(<Section title={title} />, container)
+        render(<Section id={id} title={title} />, container)
     })
-    const box = container.querySelector('#testSectionBox')
-    const divider = box.querySelector('#testSectionDivider')
+    const box = container.querySelector(boxID)
+    const divider = box.querySelector(sectionDividerID)
     expect(divider).not.toBeNull()
 })
 
 it('should not be displayed', () => {
     act(() => {
-        render(<Section title={title} visible={false} />, container)
+        render(<Section id={id} title={title} visible={false} />, container)
     })
-    const box = container.querySelector('#testSectionBox')
+    const box = container.querySelector(boxID)
     expect(box).toBeNull()
 })
 
 it('should not display divider', () => {
     act(() => {
-        render(<Section title={title} divider={false} />, container)
+        render(<Section id={id} title={title} divider={false} />, container)
     })
-    const box = container.querySelector('#testSectionBox')
-    const divider = box.querySelector('#testSectionDivider')
+    const box = container.querySelector(boxID)
+    const divider = box.querySelector(sectionDividerID)
     expect(divider).toBeNull()
 })
 
 it('should display custom typo title', () => {
     act(() => {
         render(
-            <Section title={title} typographyProps={{align: 'center', color: 'secondary', variant : 'h3'}} />,
+            <Section id={id} title={title} typographyProps={{align: 'center', color: 'secondary', variant : 'h3'}} />,
             container
         )
     })
-    const box = container.querySelector('#testSectionBox')
-    const titleTypo = box.querySelector('#testSectionTypo')
+    const box = container.querySelector(boxID)
+    const titleTypo = box.querySelector(sectionTypoID)
     expect(titleTypo).not.toBeNull()
     expect(titleTypo.textContent).toBe(title)
     // expect(titleTypo).toHaveStyle('text-align: center')
