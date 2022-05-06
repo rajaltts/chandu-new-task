@@ -20,7 +20,7 @@ const Section = ({
     return (
         <Box {...rest} classes={{ root: classes.root, ...rest?.classes }}>
             {divider && <Divider {...dividerProps} classes={{ root: classes.divider, ...dividerProps?.classes }} />}
-            <Typography paragraph variant='h2' className={classes.typography} {...typographyProps}>
+            <Typography paragraph variant='h2' className={`titleTypo ${classes.typography}`} {...typographyProps}>
                 {title}
             </Typography>
             {children}
