@@ -82,9 +82,9 @@ RadioGroup.propTypes = {
     className: PropTypes.string,
     row: PropTypes.bool,
     name: PropTypes.string,
-    restRadioGroup: PropTypes.RadioGroup,
-    restRadio: PropTypes.Radio,
-    restFormControl: PropTypes.FormControl,
+    restRadioGroup: PropTypes.object,
+    restRadio: PropTypes.object,
+    restFormControl: PropTypes.object,
 }
 
 export default RadioGroup
