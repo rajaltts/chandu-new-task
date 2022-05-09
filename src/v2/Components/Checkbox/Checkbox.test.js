@@ -17,6 +17,7 @@ afterEach(() => {
 })
 
 const label = 'my label'
+const tooltipTitle = 'tooltipTitle'
 
 it('should be checked', () => {
     act(() => {
@@ -75,7 +76,7 @@ it('should not be disabled', () => {
 
 it('should be relaxed', () => {
     act(() => {
-        render(<Checkbox value={true} relaxed={true} label={label} />, container)
+        render(<Checkbox value={true} relaxed={true} label={label} tooltipTitle={tooltipTitle} />, container)
     })
     const formControl = container.querySelector('.MuiFormControlLabel-root')
     expect(formControl).not.toBeNull()
@@ -89,6 +90,7 @@ it('should be relaxed', () => {
     expect(typo).not.toBeNull()
     const span = typo.querySelector('span')
     expect(span).not.toBeNull()
+    expect(span.textContent).toBe(label)
 })
 
 it('should not be relaxed', () => {
