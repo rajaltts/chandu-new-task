@@ -14,13 +14,13 @@ export default {
         divider: {
             defaultValue: true,
         },
-    }
+    },
 }
 
 const SectionTemplate = ({ ...args }) => {
     return (
         <Section {...args}>
-            <Typography>{"Section children"}</Typography>
+            <Typography>{'Section children'}</Typography>
         </Section>
     )
 }
@@ -28,24 +28,24 @@ const SectionTemplate = ({ ...args }) => {
 export const Default = SectionTemplate.bind({})
 
 Default.args = {
-    title: "Default Section"
+    title: 'Default Section',
 }
 
 export const WithoutDivider = SectionTemplate.bind({})
 
 WithoutDivider.args = {
     divider: false,
-    title: "Section without divider"
+    title: 'Section without divider',
 }
 
 export const WithTypographyProps = SectionTemplate.bind({})
 
 WithTypographyProps.args = {
     divider: true,
-    title: "Section with typography props",
+    title: 'Section with typography props',
     typographyProps: {
-        align: "center",
-        color: "secondary",
-        variant: "h3",
-    }
+        align: 'center',
+        color: 'secondary',
+        variant: 'h3',
+    },
 }

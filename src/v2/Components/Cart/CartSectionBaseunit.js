@@ -27,8 +27,7 @@ const CartSectionBaseunit = ({ intl, cartSectionConfig = {}, getPriceString = ()
                             item
                             sm={col.columnWidth}
                             key={col.key}
-                            style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}
-                        >
+                            style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                             <Typography variant='subtitle1' color='secondary'>
                                 {getPriceString(col.priceUnit, col.dataSource)}
                             </Typography>
