@@ -71,7 +71,7 @@ it('should not display divider', () => {
 it('should display custom typo title', () => {
     act(() => {
         render(
-            <Section id={id} title={title} typographyProps={{align: 'center', color: 'secondary', variant : 'h3'}} />,
+            <Section id={id} title={title} typographyProps={{ align: 'center', color: 'secondary', variant: 'h3' }} />,
             container
         )
     })
@@ -80,7 +80,7 @@ it('should display custom typo title', () => {
     expect(titleTypo).not.toBeNull()
     expect(titleTypo.textContent).toBe(title)
     // expect(titleTypo).toHaveStyle('text-align: center')
-    expect(titleTypo).toHaveStyle({textAlign: 'center'})
+    expect(titleTypo).toHaveStyle({ textAlign: 'center' })
     expect(titleTypo.classList.contains('MuiTypography-h3')).toBe(true)
     expect(titleTypo.classList.contains('MuiTypography-colorSecondary')).toBe(true)
 })

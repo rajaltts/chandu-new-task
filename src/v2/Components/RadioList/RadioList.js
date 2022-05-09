@@ -89,10 +89,9 @@ const RadioList = ({
      */
     const classes = useStyles()
 
-    const sortedValues = useMemo(
-        () => values.filter((a) => a.feasible).concat(values.filter((a) => !a.feasible)),
-        [values]
-    )
+    const sortedValues = useMemo(() => values.filter((a) => a.feasible).concat(values.filter((a) => !a.feasible)), [
+        values,
+    ])
 
     const items = useMemo(() => {
         return sortedValues.map((item, index) => {
@@ -114,11 +113,11 @@ const RadioList = ({
             let defaultGridProps = {}
             let itemComponent = <RadioCard {...defaultRadioCardProps} />
             if (defaultItemProps) {
-                const {
-                    render = null,
-                    radioCardProps = {},
-                    gridProps = {},
-                } = defaultItemProps(defaultProps, item, index)
+                const { render = null, radioCardProps = {}, gridProps = {} } = defaultItemProps(
+                    defaultProps,
+                    item,
+                    index
+                )
                 defaultGridProps = gridProps
                 const radioCardComponent = <RadioCard {...defaultRadioCardProps} {...radioCardProps} />
                 itemComponent = render ? render(radioCardComponent) : radioCardComponent

@@ -32,8 +32,7 @@ const CartSectionColumns = ({ intl, columnList = [], headerId = '' }) => {
                                 item
                                 sm={columnWidth}
                                 className={priceItem}
-                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}
-                            >
+                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='caption' className={legend}>
                                     {injectIntlTranslation(intl, label)}
                                 </Typography>

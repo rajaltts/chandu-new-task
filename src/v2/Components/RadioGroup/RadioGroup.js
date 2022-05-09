@@ -34,8 +34,7 @@ const RadioGroup = ({
                 data-error={`${name}__${relaxed}`}
                 data-value={`${name}__${value}`}
                 row={row}
-                {...restRadioGroup}
-            >
+                {...restRadioGroup}>
                 {values.map((radio) => {
                     return (
                         <FormControlLabel

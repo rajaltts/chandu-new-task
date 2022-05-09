@@ -13,8 +13,7 @@ export const Button = (props) => {
                 [classes.selected]: selected,
             })}
             variant={selected ? 'contained' : variant}
-            {...rest}
-        >
+            {...rest}>
             {children}
         </MaterialButton>
     )

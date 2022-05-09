@@ -32,8 +32,7 @@ const RadioCard = ({
                 disabled={loading || !feasible}
                 error={relaxed}
                 onClick={onClick}
-                {...mediaCardProps}
-            >
+                {...mediaCardProps}>
                 <Typography bold variant='body1' align='center' {...typographyProps}>
                     {label}
                 </Typography>
