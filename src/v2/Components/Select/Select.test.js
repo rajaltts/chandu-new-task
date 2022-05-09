@@ -45,7 +45,7 @@ it('should display label', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} handleChange={() => {}} />
+                <Select values={values} value={value} label={label} onChange={() => {}} />
             </MockIntl>,
             container
         )
@@ -59,7 +59,7 @@ it('should add custom class to root element', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} handleChange={() => {}} className='myCustomClass' />
+                <Select values={values} value={value} label={label} onChange={() => {}} className='myCustomClass' />
             </MockIntl>,
             container
         )
@@ -73,7 +73,7 @@ it('should not be disabled', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} handleChange={() => {}} />
+                <Select values={values} value={value} label={label} onChange={() => {}} />
             </MockIntl>,
             container
         )
@@ -93,7 +93,7 @@ it('should not be relaxed', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} handleChange={() => {}} />
+                <Select values={values} value={value} label={label} onChange={() => {}} />
             </MockIntl>,
             container
         )
@@ -112,7 +112,7 @@ it('should be relaxed', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} relaxed={true} handleChange={() => {}} />
+                <Select values={values} value={value} label={label} relaxed={true} onChange={() => {}} />
             </MockIntl>,
             container
         )
