@@ -187,7 +187,7 @@ const reportStyles = {
         justifyContent: 'center',
     },
     justifyend: {
-        justifyContent: 'end',
+        justifyContent: 'flex-end',
     },
     bgGrey: {
         backgroundColor: '#ececec',
