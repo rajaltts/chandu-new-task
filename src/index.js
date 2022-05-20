@@ -65,6 +65,8 @@ import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager'
 import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
 import Page from './JSReport/Components/ReportPage/Page'
+import DocxToHtml from './JSReport/Components/DocxToHtml/DocxToHtml'
+import RenderHtml from './JSReport/Components/RenderHtml/RenderHtml'
 
 import Select from './v2/Components/Select/Select'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
@@ -104,6 +106,7 @@ import ContentTable from './JSReport/Components/ContentsTable/ContentTable'
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes'
 import ReportContainer from './JSReport/Components/ReportContainer/ReportContainer'
 import ReportItemContainer from './JSReport/Components/ReportItemContainer/ReportItemContainer'
+import PageOverflow from './JSReport/Components/ReportPageOverflow/PageOverflow'
 import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon'
 
 import Chart from './Chart/Chart'
@@ -216,4 +219,7 @@ export {
     SelectedModel,
     Select,
     Section,
+    DocxToHtml,
+    PageOverflow,
+    RenderHtml
 }

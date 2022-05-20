@@ -106,6 +106,9 @@ const reportStyles = {
     pageHeaderInfoWrapperTagName: {
         color: '#131313',
     },
+    hideOverFlow: {
+        overflow: 'hidden'
+    },
     pageMain: {
         ...flexColumn,
         padding: '5mm',

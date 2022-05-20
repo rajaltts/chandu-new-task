@@ -1,6 +1,6 @@
 {
     "name": "@carrier/ngecat-reactcomponents",
-    "version": "3.33.168",
+    "version": "3.33.169",
     "description": "React components library used for NGECAT workflow UI apps",
     "main": "dist/ngecat-reactcomponents.min.js",
     "publishConfig": {
@@ -73,6 +73,7 @@
         "moment": "^2.24.0",
         "react-spinners": "^0.8.3",
         "echarts": "^5.1.2",
-        "echarts-for-react": "^3.0.1"
+        "echarts-for-react": "^3.0.1",
+        "mammoth": "1.4.21"
     }
 }
