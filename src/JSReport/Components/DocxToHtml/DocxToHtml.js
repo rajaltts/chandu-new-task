@@ -8,7 +8,7 @@ const DocxToHtml = ({ url = "" }) => {
     const convertDocx = async () => {
         if (url && (typeof url === 'string') && url.slice((url.lastIndexOf(".") - 1 >>> 0) + 2) === "docx") {
             try {
-                const { data } = await ApiService(url, null, null, 'arraybuffer')
+                const { data } = await ApiService(url, null, null, 'arraybuffer', null, null, {})
                 mammoth.convertToHtml({ arrayBuffer: data })
                     .then((result) => {
                         ref.current.innerHTML = result.value;
