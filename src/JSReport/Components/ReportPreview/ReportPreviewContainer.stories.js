@@ -48,7 +48,11 @@ const PageContent = ({ updateList, ...args }) => {
 }
 
 const ReportPreviewContainerTemplate = ({ ...args }) => {
-    return <ReportPreviewContainer {...args} />
+    return (
+        <ReportPreviewContainer {...args} >
+            <PageContent {...args}/>
+        </ReportPreviewContainer>
+    )
 }
 export const Basic = ReportPreviewContainerTemplate.bind({})
 Basic.args = {
@@ -64,5 +68,6 @@ Basic.args = {
     loading: false,
     reportDownloadable: true,
     cleanup: function test() {},
+    hideFooterPageInfo: false,
     jsReportApi: 'https://apim-carrier-qa.azure-api.net/',
 }
