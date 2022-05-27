@@ -2,7 +2,9 @@
 Component to convert and render an .docx file into html
 
 ## Props passable to Page Component:
-url: External URL link to where the file is housed
+apiUrl: api base URL
+containerName: blobstorage container name where file is housed
+filePath: file path inside blobstorage container where file is housed
 
 ## Limitation:
 1. Only works with .docx external file's urls
