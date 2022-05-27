@@ -42,7 +42,7 @@ const Page = ({
     const mainRef = useRef(null)
     const headerRef = useRef(null)
     const footerRef = useRef(null)
-    const PAGE_BODY = 927
+    const PAGE_BODY = 890
     const translateYAxis = (PAGE_BODY * (checkForOverflow ? overFlowIndex : 0))
     const translateYAxisStyle = {
         transform: `translateY(-${translateYAxis}px)`
@@ -51,26 +51,51 @@ const Page = ({
 
     // Tracks overflows after each new rendering, using React refs of page, header, content and footer
     useEffect(() => {
-        setTimeout(() => {
-            if (mainRef.current && pageRef.current && headerRef.current && footerRef.current) {
-                const pageBottom = pageRef.current.getBoundingClientRect().bottom
-                const footerBottom = footerRef.current.getBoundingClientRect().bottom
-                const maxChildrenHeight =
-                    pageRef.current.clientHeight - (headerRef.current.clientHeight + footerRef.current.clientHeight) + 1
-                const overflowDiv = document.getElementById(overflowDivId)
-                const overflowClientHeight = overflowDiv ? overflowDiv.clientHeight : 0
-                const overflowScrollHeight = overflowDiv ? overflowDiv.scrollHeight : 0
-                if (footerBottom > pageBottom || mainRef.current.clientHeight > maxChildrenHeight || overflowScrollHeight > overflowClientHeight) {
-                    setOverflow &&
-                        setOverflow({
-                            overFlowPagesCount: Math.ceil(overflowScrollHeight / mainRef.current.clientHeight),
-                            overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
-                            minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
-                        })
+        // Select the node that will be observed for mutations
+        const targetNode = document.getElementById(overflowDivId);
+
+        // Options for the observer (which mutations to observe)
+        const config = {
+            attributes: true,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: true,
+            characterDataOldValue: true
+        };
+
+        // Callback function to execute when mutations are observed
+        const callback = function (mutationList, observer) {
+            // Use traditional 'for loops' for IE 11
+            for (const mutation of mutationList) {
+                if (mutation.type === 'childList') {
+                    if (mainRef.current && pageRef.current && headerRef.current && footerRef.current) {
+                        const pageBottom = pageRef.current.getBoundingClientRect().bottom
+                        const footerBottom = footerRef.current.getBoundingClientRect().bottom
+                        const maxChildrenHeight =
+                            pageRef.current.clientHeight - (headerRef.current.clientHeight + footerRef.current.clientHeight) + 1
+                        const overflowDiv = document.getElementById(overflowDivId)
+                        const overflowScrollHeight = overflowDiv ? overflowDiv.scrollHeight : 0
+                        if (footerBottom > pageBottom || mainRef.current.clientHeight > maxChildrenHeight || overflowScrollHeight > PAGE_BODY) {
+                            setOverflow &&
+                                setOverflow({
+                                    overFlowPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
+                                    overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
+                                    children: children,
+                                    minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
+                                })
+                        }
+                    }
                 }
             }
-        }, 1000)
-    })
+        };
+
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(callback);
+
+        // Start observing the target node for configured mutations
+        observer.observe(targetNode, config);
+    }, [])
 
     return (
         <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
@@ -129,7 +154,7 @@ const Page = ({
                     </div>
                 )}
                 <div style={{ ...reportStyles.hideOverFlow, ...reportStyles.pageMain, ...reportStyles.roundBorder }} ref={mainRef}>
-                    <div id={overflowDivId} style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>{children}</div>
+                    <div style={reportStyles.hideOverFlow}><div id={overflowDivId} style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>{children}</div></div>
                 </div>
                 {!hideFooter && (
                     <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>

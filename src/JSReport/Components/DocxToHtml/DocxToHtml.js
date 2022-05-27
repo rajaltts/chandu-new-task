@@ -1,22 +1,28 @@
 import React, { useRef, useEffect } from 'react'
 import mammoth from "mammoth";
-import { ApiService } from '@carrier/workflowui-globalfunctions'
+import { getExternalFileContentAsBlob } from '@carrier/workflowui-globalfunctions'
 
-const DocxToHtml = ({ url = "" }) => {
+const DocxToHtml = ({ apiUrl = "", containerName = "", filePath = "" }) => {
     const ref = useRef();
 
     const convertDocx = async () => {
-        if (url && (typeof url === 'string') && url.slice((url.lastIndexOf(".") - 1 >>> 0) + 2) === "docx") {
+        if (filePath && (typeof filePath === 'string') && filePath.slice((filePath.lastIndexOf(".") - 1 >>> 0) + 2) === "docx" && containerName && apiUrl) {
             try {
-                const { data } = await ApiService(url, null, null, 'arraybuffer', null, null, {})
-                mammoth.convertToHtml({ arrayBuffer: data })
-                    .then((result) => {
-                        ref.current.innerHTML = result.value;
-                    })
-                    .catch(error => {
-                        ref.current.innerHTML = "";
-                    })
-                    .done();
+                const response = await getExternalFileContentAsBlob({ apiUrl, containerName, filePath, blobType: 'application/msword' })
+                if (response) {
+                    const fileReader = new FileReader();
+                    fileReader.onload = (event) => {
+                        mammoth.convertToHtml({ arrayBuffer: event.target.result })
+                            .then((result) => {
+                                ref.current.innerHTML = result.value;
+                            })
+                            .catch(error => {
+                                ref.current.innerHTML = "";
+                            })
+                            .done();
+                    };
+                    fileReader.readAsArrayBuffer(response);
+                }
             }
             catch (error) {
                 ref.current.innerHTML = "";
@@ -31,4 +37,4 @@ const DocxToHtml = ({ url = "" }) => {
     return (<div ref={ref} />)
 }
 
-export default DocxToHtml;
+export default DocxToHtml
