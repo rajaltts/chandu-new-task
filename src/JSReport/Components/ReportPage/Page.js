@@ -180,7 +180,7 @@ const Page = ({
                         </div>
                         <div style={reportStyles.pageFooterInfoWrapper}>
                             <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
-                            <span>
+                            <span className='report-page-number-footer'>
                                 {translation('Page')} <span className='page-number'></span>/
                                 <span className='number-of-pages'></span>
                             </span>

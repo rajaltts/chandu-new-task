@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import ErrorIcon from '@material-ui/icons/Error'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './ConfirmModal.css'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -154,6 +155,14 @@ const ConfirmModal = (props) => {
             )}
         </Dialog>
     )
+}
+
+ConfirmModal.defaultProps = {
+    modalWidth: undefined,
+}
+
+ConfirmModal.propTypes = {
+    modalWidth: PropTypes.oneOf(['false', 'xs', 'sm','md','lg','xl']),
 }
 
 export default ConfirmModal

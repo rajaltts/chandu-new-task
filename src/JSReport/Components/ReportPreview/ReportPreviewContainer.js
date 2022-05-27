@@ -18,6 +18,7 @@ const ReportPreviewContainer = ({
     reportConfig = {},
     jsReportApi = '',
     cleanup = undefined,
+    hideFooterPageInfo = false
 }) => {
     const { preLoadedStoreIndex, preLoadedReport, title, fileName = 'Test' } = reportConfig.options ?? {}
 
@@ -48,9 +49,17 @@ const ReportPreviewContainer = ({
         const getLastElementVisibleOnScreen = (elements) => {
             const pagesNumbers = Array.from(elements)
                 .map((element, pageNumber, pageArray) => {
-                    if (element.getElementsByClassName('page-number').length > 0) {
-                        element.getElementsByClassName('page-number')[0].textContent = pageNumber + 1
-                        element.getElementsByClassName('number-of-pages')[0].textContent = pageArray.length
+                    if (!hideFooterPageInfo) {
+                        const pageNumberElement = element.getElementsByClassName('page-number');
+                        if (pageNumberElement.length > 0) {
+                            pageNumberElement[0].textContent = pageNumber + 1
+                            element.getElementsByClassName('number-of-pages')[0].textContent = pageArray.length
+                        }
+                    } else {
+                        const pageNumberContainer = element.getElementsByClassName('report-page-number-footer');
+                        if (pageNumberContainer.length > 0) {
+                            pageNumberContainer[0].remove()
+                        }
                     }
 
                     const position = element.getBoundingClientRect()
