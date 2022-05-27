@@ -81,7 +81,6 @@ const Page = ({
                                 setOverflow({
                                     overFlowPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
                                     overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
-                                    children: children,
                                     minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
                                 })
                         }
