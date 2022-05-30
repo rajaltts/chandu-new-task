@@ -9,6 +9,8 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 // Styles
 import useStyles from './InputRange.styles'
 
+import { createAuthorizedProps } from '../utils/createAuthorizedProps'
+
 const InputRange = ({
     type,
     id,
@@ -31,6 +33,7 @@ const InputRange = ({
     const [error, setError] = useState(false)
     const [currentValue, setCurrentValue] = useState(value)
     const classes = useStyles()
+    const authorizedProps = createAuthorizedProps(TextField, rest)
     const MIN = parseInt(min, 10)
     const MAX = parseInt(max, 10)
     let helperText = ''
@@ -141,7 +144,7 @@ const InputRange = ({
                 onBlur={handleBlur}
                 error={error}
                 disabled={disabled}
-                {...rest}
+                {...authorizedProps}
             />
         </Box>
     )
