@@ -14,7 +14,8 @@ export const LayoutButton = (props) => {
     } else if (variant === 'text') {
         btnClasses = classes.textButton
     }
-    return <Button {...props} classes={{ ...props.classes, root: btnClasses }} />
+
+    return <Button {...props} className={`${props.className} ${btnClasses}`} />
 }
 
 LayoutButton.defaultProps = {
