@@ -134,8 +134,8 @@ const ConfirmModal = (props) => {
                                             <Button
                                                 classes={{ root: classes.footerButton }}
                                                 size='large'
-                                                variant='contained'
-                                                color='primary'
+                                                variant={actionButton.variant || 'contained'}
+                                                color={actionButton.color || 'primary'}
                                                 key={actionButton.id}
                                                 id={actionButton.id}
                                                 name={actionButton.name}
