@@ -71,9 +71,13 @@ import RenderHtml from './JSReport/Components/RenderHtml/RenderHtml'
 import Select from './v2/Components/Select/Select'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
 import Switch from './v2/Components/Switch/Switch'
+import Boolean from './v2/Components/ControlTypes/Boolean'
+import Discrete from './v2/Components/ControlTypes/Discrete'
+import RangeWithUnit from './v2/Components/ControlTypes/RangeWithUnit'
 import RadioGroup from './v2/Components/RadioGroup/RadioGroup'
 import ButtonGroup from './v2/Components/ButtonGroup/ButtonGroup'
 import DrawerLayout from './v2/Components/Drawers/DrawerLayout'
+import DrawerOption from './v2/Components/Drawers/DrawerOption'
 import ReportsList from './v2/Components/ReportList/ReportsList'
 import MediaCard from './v2/Components/MediaCard/MediaCard'
 import RadioList from './v2/Components/RadioList/RadioList'
@@ -82,13 +86,19 @@ import Typography from './v2/Components/Typography/Typography'
 import { LayoutButton } from './v2/Components/LayoutButton/LayoutButton'
 import { Button as Button2 } from './v2/Components/Button/Button'
 import InputRange from './v2/Components/InputRange/InputRange'
+import InputRadioCardList from './v2/Components/InputRadioCardList/InputRadioCardList'
 import LayoutDivider from './v2/Components/LayoutDivider'
 import { SelectedModel } from './v2/Components/SelectedModel/SelectedModel'
+import OptionAccordion from './v2/Components/OptionAccordion/OptionAccordion'
 import StickyAside from './v2/Components/StickyAside'
 import CardLayout from './v2/Components/CardLayout'
-import Table from './v2/Components/Table'
+import Table from './v2/Components/Table/Table'
 import TabsList from './v2/Components/TabsList/TabsList'
 import Section from './v2/Components/Section/Section'
+import IconButtonWithBadge from './v2/Components/IconButtonWithBadge/IconButtonWithBadge'
+import FabWithBadge from './v2/Components/FabWithBadge/FabWithBadge'
+import Loading from './v2/Components/Loading/Loading'
+import LoadingIcon from './v2/Components/Loading/LoadingIcon'
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
 import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
@@ -190,6 +200,7 @@ export {
     Table,
     CardLayout,
     DrawerLayout,
+    DrawerOption,
     ReportsList,
     LayoutDivider,
     StickyAside,
@@ -206,6 +217,7 @@ export {
     Typography,
     MediaCard,
     RadioCard,
+    InputRadioCardList,
     RadioList,
     ReportTable,
     ReportNotes,
@@ -218,8 +230,16 @@ export {
     SimpleLabelWithImageWarnIcon,
     SelectedModel,
     Select,
+    IconButtonWithBadge,
+    FabWithBadge,
     Section,
     DocxToHtml,
     PageOverflow,
-    RenderHtml
+    RenderHtml,
+    Loading,
+    LoadingIcon,
+    OptionAccordion,
+    Boolean,
+    Discrete,
+    RangeWithUnit,
 }

@@ -1,3 +1,7 @@
+// React
+import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
+
 // Material
 import {
     FormControl,
@@ -8,34 +12,23 @@ import {
     Tooltip,
     OutlinedInput,
     Box,
-    makeStyles,
 } from '@material-ui/core'
-import WarningIcon from '@material-ui/icons/Warning'
 
-// React
-import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import WarningIcon from '@material-ui/icons/Warning'
 
 // Components
 import Typography from '../Typography/Typography'
 
-const useStyles = makeStyles(() => ({
-    formControl: {
-        minWidth: 240,
-    },
-    menuItemContainer: {
-        display: 'flex',
-        flexWrap: 'nowrap',
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-}))
+// Styles
+import useStyles from './Select.styles'
 
 const Select = ({
     label,
     values,
-    onChange,
+    handleChange,
+    visible = true,
     disabled,
+    valid = true,
     relaxed,
     optionAction,
     excludeActionOption,
@@ -49,19 +42,25 @@ const Select = ({
 }) => {
     const inputLabel = useRef(null)
     const [labelWidth, setLabelWidth] = useState(0)
+    const [error, setError] = useState(false)
     const classes = useStyles()
 
     useEffect(() => {
-        setLabelWidth(inputLabel.current.offsetWidth)
+        setLabelWidth(visible ? inputLabel.current.offsetWidth : 0)
     }, [])
 
+    useEffect(() => {
+        setError(disabled || !visible ? false : !valid || relaxed)
+    }, [disabled, visible, valid, relaxed])
+
+    if(!visible) { return(<></>) }
     return (
         <>
             <FormControl
-                classes={{ root: classes.formControl }}
+                classes={`${classes.formControl}`}
                 variant='outlined'
                 disabled={disabled}
-                error={relaxed}
+                error={error}
                 {...formControlProps}>
                 <InputLabel shrink {...inputLabelProps} ref={inputLabel}>
                     {label}
@@ -82,7 +81,7 @@ const Select = ({
                     }}
                     {...rest}
                     label={label}
-                    onChange={(event, y, z) => onChange && onChange(event.target.value)}>
+                    onChange={(event) => handleChange && handleChange(event.target.value)}>
                     {values &&
                         values.map((v) => {
                             const box = (
@@ -132,7 +131,7 @@ Select.propTypes = {
     relaxed: PropTypes.bool,
     optionAction: PropTypes.any,
     excludeActionOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    onChange: PropTypes.func,
+    handleChange: PropTypes.func,
     info: PropTypes.string,
     tooltipErrorLabel: PropTypes.string,
     notCompatibleLabel: PropTypes.string,

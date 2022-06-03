@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
+import { translation } from '@carrier/ngecat-reactcomponents';
+
 // Styles
 import useStyles from './InputRange.styles'
 
@@ -20,8 +22,12 @@ const InputRange = ({
     units,
     unit,
     unitChange,
-    onChange,
+    handleChange,
+    loading,
     disabled,
+    visible = true,
+    valid,
+    isInteger = false,
     trigger,
     width,
     rest,
@@ -30,9 +36,11 @@ const InputRange = ({
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
     const [currentValue, setCurrentValue] = useState(value)
+    const [showWarning, setShowWarning] = useState(false);
     const classes = useStyles()
-    const MIN = parseInt(min, 10)
-    const MAX = parseInt(max, 10)
+    const MIN = parseFloat(min)
+    const MAX = parseFloat(max)
+    const formattedUnit = unit === 'F' || unit === 'C' ? `°${unit}` : unit
     let helperText = ''
 
     if (!isNaN(MIN) && isNaN(MAX)) {
@@ -43,12 +51,21 @@ const InputRange = ({
         helperText += `(Min: ${min}, Max: ${max})`
     }
 
-    const valueIsCorrect = (v) => (parseInt(v, 10) >= MIN || !MIN) && (parseInt(v, 10) <= MAX || !MAX)
+    const stripNonIntegers = (value, shouldReplace = false) =>
+        shouldReplace ? value.replace(/[^0-9-]/g, "").replace(/(?!^)-/g, "") : value;
+
+    const valueIsCorrect = (v) => disabled ? true : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
 
     useEffect(() => {
-        setCurrentValue(value)
         setError(!valueIsCorrect(value))
-    }, [value])
+    }, [disabled, visible, valid])
+
+    useEffect(() => {
+        if (value !== currentValue && !loading) {
+            setCurrentValue(value)
+            setError(!valueIsCorrect(value))
+        }
+    }, [value, loading])
 
     const openDropdown = (event) => {
         setAnchorEl(event.currentTarget)
@@ -63,23 +80,27 @@ const InputRange = ({
         setAnchorEl(null)
     }
 
-    const handleChange = (e) => {
-        setCurrentValue(e.target.value)
+    const valueChange = (e) => {
+        const value = stripNonIntegers(e.target.value, isInteger)
+        isInteger && setShowWarning(!(value === e.target.value))
+	    setCurrentValue(e.target.value)
         setError(!valueIsCorrect(e.target.value))
         if (!error && trigger === 'change') {
-            onChange(e.target.value)
+            handleChange(e.target.value)
         }
     }
 
     const handleBlur = (e) => {
         e.stopPropagation()
         setTouched(false)
+        showWarning && setShowWarning(false)
 
         if (trigger === 'blur' && e.target.value !== value) {
-            onChange(e.target.value)
+            handleChange(e.target.value)
         }
     }
 
+    if (!visible) {return (<></>)} //return nothing if VISIBLE subprop = FALSE : CJT
     return (
         <Box key={id} className={`${classes.inputContainer}`}>
             <TextField
@@ -128,15 +149,15 @@ const InputRange = ({
                                     </Menu>
                                 </>
                             )}
-                            {(units == null || units.length === 1) && unit ? unit : ''}
+                            {(units == null || units.length === 1) && unit ? {formattedUnit} : ''}
                         </InputAdornment>
                     ) : (
                         ''
                     ),
                 }}
-                helperText={touched && helperText}
+                helperText={touched && (showWarning ? translation("INTEGER_ONLY", "Please enter only integer values") : helperText)}
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
-                onChange={handleChange}
+                onChange={valueChange}
                 onFocus={() => setTouched(true)}
                 onBlur={handleBlur}
                 error={error}
@@ -163,7 +184,7 @@ InputRange.propTypes = {
     min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    onChange: PropTypes.func,
+    handleChange: PropTypes.func,
     disabled: PropTypes.bool,
     trigger: PropTypes.oneOf(['change', 'blur']),
 }

@@ -1,24 +1,20 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles, Tooltip, Checkbox as MaterialCheckbox, FormControlLabel } from '@material-ui/core'
+import { Tooltip, Checkbox as MaterialCheckbox, FormControlLabel } from '@material-ui/core'
+import useStyles from './Checkbox.styles'
 
-const useStyles = makeStyles((theme) => ({
-    relaxed: {
-        '& $root, $label': {
-            color: theme.palette.error.main,
-        },
-    },
-    root: {},
-    label: {},
-}))
-
-const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, tooltipTitle, ...rest }) => {
+const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, valid, visible = true, tooltipTitle, ...rest }) => {
     const classes = useStyles()
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        setError(disabled || !visible ? false : !valid || relaxed)
+    }, [disabled, visible, valid, relaxed])
 
     const Label = () => {
         return (
             <>
-                {relaxed ? (
+                {error ? (
                     <Tooltip title={tooltipTitle}>
                         <span>{label}</span>
                     </Tooltip>
@@ -29,12 +25,13 @@ const Checkbox = ({ className, value, handleChange, label, color, disabled, rela
         )
     }
 
+    if (!visible) {return (<></>)}
     return (
         <FormControlLabel
             classes={{
                 label: classes.label,
             }}
-            className={`${className || ''} ${relaxed ? classes.relaxed : ''}`}
+            className={`${className || ''} ${error ? classes.error : ''}`}
             aria-label={label}
             control={
                 <MaterialCheckbox

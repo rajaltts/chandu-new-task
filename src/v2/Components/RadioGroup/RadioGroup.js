@@ -14,7 +14,7 @@ const RadioGroup = ({
     value,
     values,
     disabled,
-    onChange,
+    handleChange,
     relaxed,
     restRadioGroup,
     restFormControl,
@@ -28,7 +28,7 @@ const RadioGroup = ({
                 name={name}
                 value={value}
                 onChange={(e) => {
-                    onChange(e.target.value, e)
+                    handleChange(e.target.value, e)
                 }}
                 data-disabled={`${name}__${disabled}`}
                 data-error={`${name}__${relaxed}`}
