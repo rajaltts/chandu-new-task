@@ -19,7 +19,7 @@ const fct = (defaultProps) => ({
 })
 
 export default {
-    title: 'Radio list',
+    title: 'InputComponent/Radio list',
     component: RadioList,
 }
 

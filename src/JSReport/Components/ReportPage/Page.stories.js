@@ -3,7 +3,7 @@ import Page from './Page'
 import ReportPreviewContainer from '../ReportPreview/ReportPreviewContainer';
 
 export default {
-    title: 'Page',
+    title: 'Report/Page',
     component: Page,
 }
 

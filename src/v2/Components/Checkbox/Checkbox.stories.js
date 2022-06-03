@@ -2,7 +2,7 @@ import React from 'react'
 import Checkbox from './Checkbox'
 
 export default {
-    title: 'Checkbox',
+    title: 'ActionComponent/Checkbox',
     component: Checkbox,
     argTypes: {
         value: {

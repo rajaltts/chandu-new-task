@@ -2,7 +2,7 @@ import React from 'react'
 import Charts from './Chart'
 
 export default {
-    title: 'Charts',
+    title: 'Chart/Charts',
     component: Charts,
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import RadioCard from './RadioCard'
 
 export default {
-    title: 'Radio card',
+    title: 'InputComponent/Radio card',
     component: RadioCard,
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import MyAutocomplete from './Autocomplete'
 
 export default {
-    title: 'Autocomplete',
+    title: 'InputComponent/Autocomplete',
     component: MyAutocomplete,
     argTypes: {
         values: {

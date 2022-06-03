@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Select from './Select'
 
 export default {
-    title: 'Select',
+    title: 'InputComponent/Select',
     component: Select,
     argTypes: {
         id: {

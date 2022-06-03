@@ -3,7 +3,7 @@ import ReportTableBody from './ReportTableBody';
 import reportStyles from '../reportStyles';
 
 export default {
-    title: 'Report Table Body',
+    title: 'Report/Report Table Body',
     component: ReportTableBody
 }
 

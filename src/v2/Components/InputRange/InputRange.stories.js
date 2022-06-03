@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import InputRange from './InputRange'
 
 export default {
-    title: 'Input Range',
+    title: 'InputComponent/Input Range',
     component: InputRange,
     argTypes: {
         min: {

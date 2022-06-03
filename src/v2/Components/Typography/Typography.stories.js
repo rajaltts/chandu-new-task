@@ -2,7 +2,7 @@ import React from 'react'
 import Typography from './Typography'
 
 export default {
-    title: 'Typography',
+    title: 'Miscellaneous/Typography',
     component: Typography,
 }
 const TypographyTemplate = ({ label, ...args }) => {

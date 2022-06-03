@@ -2,7 +2,7 @@ import React from 'react'
 import ReactCharts from './ReactCharts'
 
 export default {
-    title: 'ReactCharts',
+    title: 'Chart/ReactCharts',
     component: ReactCharts,
 }
 
