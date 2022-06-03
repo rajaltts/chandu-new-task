@@ -35,11 +35,13 @@ const DrawerOption = ({
     intl,
     columnData
 }) => {
+    debugger
     const theme = useTheme()
     const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
     const classes = useStyles()
     const currentLabel = defaultOption ? defaultLabel : label
     let currentAnchor = null
+    const isDragging = false 
 
     if (!columnData) {
         return null;
@@ -54,21 +56,6 @@ const DrawerOption = ({
             scrollTo(`#${currentAnchor}`, UI_SIZES.SCROLLOFFSET)
         }
     }
-
-    const [{ isDragging }, drag] = useDrag({
-        item: { name, type: selected ? 'SelectedOption' : 'AvailableOption' },
-        end: (item, monitor) => {
-            const dropResult = monitor.getDropResult()
-
-            if (item && dropResult) {
-                moveOption(item.name)
-            }
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-            handlerId: monitor.getHandlerId(),
-        }),
-    })
 
     const LegendHeader = () => {
         return (

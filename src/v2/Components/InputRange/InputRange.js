@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
-import { translation } from '@carrier/ngecat-reactcomponents';
+//import { translation } from '@carrier/ngecat-reactcomponents';
 
 // Styles
 import useStyles from './InputRange.styles'
@@ -155,7 +155,7 @@ const InputRange = ({
                         ''
                     ),
                 }}
-                helperText={touched && (showWarning ? translation("INTEGER_ONLY", "Please enter only integer values") : helperText)}
+                helperText={touched && (showWarning ? "Please enter only integer values": helperText)}
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
                 onChange={valueChange}
                 onFocus={() => setTouched(true)}
