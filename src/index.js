@@ -221,5 +221,5 @@ export {
     Section,
     DocxToHtml,
     PageOverflow,
-    RenderHtml
+    RenderHtml,
 }

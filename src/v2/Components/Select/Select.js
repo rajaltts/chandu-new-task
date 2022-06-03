@@ -19,6 +19,8 @@ import PropTypes from 'prop-types'
 // Components
 import Typography from '../Typography/Typography'
 
+import { createAuthorizedProps } from '../utils/createAuthorizedProps'
+
 const useStyles = makeStyles(() => ({
     formControl: {
         minWidth: 240,
@@ -51,6 +53,8 @@ const Select = ({
     const [labelWidth, setLabelWidth] = useState(0)
     const classes = useStyles()
 
+    const authorizedProps = createAuthorizedProps(MaterialSelect, rest)
+
     useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth)
     }, [])
@@ -78,9 +82,9 @@ const Select = ({
                             horizontal: 'left',
                         },
                         getContentAnchorEl: null,
-                        ...rest?.MenuProps,
+                        ...authorizedProps?.MenuProps,
                     }}
-                    {...rest}
+                    {...authorizedProps}
                     label={label}
                     onChange={(event, y, z) => onChange && onChange(event.target.value)}>
                     {values &&
