@@ -2,7 +2,7 @@ import React from 'react'
 import ReportContainer from './ReportContainer'
 
 export default {
-    title: 'Report Container',
+    title: 'Report/Report Container',
     component: ReportContainer,
 }
 

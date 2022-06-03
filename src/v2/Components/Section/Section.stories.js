@@ -5,7 +5,7 @@ import Section from './Section'
 import Typography from '../Typography/Typography'
 
 export default {
-    title: 'Section',
+    title: 'Layout/Section',
     component: Section,
     argTypes: {
         visible: {

@@ -2,7 +2,7 @@ import React from 'react'
 import HyperLinks from './HyperLinks'
 
 export default {
-    title: 'HyperLinks',
+    title: 'Report/Report/HyperLinks',
     component: HyperLinks,
     argTypes: {
         type: {

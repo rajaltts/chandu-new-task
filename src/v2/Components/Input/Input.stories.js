@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 
 export default {
-    title: 'Input',
+    title: 'InputComponent/Input',
     component: Input,
     argTypes: {
         label: {

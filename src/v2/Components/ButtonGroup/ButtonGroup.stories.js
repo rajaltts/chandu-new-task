@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ButtonGroup from './ButtonGroup'
 
 export default {
-    title: 'ButtonGroup',
+    title: 'ActionComponent/ButtonGroup',
     component: ButtonGroup,
 }
 
