@@ -11,15 +11,13 @@ import { getPriceString, scrollTo, slugify, UI_SIZES } from '@carrier/workflowui
 
 //Material UI
 import DeleteIcon from '@material-ui/icons/Delete'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { Box, Grid, IconButton, Typography } from '@material-ui/core'
+import { Box, Grid, IconButton, Typography, useTheme, useMediaQuery } from '@material-ui/core'
 
 //Styles
-import { useTheme } from '@material-ui/styles'
 import useStyles from './DrawerOption.styles'
 
 //Assets
-import { ReactComponent as DragHandleSvg } from './drag-handle.svg'
+import DragHandleSvg from './drag-handle.svg'
 
 const DrawerOption = ({
     defaultOption,
@@ -35,13 +33,11 @@ const DrawerOption = ({
     intl,
     columnData
 }) => {
-    debugger
     const theme = useTheme()
     const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
     const classes = useStyles()
     const currentLabel = defaultOption ? defaultLabel : label
     let currentAnchor = null
-    const isDragging = false 
 
     if (!columnData) {
         return null;
@@ -56,6 +52,21 @@ const DrawerOption = ({
             scrollTo(`#${currentAnchor}`, UI_SIZES.SCROLLOFFSET)
         }
     }
+
+    const [{ isDragging }, drag] = useDrag({
+        item: { name, type: selected ? 'SelectedOption' : 'AvailableOption' },
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult()
+
+            if (item && dropResult) {
+                moveOption(item.name)
+            }
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            handlerId: monitor.getHandlerId(),
+        }),
+    })
 
     const LegendHeader = () => {
         return (
@@ -76,6 +87,7 @@ const DrawerOption = ({
         )
     }
 
+    debugger
     return (
         <>
             {defaultOption && <LegendHeader />}

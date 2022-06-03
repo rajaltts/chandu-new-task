@@ -3,10 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // Material
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/styles'
-import { Box, Card, CardContent, Grid, IconButton, Tooltip } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
+import { Typography, Box, Card, CardContent, Grid, IconButton, Tooltip, useTheme, useMediaQuery } from '@material-ui/core'
 import WarningIcon from '@material-ui/icons/Warning'
 
 // Styles

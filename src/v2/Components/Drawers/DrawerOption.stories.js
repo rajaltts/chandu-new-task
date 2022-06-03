@@ -14,19 +14,16 @@ export default {
         columnData: {
             defaultValue: [{
                 key: '1',
-                value: 'PartNumber #1',
-                priceUnit: 'ABCD',
-                priceLabel: 'priceLabel #1',
+                value: '2000',
+                priceUnit: '$',
             },
             {
                 key: '2',
-                value: 'Quantity #2',
-                priceUnit: 2,
-                priceLabel: 'priceLabel #2',
+                value: '2',
             }]
         },
         draggable: {
-            defaultValue: false,
+            defaultValue: true,
         }
     },
 }

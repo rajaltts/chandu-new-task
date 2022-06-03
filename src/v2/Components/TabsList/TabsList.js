@@ -3,11 +3,7 @@ import tabsListStyles from './TabsList.styles'
 
 // Material
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/styles'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-
+import { useTheme, Tabs, Tab, useMediaQuery } from '@material-ui/core'
 const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChangeTab = null }) => {
     const theme = customTheme || useTheme()
     const [mobileTabsDropdownVisible, setMobileTabsDropdownVisible] = useState(false)
