@@ -2,7 +2,7 @@ import React from 'react'
 import ReportNotes from './ReportNotes'
 
 export default {
-    title: 'Report Notes',
+    title: 'Report/Report Notes',
     component: ReportNotes,
 }
 

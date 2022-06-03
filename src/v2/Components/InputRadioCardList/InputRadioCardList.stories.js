@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import InputRadioCardList from './InputRadioCardList'
 
 export default {
-    title: 'Input radio card list',
+    title: 'InputComponent/Input radio card list',
     component: InputRadioCardList,
     argTypes: {
         name: {

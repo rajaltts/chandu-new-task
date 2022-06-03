@@ -2,7 +2,7 @@ import React from 'react'
 import Switch from './Switch'
 
 export default {
-    title: 'Switch',
+    title: 'ActionComponent/Switch',
     component: Switch,
     argTypes: {
         value: {

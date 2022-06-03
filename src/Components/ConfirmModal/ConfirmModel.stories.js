@@ -4,7 +4,7 @@ import './ConfirmModal.css'
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 
 export default {
-    title: 'Confirm Modal',
+    title: 'Modal/Confirm Modal',
     component: ConfirmModal,
     modalWidth: {
         control: {

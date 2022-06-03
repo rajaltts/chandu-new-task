@@ -2,7 +2,7 @@ import React from 'react'
 import ReportImage from './ReportImage'
 
 export default {
-    title: 'Report Image',
+    title: 'Report/Report Image',
     component: ReportImage,
 }
 

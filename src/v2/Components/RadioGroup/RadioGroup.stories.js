@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import RadioGroup from './RadioGroup'
 
 export default {
-    title: 'Radio group',
+    title: 'InputComponent/Radio group',
     component: RadioGroup,
     argTypes: {
         values: {

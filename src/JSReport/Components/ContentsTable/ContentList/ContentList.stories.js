@@ -2,7 +2,7 @@ import React from 'react'
 import ContentList from './ContentList'
 
 export default {
-    title: 'Content List',
+    title: 'Report/Content List',
     component: ContentList,
 }
 

@@ -3,7 +3,7 @@ import ReportItemContainer from './ReportItemContainer'
 import ReportContainer from '../ReportContainer/ReportContainer'
 
 export default {
-    title: 'Report Item Container',
+    title: 'Report/Report Item Container',
     component: ReportItemContainer,
     argTypes: {
         style: {

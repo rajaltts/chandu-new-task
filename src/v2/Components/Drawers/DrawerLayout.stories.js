@@ -2,7 +2,7 @@ import React from 'react'
 import DrawerLayout from './DrawerLayout'
 
 export default {
-    title: 'DrawerLayout',
+    title: 'Layout/DrawerLayout',
     component: DrawerLayout,
     argTypes: {
         isOpen: {

@@ -2,7 +2,7 @@ import React from 'react'
 import MediaCard from './MediaCard'
 
 export default {
-    title: 'Media card',
+    title: 'InputComponent/Media card',
     component: MediaCard,
 }
 

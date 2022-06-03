@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectedModel } from './SelectedModel'
 
 export default {
-    title: 'SelectedModel',
+    title: 'Layout/SelectedModel',
     component: SelectedModel,
 }
 

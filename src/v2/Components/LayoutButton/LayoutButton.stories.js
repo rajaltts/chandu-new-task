@@ -2,7 +2,7 @@ import React from 'react'
 import { LayoutButton } from './LayoutButton'
 
 export default {
-    title: 'LayoutButton',
+    title: 'ActionComponent/LayoutButton',
     component: LayoutButton,
 }
 

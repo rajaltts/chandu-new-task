@@ -2,7 +2,7 @@ import React from 'react'
 import ReportTableTitle from './ReportTableTitle'
 
 export default {
-    title: 'Report Table Title',
+    title: 'Report/Report Table Title',
     component: ReportTableTitle,
 }
 

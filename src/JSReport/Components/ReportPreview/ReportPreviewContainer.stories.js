@@ -3,7 +3,7 @@ import ReportPreviewContainer from './ReportPreviewContainer'
 import Page from '../ReportPage/Page'
 
 export default {
-    title: 'Report Preview Container',
+    title: 'Report/Report Preview Container',
     component: ReportPreviewContainer,
     argTypes: {
         cleanup: {

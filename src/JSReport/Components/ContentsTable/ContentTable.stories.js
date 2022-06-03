@@ -2,7 +2,7 @@ import React from 'react'
 import ContentTable from './ContentTable'
 
 export default {
-    title: 'Contents Table',
+    title: 'Report/Contents Table',
     component: ContentTable,
 }
 
