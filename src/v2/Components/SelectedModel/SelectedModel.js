@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const SelectedModel = ({ title, value }) => {
+export const SelectedModel = ({ title, value, className, ...rest }) => {
     const classes = useStyles()
 
     return (
-        <div id='selection-name' className={classes.selectionName}>
+        <div id='selection-name' className={`${classes.selectionName} ${className}`} {...rest}>
             <span className={classes.selectionNameSpan} />
             <div className={classes.selectedModelContainer}>
                 <Typography className={classes.selectedModelText} variant='body2'>
