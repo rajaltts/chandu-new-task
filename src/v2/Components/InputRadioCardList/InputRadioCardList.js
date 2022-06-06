@@ -179,7 +179,7 @@ InputRadioCardList.defaultProps = {
     nbItemsPerRowMobile: 1,
     nbItemsPerRow: 3,
     hasMedia: false,
-    color: 'secondary',
+    color: 'primary',
 }
 
 InputRadioCardList.propTypes = {
