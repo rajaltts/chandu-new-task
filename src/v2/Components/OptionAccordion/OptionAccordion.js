@@ -1,5 +1,5 @@
 // React
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 
@@ -7,14 +7,18 @@ import { injectIntl } from 'react-intl'
 import { slugify, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
 // Material
-import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
-import { Box, FormControlLabel, Grid, Tooltip } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
-import CheckIcon from '@material-ui/icons/Check'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import Checkbox  from '@material-ui/core/Checkbox'
+import { 
+    Accordion, 
+    AccordionSummary, 
+    AccordionDetails, 
+    Typography, 
+    Checkbox, 
+    Box, 
+    FormControlLabel, 
+    Grid, 
+    Tooltip 
+} from '@material-ui/core'
+import { Check, ArrowDropDown } from '@material-ui/icons'
 
 // Styles
 import useStyles from './OptionAccordion.styles'
@@ -93,11 +97,11 @@ const OptionAccordion = ({
             expanded={keepDetailsOpen ? keepDetailsOpen : isOpen}
             onChange={(e, expanded) => accordionChange(e, expanded, hasDetails)}
             elevation={0}>
-            <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+            <AccordionSummary expandIcon={<ArrowDropDown />}>
                 <Grid container>
                     {alwaysSelected ? (
                         <Box className={classes.readonlyOptionTitle} display='flex'>
-                            <CheckIcon />
+                            <Check />
                             <Label data-Label={`${name}__${currentLabel}`} />
                         </Box>
                     ) : (

@@ -90,6 +90,7 @@ import InputRadioCardList from './v2/Components/InputRadioCardList/InputRadioCar
 import LayoutDivider from './v2/Components/LayoutDivider'
 import { SelectedModel } from './v2/Components/SelectedModel/SelectedModel'
 import OptionAccordion from './v2/Components/OptionAccordion/OptionAccordion'
+import SelectWithAccordion from './v2/Components/SelectWithAccordion/SelectWithAccordion'
 import StickyAside from './v2/Components/StickyAside'
 import CardLayout from './v2/Components/CardLayout'
 import Table from './v2/Components/Table/Table'
@@ -239,6 +240,7 @@ export {
     Loading,
     LoadingIcon,
     OptionAccordion,
+    SelectWithAccordion,
     Boolean,
     Discrete,
     RangeWithUnit,
