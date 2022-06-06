@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Hidden from '@material-ui/core/Hidden'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
+import { Hidden, Table, TableHead, TableBody, TableContainer } from '@material-ui/core'
 import useStyles from './Table.styles'
 
 const MyTable = ({ headRow, bodyRows, className }) => {
