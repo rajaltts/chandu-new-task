@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Fab from '@material-ui/core/Fab'
-import Badge from '@material-ui/core/Badge'
+import { Fab, Badge } from '@material-ui/core'
 import useStyles from './FabWithBadge.styles'
 
 const FabWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon }) => {

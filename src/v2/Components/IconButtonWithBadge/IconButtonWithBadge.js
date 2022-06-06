@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
+import { IconButton, Badge } from '@material-ui/core'
 import useStyles from './IconButtonWithBadge.styles'
 
 const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon }) => {
