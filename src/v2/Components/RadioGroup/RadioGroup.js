@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
-import MaterialRadioGroup from '@material-ui/core/RadioGroup'
-import MaterialRadio from '@material-ui/core/Radio'
+import { 
+    FormControl, 
+    FormControlLabel, 
+    FormLabel, 
+    RadioGroup as MaterialRadioGroup, 
+    Radio as MaterialRadio
+} from '@material-ui/core'
 
 const RadioGroup = ({
     className,
