@@ -1,6 +1,13 @@
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
+    inputContainer: {
+        position: 'relative',
+        '&.invisible': {
+            opacity: 0.4,
+            pointerEvents: 'none',
+        },
+    },
     input: {
         height: 36,
         '& > div': {
@@ -21,7 +28,16 @@ const useStyles = makeStyles((theme) => ({
             borderWidth: `1px!important`,
             borderColor: `${theme.palette.grey[900]}!important`,
         },
+
+        '&$inputError': {
+            color: theme.palette.red,
+
+            '& $inputNotchedOutline': {
+                borderColor: theme.palette.red,
+            },
+        },
     },
+    inputError: {},
     inputNotchedOutline: {
         borderColor: theme.palette.grey.main,
     },

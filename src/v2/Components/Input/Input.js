@@ -8,21 +8,51 @@ import { TextField } from '@material-ui/core'
 // Styles
 import useStyles from './Input.styles'
 
-const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, required, disabled, rest }) => {
+const Input = ({ type, id, name, label, variant, value, loading, InputProps, handleChange, required, relaxed, disabled, valid, visible = true, isInteger, rest }) => {
     const [currentValue, setCurrentValue] = useState(value)
+    const [error, setError] = useState(false)
+    const [touched, setTouched] = useState(false)
+    const [showWarning, setShowWarning] = useState(false)
     const classes = useStyles()
 
-    useEffect(() => {
-        setCurrentValue(value)
-    }, [value])
+    let helperText = ''
 
-    const handleChange = (e) => {
-        setCurrentValue(e.target.value)
+    const stripNonIntegers = (value, shouldReplace = false) =>
+        shouldReplace ? value.replace(/[^0-9-]/g, "").replace(/(?!^)-/g, "") : value;
+
+    useEffect(() => {
+        setError(isErrored() || relaxed)
+    }, [disabled, visible, valid])
+    
+    useEffect(() => {
+        if (value !== currentValue && !loading) {
+            setCurrentValue(value)
+            setError(isErrored() || relaxed)
+        }
+    }, [value, loading])
+
+    const isErrored = () => disabled || !visible ? false : !valid
+
+    const valueChange = (e) => {
+        const value = stripNonIntegers(e.target.value, isInteger)
+        isInteger && setShowWarning(!(value === e.target.value))
+        setCurrentValue(value)
     }
 
+    const handleBlur = (e) => {
+        e.stopPropagation()
+        setTouched(false)
+        showWarning && setShowWarning(false)
+
+        if (e.target.value !== value) {
+            handleChange(e.target.value)
+        }
+    }
+    
+    if(!visible) { return(<></>) }
     return (
         <TextField
-            type={type}
+            type={isInteger ? 'text' : type}
             id={id}
             name={name}
             className={classes.input}
@@ -32,6 +62,7 @@ const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, 
             InputProps={{
                 classes: {
                     focused: classes.inputFocused,
+                    error: classes.inputError,
                     notchedOutline: classes.inputNotchedOutline,
                 },
                 ...InputProps,
@@ -45,10 +76,13 @@ const Input = ({ type, id, name, label, variant, value, InputProps, handleBlur, 
                 },
                 shrink: true,
             }}
-            onChange={handleChange}
+            helperText={touched && (showWarning ? "Please enter only integer values": helperText)}
+            onChange={valueChange}
             onBlur={handleBlur}
+            onFocus={() => setTouched(true)}
             required={required}
             disabled={disabled}
+            error={error}
             {...rest}
         />
     )
@@ -65,7 +99,7 @@ Input.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     variant: PropTypes.oneOf(['filled', 'outlined', 'standard']),
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     InputProps: PropTypes.object,
     handleChange: PropTypes.func,
     required: PropTypes.bool,

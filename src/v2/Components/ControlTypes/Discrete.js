@@ -19,7 +19,7 @@ const Discrete = ({
     rulesLoading,
     onNewAssignment,
 }) => {
-    const { value, label, values, visible, valid, relaxed, enabled, default: defaultValue } = extractDataFromRules(rulesJson, name, intl, excludeUnfeasible)
+    const { value, label, values, visible, valid, relaxed, enabled, default: defaultValue, children: subChildren } = extractDataFromRules(rulesJson, name, intl, excludeUnfeasible)
 
     const handleChange = (value) => {
         //Create an assignment for the rules property and value for this component
@@ -79,6 +79,7 @@ const Discrete = ({
             relaxed,
             visible,
             disabled: rulesLoading || !enabled,
+            subChildren,
         })
     })
 

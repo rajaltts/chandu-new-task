@@ -31,12 +31,14 @@ const InputRange = ({
     trigger,
     width,
     rest,
+    relaxed
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
     const [currentValue, setCurrentValue] = useState(value)
     const [showWarning, setShowWarning] = useState(false);
+    const [isUserInput, setIsUserInput] = useState(false)
     const classes = useStyles()
     const MIN = parseFloat(min)
     const MAX = parseFloat(max)
@@ -54,16 +56,22 @@ const InputRange = ({
     const stripNonIntegers = (value, shouldReplace = false) =>
         shouldReplace ? value.replace(/[^0-9-]/g, "").replace(/(?!^)-/g, "") : value;
 
-    const valueIsCorrect = (v) => disabled ? true : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
+    const valueIsCorrect = (v) => {
+    	return !disabled 
+	    ? isUserInput
+	    	? ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX))
+		    : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
+	    : true
+	    }
 
     useEffect(() => {
-        setError(!valueIsCorrect(value))
-    }, [disabled, visible, valid])
+        setError(!valueIsCorrect(currentValue) || relaxed)
+    }, [disabled, visible, valid, currentValue, isUserInput])
 
     useEffect(() => {
         if (value !== currentValue && !loading) {
             setCurrentValue(value)
-            setError(!valueIsCorrect(value))
+            setError(!valueIsCorrect(value) || relaxed)
         }
     }, [value, loading])
 
@@ -84,6 +92,7 @@ const InputRange = ({
         const value = stripNonIntegers(e.target.value, isInteger)
         isInteger && setShowWarning(!(value === e.target.value))
 	    setCurrentValue(e.target.value)
+	    setIsUserInput(true)
         setError(!valueIsCorrect(e.target.value))
         if (!error && trigger === 'change') {
             handleChange(e.target.value)
@@ -92,6 +101,7 @@ const InputRange = ({
 
     const handleBlur = (e) => {
         e.stopPropagation()
+	    setIsUserInput(false)
         setTouched(false)
         showWarning && setShowWarning(false)
 
