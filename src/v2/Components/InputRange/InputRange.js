@@ -11,23 +11,22 @@ import useStyles from './InputRange.styles'
 
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
 
-const InputRange = ({
-    type,
-    id,
-    label,
-    variant,
-    min,
-    max,
-    value,
-    units,
-    unit,
-    unitChange,
-    onChange,
-    disabled,
-    trigger,
-    width,
-    rest,
-}) => {
+const InputRange = (props) => {
+    const { type,
+        id,
+        label,
+        variant,
+        min,
+        max,
+        value,
+        units,
+        unit,
+        unitChange,
+        onChange,
+        disabled,
+        trigger,
+        width,
+        ...rest } = props
     const [anchorEl, setAnchorEl] = useState(null)
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
