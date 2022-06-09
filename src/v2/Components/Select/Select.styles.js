@@ -53,6 +53,59 @@ const useStyles = makeStyles((theme) => ({
             borderColor: theme.palette.grey.main,
         },
     },
+    selectRoot: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '36px',
+        minHeight: '36px',
+        padding: theme.spacing(0, 4, 0, 2),
+        boxSizing: 'border-box',
+        '&::after': {
+            content: '""',
+            position: 'absolute',
+            right: 0,
+            width: 36,
+            height: '100%',
+        },
+    },
+    menuWrapper: {
+        margin: theme.spacing(1, 0, 0),
+    },
+    menu: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: 0,
+        overflow: 'hidden',
+        '&.MuiInputBase-root': {
+            padding: theme.spacing(0, 4, 0, 0),
+        },
+        '& .MuiList-padding': {
+            padding: 0,
+        },
+        '& li': {
+            fontSize: 15,
+            padding: theme.spacing(1),
+            width: '100%',
+            justifyContent: 'space-between',
+            '&:not(:last-child)': {
+                borderBottom: `2px solid ${theme.palette.grey[350]}`,
+            },
+            '&.Mui-selected': {
+                color: `${theme.palette.secondary.main}`,
+                background: 'transparent',
+                fontWeight: 500,
+
+                '&.unfeasible': {
+                    color: theme.palette.error.main,
+                },
+            },
+            '&.unfeasible': {
+                color: theme.palette.error.main,
+            },
+        },
+    },
     menuItemContainer: {
         display: 'flex',
         flexWrap: 'nowrap',

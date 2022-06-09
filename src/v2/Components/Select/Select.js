@@ -70,6 +70,10 @@ const Select = ({
                 <MaterialSelect
                     input={<OutlinedInput notched labelWidth={labelWidth} {...inputProps} />}
                     MenuProps={{
+                        classes: {
+                            paper: classes.menuWrapper,
+                            list: classes.menu,
+                        },
                         anchorOrigin: {
                             vertical: 'bottom',
                             horizontal: 'left',
@@ -84,6 +88,7 @@ const Select = ({
                     style={{ width: width }}
                     {...rest}
                     label={label}
+                    className={classes.selectRoot}
                     onChange={(event) => handleChange && handleChange(event.target.value)}
                     value={value}>
                     {values &&
