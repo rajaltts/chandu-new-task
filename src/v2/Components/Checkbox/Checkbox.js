@@ -50,7 +50,7 @@ const Checkbox = ({ className, value, handleChange, label, color, disabled, rela
 }
 
 Checkbox.defaultProps = {
-    color: 'secondary',
+    color: 'primary',
     disabled: false,
     relaxed: false,
 }

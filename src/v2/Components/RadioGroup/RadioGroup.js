@@ -8,6 +8,8 @@ import {
     Radio as MaterialRadio
 } from '@material-ui/core'
 
+import useStyles from './RadioGroup.styles'
+
 const RadioGroup = ({
     className,
     row,
@@ -24,6 +26,7 @@ const RadioGroup = ({
     restFormControl,
     restRadio,
 }) => {
+    const classes = useStyles()
     return (
         <FormControl component='fieldset' className={className}>
             {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
@@ -46,6 +49,7 @@ const RadioGroup = ({
                             value={radio.value}
                             control={
                                 <MaterialRadio
+                                    className={classes.root}
                                     id={name}
                                     data-label={radio.label}
                                     data-disabled={`${name}__${disabled}`}
@@ -71,7 +75,7 @@ const RadioGroup = ({
 RadioGroup.defaultProps = {
     row: false,
     disabled: false,
-    color: 'secondary',
+    color: 'primary',
     displayLabel: true,
 }
 
