@@ -87,6 +87,7 @@ import { LayoutButton } from './v2/Components/LayoutButton/LayoutButton'
 import { Button as Button2 } from './v2/Components/Button/Button'
 import InputRange from './v2/Components/InputRange/InputRange'
 import Input from './v2/Components/Input/Input'
+import ImageContent from './v2/Components/ImageContent/ImageContent'
 import InputRadioCardList from './v2/Components/InputRadioCardList/InputRadioCardList'
 import LayoutDivider from './v2/Components/LayoutDivider'
 import { SelectedModel } from './v2/Components/SelectedModel/SelectedModel'
@@ -246,4 +247,5 @@ export {
     Discrete,
     RangeWithUnit,
     Input,
+    ImageContent,
 }
