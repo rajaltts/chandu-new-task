@@ -1,7 +1,7 @@
 export const createAuthorizedProps = (reactComponent, ref) => {
     const authorizedProps = {}
     for (const propName in reactComponent?.Naked?.propTypes) {
-        authorizedProps[propName] = ref && ref[propName]
+        if(ref && ref[propName] !== undefined) authorizedProps[propName] = ref[propName]
     }
     return authorizedProps
 }
