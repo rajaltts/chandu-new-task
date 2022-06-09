@@ -25,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
             },
         },
 
+        '& .MuiCheckbox-root': {
+            color: theme.palette.primary.main,
+        },
+
+        '& .MuiCheckbox-root.Mui-disabled': {
+            color: theme.palette.grey.main,
+        },
+
         '& .MuiAccordionDetails-root': {
             padding: 20,
 
@@ -75,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     optionPrice: {
         fontWeight: 600,
         margin: `auto ${theme.spacing(6)}px auto 0`,
+        minWidth: '61px'
     },
     optionDescrTitle: {
         fontWeight: 600,

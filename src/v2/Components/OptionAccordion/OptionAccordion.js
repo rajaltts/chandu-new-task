@@ -12,13 +12,15 @@ import {
     AccordionSummary, 
     AccordionDetails, 
     Typography, 
-    Checkbox, 
     Box, 
     FormControlLabel, 
     Grid, 
     Tooltip 
 } from '@material-ui/core'
 import { Check, ArrowDropDown } from '@material-ui/icons'
+
+// Checkbox
+import Checkbox from '../Checkbox/Checkbox'
 
 // Styles
 import useStyles from './OptionAccordion.styles'
@@ -129,12 +131,12 @@ const OptionAccordion = ({
                     )}
                     <div className={classes.optionRightContent}>
                         {selectedOptionQuantity && (
-                            <Typography className={classes.optionPrice} color='secondary'>
+                            <Typography className={classes.optionPrice} color='primary'>
                                 {`${injectIntlTranslation(intl, "Quantity: ")}`} {selectedOptionQuantity}
                             </Typography>
                         )}
                         {selectedOptionPrice && (
-                            <Typography className={classes.optionPrice} color='secondary'>
+                            <Typography className={classes.optionPrice} color='primary'>
                                 $ {selectedOptionPrice}
                             </Typography>
                         )}
@@ -182,7 +184,7 @@ OptionAccordion.defaultProps = {
     alwaysSelected: false,
     defaultExpanded: false,
     isOpen: false,
-    color: 'secondary',
+    color: 'primary',
 }
 
 OptionAccordion.propTypes = {
