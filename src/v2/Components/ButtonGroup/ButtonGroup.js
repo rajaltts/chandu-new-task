@@ -9,7 +9,8 @@ const ButtonGroup = ({ value, values = [], onChange, buttonProps, ...rest }) => 
         <MaterialButtonGroup {...authorizedProps}>
             {values.map((item, index) => (
                 <Button
-                    key={`${item.value}_${item.index}`}
+                    id={`ButtonGroup_${item.value}`}
+                    key={`ButtonGroup_${item.value}`}
                     selected={item.value === value}
                     disabled={!item.feasible || authorizedProps?.disabled}
                     onClick={() => onChange(item.value)}

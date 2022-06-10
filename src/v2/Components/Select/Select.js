@@ -71,6 +71,7 @@ const Select = ({
                     {label}
                 </InputLabel>
                 <MaterialSelect
+                    id={`Select_${label}`}
                     input={<OutlinedInput notched labelWidth={labelWidth} {...inputProps} />}
                     MenuProps={{
                         anchorOrigin: {
@@ -101,7 +102,7 @@ const Select = ({
                             )
 
                             return (
-                                <MenuItem key={v.value} value={v.value}>
+                                <MenuItem id={`MenuItem_${v.value}`} key={v.value} value={v.value}>
                                     {v.secondaryLabel ? <Tooltip title={v.secondaryLabel}>{box}</Tooltip> : box}
                                     {optionAction && excludeActionOption !== v.value && optionAction}
                                 </MenuItem>

@@ -105,3 +105,12 @@ it('should trigger handleChange', () => {
     })
     expect(onChange).toHaveBeenCalledTimes(3)
 })
+
+it('should select radio type using id', () => {
+    act(() => {
+        render(<RadioGroup name='RadioRuleProp' values={values} value={value} />, container)
+    })
+    const radio = container.querySelector(`#Radio_RadioRuleProp_${value}`)
+    expect(radio).not.toBeNull()
+    expect(radio.type).toBe('radio')
+})

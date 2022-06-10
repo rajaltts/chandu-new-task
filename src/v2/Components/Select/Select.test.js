@@ -59,14 +59,14 @@ it('should add custom class to root element', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} onChange={() => {}} className='myCustomClass' />
+                <Select values={values} value={value} label={label} onChange={() => {}} inputProps={{ className: 'myCustomClass' }} />
             </MockIntl>,
             container
         )
     })
     const inputRoot = container.querySelector('.MuiInputBase-root')
     expect(inputRoot).not.toBeNull()
-    // expect(inputRoot.classList.contains('myCustomClass')).toBe(true)
+    expect(inputRoot.classList.contains('myCustomClass')).toBe(true)
 })
 
 it('should not be disabled', () => {
@@ -78,15 +78,16 @@ it('should not be disabled', () => {
             container
         )
     })
-    const input = container.querySelector('.MuiInputBase-root')
-    const label = container.querySelector('.MuiFormLabel-root')
-    const select = container.querySelector('.MuiSelect-root')
-    expect(input).not.toBeNull()
-    expect(label).not.toBeNull()
-    expect(select).not.toBeNull()
-    expect(input.classList.contains('Mui-disabled')).toBe(false)
-    expect(label.classList.contains('Mui-disabled')).toBe(false)
-    expect(select.classList.contains('Mui-disabled')).toBe(false)
+    const elementInput = container.querySelector('.MuiInputBase-root')
+    const elementLabel = container.querySelector('.MuiFormLabel-root')
+    const elementSelect = container.querySelector('.MuiSelect-root')
+    expect(elementInput).not.toBeNull()
+    expect(elementLabel).not.toBeNull()
+    expect(elementSelect).not.toBeNull()
+    expect(elementInput.classList.contains('Mui-disabled')).toBe(false)
+    expect(elementLabel.classList.contains('Mui-disabled')).toBe(false)
+    expect(elementSelect.classList.contains('Mui-disabled')).toBe(false)
+    expect(elementSelect.id).toBe(`Select_${label}`)
 })
 
 it('should not be relaxed', () => {
