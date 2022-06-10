@@ -6,7 +6,16 @@ import { useStyles } from './Section.style'
 
 import Typography from '../Typography/Typography'
 
-const Section = ({ id, title, visible = true, divider = true, children, typographyProps, dividerProps, ...rest }) => {
+const Section = ({
+    id,
+    title = '',
+    visible = true,
+    divider = true,
+    children,
+    typographyProps,
+    dividerProps,
+    ...rest
+}) => {
     const classes = useStyles()
     if (!visible) return null
     return (
@@ -38,7 +47,7 @@ Section.defaultProps = {
 
 Section.propTypes = {
     id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     visible: PropTypes.bool,
     divider: PropTypes.bool,
     typographyProps: PropTypes.object,

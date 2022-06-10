@@ -28,6 +28,7 @@ const RadioCard = ({
                 </Tooltip>
             )}
             <MediaCard
+                id={`${label}`}
                 selected={selected}
                 disabled={loading || !feasible}
                 error={relaxed}

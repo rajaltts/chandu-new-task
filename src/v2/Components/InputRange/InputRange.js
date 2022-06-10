@@ -30,8 +30,8 @@ const InputRange = ({
     isInteger = false,
     trigger,
     width,
-    rest,
-    relaxed
+    relaxed,
+    ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [touched, setTouched] = useState(false)
@@ -40,6 +40,7 @@ const InputRange = ({
     const [showWarning, setShowWarning] = useState(false);
     const [isUserInput, setIsUserInput] = useState(false)
     const classes = useStyles()
+    const authorizedProps = createAuthorizedProps(TextField, rest)
     const MIN = parseFloat(min)
     const MAX = parseFloat(max)
     const formattedUnit = unit === 'F' || unit === 'C' ? `°${unit}` : unit
@@ -172,7 +173,7 @@ const InputRange = ({
                 onBlur={handleBlur}
                 error={error}
                 disabled={disabled}
-                {...rest}
+                {...authorizedProps}
             />
         </Box>
     )

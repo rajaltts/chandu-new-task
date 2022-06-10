@@ -56,6 +56,7 @@ function CustomGrid(props) {
         editMode = {},
         showDivider = false,
         reset = false,
+        hideHeader = false
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -389,24 +390,25 @@ function CustomGrid(props) {
                     {showLinearProgress && <LinearProgress />}
                     <div id={`${id}_table`} className={'tableWrapper'}>
                         <Table stickyHeader className='table' size={'medium'}>
-                            <CustomGridHead
-                                headCells={headCells}
-                                columnPicker={columnPicker}
-                                order={order}
-                                orderBy={orderBy}
-                                sortable={sortable}
-                                numSelected={selected.length}
-                                rowCount={sortedRows.length}
-                                showCheckbox={showCheckbox}
-                                singleSelectGrid={singleSelectGrid}
-                                onSelectAllClick={handleSelectAllClick}
-                                onRequestSort={handleRequestSort}
-                                doNotTranslate={doNotTranslate}
-                                columnPickerFilterError={columnPickerFilterError}
-                                paginationClass={paginationClass}
-                                columnGrouping={columnGrouping}
-                                columnGroupConfig={columnGroupConfig}
-                            />
+                            {!hideHeader && 
+                                <CustomGridHead
+                                    headCells={headCells}
+                                    columnPicker={columnPicker}
+                                    order={order}
+                                    orderBy={orderBy}
+                                    sortable={sortable}
+                                    numSelected={selected.length}
+                                    rowCount={sortedRows.length}
+                                    showCheckbox={showCheckbox}
+                                    singleSelectGrid={singleSelectGrid}
+                                    onSelectAllClick={handleSelectAllClick}
+                                    onRequestSort={handleRequestSort}
+                                    doNotTranslate={doNotTranslate}
+                                    columnPickerFilterError={columnPickerFilterError}
+                                    paginationClass={paginationClass}
+                                    columnGrouping={columnGrouping}
+                                    columnGroupConfig={columnGroupConfig}
+                                />}
                             {!!getRowLength() && (
                                 <CustomGridBody
                                     isLoading={isLoading}

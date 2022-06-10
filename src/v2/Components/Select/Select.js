@@ -19,8 +19,20 @@ import WarningIcon from '@material-ui/icons/Warning'
 // Components
 import Typography from '../Typography/Typography'
 
-// Styles
-import useStyles from './Select.styles'
+import { createAuthorizedProps } from '../utils/createAuthorizedProps'
+
+const useStyles = makeStyles(() => ({
+    formControl: {
+        minWidth: 240,
+        width: '100%'
+    },
+    menuItemContainer: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+}))
 
 const Select = ({
     label,
@@ -47,6 +59,8 @@ const Select = ({
     const [error, setError] = useState(false)
     const classes = useStyles()
 
+    const authorizedProps = createAuthorizedProps(MaterialSelect, rest)
+
     useEffect(() => {
         setLabelWidth(visible ? inputLabel.current.offsetWidth : 0)
     }, [])
@@ -68,6 +82,7 @@ const Select = ({
                     {label}
                 </InputLabel>
                 <MaterialSelect
+                    id={`Select_${label}`}
                     input={<OutlinedInput notched labelWidth={labelWidth} {...inputProps} />}
                     MenuProps={{
                         classes: {
@@ -83,10 +98,9 @@ const Select = ({
                             horizontal: 'left',
                         },
                         getContentAnchorEl: null,
-                        ...rest?.MenuProps,
+                        ...authorizedProps?.MenuProps,
                     }}
-                    style={{ width: width }}
-                    {...rest}
+                    {...authorizedProps}
                     label={label}
                     className={classes.selectRoot}
                     onChange={(event) => handleChange && handleChange(event.target.value)}
@@ -105,7 +119,7 @@ const Select = ({
                             )
 
                             return (
-                                <MenuItem key={v.value} value={v.value}>
+                                <MenuItem id={`MenuItem_${v.value}`} key={v.value} value={v.value}>
                                     {v.secondaryLabel ? <Tooltip title={v.secondaryLabel}>{box}</Tooltip> : box}
                                     {optionAction && excludeActionOption !== v.value && optionAction}
                                 </MenuItem>

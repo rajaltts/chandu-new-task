@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { useStyles } from './MediaCard.styles'
 
 const MediaCard = ({
+    id,
     direction,
     selected,
     error,
@@ -20,6 +21,7 @@ const MediaCard = ({
 
     return (
         <Card
+            id={`Card_${id}`}
             classes={{
                 root: classNames(classes.root, props.className, `color-${color}`, {
                     [classes.rootSelected]: selected,

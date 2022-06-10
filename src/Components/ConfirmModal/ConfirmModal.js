@@ -57,6 +57,7 @@ const ConfirmModal = (props) => {
         footerComponent = null,
         hideHeader = false,
         headerIcon,
+        headerIconClassName
     } = props
     const classes = useStyles()
     const cancelText = translation('Cancel')
@@ -88,7 +89,7 @@ const ConfirmModal = (props) => {
         >
             {!hideHeader && (
                 <div className='customModalHeader'>
-                    {headerIcon && React.createElement(headerIcon, { className: 'customModalHeaderIcon' })}
+                    {headerIcon && React.createElement(headerIcon, { className: `customModalHeaderIcon ${headerIconClassName}`})}
                     <span className='customModalTitle'>{title}</span>
                     {!disableCloseIcon && (
                         <IconButton classes={{ root: classes.iconButtonRoot }} onClick={onCancelButtonClick}>
