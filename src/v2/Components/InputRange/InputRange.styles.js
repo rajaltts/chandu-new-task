@@ -3,62 +3,77 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
     inputContainer: {
         position: 'relative',
+        alignItems: 'center',
+        display: 'flex',
+        padding: '5px 0px 5px 5px',
         '&.invisible': {
             opacity: 0.4,
             pointerEvents: 'none',
         },
+        [theme.breakpoints.down('sm')]: {
+            padding: '10px 0px 10px 10px',
+        },
     },
     input: {
-        height: '45px',
-        width: '90%',
-        minWidth: 120,
-        '& > div': {
-            height: '45px',
+        '& .MuiInputLabel-outlined': {
+            transform: 'translate(16px, 10px) scale(1)',
+        },
+        '& .MuiInputLabel-shrink': {
+            transform: 'translate(14px, -6px) scale(0.75)',
+        },
+        '&.MuiFormControl-root': {
+            height: '36px',
+            width: '100%',
+        },
+        '& .MuiInputBase-root': {
+            height: '36px',
             fontSize: 14,
             [theme.breakpoints.up('md')]: {
                 fontSize: 16,
             },
         },
-        '& input': {
+        '& .MuiInputBase-input': {
             display: 'flex',
             alignItems: 'center',
-            height: '45px',
+            height: '36px',
             minHeight: '36px',
             padding: theme.spacing(0, 0, 0, 2),
         },
-        '& $adornment': {
-            '& p': {
+        '& .MuiInputAdornment-root': {
+            '& .MuiTypography-root': {
                 fontSize: 12,
                 color: theme.palette.text.primary,
                 margin: '0px!important',
             },
         },
-        '& > label': {
+        '& .MuiFormLabel-root': {
             fontSize: 14,
-            color: theme.palette.text.secondary,
+            color: theme.palette.grey[900],
         },
-        '& $inputNotchedOutline': {
+        '& .Mui-disabled': {
+            color: theme.palette.text.secondary
+        },
+        '& .Mui-focused': {
+            color: theme.palette.grey[900],
+
+            '& .MuiOutlinedInput-notchedOutline': {
+                padding: '10px',
+                borderWidth: 1,
+                borderColor: theme.palette.grey[900],
+            },
+
+            '&.Mui-error': {
+                color: theme.palette.red.main,
+
+                '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: theme.palette.red.main,
+                },
+            },
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.grey.main,
         },
     },
-    inputFocused: {
-        color: theme.palette.grey[900],
-
-        '& $inputNotchedOutline': {
-            borderWidth: `1px!important`,
-            borderColor: `${theme.palette.grey[900]}!important`,
-        },
-
-        '&$inputError': {
-            color: theme.palette.red,
-
-            '& $inputNotchedOutline': {
-                borderColor: theme.palette.red,
-            },
-        },
-    },
-    inputError: {},
-    inputNotchedOutline: {},
     dropdownWrapper: {
         position: 'absolute',
         display: 'flex',
@@ -93,6 +108,14 @@ const useStyles = makeStyles((theme) => ({
     helperText: {
         margin: 0,
         color: theme.palette.grey.main,
+        visibility: 'hidden',
+        '&.Mui-focused': {
+            visibility: 'visible',
+        }
+    },
+    helperWarningText: {
+        margin: 0,
+        color: `${theme.palette.orange[100]} !important`
     },
 }))
 

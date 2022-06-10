@@ -21,6 +21,7 @@ let defaultTheme = {
             750: '#617080',
             900: '#333333',
             main: '#A7AFC3',
+            dark: '#747A88',
         },
         blue: {
             20: '#bddefc',

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { extractDataFromRules, DISCRETE_TYPE } from '@carrier/workflowui-globalfunctions'
+import { extractDataFromRules } from '@carrier/workflowui-globalfunctions'
 
 const Discrete = ({
     name,
@@ -84,10 +84,6 @@ const Discrete = ({
     })
 
     return <>{childrenWithProps}</>
-}
-
-Discrete.defaultProps = {
-    type: DISCRETE_TYPE.SELECT,
 }
 
 Discrete.propTypes = {

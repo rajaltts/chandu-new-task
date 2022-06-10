@@ -8,6 +8,8 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 //import { translation } from '@carrier/ngecat-reactcomponents';
 
+import { createAuthorizedProps } from '../utils/createAuthorizedProps'
+
 // Styles
 import useStyles from './InputRange.styles'
 
@@ -43,7 +45,6 @@ const InputRange = ({
     const authorizedProps = createAuthorizedProps(TextField, rest)
     const MIN = parseFloat(min)
     const MAX = parseFloat(max)
-    const formattedUnit = unit === 'F' || unit === 'C' ? `°${unit}` : unit
     let helperText = ''
 
     if (!isNaN(MIN) && isNaN(MAX)) {
@@ -160,7 +161,7 @@ const InputRange = ({
                                     </Menu>
                                 </>
                             )}
-                            {(units == null || units.length === 1) && unit ? {formattedUnit} : ''}
+                            {(units == null || units.length === 1) && unit ? unit : ''}
                         </InputAdornment>
                     ) : (
                         ''

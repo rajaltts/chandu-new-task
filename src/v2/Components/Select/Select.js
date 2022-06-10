@@ -21,18 +21,9 @@ import Typography from '../Typography/Typography'
 
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
 
-const useStyles = makeStyles(() => ({
-    formControl: {
-        minWidth: 240,
-        width: '100%'
-    },
-    menuItemContainer: {
-        display: 'flex',
-        flexWrap: 'nowrap',
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-}))
+import useStyles from './Select.styles'
+
+import classNames from 'classnames'
 
 const Select = ({
     label,
@@ -73,7 +64,9 @@ const Select = ({
     return (
         <>
             <FormControl
-                classes={`${classes.formControl}`}
+                classes={{ root: classNames(classes.formControl, {
+                    [classes.disabled]: disabled,
+                })}}
                 variant='outlined'
                 disabled={disabled}
                 error={error}

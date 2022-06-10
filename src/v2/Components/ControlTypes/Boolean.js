@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { extractDataFromRules, BOOLEAN_TYPE } from '@carrier/workflowui-globalfunctions'
+import { extractDataFromRules } from '@carrier/workflowui-globalfunctions'
 
 const Boolean = ({
     name, 
@@ -66,10 +66,6 @@ const Boolean = ({
     })
 
     return <>{childrenWithProps}</>
-}
-
-Boolean.defaultProps = {
-    type: BOOLEAN_TYPE.CHECKBOX,
 }
 
 Boolean.propTypes = {
