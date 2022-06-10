@@ -42,7 +42,7 @@ const RadioGroup = ({
                             value={radio.value}
                             control={
                                 <MaterialRadio
-                                    id={name}
+                                    id={`Radio_${name}_${radio.value}`}
                                     data-label={radio.label}
                                     data-disabled={`${name}__${disabled}`}
                                     color={color}
