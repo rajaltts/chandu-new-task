@@ -42,7 +42,6 @@ const Select = ({
     formControlProps,
     inputLabelProps,
     inputProps,
-    width,
     ...rest
 }) => {
     const inputLabel = useRef(null)
@@ -102,7 +101,7 @@ const Select = ({
                         values.map((v) => {
                             const box = (
                                 <Box className={classes.menuItemContainer}>
-                                    <Typography color={!v.feasible ? 'error' : 'inherit'}>{v.description}</Typography>
+                                    <Typography color={!v.feasible ? 'error' : 'inherit'}>{v.label}</Typography>
                                     {!v.feasible && (
                                         <Tooltip label={tooltipErrorLabel}>
                                             <WarningIcon fontSize='small' color='error' />

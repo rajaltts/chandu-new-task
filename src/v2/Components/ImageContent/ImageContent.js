@@ -26,7 +26,7 @@ const ImageContent = ({
     visible = true,
     intl,
     id,
-    blobStorage,
+    url
 }) => {
     const classes = useStyles()
     const Label = () => {
@@ -35,7 +35,7 @@ const ImageContent = ({
                 {relaxed ? (
                     <Tooltip
                         data-WarningText={`${name}__CONTROL_SELECTION_WARNING`}
-                        title={injectIntlTranslation(intl, 'CONTROL_SELECTION_WARNING')}>
+                        title={translation('CONTROL_SELECTION_WARNING')}>
                         <span>{translation(label)}</span>
                     </Tooltip>
                 ) : (
@@ -63,7 +63,7 @@ const ImageContent = ({
                     opacity: !enabled ? '0.15' : '1',
                     pointerEvents: !enabled ? 'none' : 'initial',
                 }}>
-                <img src={`${blobStorage}ecatui/ecatimages/${value}`} alt={label} />
+                <img src={`${url}${value}`} alt={label} />
             </div>
         </Paper>
     )
@@ -84,8 +84,5 @@ ImageContent.propTypes = {
     relaxed: PropTypes.bool,
     className: PropTypes.string,
 }
-const mapStateToProps = (state) => ({
-    blobStorage: state.api.blobStorage,
-})
 
-export default injectIntl(connect(mapStateToProps, null)(ImageContent))
+export default injectIntl(ImageContent)

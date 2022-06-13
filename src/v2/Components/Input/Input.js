@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core'
 // Styles
 import useStyles from './Input.styles'
 
-const Input = ({ type, id, name, label, variant, value, loading, InputProps, handleChange, required, relaxed, disabled, valid, visible = true, isInteger, rest }) => {
+const Input = ({ type, id, name, label, variant, value, loading, InputProps, handleChange, required, relaxed, disabled, valid, visible = true, isInteger, warningMessage, rest }) => {
     const [currentValue, setCurrentValue] = useState(value)
     const [error, setError] = useState(false)
     const [touched, setTouched] = useState(false)
@@ -76,7 +76,7 @@ const Input = ({ type, id, name, label, variant, value, loading, InputProps, han
                 },
                 shrink: true,
             }}
-            helperText={touched && (showWarning ? "Please enter only integer values": helperText)}
+            helperText={touched && (showWarning ? warningMessage : helperText)}
             onChange={valueChange}
             onBlur={handleBlur}
             onFocus={() => setTouched(true)}
@@ -91,6 +91,7 @@ const Input = ({ type, id, name, label, variant, value, loading, InputProps, han
 Input.defaultProps = {
     type: 'text',
     variant: 'outlined',
+    warningMessage: 'Please enter only integer values'
 }
 
 Input.propTypes = {

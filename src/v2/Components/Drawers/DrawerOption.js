@@ -6,9 +6,6 @@ import { useDrag } from 'react-dnd'
 //Constants
 import PropTypes from 'prop-types'
 
-//Utility methods
-import { getPriceString, scrollTo, slugify, UI_SIZES } from '@carrier/workflowui-globalfunctions'
-
 //Material UI
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Box, Grid, IconButton, Typography, useTheme, useMediaQuery } from '@material-ui/core'
@@ -31,7 +28,10 @@ const DrawerOption = ({
     selected,
     alwaysSelected,
     intl,
-    columnData
+    columnData,
+    scrollTo,
+    slugify,
+    scrollOffset,
 }) => {
     const theme = useTheme()
     const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
@@ -49,7 +49,7 @@ const DrawerOption = ({
 
     const handleLinkClick = () => {
         if (anchor && isUpMd) {
-            scrollTo(`#${currentAnchor}`, UI_SIZES.SCROLLOFFSET)
+            scrollTo(`#${currentAnchor}`, scrollOffset)
         }
     }
 
@@ -87,7 +87,6 @@ const DrawerOption = ({
         )
     }
 
-    debugger
     return (
         <>
             {defaultOption && <LegendHeader />}
@@ -132,7 +131,7 @@ const DrawerOption = ({
                         {columnData.map((col) => (
                             <Grid item sm={col.columnWidth} key={col.key} style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='subtitle1' color='secondary'>
-                                    {getPriceString(col.priceUnit, col.value)}
+                                    {col.value}
                                 </Typography>
                             </Grid>
                         ))}
@@ -147,6 +146,9 @@ DrawerOption.propTypes = {
     defaultOption: PropTypes.bool,
     name: PropTypes.string,
     draggable: PropTypes.bool,
+    getPriceString: PropTypes.func.isRequired,
+    scrollTo: PropTypes.func.isRequired,
+    slugify: PropTypes.func.isRequired,
 }
 
 export default injectIntl(DrawerOption)
