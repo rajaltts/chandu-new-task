@@ -7,6 +7,7 @@ import { Box, Grid, Typography } from '@material-ui/core'
 
 //Components
 import CartSectionColumns from './CartSectionColumns'
+import ConfigDrivenNumberField from '../../../Components/formBuilder/fieldComponents/ConfigDrivenNumberField';
 
 //Styles
 import cartStyles from './Cart.styles'
@@ -22,17 +23,23 @@ const CartSectionBaseunit = ({ intl, cartSectionConfig = {}, getPriceString = ()
             <Grid container className={totalRecap}>
                 <Grid item xs={2}></Grid>
                 <Grid item xs={10} container className={priceContainer}>
-                    {cartSectionConfig.columns.map((col) => (
-                        <Grid
-                            item
-                            sm={col.columnWidth}
-                            key={col.key}
-                            style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
-                            <Typography variant='subtitle1' color='secondary'>
-                                {getPriceString(col.priceUnit, col.dataSource)}
-                            </Typography>
-                        </Grid>
-                    ))}
+                    {cartSectionConfig.columns.map((col) => {
+                        const { columnWidth, key, priceUnit, dataSource, isEditable, onClick } = col
+                        const fieldValue = getPriceString(priceUnit, dataSource);
+                        return (
+                            <Grid
+                                item
+                                sm={columnWidth}
+                                key={key}
+                                style={priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
+                                {isEditable ?
+                                    <ConfigDrivenNumberField config={{isEditable, onClick }} rowData={col} value={fieldValue}/>
+                                    :
+                                    <Typography variant='subtitle1' color='secondary'>{fieldValue}</Typography>
+                                }
+                            </Grid>
+                        )
+                    })}
                 </Grid>
             </Grid>
         </Box>
