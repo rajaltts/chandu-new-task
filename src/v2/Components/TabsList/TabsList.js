@@ -33,7 +33,7 @@ const TabsList = ({ tabsList = [], customTheme = null, activeTab = 0, handleChan
         return (
             <Tabs className={tabs} value={activeTab} onChange={handleChangeTabHandler}>
                 {tabsList.map((tab) => (
-                    <Tab key={tab.id} className={tabBtn} label={tab.label} id={tab.id} />
+                    <Tab key={tab.id} className={`${tabBtn} ${tab.hasError ? 'relaxed' : ''}`} label={tab.label} id={tab.id} />
                 ))}
             </Tabs>
         )
