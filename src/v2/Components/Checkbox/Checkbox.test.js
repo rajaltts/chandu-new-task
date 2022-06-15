@@ -84,7 +84,7 @@ it('should be relaxed', () => {
         formControl.classList
             .toString()
             .split(' ')
-            .some((c) => /^makeStyles-relaxed-\d+$/.test(c))
+            .some((c) => /^makeStyles-error-\d+$/.test(c))
     ).toBe(true)
     const typo = container.querySelector('.MuiTypography-root')
     expect(typo).not.toBeNull()
@@ -103,7 +103,7 @@ it('should not be relaxed', () => {
         formControl.classList
             .toString()
             .split(' ')
-            .some((c) => /^makeStyles-relaxed-\d+$/.test(c))
+            .some((c) => /^makeStyles-error-\d+$/.test(c))
     ).toBe(false)
     const typo = container.querySelector('.MuiTypography-root')
     expect(typo).not.toBeNull()

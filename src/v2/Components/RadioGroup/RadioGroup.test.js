@@ -94,7 +94,7 @@ it('should add custom class to root element', () => {
 it('should trigger handleChange', () => {
     const onChange = jest.fn()
     act(() => {
-        render(<RadioGroup values={values} value={value} onChange={onChange} />, container)
+        render(<RadioGroup values={values} value={value} handleChange={onChange} />, container)
     })
     const radio = container.querySelector('.MuiButtonBase-root')
     expect(radio).not.toBeNull()
