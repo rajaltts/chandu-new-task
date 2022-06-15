@@ -8,7 +8,7 @@ import '../formBuilder.css'
 import { inputStyles } from '../formBuilderStyles'
 
 const ConfigDrivenNumberField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate, setEnableRowClick } = props
+    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate, setEnableRowClick = null } = props
     const {
         step = '1',
         min = '-99999999',
@@ -52,14 +52,14 @@ const ConfigDrivenNumberField = (props) => {
     const setNumberField = () => {
         setContainerWidth({ width: `${ref1.current.offsetWidth - 5}px` })
         setEditedValue(getFormatedValue())
-        setEnableRowClick(false)
+        setEnableRowClick && setEnableRowClick(false)
         setEditable(true)
     }
 
     const updateValue = (event) => {
         if (checkValidation()) {
             setIsValid(true)
-            setEnableRowClick(true)
+            setEnableRowClick && setEnableRowClick(true)
             setEditable(false)
             onClick && onClick(event, editedValue, rowData, rowIndex)
             onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex)
@@ -86,7 +86,7 @@ const ConfigDrivenNumberField = (props) => {
 
     const enableRowClickWithDelay = () => {
         setTimeout(() => {
-            setEnableRowClick(true)
+            setEnableRowClick && setEnableRowClick(true)
         }, 303)
     }
 

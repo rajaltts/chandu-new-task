@@ -95,6 +95,12 @@ const tabsListStyles = makeStyles((theme) => ({
                 color: 'white',
             },
         },
+        '&.relaxed': {
+            background: `${theme.palette.error.main} !important`,
+            border: `1px solid ${theme.palette.error.main} !important`,
+            color: 'white',
+            fontWeight: 'bold',
+        },
     },
     tabContent: {
         margin: theme.spacing(3, 0, 0),
