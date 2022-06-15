@@ -134,8 +134,7 @@ const ReportPreview = ({
                                 <div className={classes.downloadIconsContainer}>
                                     <Tooltip
                                         title={translation('DownloadAsPDF', 'Download as PDF')}
-                                        PopperProps={{ container: topBarRef.current }}
-                                    >
+                                        PopperProps={{ container: topBarRef.current }}>
                                         <IconButton onClick={downloadPdf}>
                                             <FontAwesomeIcon className={classes.actionIcons} icon={faFilePdf} />
                                         </IconButton>
@@ -156,8 +155,7 @@ const ReportPreview = ({
                         <div className={`${classes.closeContainer} ${classes.verticalBar} align-right`}>
                             <Tooltip
                                 title={translation('ClosePreview', 'Close preview')}
-                                PopperProps={{ container: topBarRef.current }}
-                            >
+                                PopperProps={{ container: topBarRef.current }}>
                                 <IconButton onClick={onClose}>
                                     <FontAwesomeIcon className={classes.actionIcons} icon={faTimes} />
                                 </IconButton>
@@ -179,8 +177,7 @@ const ReportPreview = ({
                     className={`pdf-download-root-main ${classes.reportPopup} main ${
                         errorMessage ? 'popup-error' : ''
                     }`}
-                    ref={popupRef}
-                >
+                    ref={popupRef}>
                     <Suspense fallback={<></>}>
                         {cloneElement(children, {
                             reportCurrentPreviewIndex,

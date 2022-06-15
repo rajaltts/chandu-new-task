@@ -14,14 +14,14 @@ function TableColumn(props) {
                         lineHeight: '40px',
                         textAlign: 'center',
                         width: '250px',
-                    }}
-                >
+                    }}>
                     {props.Header}
                 </div>
                 {props.children}
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default TableColumn

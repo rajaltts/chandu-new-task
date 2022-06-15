@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo, useLayoutEffect } from 'react'
+import React, { useEffect, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
 import translation from '../../../Components/Translation'
@@ -34,7 +34,7 @@ const Page = ({
     hideHeader = false,
     hideFooter = false,
     hideDate = false,
-    overFlowIndex = 0
+    overFlowIndex = 0,
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
@@ -43,16 +43,16 @@ const Page = ({
     const headerRef = useRef(null)
     const footerRef = useRef(null)
     const PAGE_BODY = 890
-    const translateYAxis = (PAGE_BODY * (checkForOverflow ? overFlowIndex : 0))
+    const translateYAxis = PAGE_BODY * (checkForOverflow ? overFlowIndex : 0)
     const translateYAxisStyle = {
-        transform: `translateY(-${translateYAxis}px)`
+        transform: `translateY(-${translateYAxis}px)`,
     }
     const overflowDivId = `overflowCheck${title}${overFlowIndex}`
 
     // Tracks overflows after each new rendering, using React refs of page, header, content and footer
     useEffect(() => {
         // Select the node that will be observed for mutations
-        const targetNode = document.getElementById(overflowDivId);
+        const targetNode = document.getElementById(overflowDivId)
 
         // Options for the observer (which mutations to observe)
         const config = {
@@ -61,11 +61,11 @@ const Page = ({
             childList: true,
             subtree: true,
             attributeOldValue: true,
-            characterDataOldValue: true
-        };
+            characterDataOldValue: true,
+        }
 
         // Callback function to execute when mutations are observed
-        const callback = function (mutationList, observer) {
+        const callback = function (mutationList) {
             // Use traditional 'for loops' for IE 11
             for (const mutation of mutationList) {
                 if (mutation.type === 'childList') {
@@ -73,11 +73,17 @@ const Page = ({
                         const pageBottom = pageRef.current.getBoundingClientRect().bottom
                         const footerBottom = footerRef.current.getBoundingClientRect().bottom
                         const maxChildrenHeight =
-                            pageRef.current.clientHeight - (headerRef.current.clientHeight + footerRef.current.clientHeight) + 1
+                            pageRef.current.clientHeight -
+                            (headerRef.current.clientHeight + footerRef.current.clientHeight) +
+                            1
                         const overflowDiv = document.getElementById(overflowDivId)
                         const overflowScrollHeight = overflowDiv ? overflowDiv.scrollHeight : 0
-                        if (footerBottom > pageBottom || mainRef.current.clientHeight > maxChildrenHeight || overflowScrollHeight > PAGE_BODY) {
-                            setOverflow &&
+                        if (
+                            footerBottom > pageBottom ||
+                            mainRef.current.clientHeight > maxChildrenHeight ||
+                            overflowScrollHeight > PAGE_BODY
+                        ) {
+                            if (setOverflow)
                                 setOverflow({
                                     overFlowPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
                                     overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
@@ -87,13 +93,13 @@ const Page = ({
                     }
                 }
             }
-        };
+        }
 
         // Create an observer instance linked to the callback function
-        const observer = new MutationObserver(callback);
+        const observer = new MutationObserver(callback)
 
         // Start observing the target node for configured mutations
-        observer.observe(targetNode, config);
+        observer.observe(targetNode, config)
     }, [])
 
     return (
@@ -101,19 +107,21 @@ const Page = ({
             <div style={reportStyles.page} ref={pageRef}>
                 {!hideHeader && (
                     <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
-                        <div style={{
-                            ...reportStyles.pageHeaderLeftArea,
-                            ...((fullName.length !== 0 || !hideDate) ? reportStyles.spaceBetween : reportStyles.justifycenter)
-                        }}>
+                        <div
+                            style={{
+                                ...reportStyles.pageHeaderLeftArea,
+                                ...(fullName.length !== 0 || !hideDate
+                                    ? reportStyles.spaceBetween
+                                    : reportStyles.justifycenter),
+                            }}>
                             <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
                             <div style={reportStyles.pageHeaderSubInfos}>
-                                {
-                                    (fullName.length !== 0) &&
+                                {fullName.length !== 0 && (
                                     <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
-                                }
-                                {
-                                    !hideDate && <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
-                                }
+                                )}
+                                {!hideDate && (
+                                    <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                                )}
                             </div>
                         </div>
 
@@ -123,8 +131,8 @@ const Page = ({
                                 ...(modelBrand === 'carrier'
                                     ? reportStyles.pageHeaderReportTitleCarrier
                                     : modelBrand === 'ciat'
-                                        ? reportStyles.pageHeaderReportTitleCiat
-                                        : reportStyles.pageHeaderReportTitleDefault),
+                                    ? reportStyles.pageHeaderReportTitleCiat
+                                    : reportStyles.pageHeaderReportTitleDefault),
                             }}>
                             <span>{title}</span>
                             <div style={reportStyles.pageHeaderMainTitle}>
@@ -152,8 +160,16 @@ const Page = ({
                         </div>
                     </div>
                 )}
-                <div style={{ ...reportStyles.hideOverFlow, ...reportStyles.pageMain, ...reportStyles.roundBorder }} ref={mainRef}>
-                    <div style={reportStyles.hideOverFlow}><div id={overflowDivId} style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>{children}</div></div>
+                <div
+                    style={{ ...reportStyles.hideOverFlow, ...reportStyles.pageMain, ...reportStyles.roundBorder }}
+                    ref={mainRef}>
+                    <div style={reportStyles.hideOverFlow}>
+                        <div
+                            id={overflowDivId}
+                            style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>
+                            {children}
+                        </div>
+                    </div>
                 </div>
                 {!hideFooter && (
                     <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>
@@ -176,7 +192,6 @@ const Page = ({
                                     ))}
                                 </div>
                             )}
-
                         </div>
                         <div style={reportStyles.pageFooterInfoWrapper}>
                             <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>

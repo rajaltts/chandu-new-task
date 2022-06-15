@@ -7,9 +7,9 @@ export default {
     argTypes: {
         type: {
             options: ['link', 'word', 'pdf'],
-            control: { type: 'select' }
-        }
-    }
+            control: { type: 'select' },
+        },
+    },
 }
 
 const HyperLinksTemplate = ({ ...args }) => {
@@ -23,6 +23,5 @@ HyperLinksComponent.args = {
     type: 'link',
     value: 'Click on me',
     href: 'https://google.com/',
-    style: {
-    }
+    style: {},
 }

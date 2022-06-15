@@ -61,6 +61,7 @@ const ColumnPickerDialog = (props) => {
                     const { name, displayName, isSelected } = headCell
                     return (
                         <FormControlLabel
+                            key={index}
                             id={name}
                             value={displayName}
                             classes={{
@@ -94,8 +95,7 @@ const ColumnPickerDialog = (props) => {
             title={injectIntlTranslation(intl, 'COLUMN_PICKER', 'Column picker')}
             onClose={toggleColumnPicker}
             actionButtonList={createSaveButton(isSaveDisabled)}
-            contentClassName={dialogContent}
-        >
+            contentClassName={dialogContent}>
             <Typography variant='body2' className={columnDesc}>
                 {injectIntlTranslation(intl, 'COLUMN_PICKER_DESC', 'Show these items in the table')}
             </Typography>

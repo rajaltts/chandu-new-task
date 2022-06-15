@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const tabsStyles = makeStyles((theme) => ({
+const tabsStyles = makeStyles(() => ({
     tabsContainer: {
         display: 'flex',
         justifyContent: 'center',

@@ -55,7 +55,7 @@ const reportStyles = {
         maxHeight: '1.2cm',
     },
     pageHeaderSubInfos: {
-        fontSize: '11px'
+        fontSize: '11px',
     },
     pageHeaderSubInfosPreparatorName: {
         marginRight: '5px',
@@ -107,7 +107,7 @@ const reportStyles = {
         color: '#131313',
     },
     hideOverFlow: {
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     pageMain: {
         ...flexColumn,

@@ -9,7 +9,7 @@ import TabsContainer from '../TabsComponent/TabsContainer'
 import SaveIcon from '@material-ui/icons/Save'
 
 const SaveTemplate = (props) => {
-    const { CloseSaveTemplate, saveTemplate, dispatch, intl, eCatAppService } = props
+    const { CloseSaveTemplate, saveTemplate, dispatch, intl } = props
     const {
         isTemplateModalOpen,
         lookUpKey = 'TagTemplateName',
@@ -72,7 +72,7 @@ const SaveTemplate = (props) => {
     }
 
     const handleTabChange = (value) => {
-        if (value == 0) {
+        if (+value === 0) {
             setErrorMessage('')
         }
         setSelectedTab(value)
@@ -97,8 +97,7 @@ const SaveTemplate = (props) => {
             hideCancel={false}
             actionButtonList={createActionsButton(disableSave)}
             errorMsg={errorMessage}
-            headerIcon={SaveIcon}
-        >
+            headerIcon={SaveIcon}>
             <TabsContainer tabs={tabs} defaultActiveTab={selectedTab} onTabChange={handleTabChange} />
             {selectedTab ? (
                 <NewTemplate

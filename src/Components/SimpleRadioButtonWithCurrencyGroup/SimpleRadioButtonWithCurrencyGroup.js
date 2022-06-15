@@ -34,13 +34,13 @@ const SimpleRadioButtonWithCurrencyGroup = (props) => {
     }
 
     const GetPriceDollar = (Value) => {
-        return `${!!Value ? `$ ${Value}` : '$ 0'}`
+        return `${Value ? `$ ${Value}` : '$ 0'}`
     }
 
     const GetClassName = () => {
         if (className) return className
         else if (vertical) return 'SRBG-Label-vertical-currency'
-        else return 'SRBG-Label-horizontal'
+        return 'SRBG-Label-horizontal'
     }
 
     const handleChange = (event) => {
@@ -53,55 +53,50 @@ const SimpleRadioButtonWithCurrencyGroup = (props) => {
                 {Prop
                     ? Prop.Values.map((value, index) => {
                           if (HideNotAllowedValues && value.State === 2) return null
-                          else {
-                              return (
-                                  <div key={index} className='RowDiv'>
-                                      <div
-                                          id={'ctrl' + PropName}
-                                          className={
-                                              (value.State === 2 ? 'SRBG-radio-notAllowed ' : '') + GetClassName()
-                                          }
-                                      >
-                                          <input
-                                              id={'ctrl' + PropName + value.Value}
-                                              className='SRBG-radio'
-                                              type='radio'
-                                              name={PropName}
-                                              value={value.Value}
-                                              onChange={handleChange}
-                                              checked={Prop.AssignedValue === value.Value ? true : false}
-                                          />
-                                          {DoNotTranslate ? (
-                                              <span>{value.Attributes.Description}</span>
-                                          ) : (
-                                              <Culture
-                                                  id={FormatTransKey(PropName + '|' + value.Attributes.Description)}
-                                              />
-                                          )}
-                                          {!!value.Attributes.Note && vertical ? (
-                                              <div className={'LiGroup'}>
-                                                  {' '}
-                                                  {value.Attributes.Note.split('||').map((value, index) => {
-                                                      return (
-                                                          <li key={index} className={NoteclassName}>
-                                                              {value}
-                                                          </li>
-                                                      )
-                                                  })}
-                                              </div>
-                                          ) : (
-                                              ''
-                                          )}
-                                      </div>
-                                      <div className={'priceDollor'}>{GetPriceDollar(value.Attributes.MLP)}</div>
+
+                          return (
+                              <div key={index} className='RowDiv'>
+                                  <div
+                                      id={'ctrl' + PropName}
+                                      className={(value.State === 2 ? 'SRBG-radio-notAllowed ' : '') + GetClassName()}>
+                                      <input
+                                          id={'ctrl' + PropName + value.Value}
+                                          className='SRBG-radio'
+                                          type='radio'
+                                          name={PropName}
+                                          value={value.Value}
+                                          onChange={handleChange}
+                                          checked={Prop.AssignedValue === value.Value ? true : false}
+                                      />
+                                      {DoNotTranslate ? (
+                                          <span>{value.Attributes.Description}</span>
+                                      ) : (
+                                          <Culture id={FormatTransKey(PropName + '|' + value.Attributes.Description)} />
+                                      )}
+                                      {!!value.Attributes.Note && vertical ? (
+                                          <div className={'LiGroup'}>
+                                              {' '}
+                                              {value.Attributes.Note.split('||').map((value, index) => {
+                                                  return (
+                                                      <li key={index} className={NoteclassName}>
+                                                          {value}
+                                                      </li>
+                                                  )
+                                              })}
+                                          </div>
+                                      ) : (
+                                          ''
+                                      )}
                                   </div>
-                              )
-                          }
+                                  <div className={'priceDollor'}>{GetPriceDollar(value.Attributes.MLP)}</div>
+                              </div>
+                          )
                       })
                     : null}
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default SimpleRadioButtonWithCurrencyGroup

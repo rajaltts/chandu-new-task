@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const customDropdownStyles = makeStyles((theme) => ({
+const customDropdownStyles = makeStyles(() => ({
     tagTemplateName: {
         display: 'block',
         overflowWrap: 'break-word',

@@ -12,7 +12,8 @@ import useStyles from './InputRange.styles'
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
 
 const InputRange = (props) => {
-    const { type,
+    const {
+        type,
         id,
         label,
         variant,
@@ -26,7 +27,8 @@ const InputRange = (props) => {
         disabled,
         trigger,
         width,
-        ...rest } = props
+        ...rest
+    } = props
     const [anchorEl, setAnchorEl] = useState(null)
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
@@ -130,7 +132,7 @@ const InputRange = (props) => {
                                     </Menu>
                                 </>
                             )}
-                            {(units == null || units.length === 1) && unit ? unit : ''}
+                            {(units === null || units.length === 1) && unit ? unit : ''}
                         </InputAdornment>
                     ) : (
                         ''

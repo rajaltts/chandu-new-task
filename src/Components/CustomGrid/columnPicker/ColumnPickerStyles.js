@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const columnPickerStyles = makeStyles((theme) => ({
+const columnPickerStyles = makeStyles(() => ({
     columnRoot: {
         display: 'flex',
         flexDirection: 'row-reverse',

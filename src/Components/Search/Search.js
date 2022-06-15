@@ -11,7 +11,7 @@ const Search = (props) => {
     const { searchInput, searchInputRoot, nonErrorBorder, searchRoot } = searchStyles()
 
     const onSearchQueryChangeHandler = (event) => {
-        onSearchQueryChange && onSearchQueryChange(event)
+        if (onSearchQueryChange) onSearchQueryChange(event)
     }
 
     return (

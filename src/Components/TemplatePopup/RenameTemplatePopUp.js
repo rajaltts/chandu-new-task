@@ -6,6 +6,8 @@ import Button from '../Button'
 import TextField from '@material-ui/core/TextField'
 import RenameTemplatePopUpStyles from './RenameTemplatePopUpStyles'
 
+/* eslint-disable no-useless-escape */
+
 function RenameTemplatePopUp(props) {
     const [tagName, setTagName] = React.useState()
     const [tagValidationError, setTagValidationError] = React.useState()
@@ -96,8 +98,7 @@ function RenameTemplatePopUp(props) {
                     onClose={onToggleEditDialouge}
                     footerComponent={createRenameTemplateButtons()}
                     className='editTagTemplate-dialog'
-                    contentClassName={tagNameWrapper}
-                >
+                    contentClassName={tagNameWrapper}>
                     <div className={tagNameContainer}>
                         <div className={tagNameLabel}>
                             <span> {props.templateNameText}</span>

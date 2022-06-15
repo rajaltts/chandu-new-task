@@ -13,7 +13,7 @@ function LabelWithInput(props) {
 
     const onChangeHandler = (e) => {
         const { checked } = e.target
-        OnControlChange && OnControlChange(e.target.type === 'radio' ? e.target.value : checked, constant)
+        if (OnControlChange) OnControlChange(e.target.type === 'radio' ? e.target.value : checked, constant)
     }
 
     return (

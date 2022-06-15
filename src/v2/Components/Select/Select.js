@@ -87,7 +87,7 @@ const Select = ({
                     }}
                     {...authorizedProps}
                     label={label}
-                    onChange={(event, y, z) => onChange && onChange(event.target.value)}>
+                    onChange={(event) => onChange && onChange(event.target.value)}>
                     {values &&
                         values.map((v) => {
                             const box = (

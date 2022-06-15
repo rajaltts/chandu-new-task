@@ -1,151 +1,151 @@
 import React from 'react'
-import ReportTableBody from './ReportTableBody';
-import reportStyles from '../reportStyles';
+import ReportTableBody from './ReportTableBody'
+import reportStyles from '../reportStyles'
 
 export default {
     title: 'Report/Report Table Body',
-    component: ReportTableBody
+    component: ReportTableBody,
 }
 
 const performanceData = [
     [
-      {
-        primaryText: {
-          value: "Mode",
+        {
+            primaryText: {
+                value: 'Mode',
+            },
+            headerType: 'h6',
         },
-        headerType: "h6",
-      },
-      {
-        primaryText: {
-          value: "Cooling",
+        {
+            primaryText: {
+                value: 'Cooling',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
+            headerType: 'h6',
         },
-        bgType: "bgLightBlue",
-        positionType: "center",
-        headerType: "h6",
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Cooling Capacity",
-          supValue: "(1)",
-          headerType: "h5",
+        {
+            primaryText: {
+                value: 'Cooling Capacity',
+                supValue: '(1)',
+                headerType: 'h5',
+            },
+            secondaryText: {
+                value: 'KW',
+            },
+            positionType: 'left',
         },
-        secondaryText: {
-          value: "KW",
+        {
+            primaryText: {
+                value: '806',
+                headerType: 'h5',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
         },
-        positionType: "left",
-      },
-      {
-        primaryText: {
-          value: "806",
-          headerType: "h5",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Cooling Efficiency (EER)",
-          supValue: "(1)",
+        {
+            primaryText: {
+                value: 'Cooling Efficiency (EER)',
+                supValue: '(1)',
+            },
+            secondaryText: {
+                value: 'kW/kW',
+            },
         },
-        secondaryText: {
-          value: "kW/kW",
+        {
+            primaryText: {
+                value: '',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
+            hideLoader: true,
         },
-      },
-      {
-        primaryText: {
-          value: "",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-        hideLoader: true,
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Unit Power Input ",
-          supValue: "(1)",
+        {
+            primaryText: {
+                value: 'Unit Power Input ',
+                supValue: '(1)',
+            },
+            secondaryText: {
+                value: 'kW',
+            },
         },
-        secondaryText: {
-          value: "kW",
+        {
+            primaryText: {
+                value: '',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
         },
-      },
-      {
-        primaryText: {
-          value: "",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Sound power level (LwA)",
-          supValue: "(1)",
+        {
+            primaryText: {
+                value: 'Sound power level (LwA)',
+                supValue: '(1)',
+            },
+            secondaryText: {
+                value: 'dB(A)',
+            },
         },
-        secondaryText: {
-          value: "dB(A)",
+        {
+            primaryText: {
+                value: '98.0',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
         },
-      },
-      {
-        primaryText: {
-          value: "98.0",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Sound Pressure Level at 10.0m (LpA) ",
-          supValue: "(1)",
+        {
+            primaryText: {
+                value: 'Sound Pressure Level at 10.0m (LpA) ',
+                supValue: '(1)',
+            },
+            secondaryText: {
+                value: 'dB(A)',
+            },
         },
-        secondaryText: {
-          value: "dB(A)",
+        {
+            primaryText: {
+                value: '65.5',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
         },
-      },
-      {
-        primaryText: {
-          value: "65.5",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-      },
     ],
     [
-      {
-        primaryText: {
-          value: "Minimum Capacity",
-          supValue: "(2)",
+        {
+            primaryText: {
+                value: 'Minimum Capacity',
+                supValue: '(2)',
+            },
+            secondaryText: {
+                value: 'kW',
+            },
         },
-        secondaryText: {
-          value: "kW",
+        {
+            primaryText: {
+                value: '81.2',
+            },
+            bgType: 'bgLightBlue',
+            positionType: 'center',
         },
-      },
-      {
-        primaryText: {
-          value: "81.2",
-        },
-        bgType: "bgLightBlue",
-        positionType: "center",
-      },
     ],
-  ];
+]
 
-const ReportTableBodyTemplate = ({TableData, ...args}) => {
+const ReportTableBodyTemplate = ({ TableData, ...args }) => {
     return (
-        <table style={reportStyles["table"]}>
+        <table style={reportStyles['table']}>
             {TableData.map((rowData, index) => {
                 if (rowData && !rowData.length) {
-                    return null;
+                    return null
                 }
-                return <ReportTableBody rowData={rowData} {...args} />;
+                return <ReportTableBody key={index} rowData={rowData} {...args} />
             })}
         </table>
     )
@@ -153,5 +153,5 @@ const ReportTableBodyTemplate = ({TableData, ...args}) => {
 
 export const ReportTableBodyWithProps = ReportTableBodyTemplate.bind({})
 ReportTableBodyWithProps.args = {
-    TableData: performanceData
+    TableData: performanceData,
 }

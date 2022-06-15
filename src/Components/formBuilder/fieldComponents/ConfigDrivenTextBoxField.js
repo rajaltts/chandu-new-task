@@ -90,8 +90,8 @@ const ConfigDrivenTextBoxField = (props) => {
             setIsValid(true)
             setEnableRowClick(true)
             setEditable(false)
-            onClick && onClick(event, editedValue, rowData, rowIndex)
-            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex)
+            if (onClick) onClick(event, editedValue, rowData, rowIndex)
+            if (onDoubleClick) onDoubleClick(event, editedValue, rowData, rowIndex)
         }
     }
 

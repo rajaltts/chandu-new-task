@@ -59,7 +59,13 @@ it('should add custom class to root element', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} onChange={() => {}} inputProps={{ className: 'myCustomClass' }} />
+                <Select
+                    values={values}
+                    value={value}
+                    label={label}
+                    onChange={() => {}}
+                    inputProps={{ className: 'myCustomClass' }}
+                />
             </MockIntl>,
             container
         )

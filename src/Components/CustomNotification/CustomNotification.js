@@ -2,6 +2,8 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
 
+/* eslint-disable */
+
 class CustomNotification extends React.Component {
     constructor(props) {
         super(props)

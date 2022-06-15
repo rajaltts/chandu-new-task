@@ -8,14 +8,6 @@ const REPORT = {
     WIDTH: 793,
 }
 
-const contentStyle = {
-    content: `''`,
-    position: 'relative',
-    display: 'block',
-    width: '1px',
-    border: '30px solid #565656',
-}
-
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
         width: '100%',

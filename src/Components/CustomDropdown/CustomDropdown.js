@@ -68,8 +68,7 @@ function CustomDropdown(props) {
         <div
             id='SaveTagTemplateBtn'
             className={props.conceptTemplate ? 'wbtnDropdown conceptTemplate' : 'wbtnDropdown'}
-            ref={node}
-        >
+            ref={node}>
             <button className='Wbtn' onClick={onClickSaveTagPopUp}>
                 <FontAwesomeIcon icon={faSave} className='faCusLeft' />
                 {props.HeadingName}
@@ -77,8 +76,7 @@ function CustomDropdown(props) {
             <button
                 title={props.dropDownName}
                 className={classnames('Wbtn', 'GroupBtn', props.conceptTemplate && tagTemplateName)}
-                onClick={onDropBtnClick}
-            >
+                onClick={onDropBtnClick}>
                 {props.dropDownName}
                 <FontAwesomeIcon icon={faSortDown} />
             </button>
@@ -93,8 +91,7 @@ function CustomDropdown(props) {
                                       <span
                                           className={classnames(tagTemplateName, item.defaultValues && fullWidth)}
                                           title={templateTitle}
-                                          onClick={() => onClickOfDropdownMenu(item)}
-                                      >
+                                          onClick={() => onClickOfDropdownMenu(item)}>
                                           {' '}
                                           {templateTitle}{' '}
                                       </span>
@@ -104,16 +101,14 @@ function CustomDropdown(props) {
                                                   className='ActionLink'
                                                   id='TagTemplateEditlink'
                                                   data-action='TagTemplateEdit'
-                                                  onClick={() => editTagTemplate(item)}
-                                              >
+                                                  onClick={() => editTagTemplate(item)}>
                                                   <FontAwesomeIcon className='columncolor' icon={faEdit} />
                                               </span>
                                               <span
                                                   className='ActionLink'
                                                   id='TagTemplateDeletelink'
                                                   data-action='TagTemplatetDelete'
-                                                  onClick={() => deleteTagTemplate(item)}
-                                              >
+                                                  onClick={() => deleteTagTemplate(item)}>
                                                   <FontAwesomeIcon className='columncolor' icon={faTrashAlt} />
                                               </span>
                                               {props.exportTagSupported && (
@@ -121,8 +116,7 @@ function CustomDropdown(props) {
                                                       className='ActionLink'
                                                       id='TagTemplateExportlink'
                                                       data-action='TagTemplateExport'
-                                                      onClick={() => exportTagTemplate(item)}
-                                                  >
+                                                      onClick={() => exportTagTemplate(item)}>
                                                       <FontAwesomeIcon
                                                           className='columncolor'
                                                           icon={props.downloadIcon ? props.downloadIcon : faDownload}

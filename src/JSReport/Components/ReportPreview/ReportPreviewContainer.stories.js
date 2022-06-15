@@ -35,7 +35,7 @@ const page2 = {
     tagName: 'Test',
 }
 
-const PageContent = ({ updateList, ...args }) => {
+const PageContent = ({ updateList }) => {
     useEffect(() => {
         updateList([1, 2])
     }, [])
@@ -49,8 +49,8 @@ const PageContent = ({ updateList, ...args }) => {
 
 const ReportPreviewContainerTemplate = ({ ...args }) => {
     return (
-        <ReportPreviewContainer {...args} >
-            <PageContent {...args}/>
+        <ReportPreviewContainer {...args}>
+            <PageContent {...args} />
         </ReportPreviewContainer>
     )
 }

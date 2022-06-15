@@ -13,6 +13,8 @@ import translation from '../Translation'
 import ColumnPicker from './columnPicker/ColumnPicker'
 import { getValueForDynamicKey } from './CustomGridUtils'
 
+/* eslint-disable */
+
 function CustomGrid(props) {
     const { ascending, descending } = sortingOrder
     const {
@@ -56,7 +58,7 @@ function CustomGrid(props) {
         editMode = {},
         showDivider = false,
         reset = false,
-        hideHeader = false
+        hideHeader = false,
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -341,9 +343,8 @@ function CustomGrid(props) {
     const getComparator = (order, orderBy) => {
         if (order === sortingOrder.descending) {
             return (a, b) => descendingComparator(a, b, orderBy)
-        } else {
-            return (a, b) => -descendingComparator(a, b, orderBy)
         }
+        return (a, b) => -descendingComparator(a, b, orderBy)
     }
 
     const descendingComparator = (a, b, orderBy) => {
@@ -390,7 +391,7 @@ function CustomGrid(props) {
                     {showLinearProgress && <LinearProgress />}
                     <div id={`${id}_table`} className={'tableWrapper'}>
                         <Table stickyHeader className='table' size={'medium'}>
-                            {!hideHeader && 
+                            {!hideHeader && (
                                 <CustomGridHead
                                     headCells={headCells}
                                     columnPicker={columnPicker}
@@ -408,7 +409,8 @@ function CustomGrid(props) {
                                     paginationClass={paginationClass}
                                     columnGrouping={columnGrouping}
                                     columnGroupConfig={columnGroupConfig}
-                                />}
+                                />
+                            )}
                             {!!getRowLength() && (
                                 <CustomGridBody
                                     isLoading={isLoading}
@@ -440,8 +442,7 @@ function CustomGrid(props) {
                         </Table>
                         {!getRowLength() && (
                             <div
-                                className={`messageContainer${!gridClassName ? ' messageContainerDefaultHeight' : ''}`}
-                            >
+                                className={`messageContainer${!gridClassName ? ' messageContainerDefaultHeight' : ''}`}>
                                 {isLoading ? (
                                     <CircularProgress />
                                 ) : (

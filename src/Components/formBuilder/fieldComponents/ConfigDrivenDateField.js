@@ -8,7 +8,7 @@ const ConfigDrivenDateField = (props) => {
     const { format = null, className, onClick = null, updatedByKey } = config
 
     const onClickHandler = (event) => {
-        onClick && onClick(event, rowData, rowIndex)
+        if (onClick) onClick(event, rowData, rowIndex)
     }
 
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal')

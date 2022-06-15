@@ -62,7 +62,7 @@ function CustomGridBody(props) {
     }
 
     const handleOnClick = (row, index, event) => {
-        clickOnRowHighlight && setClickedRow(row)
+        if (clickOnRowHighlight) setClickedRow(row)
         clearTimeout(timer)
         if (event.detail === 1) {
             if (editModeEnabled) {
@@ -70,7 +70,7 @@ function CustomGridBody(props) {
                 eventData.current.button = event.button
             }
             timer = setTimeout(() => {
-                enableRowClick && rowOnclickHandler && rowOnclickHandler(row, index, event)
+                if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
                 if (editModeEnabled) {
                     handleEditModeCellSelection([], '', '', false, true)
                     const { ctrlKey, button, keyCode } = eventData.current
@@ -88,7 +88,7 @@ function CustomGridBody(props) {
     }
 
     const keyCodeHandler = (event) => {
-        editModeEnabled && (eventData.current.keyCode = event.keyCode)
+        if (editModeEnabled) eventData.current.keyCode = event.keyCode
     }
 
     const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
@@ -132,8 +132,7 @@ function CustomGridBody(props) {
                                 rowClassName
                             )}
                             onClick={(event) => handleOnClick(row, index, event)}
-                            onKeyDown={keyCodeHandler}
-                        >
+                            onKeyDown={keyCodeHandler}>
                             {showCheckbox &&
                                 !columnPickerFilterError &&
                                 showSelectionCell(isItemSelected, row, index, selectionType)}
@@ -156,8 +155,7 @@ function CustomGridBody(props) {
                                         id={cellHighlightStyle}
                                         key={head.name}
                                         align={row.textAlign || 'left'}
-                                        className={row.className || configItem.cellClassName || ''}
-                                    >
+                                        className={row.className || configItem.cellClassName || ''}>
                                         <div
                                             onKeyDown={keyCodeHandler}
                                             onClick={(event) =>
@@ -168,8 +166,7 @@ function CustomGridBody(props) {
                                                     getValueForDynamicKey(row, uniqueKey),
                                                     configItem.isCellHighlightEnabled || true
                                                 )
-                                            }
-                                        >
+                                            }>
                                             <FormBuilderField
                                                 doNotTranslate={doNotTranslate}
                                                 rowData={row}
