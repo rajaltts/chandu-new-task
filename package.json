@@ -1,12 +1,13 @@
 {
     "name": "@carrier/ngecat-reactcomponents",
-    "version": "3.36.194",
+    "version": "3.36.196",
     "description": "React components library used for NGECAT workflow UI apps",
     "main": "dist/ngecat-reactcomponents.min.js",
     "publishConfig": {
         "registry": "https://scejf01.apps.carrier.com/artifactory/npm-local/"
     },
     "scripts": {
+        "prepare": "husky install",
         "test": "jest",
         "build": "rollup -c -o dist/ngecat-reactcomponents.min.js",
         "storybook": "start-storybook -p 6006",
@@ -74,6 +75,7 @@
         "react-spinners": "^0.8.3",
         "echarts": "^5.1.2",
         "echarts-for-react": "^3.0.1",
-        "mammoth": "1.4.21"
+        "mammoth": "1.4.21",
+        "husky": "^7.0.2"
     }
 }
