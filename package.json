@@ -1,6 +1,6 @@
 {
     "name": "@carrier/ngecat-reactcomponents",
-    "version": "3.36.196",
+    "version": "3.36.198",
     "description": "React components library used for NGECAT workflow UI apps",
     "main": "dist/ngecat-reactcomponents.min.js",
     "publishConfig": {
@@ -12,7 +12,9 @@
         "build": "rollup -c -o dist/ngecat-reactcomponents.min.js",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
-        "prettier": "prettier --write \"src/**/*.js\""
+        "prettier": "prettier --write \"src/**/*.js\"",
+        "lint": "eslint -c eslintconfig.js src/",
+        "lint:fix": "eslint -c eslintconfig.js --fix src/"
     },
     "repository": {
         "type": "git",
@@ -21,7 +23,8 @@
     "author": "Mathieu Berte",
     "license": "ISC",
     "dependencies": {},
-    "devDependencies": {
+    "devDependencies": https://scegithub.apps.carrier.com/SCE/NGECAT-ReactComponents/pull/405/conflict?name=package.json&ancestor_oid=e827ff58e74f2b360d61f8867202d21601e9a697&base_oid=689dc7a2a4d4e4048d6e538c0fb9e1007060bf66&head_oid=6f2efcb0592ba52eb7b7c6658b721b62df4e1a22{
+        "@carrier/eslint-config-ecat": "^1.0.1",
         "@babel/core": "^7.10.5",
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
@@ -56,12 +59,18 @@
         "crypto-js": "^3.1.9-1",
         "echarts": "^5.1.2",
         "echarts-for-react": "^3.0.1",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^3.4.1",
+        "eslint-plugin-react": "^7.30.0",
         "file-saver": "^2.0.2",
+        "husky": "^7.0.2",
         "idb": "^6.1.2",
         "jest": "^26.6.3",
         "mammoth": "1.4.21",
         "moment": "^2.24.0",
         "postcss-modules": "^1.1.0",
+        "prettier": "^2.7.0",
         "react": "16.9.0",
         "react-dnd": "11.1.3",
         "react-dnd-html5-backend": "11.1.3",
@@ -81,6 +90,5 @@
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-uglify": "^3.0.0",
         "storybook-addon-material-ui": "^0.9.0-alpha.24",
-        "husky": "^7.0.2"
     }
 }

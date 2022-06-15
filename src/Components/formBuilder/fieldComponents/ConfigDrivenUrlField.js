@@ -8,12 +8,12 @@ const ConfigDrivenUrlField = (props) => {
     const { href, className, onClick = null } = config
 
     const onClickHandler = (event) => {
-        onClick && onClick(event, rowData, rowIndex)
+        if (onClick) onClick(event, rowData, rowIndex)
     }
 
     const classes = classNames(className, onClick ? 'formBuilderActive' : 'formBuilderNormal')
     return (
-        <a href={href} className={classes} target='_blank' onClick={onClickHandler}>
+        <a href={href} className={classes} target='_blank' onClick={onClickHandler} rel='noreferrer'>
             {formatValue(config, value, rowData)}
         </a>
     )

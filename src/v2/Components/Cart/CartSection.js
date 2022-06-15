@@ -24,20 +24,12 @@ const CartSection = ({
     intl,
     renderOptions = () => {},
     closeCart = () => {},
-    getPriceAndLabel = () => {},
     getPriceString = () => {},
     isOverSelectedOptions = false,
     cartConfig = [],
     dndReference = null,
 }) => {
     const { dropZone, optionDrawerContainer, optionDrawerMainContent, drawerCloseBtn, drawerIcon } = cartStyles()
-
-    const getPriceAndLabelHandler = (label, priceUnit, pricePropName) => {
-        if (getPriceAndLabel) {
-            return getPriceAndLabel(label, priceUnit, pricePropName)
-        }
-        return {}
-    }
 
     const getPriceStringHandler = (priceUnit, pricePropName) => {
         if (getPriceString) {
@@ -90,7 +82,8 @@ const CartSection = ({
                                         <div className={`${dropZone} ${isOverSelectedOptions ? 'is-visible' : ''}`} />
                                     </Box>
                                 )
-                            } else return null
+                            }
+                            return null
 
                         //Total Price section
                         case CART_SECTIONTYPE.TOTAL:

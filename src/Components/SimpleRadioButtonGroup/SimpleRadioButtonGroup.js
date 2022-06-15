@@ -28,7 +28,6 @@ function SimpleRadioButtonGroup(props) {
         }
         let Prop = GetProperty(props.PropName)
         SetProp(Prop)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [null, props.RulesJSON])
 
     function handleInputState(type) {
@@ -61,7 +60,7 @@ function SimpleRadioButtonGroup(props) {
     function GetClassName() {
         if (props.className) return props.className
         else if (props.vertical) return 'SRBG-Label-vertical'
-        else return 'SRBG-Label-horizontal'
+        return 'SRBG-Label-horizontal'
     }
 
     if (Visibility) {
@@ -74,66 +73,66 @@ function SimpleRadioButtonGroup(props) {
                             (props.HideInvisibleValues && value.Attributes['VISIBLE'] === 'FALSE')
                         )
                             return null
-                        else
-                            return (
-                                <Fragment>
-                                    <label
-                                        key={index}
-                                        className={
-                                            (value.State === 2 &&
-                                            (notAllowedDefaultState || Prop.AssignedValue === value.Value)
-                                                ? 'SRBG-radio-notAllowed '
-                                                : '') + GetClassName()
-                                        }
-                                    >
-                                        <input
-                                            id={'ctrl' + props.PropName + value.Value}
-                                            className='SRBG-radio'
-                                            type='radio'
-                                            name={props.PropName}
-                                            value={value.Value}
-                                            onChange={handleChange}
-                                            checked={Prop.AssignedValue === value.Value ? true : false}
-                                            disabled={!Enabled}
-                                        />
-                                        {props.DoNotTranslate ? (
-                                            <span>{value.Attributes.Description}</span>
-                                        ) : (
-                                            <Culture
-                                                id={FormatTransKey(
-                                                    props.PropName +
-                                                        '|' +
-                                                        (useValueAsKey ? value.Value : value.Attributes.Description)
-                                                )}
-                                                defaultMessage={value.Attributes.Description}
-                                            />
-                                        )}
-                                        {highlightNotAllowed &&
-                                        value.State === 2 &&
-                                        Prop.AssignedValue === value.Value ? (
-                                            <span className='SRBG-highlight-notAllowed'>
-                                                <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
-                                                    <Incomp width='16px' color='#FF9900' />
-                                                </Tooltip>
-                                            </span>
-                                        ) : null}
-                                    </label>
-                                    {!!value.Attributes.Note && props.vertical ? (
-                                        <div>
-                                            {' '}
-                                            {value.Attributes.Note.split('||').map((value, index) => {
-                                                return <li className={props.NoteclassName}>{value}</li>
-                                            })}
-                                        </div>
+                        return (
+                            <Fragment key={index}>
+                                <label
+                                    className={
+                                        (value.State === 2 &&
+                                        (notAllowedDefaultState || Prop.AssignedValue === value.Value)
+                                            ? 'SRBG-radio-notAllowed '
+                                            : '') + GetClassName()
+                                    }>
+                                    <input
+                                        id={'ctrl' + props.PropName + value.Value}
+                                        className='SRBG-radio'
+                                        type='radio'
+                                        name={props.PropName}
+                                        value={value.Value}
+                                        onChange={handleChange}
+                                        checked={Prop.AssignedValue === value.Value ? true : false}
+                                        disabled={!Enabled}
+                                    />
+                                    {props.DoNotTranslate ? (
+                                        <span>{value.Attributes.Description}</span>
                                     ) : (
-                                        ''
+                                        <Culture
+                                            id={FormatTransKey(
+                                                props.PropName +
+                                                    '|' +
+                                                    (useValueAsKey ? value.Value : value.Attributes.Description)
+                                            )}
+                                            defaultMessage={value.Attributes.Description}
+                                        />
                                     )}
-                                </Fragment>
-                            )
+                                    {highlightNotAllowed && value.State === 2 && Prop.AssignedValue === value.Value ? (
+                                        <span className='SRBG-highlight-notAllowed'>
+                                            <Tooltip title={tooltipMessage} aria-label={tooltipMessage}>
+                                                <Incomp width='16px' color='#FF9900' />
+                                            </Tooltip>
+                                        </span>
+                                    ) : null}
+                                </label>
+                                {!!value.Attributes.Note && props.vertical ? (
+                                    <div>
+                                        {' '}
+                                        {value.Attributes.Note.split('||').map((value, index) => {
+                                            return (
+                                                <li key={index} className={props.NoteclassName}>
+                                                    {value}
+                                                </li>
+                                            )
+                                        })}
+                                    </div>
+                                ) : (
+                                    ''
+                                )}
+                            </Fragment>
+                        )
                     })}
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default SimpleRadioButtonGroup

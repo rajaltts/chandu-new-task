@@ -6,6 +6,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import classNames from 'classnames'
 import translation from '../Translation'
 
+/* eslint-disable  */
+
 /**
  *
  * @param {
@@ -98,7 +100,7 @@ const SelectionRadar = (props) => {
 
     function configDifferentAsixScale() {
         let minAndMaxTemp = {}
-        data?.length !== 0 &&
+        if (data?.length !== 0)
             allKPIs.forEach((kpiItem) => {
                 let { dataIndex } = kpiItem
                 let min = 0

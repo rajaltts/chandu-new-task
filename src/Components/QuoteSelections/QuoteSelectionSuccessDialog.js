@@ -6,7 +6,7 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal'
 import { Button, Grid, makeStyles } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     successLogo: {
         color: '#61b549',
         marginBottom: '10px',
@@ -82,8 +82,7 @@ const QuoteSelectionSuccessDialog = (props) => {
                     variant='outlined'
                     size='large'
                     name='Close'
-                    onClick={hideComponentHandler}
-                >
+                    onClick={hideComponentHandler}>
                     Close
                 </Button>
                 <Button
@@ -94,8 +93,7 @@ const QuoteSelectionSuccessDialog = (props) => {
                     id={'SendToQuote'}
                     name={injectIntlTranslation(intl, 'SendToQuote')}
                     onClick={handleOpenPros}
-                    disabled={disableSave}
-                >
+                    disabled={disableSave}>
                     {injectIntlTranslation(intl, 'SendToQuote')}
                 </Button>
             </div>
@@ -110,8 +108,7 @@ const QuoteSelectionSuccessDialog = (props) => {
             errorMsg={errorMessage}
             hideHeader={true}
             contentClassName={successContentContainer}
-            footerComponent={customFooterButtons()}
-        >
+            footerComponent={customFooterButtons()}>
             <Grid container spacing={0} direction='column' alignItems='center' justify='center'>
                 <Grid>
                     <CheckCircleIcon className={successLogo} />

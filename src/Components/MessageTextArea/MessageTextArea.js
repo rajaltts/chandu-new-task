@@ -15,16 +15,15 @@ function MessageTextArea(props) {
             return 'warning.png'
         } else if (props.PropName.toUpperCase().indexOf('.MSG_QCREASON') >= 0) {
             return 'success.png'
-        } else {
-            return null
         }
+        return null
     }
     function GetProperty(PropName) {
         return GetProp(PropName, props.RulesJSON)
     }
 
     function getLineDelimiterValue(txtVal) {
-        return txtVal.split(props.LineDelimiter).map((str) => <p>{str}</p>)
+        return txtVal.split(props.LineDelimiter).map((str, index) => <p key={index}>{str}</p>)
     }
 
     function getIcon(value) {
@@ -57,13 +56,12 @@ function MessageTextArea(props) {
                 ? valueProp.Values.map((value, idx) => {
                       if (value.State === 2) {
                           return null
-                      } else {
-                          return (
-                              <div className='MSG-Container' key={idx}>
-                                  {getTextElement(value)}
-                              </div>
-                          )
                       }
+                      return (
+                          <div className='MSG-Container' key={idx}>
+                              {getTextElement(value)}
+                          </div>
+                      )
                   })
                 : null}
         </Fragment>

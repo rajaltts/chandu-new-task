@@ -89,7 +89,7 @@ function OptionControl(props) {
     function GetImpactIconColor(Val) {
         let colorObj = ImpactData.colors.find((val) => val.value === Val)
         if (colorObj) return colorObj.color
-        else return '#d8d8d8'
+        return '#d8d8d8'
     }
 
     function GetImpactText(Val, type) {
@@ -98,7 +98,7 @@ function OptionControl(props) {
         if (type === 'Efficiency') TextObject = ImpactData.EfficiencyText.find((val) => val.value === Val)
         if (type === 'Sound') TextObject = ImpactData.SoundText.find((val) => val.value === Val)
         if (TextObject) return <Culture id={FormatTransKey(TextObject.txt)} />
-        else return ''
+        return ''
     }
 
     function onInfoIconClick() {
@@ -154,7 +154,7 @@ function OptionControl(props) {
     function GetPrice() {
         let PriceProp = GetProperty(props.PropName + '.MLP')
         if (PriceProp) {
-            return parseInt(PriceProp.Value).toLocaleString() + ' €'
+            return parseInt(PriceProp.Value, 10).toLocaleString() + ' €'
         }
     }
 
@@ -179,8 +179,7 @@ function OptionControl(props) {
                             onClick={ValueChanged}
                             className={classNames('OptionControl-ClickableContainer', {
                                 OptionControlNotEnabled: !EnabledPropValue,
-                            })}
-                        >
+                            })}>
                             {Loading ? (
                                 <HashLoader
                                     css={override}
@@ -212,8 +211,7 @@ function OptionControl(props) {
                             ) : null}
                             <Tooltip
                                 title={GetImpactText(MainProp.Values[0].Attributes.SoundImpact, 'Sound')}
-                                placement='top'
-                            >
+                                placement='top'>
                                 <div className='OptionControl-ImpactIcon'>
                                     <SoundImpact
                                         color={GetImpactIconColor(MainProp.Values[0].Attributes.SoundImpact)}
@@ -223,8 +221,7 @@ function OptionControl(props) {
                             </Tooltip>
                             <Tooltip
                                 title={GetImpactText(MainProp.Values[0].Attributes.EfficiencyImpact, 'Efficiency')}
-                                placement='top'
-                            >
+                                placement='top'>
                                 <div className='OptionControl-ImpactIcon'>
                                     <EfficiencyIcon
                                         color={GetImpactIconColor(MainProp.Values[0].Attributes.EfficiencyImpact)}
@@ -234,8 +231,7 @@ function OptionControl(props) {
                             </Tooltip>
                             <Tooltip
                                 title={GetImpactText(MainProp.Values[0].Attributes.CapacityImpact, 'Capacity')}
-                                placement='top'
-                            >
+                                placement='top'>
                                 <div className='OptionControl-ImpactIcon'>
                                     <CapacityIcon
                                         color={GetImpactIconColor(MainProp.Values[0].Attributes.CapacityImpact)}
@@ -281,7 +277,8 @@ function OptionControl(props) {
                     ) : null}
                 </div>
             )
-        } else return null
+        }
+        return null
     }
 }
 

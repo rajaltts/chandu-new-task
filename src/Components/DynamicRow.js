@@ -11,13 +11,13 @@ function DynamicRow(props) {
                     padding: '5px 0',
                     backgroundColor: props.backgroundColor,
                     borderTop: 'Solid #e5e5e5 1px',
-                }}
-            >
+                }}>
                 <Col className='col-3 LeftOpCondLabel'>{props.Label}</Col>
                 <Col>{props.children}</Col>
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default DynamicRow

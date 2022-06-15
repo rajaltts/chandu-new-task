@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Chip from '@material-ui/core/Chip'
 import { makeStyles } from '@material-ui/core/styles'
 
-const timerStyles = makeStyles((theme) => ({
+const timerStyles = makeStyles(() => ({
     timerLabel: {
         color: 'white',
     },
@@ -52,7 +52,7 @@ const MinutesTimer = ({ label = '', reset = false, resetCallback = null, timeInt
         if (time === RESET_INTERVAL_S) {
             setRunTimer(false)
             setTime(0)
-            resetCallback && resetCallback()
+            if (resetCallback) resetCallback()
         }
     }, [time])
 

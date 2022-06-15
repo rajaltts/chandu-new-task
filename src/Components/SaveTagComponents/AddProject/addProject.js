@@ -7,6 +7,8 @@ import translation from '../../Translation'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import { TextField } from '@material-ui/core'
 
+/* eslint-disable no-prototype-builtins */
+
 const AddProject = (props) => {
     const {
         intl,

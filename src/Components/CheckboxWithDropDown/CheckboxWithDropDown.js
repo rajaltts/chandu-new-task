@@ -64,21 +64,20 @@ function CheckboxWithDropDown(props) {
     function GetTitle() {
         let DescriptionProp = GetProperty(PropName)
         if (DoNotTranslate) return DescriptionProp.Values[0].Attributes.Description
-        else
-            return (
-                <Culture
-                    id={FormatTransKey(PropName)}
-                    defaultMessage={
-                        DescriptionProp ? (
-                            <Culture
-                                id={FormatTransKey(PropName + '|' + DescriptionProp.Values[0].Attributes.Description)}
-                            />
-                        ) : (
-                            'MISSING TRANSLATION'
-                        )
-                    }
-                />
-            )
+        return (
+            <Culture
+                id={FormatTransKey(PropName)}
+                defaultMessage={
+                    DescriptionProp ? (
+                        <Culture
+                            id={FormatTransKey(PropName + '|' + DescriptionProp.Values[0].Attributes.Description)}
+                        />
+                    ) : (
+                        'MISSING TRANSLATION'
+                    )
+                }
+            />
+        )
     }
 
     let Value, Visibility
@@ -120,7 +119,8 @@ function CheckboxWithDropDown(props) {
                     {DisplayDetails && children ? <div className='CBWDD-DetailsContainer'>{children}</div> : null}
                 </div>
             )
-        } else return null
+        }
+        return null
     }
 }
 

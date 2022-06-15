@@ -8,7 +8,7 @@ const TabsBuilder = (props) => {
     const { tabsContainer, tabsRoot, tabsSelected, tabsNotSelected } = tabsStyles()
 
     const tabChangeHandler = (event, value) => {
-        handleTabChange && handleTabChange(event, value)
+        if (handleTabChange) handleTabChange(event, value)
     }
 
     return (
@@ -21,8 +21,7 @@ const TabsBuilder = (props) => {
                 classes={{
                     root: tabsRoot,
                 }}
-                variant='scrollable'
-            >
+                variant='scrollable'>
                 {tabs.map((tab, index) => (
                     <Tab
                         key={tab.tabName}

@@ -122,7 +122,7 @@ const RadaChart = (props) => {
     function formatToolTip(data) {
         const { lineData, mouseInAxis, lineName } = data
         let dataTip = lineData[tagAttrName] + '<br />'
-        indicator &&
+        if (indicator)
             indicator.forEach((item) => {
                 const { dataIndex, text, formatValue } = item
                 let value = lineData[dataIndex || text]
@@ -175,7 +175,7 @@ const RadaChart = (props) => {
 
     function updateIndicator() {
         let indicatorTemp = []
-        indicator &&
+        if (indicator)
             indicator.map((item) => {
                 let { isDesc, min, max, unit } = item
                 let itemTemp = {
@@ -204,7 +204,7 @@ const RadaChart = (props) => {
 
     function getLegendData() {
         let legendData = []
-        data &&
+        if (data)
             data.map((item) => {
                 legendData.push(item[tagAttrName])
             })
@@ -213,12 +213,12 @@ const RadaChart = (props) => {
 
     function getRadarDatas() {
         let radarDatas = []
-        data &&
+        if (data)
             data.map((item, index) => {
                 let radarData = {}
                 radarData.name = item[tagAttrName]
                 let radarLine = []
-                indicator &&
+                if (indicator)
                     indicator.map((key) => {
                         let value = key.isDesc ? -item[key.dataIndex] : item[key.dataIndex]
                         radarLine.push(value)

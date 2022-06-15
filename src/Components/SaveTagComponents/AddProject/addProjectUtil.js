@@ -6,6 +6,8 @@ import {
     injectIntlTranslation,
 } from '@carrier/workflowui-globalfunctions'
 
+/* eslint-disable no-useless-escape */
+
 const projectNameValidation = (value, intl) => {
     return validateFormFields(value, defaultValidation, defaultValidationMessages(intl))
 }

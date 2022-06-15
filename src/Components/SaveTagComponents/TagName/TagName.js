@@ -3,6 +3,8 @@ import TextField from '@material-ui/core/TextField'
 import saveTagStyles from '../saveTagStyles'
 import { validateFormFields, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
+/* eslint-disable no-useless-escape */
+
 const TagName = (props) => {
     const {
         tagNameProps: {
@@ -67,7 +69,7 @@ const TagName = (props) => {
             error = validateFormFields(value, validations, validationMessages)
         }
         if (error !== existingErrorTagName) {
-            !isDisabled && setExistingErrorTagName && setExistingErrorTagName(error)
+            if (!isDisabled && setExistingErrorTagName) setExistingErrorTagName(error)
         } else if (!selectedProject && saveSelection && !saveTagActiveTab) {
             setProjectError(setProjectSelectError())
         } else if (!projectData && !saveSelection) {

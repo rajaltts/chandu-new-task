@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import saveTemplateStyles from '../saveTemplateStyles'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import { validateFormFields, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 import translation from '../../Translation'
+
+/* eslint-disable no-useless-escape */
 
 const NewTemplate = ({ intl, validationHandler = null, updateTemplateStatus = null }) => {
     const { paragraph, field } = saveTemplateStyles()

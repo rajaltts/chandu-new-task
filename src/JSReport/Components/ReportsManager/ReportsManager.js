@@ -73,8 +73,7 @@ const ReportsManager = (props) => {
                                                 <Tooltip title={translation('Report preview')}>
                                                     <IconButton
                                                         onClick={() => previewReport(report)}
-                                                        className={`${classes.action} ${classes.reportPreviewButton}`}
-                                                    >
+                                                        className={`${classes.action} ${classes.reportPreviewButton}`}>
                                                         <VisibilityIcon className={classes.buttonIcon} />
                                                     </IconButton>
                                                 </Tooltip>
@@ -101,8 +100,7 @@ const ReportsManager = (props) => {
                                                     <Tooltip title={translation(report.description)}>
                                                         <IconButton
                                                             className={`${classes.action}`}
-                                                            onClick={() => downloadReport(report)}
-                                                        >
+                                                            onClick={() => downloadReport(report)}>
                                                             <GetAppIcon className={classes.statusIcon} />
                                                         </IconButton>
                                                     </Tooltip>

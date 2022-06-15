@@ -5,7 +5,7 @@ const ImageFolderPath = '/Images/'
 function ImageWithLabelCheckboxGroup(props) {
     function getFullImagePath(name) {
         if (props.ImagesLocationUrl) return props.ImagesLocationUrl + name
-        else return ImageFolderPath + name
+        return ImageFolderPath + name
     }
 
     function RenderListItem(value, index, Class) {
@@ -21,8 +21,7 @@ function ImageWithLabelCheckboxGroup(props) {
                 }}
                 key={index}
                 className={`IWLCG-tile ${Class}`}
-                id={'ctrl' + props.prop.Name + value.Value}
-            >
+                id={'ctrl' + props.prop.Name + value.Value}>
                 <div className='IWLCG-ImageContainer'>
                     <img alt='CtrlImage' className='IWLCG-image' src={getFullImagePath(value.Attributes.Image)} />
                 </div>

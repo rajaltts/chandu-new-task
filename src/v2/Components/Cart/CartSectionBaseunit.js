@@ -7,7 +7,7 @@ import { Box, Grid, Typography } from '@material-ui/core'
 
 //Components
 import CartSectionColumns from './CartSectionColumns'
-import ConfigDrivenNumberField from '../../../Components/formBuilder/fieldComponents/ConfigDrivenNumberField';
+import ConfigDrivenNumberField from '../../../Components/formBuilder/fieldComponents/ConfigDrivenNumberField'
 
 //Styles
 import cartStyles from './Cart.styles'
@@ -25,18 +25,24 @@ const CartSectionBaseunit = ({ intl, cartSectionConfig = {}, getPriceString = ()
                 <Grid item xs={10} container className={priceContainer}>
                     {cartSectionConfig.columns.map((col) => {
                         const { columnWidth, key, priceUnit, dataSource, isEditable, onClick } = col
-                        const fieldValue = getPriceString(priceUnit, dataSource);
+                        const fieldValue = getPriceString(priceUnit, dataSource)
                         return (
                             <Grid
                                 item
                                 sm={columnWidth}
                                 key={key}
                                 style={priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
-                                {isEditable ?
-                                    <ConfigDrivenNumberField config={{isEditable, onClick }} rowData={col} value={fieldValue}/>
-                                    :
-                                    <Typography variant='subtitle1' color='secondary'>{fieldValue}</Typography>
-                                }
+                                {isEditable ? (
+                                    <ConfigDrivenNumberField
+                                        config={{ isEditable, onClick }}
+                                        rowData={col}
+                                        value={fieldValue}
+                                    />
+                                ) : (
+                                    <Typography variant='subtitle1' color='secondary'>
+                                        {fieldValue}
+                                    </Typography>
+                                )}
                             </Grid>
                         )
                     })}

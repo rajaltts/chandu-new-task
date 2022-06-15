@@ -28,15 +28,14 @@ const ReportTableBody = ({ rowData }) => {
                 return ''
             }
             return <Format loading>{''}</Format>
-        } else {
-            return (
-                <>
-                    {textData['value']}
-                    {textData['supValue'] ? <sup> {textData['supValue']}</sup> : ''}
-                    {textData['subValue'] ? <sub> {textData['subValue']} </sub> : ''}
-                </>
-            )
         }
+        return (
+            <>
+                {textData['value']}
+                {textData['supValue'] ? <sup> {textData['supValue']}</sup> : ''}
+                {textData['subValue'] ? <sub> {textData['subValue']} </sub> : ''}
+            </>
+        )
     }
     return (
         <tr style={{ ...tableTr }}>
@@ -49,6 +48,7 @@ const ReportTableBody = ({ rowData }) => {
                 const positionType = item.positionType ? item.positionType : 'left'
                 return (
                     <td
+                        key={index}
                         colSpan={colSpan}
                         rowSpan={rowSpan}
                         style={{

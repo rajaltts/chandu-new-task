@@ -12,7 +12,7 @@ const ReportTable = ({ TableData = [], titleInformation = {} }) => {
                         if (rowData && !rowData.length) {
                             return null
                         }
-                        return <ReportTableBody rowData={rowData} />
+                        return <ReportTableBody key={index} rowData={rowData} />
                     })}
                 </table>
             )}

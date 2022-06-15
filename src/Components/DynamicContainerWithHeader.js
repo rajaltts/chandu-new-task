@@ -10,7 +10,8 @@ function DynamicContainerWithLabel(props) {
                 <div className='SubContainer'>{props.children}</div>
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default DynamicContainerWithLabel

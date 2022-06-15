@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const saveTemplateStyles = makeStyles((theme) => ({
+const saveTemplateStyles = makeStyles(() => ({
     paragraph: {
         color: '#BAC0D0',
         fontWeight: 'normal',

@@ -18,7 +18,9 @@ function PanelGroup(props) {
             e.target.id === 'SubHeader' ||
             e.target.id === 'PanelCaret'
         ) {
-            props.togglePanel ? props.togglePanel() : setOpen(!open)
+            if (props.togglePanel) {
+                props.togglePanel()
+            } else setOpen(!open)
         }
     }
 
