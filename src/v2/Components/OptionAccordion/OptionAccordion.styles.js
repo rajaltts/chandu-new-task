@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     optionPrice: {
         fontWeight: 600,
         margin: `auto ${theme.spacing(6)}px auto 0`,
-        minWidth: '61px'
+        minWidth: '61px',
     },
     optionDescrTitle: {
         fontWeight: 600,
@@ -98,8 +98,8 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 12px',
     },
     partNumber: {
-        fontSize: "13px",
-        marginTop: "5px",
+        fontSize: '13px',
+        marginTop: '5px',
         fontWeight: 500,
     },
 }))

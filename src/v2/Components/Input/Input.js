@@ -8,7 +8,25 @@ import { TextField } from '@material-ui/core'
 // Styles
 import useStyles from './Input.styles'
 
-const Input = ({ type, id, name, label, variant, value, loading, InputProps, handleChange, required, relaxed, disabled, valid, visible = true, isInteger, warningMessage, rest }) => {
+const Input = ({
+    type,
+    id,
+    name,
+    label,
+    variant,
+    value,
+    loading,
+    InputProps,
+    handleChange,
+    required,
+    relaxed,
+    disabled,
+    valid,
+    visible = true,
+    isInteger,
+    warningMessage,
+    rest,
+}) => {
     const [currentValue, setCurrentValue] = useState(value)
     const [error, setError] = useState(false)
     const [touched, setTouched] = useState(false)
@@ -18,12 +36,12 @@ const Input = ({ type, id, name, label, variant, value, loading, InputProps, han
     let helperText = ''
 
     const stripNonIntegers = (value, shouldReplace = false) =>
-        shouldReplace ? value.replace(/[^0-9-]/g, "").replace(/(?!^)-/g, "") : value;
+        shouldReplace ? value.replace(/[^0-9-]/g, '').replace(/(?!^)-/g, '') : value
 
     useEffect(() => {
         setError(isErrored() || relaxed)
     }, [disabled, visible, valid])
-    
+
     useEffect(() => {
         if (value !== currentValue && !loading) {
             setCurrentValue(value)
@@ -31,25 +49,27 @@ const Input = ({ type, id, name, label, variant, value, loading, InputProps, han
         }
     }, [value, loading])
 
-    const isErrored = () => disabled || !visible ? false : !valid
+    const isErrored = () => (disabled || !visible ? false : !valid)
 
     const valueChange = (e) => {
         const value = stripNonIntegers(e.target.value, isInteger)
-        isInteger && setShowWarning(!(value === e.target.value))
+        if (isInteger) setShowWarning(!(value === e.target.value))
         setCurrentValue(value)
     }
 
     const handleBlur = (e) => {
         e.stopPropagation()
         setTouched(false)
-        showWarning && setShowWarning(false)
+        if (showWarning) setShowWarning(false)
 
         if (e.target.value !== value) {
             handleChange(e.target.value)
         }
     }
-    
-    if(!visible) { return(<></>) }
+
+    if (!visible) {
+        return <></>
+    }
     return (
         <TextField
             type={isInteger ? 'text' : type}
@@ -91,7 +111,7 @@ const Input = ({ type, id, name, label, variant, value, loading, InputProps, han
 Input.defaultProps = {
     type: 'text',
     variant: 'outlined',
-    warningMessage: 'Please enter only integer values'
+    warningMessage: 'Please enter only integer values',
 }
 
 Input.propTypes = {

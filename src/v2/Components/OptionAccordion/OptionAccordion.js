@@ -7,15 +7,15 @@ import { injectIntl } from 'react-intl'
 import { slugify, injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
 // Material
-import { 
-    Accordion, 
-    AccordionSummary, 
-    AccordionDetails, 
-    Typography, 
-    Box, 
-    FormControlLabel, 
-    Grid, 
-    Tooltip 
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    Box,
+    FormControlLabel,
+    Grid,
+    Tooltip,
 } from '@material-ui/core'
 import { Check, ArrowDropDown } from '@material-ui/icons'
 
@@ -45,43 +45,35 @@ const OptionAccordion = ({
     details,
     rulesJson,
     childProps,
-    keepDetailsOpen
+    keepDetailsOpen,
 }) => {
     const classes = useStyles()
-    const error = !valid || relaxed;
-    const selectedOption = rulesJson[name]?.values.find((prop) => prop.Value === 'TRUE');
-    const { DETAILS } = rulesJson[name]?.subprops || {};
+    const error = !valid || relaxed
+    const selectedOption = rulesJson[name]?.values.find((prop) => prop.Value === 'TRUE')
+    const { DETAILS } = rulesJson[name]?.subprops || {}
     const selectedOptionDescription = selectedOption?.Attributes.Description
-    const selectedOptionDetails = DETAILS || details;
+    const selectedOptionDetails = DETAILS || details
     const selectedOptionPrice = selectedOption?.Attributes.MLP
-    const selectedOptionQuantity = selectedOption?.Attributes.QTY;
+    const selectedOptionQuantity = selectedOption?.Attributes.QTY
     const selectedOptionPartNumber = selectedOption?.Attributes.PN
     const currentLabel = defaultLabel ? defaultLabel : selectedOptionDescription
     const hasDetails = selectName || selectedOptionDetails || childProps
     let id = slugify(defaultLabel ? defaultLabel : label)
 
     const Label = () => {
-
         const optionLabel = (
             <div>
-                <div>
-                    {currentLabel}
-                </div>
-                {selectedOptionPartNumber ? (
-                    <div className={classes.partNumber}>
-                    {selectedOptionPartNumber}
-                </div>
-                ) : null}
+                <div>{currentLabel}</div>
+                {selectedOptionPartNumber ? <div className={classes.partNumber}>{selectedOptionPartNumber}</div> : null}
             </div>
-        );
+        )
 
         return (
             <>
                 {error ? (
                     <Tooltip
                         data-WarningText={`${name}__CONTROL_SELECTION_WARNING`}
-                        title={injectIntlTranslation(intl, "CONTROL_SELECTION_WARNING")}
-                    >
+                        title={injectIntlTranslation(intl, 'CONTROL_SELECTION_WARNING')}>
                         {optionLabel}
                     </Tooltip>
                 ) : (
@@ -90,7 +82,7 @@ const OptionAccordion = ({
             </>
         )
     }
-    
+
     return (
         <Accordion
             id={id}
@@ -132,7 +124,7 @@ const OptionAccordion = ({
                     <div className={classes.optionRightContent}>
                         {selectedOptionQuantity && (
                             <Typography className={classes.optionPrice} color='primary'>
-                                {`${injectIntlTranslation(intl, "Quantity: ")}`} {selectedOptionQuantity}
+                                {`${injectIntlTranslation(intl, 'Quantity: ')}`} {selectedOptionQuantity}
                             </Typography>
                         )}
                         {selectedOptionPrice && (

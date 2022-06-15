@@ -4,18 +4,11 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 
 // Material
-import { 
-    Box,
-    Grid,
-    Accordion, 
-    AccordionSummary, 
-    AccordionDetails, 
-    Typography 
-} from '@material-ui/core'
+import { Box, Grid, Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
 
 // Styles
-import useStyles from "./SelectWithAccordion.styles"
+import useStyles from './SelectWithAccordion.styles'
 
 //Form Controls
 import Select from '../Select/Select'
@@ -26,7 +19,7 @@ import { slugify, injectIntlTranslation } from '@carrier/workflowui-globalfuncti
 import classnames from 'classnames'
 
 const SelectWithAccordion = (props) => {
-    const { 
+    const {
         intl,
         name,
         defaultExpanded,
@@ -35,23 +28,26 @@ const SelectWithAccordion = (props) => {
         defaultLabel,
         label,
         selectName,
-        details, 
+        details,
         childProps,
         keepDetailsOpen,
         noIcon = false,
-        rulesJson
-    } = props;
-    
+        rulesJson,
+    } = props
+
     const classes = useStyles()
-    const { DETAILS } = rulesJson[name]?.subprops || {};
-    const selectedOptionDetails = DETAILS || details;
+    const { DETAILS } = rulesJson[name]?.subprops || {}
+    const selectedOptionDetails = DETAILS || details
     const hasDetails = selectName || selectedOptionDetails || childProps
     let id = slugify(defaultLabel ? defaultLabel : label)
-    
+
     return (
         <Accordion
             id={id}
-            className={classnames(`${classes.accordion} ${!hasDetails ? 'no-accordion' : ''}`, !hasDetails && noIcon && classes.noIcon )}
+            className={classnames(
+                `${classes.accordion} ${!hasDetails ? 'no-accordion' : ''}`,
+                !hasDetails && noIcon && classes.noIcon
+            )}
             defaultExpanded={defaultExpanded}
             expanded={keepDetailsOpen ? keepDetailsOpen : isOpen}
             onChange={(e, expanded) => accordionChange(e, expanded, hasDetails)}

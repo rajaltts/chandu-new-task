@@ -6,8 +6,6 @@ import PropTypes from 'prop-types'
 import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
-//import { translation } from '@carrier/ngecat-reactcomponents';
-
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
 
 // Styles
@@ -39,7 +37,7 @@ const InputRange = ({
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
     const [currentValue, setCurrentValue] = useState(value)
-    const [showWarning, setShowWarning] = useState(false);
+    const [showWarning, setShowWarning] = useState(false)
     const [isUserInput, setIsUserInput] = useState(false)
     const classes = useStyles()
     const authorizedProps = createAuthorizedProps(TextField, rest)
@@ -56,15 +54,15 @@ const InputRange = ({
     }
 
     const stripNonIntegers = (value, shouldReplace = false) =>
-        shouldReplace ? value.replace(/[^0-9-]/g, "").replace(/(?!^)-/g, "") : value;
+        shouldReplace ? value.replace(/[^0-9-]/g, '').replace(/(?!^)-/g, '') : value
 
     const valueIsCorrect = (v) => {
-    	return !disabled 
-	    ? isUserInput
-	    	? ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX))
-		    : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
-	    : true
-	    }
+        return !disabled
+            ? isUserInput
+                ? (parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)
+                : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
+            : true
+    }
 
     useEffect(() => {
         setError(!valueIsCorrect(currentValue) || relaxed)
@@ -92,9 +90,9 @@ const InputRange = ({
 
     const valueChange = (e) => {
         const value = stripNonIntegers(e.target.value, isInteger)
-        isInteger && setShowWarning(!(value === e.target.value))
-	    setCurrentValue(e.target.value)
-	    setIsUserInput(true)
+        if (isInteger) setShowWarning(!(value === e.target.value))
+        setCurrentValue(e.target.value)
+        setIsUserInput(true)
         setError(!valueIsCorrect(e.target.value))
         if (!error && trigger === 'change') {
             handleChange(e.target.value)
@@ -103,16 +101,18 @@ const InputRange = ({
 
     const handleBlur = (e) => {
         e.stopPropagation()
-	    setIsUserInput(false)
+        setIsUserInput(false)
         setTouched(false)
-        showWarning && setShowWarning(false)
+        if (showWarning) setShowWarning(false)
 
         if (trigger === 'blur' && e.target.value !== value) {
             handleChange(e.target.value)
         }
     }
 
-    if (!visible) {return (<></>)} //return nothing if VISIBLE subprop = FALSE : CJT
+    if (!visible) {
+        return <></>
+    } //return nothing if VISIBLE subprop = FALSE : CJT
     return (
         <Box key={id} className={`${classes.inputContainer}`}>
             <TextField
@@ -167,7 +167,7 @@ const InputRange = ({
                         ''
                     ),
                 }}
-                helperText={touched && (showWarning ? "Please enter only integer values": helperText)}
+                helperText={touched && (showWarning ? 'Please enter only integer values' : helperText)}
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
                 onChange={valueChange}
                 onFocus={() => setTouched(true)}

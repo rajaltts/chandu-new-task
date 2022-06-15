@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.grey[900],
         },
         '& .Mui-disabled': {
-            color: theme.palette.text.secondary
+            color: theme.palette.text.secondary,
         },
         '& .Mui-focused': {
             color: theme.palette.grey[900],
@@ -111,11 +111,11 @@ const useStyles = makeStyles((theme) => ({
         visibility: 'hidden',
         '&.Mui-focused': {
             visibility: 'visible',
-        }
+        },
     },
     helperWarningText: {
         margin: 0,
-        color: `${theme.palette.orange[100]} !important`
+        color: `${theme.palette.orange[100]} !important`,
     },
 }))
 

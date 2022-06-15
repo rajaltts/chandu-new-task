@@ -19,7 +19,17 @@ const Discrete = ({
     rulesLoading,
     onNewAssignment,
 }) => {
-    const { value, label, values, visible, valid, relaxed, enabled, default: defaultValue, children: subChildren } = extractDataFromRules(rulesJson, name, intl, excludeUnfeasible)
+    const {
+        value,
+        label,
+        values,
+        visible,
+        valid,
+        relaxed,
+        enabled,
+        default: defaultValue,
+        children: subChildren,
+    } = extractDataFromRules(rulesJson, name, intl, excludeUnfeasible)
 
     const handleChange = (value) => {
         //Create an assignment for the rules property and value for this component
@@ -30,19 +40,26 @@ const Discrete = ({
         }
 
         //Call the WorkflowContainer component's callback to handle the change
-        onNewAssignment(newAssignments, ruleset, tags, () => {
-            const selectedValue = values.find((v) => v.value === value)
-            if (onChange) {
-                onChange({
-                    manualChange: true,
-                    property: {
-                        name,
-                        label,
-                    },
-                    value: selectedValue,
-                })
-            }
-        }, null, isConfiguration)
+        onNewAssignment(
+            newAssignments,
+            ruleset,
+            tags,
+            () => {
+                const selectedValue = values.find((v) => v.value === value)
+                if (onChange) {
+                    onChange({
+                        manualChange: true,
+                        property: {
+                            name,
+                            label,
+                        },
+                        value: selectedValue,
+                    })
+                }
+            },
+            null,
+            isConfiguration
+        )
     }
 
     if (autoSelectFirst && values.length && !value) {
@@ -63,9 +80,9 @@ const Discrete = ({
 
     const getValue = () => {
         if (!value) {
-            return defaultValue || "";
+            return defaultValue || ''
         }
-        return value;
+        return value
     }
 
     const childrenWithProps = React.Children.map(children, (child) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import FabWithBadge from './FabWithBadge'
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
 
 export default {
     title: 'ActionComponent/FabWithBadge',
@@ -8,11 +8,10 @@ export default {
 }
 
 const FabWithBadgeTemplate = ({ ...args }) => {
-    debugger;
     return <FabWithBadge {...args} />
 }
 
 export const Basic = FabWithBadgeTemplate.bind({})
 Basic.args = {
-    icon: <ShoppingBasketIcon/>,
+    icon: <ShoppingBasketIcon />,
 }

@@ -78,8 +78,8 @@ const useStyles = makeStyles((theme) => ({
     },
     priceContainer: {
         display: 'flex',
-        justifyContent: 'space-between'
-    }
+        justifyContent: 'space-between',
+    },
 }))
 
 export default useStyles

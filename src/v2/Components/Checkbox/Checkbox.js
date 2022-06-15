@@ -1,9 +1,21 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Tooltip, Checkbox as MaterialCheckbox, FormControlLabel } from '@material-ui/core'
 import useStyles from './Checkbox.styles'
 
-const Checkbox = ({ className, value, handleChange, label, color, disabled, relaxed, valid = true, visible = true, tooltipTitle, ...rest }) => {
+const Checkbox = ({
+    className,
+    value,
+    handleChange,
+    label,
+    color,
+    disabled,
+    relaxed,
+    valid = true,
+    visible = true,
+    tooltipTitle,
+    ...rest
+}) => {
     const classes = useStyles()
     const [error, setError] = useState(false)
 
@@ -25,7 +37,9 @@ const Checkbox = ({ className, value, handleChange, label, color, disabled, rela
         )
     }
 
-    if (!visible) {return (<></>)}
+    if (!visible) {
+        return <></>
+    }
     return (
         <FormControlLabel
             classes={{

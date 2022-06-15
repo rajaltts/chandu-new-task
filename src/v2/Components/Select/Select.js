@@ -59,13 +59,17 @@ const Select = ({
         setError(disabled || !visible ? false : !valid || relaxed)
     }, [disabled, visible, valid, relaxed])
 
-    if(!visible) { return(<></>) }
+    if (!visible) {
+        return <></>
+    }
     return (
         <>
             <FormControl
-                classes={{ root: classNames(classes.formControl, {
-                    [classes.disabled]: disabled,
-                })}}
+                classes={{
+                    root: classNames(classes.formControl, {
+                        [classes.disabled]: disabled,
+                    }),
+                }}
                 variant='outlined'
                 disabled={disabled}
                 error={error}

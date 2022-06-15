@@ -6,21 +6,19 @@ import { injectIntl } from 'react-intl'
 import { extractDataFromRules, SUFFIX_DEFAULT_UNIT, roundingAndPrecision } from '@carrier/workflowui-globalfunctions'
 
 const RangeWithUnit = ({
-    unit: unitSystem, 
-    name, 
-    ruleset, 
-    tags, 
-    intl, 
-    children, 
+    name,
+    ruleset,
+    tags,
+    intl,
+    children,
     customConversion,
-    customHandleChange = null, 
+    customHandleChange = null,
     rulesLoading,
     rulesJson,
     onNewAssignment,
-    isConfiguration = false, 
-    className
+    isConfiguration = false,
+    className,
 }) => {
-
     //Extract data for the child components from the rules property
     const extractedData = extractDataFromRules(rulesJson, name, intl)
     let {
@@ -38,9 +36,9 @@ const RangeWithUnit = ({
         label,
         enabled,
         roundingDigits,
-        roundingMethod
+        roundingMethod,
     } = extractedData
-    const [percentofAnotherValue, setPercentofAnotherValue] = useState(percent)//unit === '%' ? true : false)
+    const [percentofAnotherValue, setPercentofAnotherValue] = useState(percent) //unit === '%' ? true : false)
 
     // if the value is displayed based on percent of another value, lets recompute using related property else just convert
     if (percentofAnotherValue) {
@@ -51,8 +49,7 @@ const RangeWithUnit = ({
             basedValue = value
             min = minvalue
             max = maxvalue
-        }
-        else {
+        } else {
             basedValue = GetUnitConversion(unit, displayUnit, basedValue, 0, {})
             min = GetUnitConversion(unit, displayUnit, min, 0, {})
             max = GetUnitConversion(unit, displayUnit, max, 0, {})
@@ -67,8 +64,7 @@ const RangeWithUnit = ({
             if (customConversion) {
                 let { value } = customConversion(extractedData)
                 newVal = value
-            }
-            else {
+            } else {
                 newVal = GetUnitConversion(displayUnit, unit, value, 0, {
                     toFixed: roundingDigits,
                 })
@@ -95,7 +91,7 @@ const RangeWithUnit = ({
             selectionChangedHandler({ [`${name}${SUFFIX_DEFAULT_UNIT}`]: newUnit })
         }
     }
-    
+
     const childrenWithProps = React.Children.map(children, (child) => {
         return React.cloneElement(child, {
             value: roundingAndPrecision(basedValue, roundingMethod, roundingDigits),
@@ -112,7 +108,7 @@ const RangeWithUnit = ({
             visible,
             name,
             valid,
-            className: className
+            className: className,
         })
     })
 

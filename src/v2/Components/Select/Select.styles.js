@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.grey[900],
         },
         '& .Mui-disabled': {
-            color: theme.palette.text.secondary
+            color: theme.palette.text.secondary,
         },
         '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.grey.main,
@@ -131,13 +131,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     descriptionWithMlp: {
-        display: "flex",
-        justifyContent: "space-between",
-        width: "100%",
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
     },
     priceMlp: {
-        marginRight: "10px",
-    }
+        marginRight: '10px',
+    },
 }))
 
 export default useStyles

@@ -12,19 +12,21 @@ export default {
             defaultValue: 'label',
         },
         columnData: {
-            defaultValue: [{
-                key: '1',
-                value: '2000',
-                priceUnit: '$',
-            },
-            {
-                key: '2',
-                value: '2',
-            }]
+            defaultValue: [
+                {
+                    key: '1',
+                    value: '2000',
+                    priceUnit: '$',
+                },
+                {
+                    key: '2',
+                    value: '2',
+                },
+            ],
         },
         draggable: {
             defaultValue: true,
-        }
+        },
     },
 }
 

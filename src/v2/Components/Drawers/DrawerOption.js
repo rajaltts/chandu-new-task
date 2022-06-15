@@ -40,7 +40,7 @@ const DrawerOption = ({
     let currentAnchor = null
 
     if (!columnData) {
-        return null;
+        return null
     }
 
     if (anchor) {
@@ -98,7 +98,6 @@ const DrawerOption = ({
                 <Grid container>
                     <Grid item xs={12}>
                         <Box className={classes.topLine} display='flex'>
-
                             {/* Description of the option */}
                             <Typography
                                 color='textPrimary'
@@ -129,7 +128,11 @@ const DrawerOption = ({
                     <Grid item xs={2}></Grid>
                     <Grid item xs={10} container className={classes.priceContainer}>
                         {columnData.map((col) => (
-                            <Grid item sm={col.columnWidth} key={col.key} style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
+                            <Grid
+                                item
+                                sm={col.columnWidth}
+                                key={col.key}
+                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='subtitle1' color='secondary'>
                                     {col.value}
                                 </Typography>

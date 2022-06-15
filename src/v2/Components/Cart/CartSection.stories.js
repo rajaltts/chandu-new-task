@@ -4,8 +4,7 @@ import CartSection from './CartSection'
 export default {
     title: 'Layout/CartSection',
     component: CartSection,
-    argTypes: {
-    },
+    argTypes: {},
 }
 
 const CartSectionTemplate = ({ ...args }) => {
