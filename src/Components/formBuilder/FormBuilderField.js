@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { columnType, formatValue } from '@carrier/workflowui-globalfunctions'
 import ConfigDrivenUrlField from './fieldComponents/ConfigDrivenUrlField'
 import ConfigDrivenDateField from './fieldComponents/ConfigDrivenDateField'
@@ -33,8 +33,7 @@ const FormBuilderField = (props) => {
             return (
                 <span
                     className={config.className}
-                    onClick={(event) => config.onClick && config.onClick(event, rowData)}
-                >
+                    onClick={(event) => config.onClick && config.onClick(event, rowData)}>
                     {formattedValue}
                 </span>
             )

@@ -70,7 +70,7 @@ function SimpleCombobox(props) {
         let SelectedOption = prop.Values.find((Value) => {
             return Value.Value.toLowerCase() === value.toLowerCase()
         })
-        SelectedOption && props.onValueChanged([{ Name: prop.Name, Value: SelectedOption.Value }])
+        if (SelectedOption) props.onValueChanged([{ Name: prop.Name, Value: SelectedOption.Value }])
         if (search) {
             setEditedValue('')
         }
@@ -93,7 +93,7 @@ function SimpleCombobox(props) {
             ) : (
                 <Culture id={FormatTransKey(props.PropName + '|' + SelectedOption.Attributes.Description)} />
             )
-        else return ''
+        return ''
     }
     function GetProperty(PropName) {
         return GetProp(PropName, props.RulesJSON)
@@ -105,7 +105,7 @@ function SimpleCombobox(props) {
     }
 
     function GetPriceDollar(Value) {
-        return !!Value ? (props.isNoMLP ? ` $ ${Value}` : ` $ ${Value} MLP`) : ' $ TBD'
+        return Value ? (props.isNoMLP ? ` $ ${Value}` : ` $ ${Value} MLP`) : ' $ TBD'
     }
 
     function sortValues(values) {
@@ -133,16 +133,14 @@ function SimpleCombobox(props) {
                         className={
                             (prop && prop.IsRelaxed ? 'SCB-Container-notAllowed ' : '') +
                             ('SCB-Container ' + props.className)
-                        }
-                    >
+                        }>
                         <div
                             className={classNames(
                                 !Enabled && 'SCB-BtnWrapper-Disabled',
                                 'SCB-BtnWrapper',
                                 search && 'SCB-BtnWrapper-noBorder'
                             )}
-                            onClick={() => onDropBtnClick()}
-                        >
+                            onClick={() => onDropBtnClick()}>
                             {search && Open ? (
                                 <input
                                     type='text'
@@ -198,8 +196,7 @@ function SimpleCombobox(props) {
                                                 className={
                                                     (value.State > 1 ? 'NotAllowedValue' : '') + ' SCB-valueContainer'
                                                 }
-                                                key={index}
-                                            >
+                                                key={index}>
                                                 <span>
                                                     {value.Attributes.Description}
                                                     {props.PriceDollar ? (
@@ -213,29 +210,25 @@ function SimpleCombobox(props) {
                                                 ) : null}
                                             </div>
                                         )
-                                    else
-                                        return (
-                                            <div
-                                                valueid={value.Value}
-                                                onClick={() => ValueChanged(value.Value)}
-                                                className={
-                                                    (value.State > 1 ? 'NotAllowedValue' : '') + ' SCB-valueContainer'
-                                                }
+                                    return (
+                                        <div
+                                            valueid={value.Value}
+                                            onClick={() => ValueChanged(value.Value)}
+                                            className={
+                                                (value.State > 1 ? 'NotAllowedValue' : '') + ' SCB-valueContainer'
+                                            }
+                                            key={index}>
+                                            <Culture
+                                                id={FormatTransKey(props.PropName + '|' + value.Attributes.Description)}
                                                 key={index}
-                                            >
-                                                <Culture
-                                                    id={FormatTransKey(
-                                                        props.PropName + '|' + value.Attributes.Description
-                                                    )}
-                                                    key={index}
-                                                />
-                                                {props.Prices && props.Prices.length > 0 ? (
-                                                    <span className='SCB-Price'>
-                                                        {GetPrice(value.Attributes.Description)}
-                                                    </span>
-                                                ) : null}
-                                            </div>
-                                        )
+                                            />
+                                            {props.Prices && props.Prices.length > 0 ? (
+                                                <span className='SCB-Price'>
+                                                    {GetPrice(value.Attributes.Description)}
+                                                </span>
+                                            ) : null}
+                                        </div>
+                                    )
                                 })}
                             </div>
                         )}
@@ -243,9 +236,8 @@ function SimpleCombobox(props) {
                 </ClickAwayListener>
             </Fragment>
         )
-    } else {
-        return null
     }
+    return null
 }
 
 export default injectIntl(SimpleCombobox)

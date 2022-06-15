@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         marginTop: '0px !important',
         paddingTop: '0px !important',
@@ -142,8 +142,7 @@ const QuoteSelection = (props) => {
                     variant='outlined'
                     size='large'
                     name='Cancel'
-                    onClick={hideComponentHandler}
-                >
+                    onClick={hideComponentHandler}>
                     {injectIntlTranslation(intl, 'Cancel')}
                 </Button>
                 <Button
@@ -154,8 +153,7 @@ const QuoteSelection = (props) => {
                     id={'OpenPros'}
                     name={injectIntlTranslation(intl, 'OpenPros')}
                     onClick={handleOpenPros}
-                    disabled={isSaveDisabled}
-                >
+                    disabled={isSaveDisabled}>
                     {injectIntlTranslation(intl, 'OpenPros')}
                 </Button>
             </div>
@@ -209,7 +207,7 @@ const QuoteSelection = (props) => {
                 )
             }
             return (
-                <FormControl variant='outlined' size='small' className={formControl}>
+                <FormControl key={index} variant='outlined' size='small' className={formControl}>
                     <InputLabel id={labelId}>{label}</InputLabel>
                     <Select
                         labelId={labelId}
@@ -220,8 +218,7 @@ const QuoteSelection = (props) => {
                         MenuProps={{
                             classes: { paper: selectMenu },
                             style: { zIndex: 9999999999 },
-                        }}
-                    >
+                        }}>
                         {addNewId && (
                             <MenuItem value={newQuotation}>
                                 <NewQuote />
@@ -235,10 +232,14 @@ const QuoteSelection = (props) => {
                                 {value}
                             </MenuItem>
                         )}
-                        {menuList.map((menuItem) => {
+                        {menuList.map((menuItem, index) => {
                             const { name, id } = menuItem
                             return (
-                                <MenuItem id={id} className={name === value ? selectedMenu : ''} value={name}>
+                                <MenuItem
+                                    key={index}
+                                    id={id}
+                                    className={name === value ? selectedMenu : ''}
+                                    value={name}>
                                     {name}
                                 </MenuItem>
                             )
@@ -259,8 +260,7 @@ const QuoteSelection = (props) => {
             headerIcon={QuotePro}
             id='quoteSelection'
             disableCloseIcon
-            title={injectIntlTranslation(intl, 'OpenPros')}
-        >
+            title={injectIntlTranslation(intl, 'OpenPros')}>
             {createFields(fields)}
         </ConfirmModal>
     )

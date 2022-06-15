@@ -32,7 +32,6 @@ function TextBoxWithDropdownList(props) {
             SetVisibility(visibleProp.Value === 'TRUE' ? true : false)
         } else SetVisibility(true)
         UpdateStates()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [null, props.RulesJSON])
 
     useEffect(() => {
@@ -103,7 +102,7 @@ function TextBoxWithDropdownList(props) {
         let convertedValue = isFinite(value) && Number.parseFloat(value)
         if (convertedValue === 0) return 0
         //fix data lose
-        if (!!props.isRequiredMathRound) {
+        if (props.isRequiredMathRound) {
             convertedValue = Math.round(convertedValue * 100) / 100
         }
         if (props.toPrecisionRulesForValue) {
@@ -111,7 +110,7 @@ function TextBoxWithDropdownList(props) {
             precision = GetPredefinedPrecision(unitNumber)
             return Number(convertedValue.toPrecision(precision))
         }
-        if (!!props.toFixedValue) {
+        if (props.toFixedValue) {
             return convertedValue.toFixed(props.toFixedValue)
         }
         //significant digit by default
@@ -133,7 +132,7 @@ function TextBoxWithDropdownList(props) {
                 })
                 precision =
                     precisionConfiguration && precisionConfiguration.split(':').length > 0
-                        ? Number.parseInt(precisionConfiguration.split(':')[1])
+                        ? Number.parseInt(precisionConfiguration.split(':')[1], 10)
                         : precision
             }
         }
@@ -207,8 +206,7 @@ function TextBoxWithDropdownList(props) {
                         className='TBWLAI-Select'
                         onChange={onUnitChanged}
                         value={UnitProp.Value}
-                        disabled={!Enabled}
-                    >
+                        disabled={!Enabled}>
                         {UnitProp.Values.map((unit, index) => {
                             return (
                                 <option key={index} className='TBWLAI-SelectOption' value={unit.Value}>
@@ -218,12 +216,10 @@ function TextBoxWithDropdownList(props) {
                         })}
                     </select>
                 )
-            } else {
-                return <span className='TBWLAI-label'>{Unit}</span>
             }
-        } else {
-            return null
+            return <span className='TBWLAI-label'>{Unit}</span>
         }
+        return null
     }
 
     if (Visibility) {
@@ -231,8 +227,7 @@ function TextBoxWithDropdownList(props) {
             <div
                 className={
                     'TBWLAI-container ' + (Relaxed && !DisplayMinMax ? 'RelaxedHighlight ' : '') + props.className
-                }
-            >
+                }>
                 <div className='TBWLAI-InputContainer'>
                     {props.Image ? (
                         <div className={'TBWLAI-ImageContainer' + (!Valid ? ' error-checkbox-wrapper ' : '')}>
@@ -285,7 +280,7 @@ function TextBoxWithDropdownList(props) {
         )
     } else if (props.KeepSpaceWhenHidden)
         return <div style={{ visibility: 'hidden' }} className='TBWLAI-container'></div>
-    else return null
+    return null
 }
 
 export default TextBoxWithDropdownList

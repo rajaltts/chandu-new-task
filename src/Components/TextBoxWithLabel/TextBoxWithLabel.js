@@ -27,7 +27,6 @@ function TextBoxWithLabel(props) {
             SetVisibility(VisibleProp.Value === 'TRUE' ? true : false)
         } else SetVisibility(true)
         UpdateStates()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [null, props.unitSystem, props.RulesJSON])
 
     useEffect(() => {
@@ -75,9 +74,8 @@ function TextBoxWithLabel(props) {
     function SignificantDigit(valueToPrint) {
         if (valueToPrint > 0 && valueToPrint < 1) {
             return Number.parseFloat(valueToPrint).toPrecision(3)
-        } else {
-            return Math.round(valueToPrint * 100) / 100
         }
+        return Math.round(valueToPrint * 100) / 100
     }
 
     function FormatNumber(value, UnitNumber) {
@@ -155,12 +153,10 @@ function TextBoxWithLabel(props) {
                         })}
                     </select>
                 )
-            } else {
-                return <span className='TBWLAI-label'>{Unit}</span>
             }
-        } else {
-            return null
+            return <span className='TBWLAI-label'>{Unit}</span>
         }
+        return null
     }
 
     if (Visibility)
@@ -216,7 +212,7 @@ function TextBoxWithLabel(props) {
             </div>
         )
     else if (props.KeepSpaceWhenHidden) return <div style={{ visibility: 'hidden' }} className='TBWLAI-container'></div>
-    else return null
+    return null
 }
 
 export default TextBoxWithLabel

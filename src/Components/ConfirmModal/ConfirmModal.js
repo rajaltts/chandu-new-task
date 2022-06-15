@@ -8,11 +8,10 @@ import CloseIcon from '@material-ui/icons/Close'
 import translation from '../Translation'
 import IconButton from '@material-ui/core/IconButton'
 import ErrorIcon from '@material-ui/icons/Error'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './ConfirmModal.css'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     paper: {
         maxHeight: '90vh !important',
         padding: '16px 24px',
@@ -57,7 +56,7 @@ const ConfirmModal = (props) => {
         footerComponent = null,
         hideHeader = false,
         headerIcon,
-        headerIconClassName
+        headerIconClassName,
     } = props
     const classes = useStyles()
     const cancelText = translation('Cancel')
@@ -66,12 +65,12 @@ const ConfirmModal = (props) => {
         if (overrideFooterCancelButton) {
             overrideFooterCancelButton(event)
         } else if (onClose) {
-            !cancelDisabled && onClose(false, event)
+            if (!cancelDisabled) onClose(false, event)
         }
     }
 
     const actionButtonClickHandler = (event, button) => {
-        !button.disabled && button.onClick(event)
+        if (!button.disabled) button.onClick(event)
     }
 
     return (
@@ -85,11 +84,11 @@ const ConfirmModal = (props) => {
             classes={{ paper: classes.paper, paperScrollPaper: dialogClassName }}
             disableBackdropClick
             fullWidth={fullWidth}
-            fullScreen={fullScreen}
-        >
+            fullScreen={fullScreen}>
             {!hideHeader && (
                 <div className='customModalHeader'>
-                    {headerIcon && React.createElement(headerIcon, { className: `customModalHeaderIcon ${headerIconClassName}`})}
+                    {headerIcon &&
+                        React.createElement(headerIcon, { className: `customModalHeaderIcon ${headerIconClassName}` })}
                     <span className='customModalTitle'>{title}</span>
                     {!disableCloseIcon && (
                         <IconButton classes={{ root: classes.iconButtonRoot }} onClick={onCancelButtonClick}>
@@ -124,8 +123,7 @@ const ConfirmModal = (props) => {
                                         size='large'
                                         name={cancelText}
                                         onClick={onCancelButtonClick}
-                                        disabled={cancelDisabled}
-                                    >
+                                        disabled={cancelDisabled}>
                                         {cancelText}
                                     </Button>
                                 )}
@@ -141,8 +139,7 @@ const ConfirmModal = (props) => {
                                                 id={actionButton.id}
                                                 name={actionButton.name}
                                                 onClick={(event) => actionButtonClickHandler(event, actionButton)}
-                                                disabled={actionButton.disabled}
-                                            >
+                                                disabled={actionButton.disabled}>
                                                 {actionButton.name}
                                             </Button>
                                         )
@@ -163,7 +160,7 @@ ConfirmModal.defaultProps = {
 }
 
 ConfirmModal.propTypes = {
-    modalWidth: PropTypes.oneOf(['false', 'xs', 'sm','md','lg','xl']),
+    modalWidth: PropTypes.oneOf(['false', 'xs', 'sm', 'md', 'lg', 'xl']),
 }
 
 export default ConfirmModal

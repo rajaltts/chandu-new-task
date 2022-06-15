@@ -7,7 +7,6 @@ export default {
 }
 
 const LayoutButtonTemplate = ({ ...args }) => {
-    debugger
     return <LayoutButton {...args} />
 }
 

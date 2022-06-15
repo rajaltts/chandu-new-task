@@ -5,7 +5,7 @@ const Button = (props) => {
     const { id, disabled, onClick, icon, name, styles = '' } = props
 
     const onClickHandler = (event) => {
-        onClick && onClick(event)
+        if (onClick) onClick(event)
     }
 
     return (

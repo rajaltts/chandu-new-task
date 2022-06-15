@@ -32,7 +32,7 @@ const ConfigDrivenNumberField = (props) => {
         }
         return ''
     }
-    const [title, setTitle] = useState(getFieldTitle())
+    const [title] = useState(getFieldTitle())
     const [containerWidth, setContainerWidth] = useState({ width: '100%' })
     const { InputRoot } = inputStyles(containerWidth)
     const ref1 = useRef(null)
@@ -52,17 +52,17 @@ const ConfigDrivenNumberField = (props) => {
     const setNumberField = () => {
         setContainerWidth({ width: `${ref1.current.offsetWidth - 5}px` })
         setEditedValue(getFormatedValue())
-        setEnableRowClick && setEnableRowClick(false)
+        if (setEnableRowClick) setEnableRowClick(false)
         setEditable(true)
     }
 
     const updateValue = (event) => {
         if (checkValidation()) {
             setIsValid(true)
-            setEnableRowClick && setEnableRowClick(true)
+            if (setEnableRowClick) setEnableRowClick(true)
             setEditable(false)
-            onClick && onClick(event, editedValue, rowData, rowIndex)
-            onDoubleClick && onDoubleClick(event, editedValue, rowData, rowIndex)
+            if (onClick) onClick(event, editedValue, rowData, rowIndex)
+            if (onDoubleClick) onDoubleClick(event, editedValue, rowData, rowIndex)
         }
     }
 
@@ -86,7 +86,7 @@ const ConfigDrivenNumberField = (props) => {
 
     const enableRowClickWithDelay = () => {
         setTimeout(() => {
-            setEnableRowClick && setEnableRowClick(true)
+            if (setEnableRowClick) setEnableRowClick(true)
         }, 303)
     }
 

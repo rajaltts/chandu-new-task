@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const TabStyles = makeStyles((theme) => ({
+const TabStyles = makeStyles(() => ({
     activeTabIndicator: {
         backgroundColor: '#1891F6',
         height: '4px',

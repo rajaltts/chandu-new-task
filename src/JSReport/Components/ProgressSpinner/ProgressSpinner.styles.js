@@ -1,7 +1,7 @@
 import { makeStyles, withStyles } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const ReportsCircularProgress = withStyles((theme) => ({
+const ReportsCircularProgress = withStyles(() => ({
     colorSecondary: {
         color: (props) => (props.status === 'DOWNLOADING' ? '#28690f !important' : '#1891f6 !important'),
     },

@@ -67,7 +67,8 @@ function TableWithQuestionControl(props) {
                         <StyledTableCell align='left'>{RenderTableCell(prop, null, 'Reference')}</StyledTableCell>
                     </StyledTableRow>
                 )
-            } else return null
+            }
+            return null
         })
     }
 

@@ -1,4 +1,5 @@
 import isPlainObject from 'lodash/isPlainObject'
+/* eslint-disable default-param-last, no-prototype-builtins */
 
 /****
  ** This Function is using to get the value from an object for a dynamic key

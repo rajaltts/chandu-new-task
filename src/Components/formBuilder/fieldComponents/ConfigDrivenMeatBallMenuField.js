@@ -69,8 +69,7 @@ const ConfigDrivenMeatBallMenuField = (props) => {
                     aria-controls={open ? 'menu-list-grow' : undefined}
                     aria-haspopup='true'
                     onClick={handleToggle}
-                    size='small'
-                >
+                    size='small'>
                     <MoreHorizIcon fontSize='small' />
                 </IconButton>
                 <Popper
@@ -79,21 +78,18 @@ const ConfigDrivenMeatBallMenuField = (props) => {
                     role={undefined}
                     transition
                     disablePortal
-                    className={classes.popper}
-                >
+                    className={classes.popper}>
                     {({ TransitionProps, placement }) => (
                         <Grow
                             {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                        >
+                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList
                                         autoFocusItem={open}
                                         id='menu-list-grow'
                                         onKeyDown={handleListKeyDown}
-                                        className={classes.menuList}
-                                    >
+                                        className={classes.menuList}>
                                         {component &&
                                             React.createElement(component, { closeDropdown: handleClose, rowData })}
                                     </MenuList>

@@ -40,8 +40,7 @@ const HorizontalRadioGroupWithImage = (props) => {
                                       className={`IWLCG-tile ${
                                           value.State === 1 ? `` : isNotAllowedVisible ? 'IWLCG-notAllow' : `disabled`
                                       }`}
-                                      id={'ctrl' + ValueProp.Name + value.Value}
-                                  >
+                                      id={'ctrl' + ValueProp.Name + value.Value}>
                                       <img src={`/Images/${value.Attributes.Image}`} alt='icon' />
                                       {props.isLabel && (
                                           <span className='IWLCG-Label'>{value.Attributes.Description}</span>

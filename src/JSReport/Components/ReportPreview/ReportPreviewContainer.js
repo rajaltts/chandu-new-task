@@ -14,13 +14,12 @@ const ReportPreviewContainer = ({
     children,
     loading = false,
     reportDownloadable = true,
-    intl,
     reportConfig = {},
     jsReportApi = '',
     cleanup = undefined,
-    hideFooterPageInfo = false
+    hideFooterPageInfo = false,
 }) => {
-    const { preLoadedStoreIndex, preLoadedReport, title, fileName = 'Test' } = reportConfig.options ?? {}
+    const { title, fileName = 'Test' } = reportConfig.options ?? {}
 
     const [isReportDownloadable, setReportDownloadable] = useState(reportDownloadable)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -50,13 +49,13 @@ const ReportPreviewContainer = ({
             const pagesNumbers = Array.from(elements)
                 .map((element, pageNumber, pageArray) => {
                     if (!hideFooterPageInfo) {
-                        const pageNumberElement = element.getElementsByClassName('page-number');
+                        const pageNumberElement = element.getElementsByClassName('page-number')
                         if (pageNumberElement.length > 0) {
                             pageNumberElement[0].textContent = pageNumber + 1
                             element.getElementsByClassName('number-of-pages')[0].textContent = pageArray.length
                         }
                     } else {
-                        const pageNumberContainer = element.getElementsByClassName('report-page-number-footer');
+                        const pageNumberContainer = element.getElementsByClassName('report-page-number-footer')
                         if (pageNumberContainer.length > 0) {
                             pageNumberContainer[0].remove()
                         }
@@ -134,11 +133,11 @@ const ReportPreviewContainer = ({
 
     const onClose = () => {
         setPageList([])
-        setLoading(false);
+        setLoading(false)
         setReportDownloadable(true)
         setErrorMessage('')
         setReportCurrentPreviewIndex(0)
-        closeReportPreview && closeReportPreview()
+        if (closeReportPreview) closeReportPreview()
     }
 
     const downloadPdf = async () => {
@@ -171,8 +170,7 @@ const ReportPreviewContainer = ({
                 popupRef,
                 topBarRef,
                 topActionsContainerRef,
-            }}
-        >
+            }}>
             {children}
         </ReportPreview>
     )
