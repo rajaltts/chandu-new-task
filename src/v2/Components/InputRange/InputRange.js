@@ -41,6 +41,8 @@ const InputRange = ({
     const [isUserInput, setIsUserInput] = useState(false)
     const classes = useStyles()
     const authorizedProps = createAuthorizedProps(TextField, rest)
+    // overriding onChange is forbidden
+    delete authorizedProps.onChange
     const MIN = parseFloat(min)
     const MAX = parseFloat(max)
     let helperText = ''
@@ -58,9 +60,7 @@ const InputRange = ({
 
     const valueIsCorrect = (v) => {
         return !disabled
-            ? isUserInput
-                ? (parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)
-                : ((parseFloat(v) >= MIN || !MIN) && (parseFloat(v) <= MAX || !MAX)) || valid
+            ? (parseFloat(v) >= MIN || MIN === undefined) && (parseFloat(v) <= MAX || MAX === undefined)
             : true
     }
 
@@ -73,7 +73,7 @@ const InputRange = ({
             setCurrentValue(value)
             setError(!valueIsCorrect(value) || relaxed)
         }
-    }, [value, loading])
+    }, [value, loading, relaxed])
 
     const openDropdown = (event) => {
         setAnchorEl(event.currentTarget)
