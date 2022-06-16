@@ -24,8 +24,7 @@ const TabsContainer = (props) => {
             <span
                 className={`${classes.tabLabels} ${
                     activeTab === index ? classes.activeLabel : classnames(inactiveClassname, classes.inActiveLabel)
-                }`}
-            >
+                }`}>
                 {tab.name}
             </span>
         )
@@ -39,11 +38,11 @@ const TabsContainer = (props) => {
                 classes={{
                     indicator: classes.activeTabIndicator,
                     fixed: classes.greyBotoomBorder,
-                }}
-            >
+                }}>
                 {tabs.map((tab, index) => {
                     return (
                         <Tab
+                            key={index}
                             id='simple-tab'
                             aria-controls='simple-tabpanel'
                             classes={{
@@ -55,8 +54,7 @@ const TabsContainer = (props) => {
                                     <Badge
                                         classes={{ colorPrimary: classes.badgeContent }}
                                         badgeContent={tab.badgeContent}
-                                        color='primary'
-                                    >
+                                        color='primary'>
                                         {getLabel(tab, index)}
                                     </Badge>
                                 ) : (

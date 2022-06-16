@@ -8,8 +8,7 @@ const ReportTableTitle = ({ titleInformation }) => {
             style={{
                 ...reportStyles['tableTitle'],
                 ...style,
-            }}
-        >
+            }}>
             {titleInformation.title}
         </div>
     )

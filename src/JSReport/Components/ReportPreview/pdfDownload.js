@@ -1,4 +1,3 @@
-import React, { Fragment } from 'react'
 import FileSaver from 'file-saver'
 import { ApiService } from '@carrier/workflowui-globalfunctions'
 
@@ -42,7 +41,7 @@ const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCle
             const body = document.createElement('body')
             const reportContent = document.getElementById('jsReportAllContent').cloneNode(true)
 
-            reportContent && body.appendChild(reportContent)
+            if (reportContent) body.appendChild(reportContent)
 
             renderingDoc.appendChild(head)
             renderingDoc.appendChild(body)

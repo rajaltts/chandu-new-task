@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const searchStyles = makeStyles((theme) => ({
+const searchStyles = makeStyles(() => ({
     nonErrorBorder: {
         borderColor: '#bcbcbc !important',
     },

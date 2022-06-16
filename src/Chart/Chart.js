@@ -50,7 +50,7 @@ const Chart = (props) => {
             )
         case Bar:
             return <ReactCharts option={getLineChartOption()} {...rest} />
-        case StackedBarChart:
+        case StackedBarChart: {
             const additionalSeries = {
                 type: 'bar',
                 stack: 'total',
@@ -67,6 +67,8 @@ const Chart = (props) => {
                     {...rest}
                 />
             )
+        }
+
         case StackedColumnChart:
             return (
                 <ReactCharts

@@ -59,7 +59,7 @@ const AutoComplete = (props) => {
     const menuItemSelection = ({ event, menuItem, id }) => {
         setTextValue(menuItem.CustomerName)
         setOpen(false)
-        validateField && validateField({ event, id, validation, menuItem })
+        if (validateField) validateField({ event, id, validation, menuItem })
     }
 
     const validationAutoComplete = ({ event, id, validation }) => {
@@ -67,14 +67,14 @@ const AutoComplete = (props) => {
             target: { value },
         } = event
         setTextValue(value)
-        value && setOpen(true)
-        validateField && validateField({ event, id, validation })
+        if (value) setOpen(true)
+        if (validateField) validateField({ event, id, validation })
     }
 
     const renderMenuList = (menuList) => {
         if (menuList && menuList.length > 0) {
-            return menuList.map((menuItem) => (
-                <MenuItem onClick={(event) => menuItemSelection({ event, menuItem, id, validation })}>
+            return menuList.map((menuItem, index) => (
+                <MenuItem key={index} onClick={(event) => menuItemSelection({ event, menuItem, id, validation })}>
                     {menuItem.CustomerName}
                 </MenuItem>
             ))
@@ -116,20 +116,17 @@ const AutoComplete = (props) => {
                 role={undefined}
                 transition
                 disablePortal
-                className={popper}
-            >
+                className={popper}>
                 {({ TransitionProps, placement }) => (
                     <Grow
                         {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                    >
+                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
                         <Paper className={paper}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
                                     id='menu-list-grow'
                                     onKeyDown={handleListKeyDown}
-                                    className={verticalListItems}
-                                >
+                                    className={verticalListItems}>
                                     {renderMenuList(
                                         autoCompleteList.filter(
                                             (menuList) =>

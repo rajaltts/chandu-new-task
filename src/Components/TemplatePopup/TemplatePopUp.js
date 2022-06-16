@@ -47,8 +47,7 @@ function TemplatePopUp(props) {
             hideCancel
             onClose={() => onToggleDeleteDialouge(false)}
             footerComponent={createRemoveTemplateButtons()}
-            className='editTagTemplate-dialog'
-        >
+            className='editTagTemplate-dialog'>
             <div className={deleteConfirmationBody}>
                 <div className='confirmation_delete'>
                     <span className={deleteConfirmationText}>{props.confirmText}</span>

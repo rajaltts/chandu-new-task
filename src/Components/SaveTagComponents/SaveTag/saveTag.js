@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, Fragment } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import ConfirmModal from '../../ConfirmModal/ConfirmModal'
 import translation from '../../Translation'
 import ProjectTagSelection from '../ProjectTagSelection/projectTagSelection'
@@ -10,6 +10,8 @@ import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 import TabPanel from '../../TabsComponent/TabPanel'
 import TabsContainer from '../../TabsComponent/TabsContainer'
 import TagName from '../TagName/TagName'
+
+/* eslint-disable */
 
 const SaveTag = (props) => {
     const {
@@ -190,8 +192,7 @@ const SaveTag = (props) => {
             disableCloseIcon
             headerIcon={SaveIcon}
             errorMsg={errorMessage}
-            contentClassName={classes.saveTagContent}
-        >
+            contentClassName={classes.saveTagContent}>
             <TagName tagNameProps={getTagNameProps()} saveSelection />
 
             <div className={classes.helperText}>

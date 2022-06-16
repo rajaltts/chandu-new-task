@@ -35,14 +35,13 @@ const SimpleTagDescription = (props) => {
                     ? checkUserTempUnit(PropData.Value)
                     : PropData.Value
                 : ''
-        } else {
-            if (PropData && PropData.Values) {
-                PropDescription = PropData.Values.find((data) => {
-                    return data.Value === PropData.Value
-                })
-            }
-            return PropDescription && PropDescription.Attributes && PropDescription.Attributes.Description
         }
+        if (PropData && PropData.Values) {
+            PropDescription = PropData.Values.find((data) => {
+                return data.Value === PropData.Value
+            })
+        }
+        return PropDescription && PropDescription.Attributes && PropDescription.Attributes.Description
     }
 
     const handleUnitConversion = (value) => {

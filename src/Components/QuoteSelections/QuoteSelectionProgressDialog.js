@@ -6,7 +6,7 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal'
 import { Grid, makeStyles } from '@material-ui/core'
 import LoadingIcon from './LoadingProgress/LoadingLogo'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     progressMessageContainer: {
         fontStyle: 'normal',
         fontWeight: 'normal',
@@ -32,8 +32,7 @@ const QuoteSelectionProgressDialog = (props) => {
             isModalOpen={showProgressModal}
             hideHeader={true}
             contentClassName={successContentContainer}
-            hideActions
-        >
+            hideActions>
             <Grid container spacing={0} direction='column' alignItems='center' justify='center'>
                 <Grid>
                     <LoadingIcon />

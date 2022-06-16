@@ -34,7 +34,7 @@ const ColumnPicker = (props) => {
     }, [columnOptions])
 
     const toggleColumnPicker = () => {
-        !togglePicker && setColumnOptions(headCells)
+        if (!togglePicker) setColumnOptions(headCells)
         if (togglePicker) {
             setColumnPickerError('')
             setSearchValue('')

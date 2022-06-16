@@ -5,7 +5,7 @@ import SimpleLabelWithImage from '../SimpleLabelWithImage'
 import { makeStyles } from '@material-ui/core'
 import { Incomp } from '../../SvgImages'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     IncompWrapper: {
         flexGrow: 1,
     },

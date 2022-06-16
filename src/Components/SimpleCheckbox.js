@@ -60,7 +60,8 @@ const SimpleCheckbox = (props) => {
                 {!hideLabel && GetLabel()}
             </label>
         )
-    } else return null
+    }
+    return null
 }
 
 export default SimpleCheckbox

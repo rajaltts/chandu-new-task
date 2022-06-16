@@ -26,8 +26,7 @@ const SimpleRuleButton = (props) => {
             id={id}
             className={enableProp && enableProp.Value === 'FALSE' ? 'eButtondisable' : 'eButtonPrimary'}
             disabled={enableProp && enableProp.Value === 'FALSE' ? true : false}
-            onClick={handleClick}
-        >
+            onClick={handleClick}>
             {icon && <FontAwesomeIcon icon={icon} />}
             {name}
         </button>

@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import Divider from '@material-ui/core/Divider'
 import { makeStyles } from '@material-ui/core/styles'
 
-const searchDropdownStyles = makeStyles((theme) => ({
+const searchDropdownStyles = makeStyles(() => ({
     dropdownAdornedEnd: {
         paddingRight: '7px',
         borderRadius: '19px',
@@ -44,12 +44,12 @@ const SearchDropdown = (props) => {
     }, [])
 
     const handleBtnClick = () => {
-        props.filters.length > 1 && setOpen(!open)
+        if (props.filters.length > 1) setOpen(!open)
     }
 
     const textChangeHandler = (event) => {
         setValue(event.target.value)
-        props.onTextChange && props.onTextChange(event)
+        if (props.onTextChange) props.onTextChange(event)
     }
 
     const handleClick = (e) => {

@@ -28,8 +28,7 @@ const SimpleHorizontalTabs = (props) => {
                 onChange={handleChange}
                 indicatorColor='primary'
                 aria-label='simple tabs example'
-                className='horizantal-tabs'
-            >
+                className='horizantal-tabs'>
                 {TabsJson.map(
                     (item, idx) =>
                         VisibleTab(item.propName) && (
@@ -63,8 +62,7 @@ const TabPanel = (props) => {
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
-            {...props}
-        >
+            {...props}>
             {value === index && <div p={3}>{children}</div>}
         </div>
     )

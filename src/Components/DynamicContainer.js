@@ -5,7 +5,7 @@ function DynamicContainer(props) {
         return <div className={props.className}>{props.children}</div>
     } else if (props.KeepSpaceWhenHidden)
         return <div style={{ visibility: 'hidden' }} className={props.className}></div>
-    else return null
+    return null
 }
 
 export default DynamicContainer

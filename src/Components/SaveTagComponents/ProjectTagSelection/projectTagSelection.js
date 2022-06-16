@@ -48,7 +48,7 @@ const ProjectTagSelection = (props) => {
         if (tagNameStatus || !projectData) {
             disableSave = true
         }
-        onSaveTagData &&
+        if (onSaveTagData)
             onSaveTagData({
                 tagName: tagNameForCopySelection,
                 projectData: projectData,
@@ -67,14 +67,14 @@ const ProjectTagSelection = (props) => {
             return
         }
         setProjectData(value)
-        setProjectError && setProjectError('')
+        if (setProjectError) setProjectError('')
         setSelectProjectError('')
     }
 
     const clearValues = () => {
         setProjectData(null)
         const errorText = injectIntlTranslation(intl, 'validationAtLeastOneProject', 'Please select a Project.')
-        setProjectError && setProjectError(errorText)
+        if (setProjectError) setProjectError(errorText)
         setSelectProjectError(errorText)
     }
 

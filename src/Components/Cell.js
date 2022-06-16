@@ -7,7 +7,8 @@ function Cell(props) {
                 {props.children}
             </div>
         )
-    } else return null
+    }
+    return null
 }
 
 export default Cell
