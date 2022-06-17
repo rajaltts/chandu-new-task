@@ -12,7 +12,7 @@ import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 import cartStyles from './Cart.styles'
 
 const CartSectionTotal = ({ headingVariant = 'body2', intl, key = '', labelId = '', price = '0' }) => {
-    const { totalRecap, totalRecapTitle, priceContainer } = cartStyles()
+    const { totalRecap, totalRecapTitle } = cartStyles()
 
     return (
         <Grid container key={key} className={totalRecap}>
@@ -24,7 +24,7 @@ const CartSectionTotal = ({ headingVariant = 'body2', intl, key = '', labelId = 
             </Grid>
 
             {/* Total Price, right aligned. */}
-            <Grid item xs={10} container className={priceContainer}>
+            <Grid item xs={10} container>
                 <Grid item sm={9}></Grid>
                 <Grid item sm={3} style={{ textAlign: 'center' }}>
                     <Typography align='right' variant='body2' color='secondary'>

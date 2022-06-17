@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
-import MaterialRadioGroup from '@material-ui/core/RadioGroup'
-import MaterialRadio from '@material-ui/core/Radio'
+import {
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    RadioGroup as MaterialRadioGroup,
+    Radio as MaterialRadio,
+} from '@material-ui/core'
+
+import useStyles from './RadioGroup.styles'
 
 const RadioGroup = ({
     className,
@@ -14,12 +20,13 @@ const RadioGroup = ({
     value,
     values,
     disabled,
-    onChange,
+    handleChange,
     relaxed,
     restRadioGroup,
     restFormControl,
     restRadio,
 }) => {
+    const classes = useStyles()
     return (
         <FormControl component='fieldset' className={className}>
             {label && displayLabel && <FormLabel component='legend'>{label}</FormLabel>}
@@ -28,7 +35,7 @@ const RadioGroup = ({
                 name={name}
                 value={value}
                 onChange={(e) => {
-                    onChange(e.target.value, e)
+                    handleChange(e.target.value, e)
                 }}
                 data-disabled={`${name}__${disabled}`}
                 data-error={`${name}__${relaxed}`}
@@ -42,6 +49,7 @@ const RadioGroup = ({
                             value={radio.value}
                             control={
                                 <MaterialRadio
+                                    className={classes.root}
                                     id={`Radio_${name}_${radio.value}`}
                                     data-label={radio.label}
                                     data-disabled={`${name}__${disabled}`}
@@ -67,7 +75,7 @@ const RadioGroup = ({
 RadioGroup.defaultProps = {
     row: false,
     disabled: false,
-    color: 'secondary',
+    color: 'primary',
     displayLabel: true,
 }
 

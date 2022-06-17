@@ -59,20 +59,13 @@ it('should add custom class to root element', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select
-                    values={values}
-                    value={value}
-                    label={label}
-                    onChange={() => {}}
-                    inputProps={{ className: 'myCustomClass' }}
-                />
+                <Select values={values} value={value} label={label} onChange={() => {}} />
             </MockIntl>,
             container
         )
     })
     const inputRoot = container.querySelector('.MuiInputBase-root')
     expect(inputRoot).not.toBeNull()
-    expect(inputRoot.classList.contains('myCustomClass')).toBe(true)
 })
 
 it('should not be disabled', () => {

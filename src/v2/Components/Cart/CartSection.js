@@ -3,8 +3,7 @@ import React from 'react'
 import { injectIntl } from 'react-intl'
 
 // Material UI
-import { Box, Grid, IconButton } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
+import { Box, Grid, IconButton, Typography } from '@material-ui/core'
 import RightArrowIcon from '@material-ui/icons/ArrowForwardIos'
 
 //Constants

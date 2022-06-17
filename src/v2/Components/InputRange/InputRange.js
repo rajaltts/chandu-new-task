@@ -6,37 +6,45 @@ import PropTypes from 'prop-types'
 import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
+import { createAuthorizedProps } from '../utils/createAuthorizedProps'
+
 // Styles
 import useStyles from './InputRange.styles'
 
-import { createAuthorizedProps } from '../utils/createAuthorizedProps'
-
-const InputRange = (props) => {
-    const {
-        type,
-        id,
-        label,
-        variant,
-        min,
-        max,
-        value,
-        units,
-        unit,
-        unitChange,
-        onChange,
-        disabled,
-        trigger,
-        width,
-        ...rest
-    } = props
+const InputRange = ({
+    type,
+    id,
+    label,
+    variant,
+    min,
+    max,
+    value,
+    units,
+    unit,
+    unitChange,
+    handleChange,
+    loading,
+    disabled,
+    visible = true,
+    valid,
+    isInteger = false,
+    trigger,
+    width,
+    relaxed,
+    ...rest
+}) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState(false)
     const [currentValue, setCurrentValue] = useState(value)
+    const [showWarning, setShowWarning] = useState(false)
+    const [isUserInput, setIsUserInput] = useState(false)
     const classes = useStyles()
     const authorizedProps = createAuthorizedProps(TextField, rest)
-    const MIN = parseInt(min, 10)
-    const MAX = parseInt(max, 10)
+    // overriding onChange is forbidden
+    delete authorizedProps.onChange
+    const MIN = parseFloat(min)
+    const MAX = parseFloat(max)
     let helperText = ''
 
     if (!isNaN(MIN) && isNaN(MAX)) {
@@ -47,12 +55,25 @@ const InputRange = (props) => {
         helperText += `(Min: ${min}, Max: ${max})`
     }
 
-    const valueIsCorrect = (v) => (parseInt(v, 10) >= MIN || !MIN) && (parseInt(v, 10) <= MAX || !MAX)
+    const stripNonIntegers = (value, shouldReplace = false) =>
+        shouldReplace ? value.replace(/[^0-9-]/g, '').replace(/(?!^)-/g, '') : value
+
+    const valueIsCorrect = (v) => {
+        return !disabled
+            ? (parseFloat(v) >= MIN || MIN === undefined) && (parseFloat(v) <= MAX || MAX === undefined)
+            : true
+    }
 
     useEffect(() => {
-        setCurrentValue(value)
-        setError(!valueIsCorrect(value))
-    }, [value])
+        setError(!valueIsCorrect(currentValue) || relaxed)
+    }, [disabled, visible, valid, currentValue, isUserInput])
+
+    useEffect(() => {
+        if (value !== currentValue && !loading) {
+            setCurrentValue(value)
+            setError(!valueIsCorrect(value) || relaxed)
+        }
+    }, [value, loading, relaxed])
 
     const openDropdown = (event) => {
         setAnchorEl(event.currentTarget)
@@ -67,23 +88,31 @@ const InputRange = (props) => {
         setAnchorEl(null)
     }
 
-    const handleChange = (e) => {
+    const valueChange = (e) => {
+        const value = stripNonIntegers(e.target.value, isInteger)
+        if (isInteger) setShowWarning(!(value === e.target.value))
         setCurrentValue(e.target.value)
+        setIsUserInput(true)
         setError(!valueIsCorrect(e.target.value))
         if (!error && trigger === 'change') {
-            onChange(e.target.value)
+            handleChange(e.target.value)
         }
     }
 
     const handleBlur = (e) => {
         e.stopPropagation()
+        setIsUserInput(false)
         setTouched(false)
+        if (showWarning) setShowWarning(false)
 
         if (trigger === 'blur' && e.target.value !== value) {
-            onChange(e.target.value)
+            handleChange(e.target.value)
         }
     }
 
+    if (!visible) {
+        return <></>
+    } //return nothing if VISIBLE subprop = FALSE : CJT
     return (
         <Box key={id} className={`${classes.inputContainer}`}>
             <TextField
@@ -138,9 +167,9 @@ const InputRange = (props) => {
                         ''
                     ),
                 }}
-                helperText={touched && helperText}
+                helperText={touched && (showWarning ? 'Please enter only integer values' : helperText)}
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
-                onChange={handleChange}
+                onChange={valueChange}
                 onFocus={() => setTouched(true)}
                 onBlur={handleBlur}
                 error={error}
@@ -167,7 +196,7 @@ InputRange.propTypes = {
     min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    onChange: PropTypes.func,
+    handleChange: PropTypes.func,
     disabled: PropTypes.bool,
     trigger: PropTypes.oneOf(['change', 'blur']),
 }

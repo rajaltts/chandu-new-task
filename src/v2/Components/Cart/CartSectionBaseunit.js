@@ -13,7 +13,7 @@ import ConfigDrivenNumberField from '../../../Components/formBuilder/fieldCompon
 import cartStyles from './Cart.styles'
 
 const CartSectionBaseunit = ({ cartSectionConfig = {}, getPriceString = () => {} }) => {
-    const { totalRecap, priceContainer } = cartStyles()
+    const { totalRecap } = cartStyles()
 
     return (
         <Box key={cartSectionConfig.key} className={`options-wrapper`}>
@@ -22,7 +22,7 @@ const CartSectionBaseunit = ({ cartSectionConfig = {}, getPriceString = () => {}
             {/* Dynamically rendered data cells */}
             <Grid container className={totalRecap}>
                 <Grid item xs={2}></Grid>
-                <Grid item xs={10} container className={priceContainer}>
+                <Grid item xs={10} container>
                     {cartSectionConfig.columns.map((col) => {
                         const { columnWidth, key, priceUnit, dataSource, isEditable, onClick } = col
                         const fieldValue = getPriceString(priceUnit, dataSource)
