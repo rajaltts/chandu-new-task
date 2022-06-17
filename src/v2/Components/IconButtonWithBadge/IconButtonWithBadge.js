@@ -3,11 +3,15 @@ import PropTypes from 'prop-types'
 import { IconButton, Badge } from '@material-ui/core'
 import useStyles from './IconButtonWithBadge.styles'
 
-const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon }) => {
+const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon, disabled }) => {
     const classes = useStyles()
 
     return (
-        <IconButton className={`${classes.iconButtonWithBadge} ${className}`} color={color} onClick={onClick}>
+        <IconButton
+            className={`${classes.iconButtonWithBadge} ${className}`}
+            disabled={disabled}
+            color={color}
+            onClick={onClick}>
             <Badge badgeContent={badgeContent} color={badgeColor}>
                 {icon}
             </Badge>
@@ -27,6 +31,7 @@ IconButtonWithBadge.propTypes = {
     badgeContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     badgeColor: PropTypes.oneOf(['default', 'error', 'primary', 'secondary']),
     icon: PropTypes.any,
+    disabled: PropTypes.bool,
 }
 
 export default IconButtonWithBadge
