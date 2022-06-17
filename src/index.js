@@ -102,6 +102,7 @@ import IconButtonWithBadge from './v2/Components/IconButtonWithBadge/IconButtonW
 import FabWithBadge from './v2/Components/FabWithBadge/FabWithBadge'
 import Loading from './v2/Components/Loading/Loading'
 import LoadingIcon from './v2/Components/Loading/LoadingIcon'
+import Autocomplete from './v2/Components/Autocomplete/Autocomplete'
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
 import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
@@ -126,6 +127,7 @@ import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
 
 export {
+    Autocomplete,
     Checkbox,
     Switch,
     CheckboxWithDropDown,

@@ -1,6 +1,6 @@
 {
     "name": "@carrier/ngecat-reactcomponents",
-    "version": "3.36.198",
+    "version": "3.36.199",
     "description": "React components library used for NGECAT workflow UI apps",
     "main": "dist/ngecat-reactcomponents.min.js",
     "publishConfig": {
