@@ -89,6 +89,8 @@ import CardLayout from './v2/Components/CardLayout'
 import Table from './v2/Components/Table'
 import TabsList from './v2/Components/TabsList/TabsList'
 import Section from './v2/Components/Section/Section'
+import Autocomplete from './v2/Components/Autocomplete/Autocomplete'
+
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
 import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
@@ -113,6 +115,7 @@ import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
 
 export {
+    Autocomplete,
     Checkbox,
     Switch,
     CheckboxWithDropDown,
