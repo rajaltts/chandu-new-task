@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         height: '36px',
         minHeight: '36px',
-        padding: theme.spacing(0, 4, 0, 2),
         boxSizing: 'border-box',
         '&::after': {
             content: '""',
