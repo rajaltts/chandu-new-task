@@ -43,7 +43,7 @@ const TabsContainer = (props) => {
                     return (
                         <Tab
                             key={index}
-                            id='simple-tab'
+                            id={`Tab_${index}`}
                             aria-controls='simple-tabpanel'
                             classes={{
                                 root: classnames(classes.tabRoot, tab.badgeContent && classes.badgePadding),

@@ -86,6 +86,7 @@ const TagName = (props) => {
             <div className={classes.tagNameContainer}>
                 <div className={classes.tagNameLabelContainer}>
                     <TextField
+                        id='tagName'
                         className={`${classes.searchInput} ${classes.textFieldPlaceholder}`}
                         value={tagData}
                         variant='outlined'
