@@ -65,13 +65,6 @@ const useStyles = makeStyles((theme) => ({
         height: '36px',
         minHeight: '36px',
         boxSizing: 'border-box',
-        '&::after': {
-            content: '""',
-            position: 'absolute',
-            right: 0,
-            width: 36,
-            height: '100%',
-        },
     },
     menuWrapper: {
         margin: theme.spacing(1, 0, 0),
