@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .MuiOutlinedInput-root': {
             height: '36px',
-            borderColor: theme.palette.grey[900],
+            borderColor: theme.palette.grey.main,
         },
     },
     dropdownWrapper: {
