@@ -56,22 +56,25 @@ const useStyles = makeStyles((theme) => ({
         '& .Mui-focused': {
             color: theme.palette.grey[900],
 
-            '& .MuiOutlinedInput-notchedOutline': {
+            '& .MuiOutlinedInput-root': {
                 padding: '10px',
                 borderWidth: 1,
+                height: '36px',
                 borderColor: theme.palette.grey[900],
             },
 
             '&.Mui-error': {
                 color: theme.palette.red.main,
 
-                '& .MuiOutlinedInput-notchedOutline': {
+                '& .MuiOutlinedInput-root': {
+                    height: '36px',
                     borderColor: theme.palette.red.main,
                 },
             },
         },
-        '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.grey.main,
+        '& .MuiOutlinedInput-root': {
+            height: '36px',
+            borderColor: theme.palette.grey[900],
         },
     },
     dropdownWrapper: {
