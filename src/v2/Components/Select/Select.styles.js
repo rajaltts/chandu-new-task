@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 0, 0),
         display: 'flex',
         flex: 1,
-        minWidth: 240,
         width: '100%',
         [theme.breakpoints.up('md')]: {
             margin: theme.spacing(1, 1, 0),
