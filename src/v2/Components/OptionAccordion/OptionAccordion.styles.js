@@ -102,6 +102,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5px',
         fontWeight: 500,
     },
+    optionDisabled: {
+        fontWeight: 600,
+        margin: `0 0 4px`,
+        color: theme.palette.text.disabled,
+    },
+    labelDisabled: {
+        color: theme.palette.text.disabled,
+    },
 }))
 
 export default useStyles
