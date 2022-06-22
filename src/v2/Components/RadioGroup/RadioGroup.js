@@ -49,12 +49,20 @@ const RadioGroup = ({
                             value={radio.value}
                             control={
                                 <MaterialRadio
-                                    className={classes.root}
                                     id={`Radio_${name}_${radio.value}`}
-                                    data-label={radio.label}
-                                    data-disabled={`${name}__${disabled}`}
+                                    className={
+                                        disabled
+                                            ? {
+                                                  root: classes.radioButtonInternalSVG_Disabled,
+                                                  checked: classes.radioChecked,
+                                              }
+                                            : classes.root
+                                    }
+                                    // className={classes.input}
+                                    data-Disabled={`${name}__${disabled}`}
                                     color={color}
                                     disabled={disabled}
+                                    data-label={radio.label}
                                     {...restRadio}
                                 />
                             }

@@ -10,6 +10,13 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
     },
     label: {},
+    radioButtonInternalSVG_Disabled: {
+        '&$radioChecked': {
+            color: theme.palette.text.disabled,
+        },
+    },
+    radioChecked: {},
+
 }))
 
 export default useStyles

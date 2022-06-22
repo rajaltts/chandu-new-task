@@ -37,6 +37,7 @@ const RangeWithUnit = ({
         enabled,
         roundingDigits,
         roundingMethod,
+        relaxed,
     } = extractedData
     const [percentofAnotherValue, setPercentofAnotherValue] = useState(percent) //unit === '%' ? true : false)
 
@@ -109,6 +110,7 @@ const RangeWithUnit = ({
             name,
             valid,
             className: className,
+            relaxed,
         })
     })
 

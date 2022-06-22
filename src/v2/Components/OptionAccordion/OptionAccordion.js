@@ -24,6 +24,7 @@ import Checkbox from '../Checkbox/Checkbox'
 
 // Styles
 import useStyles from './OptionAccordion.styles'
+import clsx from 'clsx'
 
 const OptionAccordion = ({
     name,
@@ -100,7 +101,10 @@ const OptionAccordion = ({
                         </Box>
                     ) : (
                         <FormControlLabel
-                            className={`${error ? classes.error : ''}`}
+                            className={clsx({
+                                [classes.labelDisabled]: disabled,
+                                [classes.error]: error,
+                            })}
                             aria-label={currentLabel}
                             control={
                                 <Checkbox
@@ -158,7 +162,7 @@ const OptionAccordion = ({
                                     <Typography
                                         variant='body1'
                                         color='textPrimary'
-                                        className={classes.optionDescrTitle}>
+                                        className={!disabled ? classes.optionDescrTitle : classes.optionDisabled}>
                                         {injectIntlTranslation(intl, 'Related Properties')}
                                     </Typography>
                                     {childProps}

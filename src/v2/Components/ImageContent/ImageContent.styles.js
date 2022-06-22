@@ -8,6 +8,17 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {},
     label: {},
+    title: {
+        fontSize: 14,
+    },
+    pictureTagDisabled: {
+        opacity: '0.15',
+        pointerEvents: 'none',
+    },
+    pictureTagEnabled: {
+        opacity: '1',
+        pointerEvents: 'initial',
+    },
 }))
 
 export default useStyles
