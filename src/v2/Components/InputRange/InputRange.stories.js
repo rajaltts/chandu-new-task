@@ -46,13 +46,15 @@ MultipleUnits.args = {
 export const SingleUnit = InputRangeTemplate.bind({})
 SingleUnit.args = {
     label: 'Single unit',
-    unit: '°C',
+    units: ['°C'],
+    unit: ['°C'],
     width: 100,
 }
 
 export const Disabled = InputRangeTemplate.bind({})
 Disabled.args = {
     label: 'Disabled',
+    units: ['C'],
     unit: 'C',
     disabled: true,
 }
@@ -60,6 +62,7 @@ Disabled.args = {
 export const OutOfRange = InputRangeTemplate.bind({})
 OutOfRange.args = {
     label: 'OutOfRange',
+    units: ['C'],
     unit: 'C',
     value: 105,
 }

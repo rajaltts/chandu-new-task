@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     input: {
         '& .MuiInputLabel-outlined': {
             transform: 'translate(16px, 10px) scale(1)',
+            color: theme.palette.grey[900]
         },
         '& .MuiInputLabel-shrink': {
             transform: 'translate(14px, -6px) scale(0.75)',
@@ -56,27 +57,28 @@ const useStyles = makeStyles((theme) => ({
         '& .Mui-focused': {
             color: theme.palette.grey[900],
 
-            '& .MuiOutlinedInput-root': {
+            '& .MuiOutlinedInput-notchedOutline': {
                 padding: '10px',
                 borderWidth: 1,
-                height: '36px',
                 borderColor: theme.palette.grey[900],
             },
+        },
+        '&.Mui-error': {
+            color: theme.palette.red.main,
 
-            '&.Mui-error': {
-                color: theme.palette.red.main,
-
-                '& .MuiOutlinedInput-root': {
-                    height: '36px',
+            '& $inputNotchedOutline': {
+                borderColor: theme.palette.red,
+                '& .MuiOutlinedInput-notchedOutline': {
                     borderColor: theme.palette.red.main,
                 },
             },
         },
         '& .MuiOutlinedInput-root': {
             height: '36px',
-            borderColor: theme.palette.grey.main,
         },
     },
+    inputError: {},
+    inputNotchedOutline: {},
     dropdownWrapper: {
         position: 'absolute',
         display: 'flex',
