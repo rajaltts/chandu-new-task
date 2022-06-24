@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     input: {
         '& .MuiInputLabel-outlined': {
             transform: 'translate(16px, 10px) scale(1)',
-            color: theme.palette.grey[900]
+            color: theme.palette.grey[900],
         },
         '& .MuiInputLabel-shrink': {
             transform: 'translate(14px, -6px) scale(0.75)',

@@ -29,6 +29,9 @@ export default {
                     description: 'Vectios IPJ',
                     feasible: true,
                     enable: true,
+                    attributes: {
+                        MLP: '5',
+                    },
                 },
                 {
                     value: 'Vectios RPJ',
@@ -67,7 +70,6 @@ export default {
 
 const SelectTemplate = ({ value, ...args }) => {
     const [selectedValue, setSelectedValue] = useState(value)
-
     return <Select value={selectedValue} handleChange={(e) => setSelectedValue(e)} {...args} />
 }
 

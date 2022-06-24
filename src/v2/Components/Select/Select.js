@@ -106,6 +106,9 @@ const Select = ({
                             const box = (
                                 <Box className={classes.menuItemContainer}>
                                     <Typography color={!v.feasible ? 'error' : 'inherit'}>{v.label}</Typography>
+                                    <Typography color={!v.feasible ? 'error' : 'inherit'}>
+                                        {v.attributes?.MLP ? '$ ' + v.attributes?.MLP : null}
+                                    </Typography>
                                     {!v.feasible && (
                                         <Tooltip label={tooltipErrorLabel}>
                                             <WarningIcon fontSize='small' color='error' />
