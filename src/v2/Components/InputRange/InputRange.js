@@ -31,6 +31,7 @@ const InputRange = ({
     trigger,
     width,
     relaxed,
+    isLabelRequired = true,
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -120,12 +121,13 @@ const InputRange = ({
                 key={id}
                 id={id}
                 className={classes.input}
-                label={label}
+                label={isLabelRequired ? label : ''}
                 variant={variant}
                 min={min}
                 max={max}
                 value={currentValue}
                 style={{ width: width }}
+                InputLabelProps={isLabelRequired ? null : { shrink: true }}
                 InputProps={{
                     classes: {
                         focused: classes.inputFocused,
