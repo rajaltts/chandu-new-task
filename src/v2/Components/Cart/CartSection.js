@@ -28,6 +28,7 @@ const CartSection = ({
     isOverSelectedOptions = false,
     cartConfig = [],
     dndReference = null,
+    showBottomSpacer = true,
 }) => {
     const { dropZone, optionDrawerContainer, optionDrawerMainContent, drawerCloseBtn, drawerIcon } = cartStyles()
 
@@ -103,7 +104,9 @@ const CartSection = ({
             </div>
 
             {/* Bottom spacer */}
-            <Box position='fixed' bottom='0' height='80px' width='100%' style={{ backgroundColor: 'white' }} />
+            {showBottomSpacer && (
+                <Box position='fixed' bottom='0' height='80px' width='100%' style={{ backgroundColor: 'white' }} />
+            )}
         </div>
     )
 }
