@@ -104,10 +104,10 @@ const saveTagStyles = makeStyles(() => ({
         marginTop: '4px',
     },
     optionsContainer: {
-        zIndex: 9999999,
+        zIndex: '9999999 !important',
     },
     optionsContainerAddCustomer: {
-        zIndex: 9999999,
+        zIndex: '9999999 !important',
         transform: 'translate3d(420px, 3610px, 0px)',
     },
     textFieldPlaceholder: {

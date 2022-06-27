@@ -10,6 +10,7 @@ import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 import TabPanel from '../../TabsComponent/TabPanel'
 import TabsContainer from '../../TabsComponent/TabsContainer'
 import TagName from '../TagName/TagName'
+import { injectIntl } from 'react-intl'
 
 /* eslint-disable */
 
@@ -238,4 +239,4 @@ const SaveTag = (props) => {
     )
 }
 
-export default memo(SaveTag)
+export default memo(injectIntl(SaveTag))
