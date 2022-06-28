@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, memo, useMemo } from 'react'
+import React, { useEffect, useState, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import ReportPreview from './ReportPreview.js'
 import pdfDownload from './pdfDownload.js'
@@ -26,7 +26,6 @@ const ReportPreviewContainer = ({
     const [reportCurrentPreviewIndex, setReportCurrentPreviewIndex] = useState(0)
     const [pageList, setPageList] = useState([])
     const [isLoading, setLoading] = useState(loading)
-    const [scrollBarWidth, setScrollBarWidth] = useState(0)
 
     const popupRef = useRef()
     const topBarRef = useRef()
@@ -42,9 +41,6 @@ const ReportPreviewContainer = ({
     }, [loading, reportDownloadable])
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleClick)
-        setScrollBarWidth(scrollbarWidth)
-
         const getLastElementVisibleOnScreen = (elements) => {
             const pagesNumbers = Array.from(elements)
                 .map((element, pageNumber, pageArray) => {
@@ -86,7 +82,6 @@ const ReportPreviewContainer = ({
         }
 
         return () => {
-            document.removeEventListener('mousedown', handleClick)
             document.removeEventListener('scroll', handleScroll)
         }
     })
@@ -98,36 +93,6 @@ const ReportPreviewContainer = ({
             const y =
                 target.getBoundingClientRect().top + baseElem.scrollTop - topActionsContainerRef.current.offsetHeight
             baseElem.scrollTo({ top: y, behavior: 'smooth' })
-        }
-    }
-
-    const scrollbarWidth = useMemo(() => {
-        const outer = document.createElement('div')
-        Object.assign(outer.style, {
-            visibility: 'hidden',
-            overflow: 'scroll',
-            msOverflowStyle: 'scrollbar',
-        })
-        document.body.appendChild(outer)
-        const inner = document.createElement('div')
-        outer.appendChild(inner)
-        const scrollBarWidth = outer.offsetWidth - inner.offsetWidth
-        outer.parentNode.removeChild(outer)
-
-        return scrollBarWidth
-    }, [])
-
-    const handleClick = (e) => {
-        const onScrollbar = document.documentElement.clientWidth - scrollBarWidth <= e.clientX
-        if (
-            popupRef.current &&
-            !popupRef.current.contains(e.target) &&
-            topBarRef.current &&
-            !topBarRef.current.contains(e.target) &&
-            !onScrollbar &&
-            !errorMessage
-        ) {
-            onClose()
         }
     }
 
