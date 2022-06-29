@@ -42,6 +42,9 @@ const Select = ({
     formControlProps,
     inputLabelProps,
     inputProps,
+    showLabel = true,
+    selectRootClassName = '',
+    formControlClassName = '',
     ...rest
 }) => {
     const inputLabel = useRef(null)
@@ -66,16 +69,20 @@ const Select = ({
         <>
             <FormControl
                 classes={{
-                    root: classNames(classes.formControl, {
-                        [classes.disabled]: disabled,
-                    }),
+                    root: classNames(
+                        classes.formControl,
+                        {
+                            [classes.disabled]: disabled,
+                        },
+                        formControlClassName
+                    ),
                 }}
                 variant='outlined'
                 disabled={disabled}
                 error={error}
                 {...formControlProps}>
-                <InputLabel shrink {...inputLabelProps} ref={inputLabel}>
-                    {label}
+                <InputLabel shrink={showLabel} {...inputLabelProps} ref={inputLabel}>
+                    {showLabel ? label : ''}
                 </InputLabel>
                 <MaterialSelect
                     id={`Select_${label}`}
@@ -97,8 +104,8 @@ const Select = ({
                         ...authorizedProps?.MenuProps,
                     }}
                     {...authorizedProps}
-                    label={label}
-                    className={classes.selectRoot}
+                    label={showLabel ? label : ''}
+                    className={classNames(classes.selectRoot, selectRootClassName)}
                     onChange={(event) => handleChange && handleChange(event.target.value)}
                     value={value}>
                     {values &&
