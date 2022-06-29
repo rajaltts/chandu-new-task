@@ -70,7 +70,7 @@ function CustomDropdown(props) {
             className={props.conceptTemplate ? 'wbtnDropdown conceptTemplate' : 'wbtnDropdown'}
             ref={node}>
             <button className='Wbtn' onClick={onClickSaveTagPopUp}>
-                <FontAwesomeIcon icon={faSave} className='faCusLeft' />
+                <FontAwesomeIcon icon={faSave} className='faCusLeft' id='SaveTagTemplateDropDownId' />
                 {props.HeadingName}
             </button>
             <button

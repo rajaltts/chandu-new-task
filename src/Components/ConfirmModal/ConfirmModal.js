@@ -91,7 +91,10 @@ const ConfirmModal = (props) => {
                         React.createElement(headerIcon, { className: `customModalHeaderIcon ${headerIconClassName}` })}
                     <span className='customModalTitle'>{title}</span>
                     {!disableCloseIcon && (
-                        <IconButton classes={{ root: classes.iconButtonRoot }} onClick={onCancelButtonClick}>
+                        <IconButton
+                            classes={{ root: classes.iconButtonRoot }}
+                            onClick={onCancelButtonClick}
+                            id='Model_Close'>
                             <CloseIcon
                                 fontSize='small'
                                 className='customModalCloseIcon'
