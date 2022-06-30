@@ -86,13 +86,6 @@ const SaveTagTemplate = ({ ...args }) => {
         },
     ]
 
-    const constructSaveTagObject = (saveTagData) => {
-        return alert(
-            saveTagData.newProjectData.projectInfo.TagName.value +
-                saveTagData.newProjectData.projectInfo.ProjectName.value
-        )
-    }
-
     const tagvalue = () => {
         return {
             isVisible: true,
@@ -101,9 +94,25 @@ const SaveTagTemplate = ({ ...args }) => {
         }
     }
 
+    const constructSaveTagObject = (saveTagData) => {
+        if (saveTagData.newProjectData) {
+            return alert(
+                saveTagData.newProjectData.projectInfo.TagName.value +
+                    saveTagData.newProjectData.projectInfo.ProjectName.value
+            )
+        } else {
+            return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
+        }
+    }
+
     const setErrorMessage = () => {
         return
     }
+
+    const searchTextChange = () => {
+        return
+    }
+
     return (
         <SaveTag
             {...args}
@@ -114,6 +123,7 @@ const SaveTagTemplate = ({ ...args }) => {
             customerNameList={customerList}
             tagName={tagvalue}
             setError={setErrorMessage}
+            onSearchTextChange={searchTextChange}
         />
     )
 }
@@ -205,13 +215,21 @@ const SaveTagTemplateDefaultProject = ({ ...args }) => {
     }
 
     const constructSaveTagObject = (saveTagData) => {
-        return alert(
-            saveTagData.newProjectData.projectInfo.TagName.value +
-                saveTagData.newProjectData.projectInfo.ProjectName.value
-        )
+        if (saveTagData.newProjectData) {
+            return alert(
+                saveTagData.newProjectData.projectInfo.TagName.value +
+                    saveTagData.newProjectData.projectInfo.ProjectName.value
+            )
+        } else {
+            return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
+        }
     }
 
     const setErrorMessage = () => {
+        return
+    }
+
+    const searchTextChange = () => {
         return
     }
 
@@ -225,6 +243,7 @@ const SaveTagTemplateDefaultProject = ({ ...args }) => {
             customerNameList={customerList}
             defaultSelectedProject={defaultSelectedProjectData}
             setError={setErrorMessage}
+            onSearchTextChange={searchTextChange}
         />
     )
 }
@@ -232,9 +251,17 @@ const SaveTagTemplateDefaultProject = ({ ...args }) => {
 export const SaveTagModal = SaveTagTemplate.bind({})
 SaveTagModal.args = {
     errorMsg: '',
+    contactName: '',
+    contactEmail: '',
+    contactNumber: '',
+    isLoading: false,
 }
 
 export const SaveTagModalDefaultProject = SaveTagTemplateDefaultProject.bind({})
 SaveTagModalDefaultProject.args = {
     errorMsg: '',
+    contactName: '',
+    contactEmail: '',
+    contactNumber: '',
+    isLoading: false,
 }
