@@ -60,7 +60,7 @@ const ImageContent = ({ className, value, label, disabled, name, visible = true,
                             <picture>
                                 {/* <source srcSet={ERV_WheelType_AVIF} type='image/avif' /> */}
                                 {/* <source srcSet={ERV_WheelType_WEBP} type='image/webp' /> */}
-                                <img src={`${url}${value}`} alt={`${name} Reference`} style={{width: "100%"}} />
+                                <img src={`${url}${value}`} alt={`${name} Reference`} style={{ width: '100%' }} />
                             </picture>
                         </Paper>
                     </CardContent>
