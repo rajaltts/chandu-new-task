@@ -35,7 +35,7 @@ const Page = ({
     hideFooter = false,
     hideDate = false,
     overFlowIndex = 0,
-    waterMark,
+    waterMarkSVGProps
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
@@ -49,10 +49,20 @@ const Page = ({
         transform: `translateY(-${translateYAxis}px)`,
     }
     const overflowDivId = `overflowCheck${title}${overFlowIndex}`
-    // TODO: make svg css attributes editable to modify height, width etc...
+    const waterMarkSVGPropsDefault = {
+        height: '100px',
+        width: '100px',
+        transform: 'translate(20, 100) rotate(-45)',
+        fill: 'rgb(211,211,211)',
+        fontSize: '20',
+    }
+    const waterMarkSVG = {
+        ...waterMarkSVGPropsDefault,
+        ...waterMarkSVGProps
+    }
     const waterMarkStyle = {
         zIndex: 0,
-        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='100px'><text transform='translate(20, 100) rotate(-45)' fill='rgb(211,211,211)' font-size='20'>${waterMark}</text></svg>")`,
+        backgroundImage: `url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='${waterMarkSVG.height}' width='${waterMarkSVG.width}'><text transform='${waterMarkSVG.transform}' fill='${waterMarkSVG.fill}' font-size='${waterMarkSVG.fontSize}'>${waterMarkSVG.label}</text></svg>")`,
     }
 
     // Tracks overflows after each new rendering, using React refs of page, header, content and footer
@@ -109,112 +119,114 @@ const Page = ({
     }, [])
 
     return (
-        <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
-            <div style={reportStyles.page} ref={pageRef}>
-                {!hideHeader && (
-                    <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
-                        <div
-                            style={{
-                                ...reportStyles.pageHeaderLeftArea,
-                                ...(fullName.length !== 0 || !hideDate
-                                    ? reportStyles.spaceBetween
-                                    : reportStyles.justifycenter),
-                            }}>
-                            <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
-                            <div style={reportStyles.pageHeaderSubInfos}>
-                                {fullName.length !== 0 && (
-                                    <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
+        <><link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
+            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
+                <div style={reportStyles.page} ref={pageRef}>
+                    {!hideHeader && (
+                        <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
+                            <div
+                                style={{
+                                    ...reportStyles.pageHeaderLeftArea,
+                                    ...(fullName.length !== 0 || !hideDate
+                                        ? reportStyles.spaceBetween
+                                        : reportStyles.justifycenter),
+                                }}>
+                                <img style={reportStyles.pageHeaderBrandLogo} src={modelBrandLogo} alt='Brand logo' />
+                                <div style={reportStyles.pageHeaderSubInfos}>
+                                    {fullName.length !== 0 && (
+                                        <span style={reportStyles.pageHeaderSubInfosPreparatorName}>{fullName}</span>
+                                    )}
+                                    {!hideDate && (
+                                        <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div
+                                style={{
+                                    ...reportStyles.pageHeaderReportTitle,
+                                    ...(modelBrand === 'carrier'
+                                        ? reportStyles.pageHeaderReportTitleCarrier
+                                        : modelBrand === 'ciat'
+                                            ? reportStyles.pageHeaderReportTitleCiat
+                                            : reportStyles.pageHeaderReportTitleDefault),
+                                }}>
+                                <span>{title}</span>
+                                <div style={reportStyles.pageHeaderMainTitle}>
+                                    <span style={reportStyles.pageHeaderMainTitleModel}>
+                                        <Format loading sup>
+                                            {model}
+                                        </Format>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style={reportStyles.pageHeaderInfoWrapper}>
+                                {projectName && (
+                                    <>
+                                        <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{projectNameLabel}</span>
+                                        <span style={reportStyles.pageHeaderInfoWrapperProjectName}>{projectName}</span>
+                                    </>
                                 )}
-                                {!hideDate && (
-                                    <span>{`(${date.toLocaleDateString()} ${date.toLocaleTimeString()})`}</span>
+                                {tagName && (
+                                    <>
+                                        <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{tagNameLabel}</span>
+                                        <span style={reportStyles.pageHeaderInfoWrapperTagName}>{tagName}</span>
+                                    </>
                                 )}
                             </div>
                         </div>
-
-                        <div
-                            style={{
-                                ...reportStyles.pageHeaderReportTitle,
-                                ...(modelBrand === 'carrier'
-                                    ? reportStyles.pageHeaderReportTitleCarrier
-                                    : modelBrand === 'ciat'
-                                    ? reportStyles.pageHeaderReportTitleCiat
-                                    : reportStyles.pageHeaderReportTitleDefault),
-                            }}>
-                            <span>{title}</span>
-                            <div style={reportStyles.pageHeaderMainTitle}>
-                                <span style={reportStyles.pageHeaderMainTitleModel}>
-                                    <Format loading sup>
-                                        {model}
-                                    </Format>
+                    )}
+                    <div
+                        style={{
+                            ...reportStyles.hideOverFlow,
+                            ...reportStyles.pageMain,
+                            ...reportStyles.roundBorder,
+                            ...(waterMarkSVG?.label ? waterMarkStyle : ''),
+                        }}
+                        ref={mainRef}>
+                        <div style={reportStyles.hideOverFlow}>
+                            <div
+                                id={overflowDivId}
+                                style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                    {!hideFooter && (
+                        <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>
+                            <div style={reportStyles.pageFooterLeftArea}>
+                                {footNotes.descriptions && footNotes.descriptions.length > 0 && (
+                                    <div style={reportStyles.pageFooterLeftAreaFootNote}>
+                                        {footNotes.image && (
+                                            <img
+                                                style={reportStyles.pageFooterLeftAreaFootNoteImage}
+                                                src={footNotes.image}
+                                                alt='Certification image' />
+                                        )}
+                                        {footNotes.descriptions.map((description, i) => (
+                                            <div
+                                                style={reportStyles.pageFooterLeftAreaFootNoteDescription}
+                                                key={`footnote-description-${i}`}>
+                                                {description}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div style={reportStyles.pageFooterInfoWrapper}>
+                                <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
+                                <span className='report-page-number-footer'>
+                                    {translation('Page')} <span className='page-number'></span>/
+                                    <span className='number-of-pages'></span>
                                 </span>
                             </div>
                         </div>
-
-                        <div style={reportStyles.pageHeaderInfoWrapper}>
-                            {projectName && (
-                                <>
-                                    <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{projectNameLabel}</span>
-                                    <span style={reportStyles.pageHeaderInfoWrapperProjectName}>{projectName}</span>
-                                </>
-                            )}
-                            {tagName && (
-                                <>
-                                    <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{tagNameLabel}</span>
-                                    <span style={reportStyles.pageHeaderInfoWrapperTagName}>{tagName}</span>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                )}
-                <div
-                    style={{
-                        ...reportStyles.hideOverFlow,
-                        ...reportStyles.pageMain,
-                        ...reportStyles.roundBorder,
-                        ...(waterMark ? waterMarkStyle : ''),
-                    }}
-                    ref={mainRef}>
-                    <div style={reportStyles.hideOverFlow}>
-                        <div
-                            id={overflowDivId}
-                            style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>
-                            {children}
-                        </div>
-                    </div>
+                    )}
                 </div>
-                {!hideFooter && (
-                    <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>
-                        <div style={reportStyles.pageFooterLeftArea}>
-                            {footNotes.descriptions && footNotes.descriptions.length > 0 && (
-                                <div style={reportStyles.pageFooterLeftAreaFootNote}>
-                                    {footNotes.image && (
-                                        <img
-                                            style={reportStyles.pageFooterLeftAreaFootNoteImage}
-                                            src={footNotes.image}
-                                            alt='Certification image'
-                                        />
-                                    )}
-                                    {footNotes.descriptions.map((description, i) => (
-                                        <div
-                                            style={reportStyles.pageFooterLeftAreaFootNoteDescription}
-                                            key={`footnote-description-${i}`}>
-                                            {description}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div style={reportStyles.pageFooterInfoWrapper}>
-                            <span style={reportStyles.pageFooterLeftAreaFootNoteDescription}>{builderInfo}</span>
-                            <span className='report-page-number-footer'>
-                                {translation('Page')} <span className='page-number'></span>/
-                                <span className='number-of-pages'></span>
-                            </span>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
+            </div></>
     )
 }
 
