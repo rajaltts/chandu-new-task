@@ -35,6 +35,7 @@ const Page = ({
     hideFooter = false,
     hideDate = false,
     overFlowIndex = 0,
+    waterMark,
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
@@ -48,6 +49,11 @@ const Page = ({
         transform: `translateY(-${translateYAxis}px)`,
     }
     const overflowDivId = `overflowCheck${title}${overFlowIndex}`
+    // TODO: make svg css attributes editable to modify height, width etc...
+    const waterMarkStyle = {
+        zIndex: 0,
+        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='100px'><text transform='translate(20, 100) rotate(-45)' fill='rgb(211,211,211)' font-size='20'>${waterMark}</text></svg>")`,
+    }
 
     // Tracks overflows after each new rendering, using React refs of page, header, content and footer
     useEffect(() => {
@@ -161,7 +167,12 @@ const Page = ({
                     </div>
                 )}
                 <div
-                    style={{ ...reportStyles.hideOverFlow, ...reportStyles.pageMain, ...reportStyles.roundBorder }}
+                    style={{
+                        ...reportStyles.hideOverFlow,
+                        ...reportStyles.pageMain,
+                        ...reportStyles.roundBorder,
+                        ...(waterMark ? waterMarkStyle : ''),
+                    }}
                     ref={mainRef}>
                     <div style={reportStyles.hideOverFlow}>
                         <div
