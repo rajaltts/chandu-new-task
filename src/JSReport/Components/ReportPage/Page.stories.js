@@ -72,5 +72,10 @@ CarrierPageComponentWithWaterMark.args = {
     fullName: 'Customer Report',
     footNotes: { descriptions: ['Engineering Selection'] },
     builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
-    waterMark: 'Do not sale',
+    waterMark: 'Do not use for sale',
+    waterMarkSVGProps: {
+        label: 'Do not use for sale',
+        width: '150px',
+        transform: 'translate(20, 100) rotate(-30)',
+    }
 }

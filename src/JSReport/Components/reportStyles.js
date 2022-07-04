@@ -17,6 +17,7 @@ const reportStyles = {
         'background-color': 'white',
         'page-break-after': 'always',
         overflow: 'hidden',
+        fontFamily: 'Roboto, Times New Roman',
     },
     page: {
         ...flexColumn,
