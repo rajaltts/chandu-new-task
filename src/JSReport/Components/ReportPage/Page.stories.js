@@ -65,3 +65,12 @@ CiatPageComponent.args = {
     tagNameLabel: 'Tag Name',
     tagName: 'Test',
 }
+
+export const CarrierPageComponentWithWaterMark = PageTemplate.bind({})
+CarrierPageComponentWithWaterMark.args = {
+    title: 'Customer Report',
+    fullName: 'Customer Report',
+    footNotes: { descriptions: ['Engineering Selection'] },
+    builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
+    waterMark: 'Do not sale',
+}
