@@ -35,7 +35,7 @@ const Page = ({
     hideFooter = false,
     hideDate = false,
     overFlowIndex = 0,
-    waterMarkSVGProps
+    waterMarkSVGProps,
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
@@ -58,7 +58,7 @@ const Page = ({
     }
     const waterMarkSVG = {
         ...waterMarkSVGPropsDefault,
-        ...waterMarkSVGProps
+        ...waterMarkSVGProps,
     }
     const waterMarkStyle = {
         zIndex: 0,
@@ -119,9 +119,8 @@ const Page = ({
     }, [])
 
     return (
-        <><link
-            rel='stylesheet'
-            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
+        <>
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
             <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
                 <div style={reportStyles.page} ref={pageRef}>
                     {!hideHeader && (
@@ -150,8 +149,8 @@ const Page = ({
                                     ...(modelBrand === 'carrier'
                                         ? reportStyles.pageHeaderReportTitleCarrier
                                         : modelBrand === 'ciat'
-                                            ? reportStyles.pageHeaderReportTitleCiat
-                                            : reportStyles.pageHeaderReportTitleDefault),
+                                        ? reportStyles.pageHeaderReportTitleCiat
+                                        : reportStyles.pageHeaderReportTitleDefault),
                                 }}>
                                 <span>{title}</span>
                                 <div style={reportStyles.pageHeaderMainTitle}>
@@ -166,7 +165,9 @@ const Page = ({
                             <div style={reportStyles.pageHeaderInfoWrapper}>
                                 {projectName && (
                                     <>
-                                        <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>{projectNameLabel}</span>
+                                        <span style={reportStyles.pageHeaderInfoWrapperInfoTitle}>
+                                            {projectNameLabel}
+                                        </span>
                                         <span style={reportStyles.pageHeaderInfoWrapperProjectName}>{projectName}</span>
                                     </>
                                 )}
@@ -204,7 +205,8 @@ const Page = ({
                                             <img
                                                 style={reportStyles.pageFooterLeftAreaFootNoteImage}
                                                 src={footNotes.image}
-                                                alt='Certification image' />
+                                                alt='Certification image'
+                                            />
                                         )}
                                         {footNotes.descriptions.map((description, i) => (
                                             <div
@@ -226,7 +228,8 @@ const Page = ({
                         </div>
                     )}
                 </div>
-            </div></>
+            </div>
+        </>
     )
 }
 

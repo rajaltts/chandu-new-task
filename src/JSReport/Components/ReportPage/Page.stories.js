@@ -77,5 +77,5 @@ CarrierPageComponentWithWaterMark.args = {
         label: 'Do not use for sale',
         width: '150px',
         transform: 'translate(20, 100) rotate(-30)',
-    }
+    },
 }
