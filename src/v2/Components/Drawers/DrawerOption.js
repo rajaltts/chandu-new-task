@@ -16,6 +16,8 @@ import useStyles from './DrawerOption.styles'
 //Assets
 import DragHandleSvg from './drag-handle.svg'
 
+import { getPriceString } from '@carrier/workflowui-globalfunctions'
+
 const DrawerOption = ({
     defaultOption,
     name,
@@ -134,7 +136,7 @@ const DrawerOption = ({
                                 key={col.key}
                                 style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='subtitle1' color='secondary'>
-                                    {col.value}
+                                    {col.priceUnit ? getPriceString(col.priceUnit, col.value) : col.value}
                                 </Typography>
                             </Grid>
                         ))}
