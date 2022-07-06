@@ -67,7 +67,7 @@ const InputRange = ({
 
     useEffect(() => {
         setError(!valueIsCorrect(currentValue) || relaxed)
-    }, [disabled, visible, valid, currentValue, isUserInput])
+    }, [disabled, visible, valid, currentValue, isUserInput, min, max])
 
     useEffect(() => {
         if (value !== currentValue && !loading) {
