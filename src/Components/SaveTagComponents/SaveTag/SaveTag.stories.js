@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SaveTag from './saveTag'
 
 export default {
-    title: 'Save Tag',
+    title: 'Component/Save Tag',
     component: SaveTag,
 }
 
@@ -100,9 +100,8 @@ const SaveTagTemplate = ({ ...args }) => {
                 saveTagData.newProjectData.projectInfo.TagName.value +
                     saveTagData.newProjectData.projectInfo.ProjectName.value
             )
-        } else {
-            return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
         }
+        return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
     }
 
     const setErrorMessage = () => {
@@ -220,9 +219,8 @@ const SaveTagTemplateDefaultProject = ({ ...args }) => {
                 saveTagData.newProjectData.projectInfo.TagName.value +
                     saveTagData.newProjectData.projectInfo.ProjectName.value
             )
-        } else {
-            return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
         }
+        return alert(saveTagData.exisitingProjectData.projectData.ProjectName)
     }
 
     const setErrorMessage = () => {

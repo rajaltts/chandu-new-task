@@ -31,7 +31,8 @@ CompanyName: '',
 Email: '',
 Phone: '',
 },
-),
+)
+
 updateProjectInfo = "ƒ updateProjectInfo() {}",
 projectName = {},
 contactName = (format is as follows:
@@ -39,16 +40,19 @@ contactName = (format is as follows:
 "id": "ContactName",
 "value": "",
 "error": ""
-},),
+},)
+
 contactEmail = (format is as follows:
 {
 "id": "ContactEmail",
 "value": "",
 "error": ""
-},),
+},)
+
 contactNumber = (format is as follows:
 {
 "id": "ContactNumber",
 "value": "",
 "error": ""
-},),
+},)
+

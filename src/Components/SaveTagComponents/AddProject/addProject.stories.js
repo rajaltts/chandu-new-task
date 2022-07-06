@@ -5,7 +5,7 @@ import translation from '../../Translation'
 import saveTagStyles from '../saveTagStyles'
 
 export default {
-    title: 'Add Project',
+    title: 'Component/Add Project',
     component: AddProject,
 }
 
