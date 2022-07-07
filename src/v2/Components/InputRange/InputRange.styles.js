@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
             pointerEvents: 'none',
         },
     },
-    helperText: {
+    helperTextStyle: {
         margin: 0,
         color: theme.palette.grey.main,
         visibility: 'hidden',

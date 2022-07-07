@@ -7,6 +7,7 @@ import { TextField } from '@material-ui/core'
 
 // Styles
 import useStyles from './Input.styles'
+import classNames from 'classnames'
 
 const Input = ({
     type,
@@ -25,6 +26,8 @@ const Input = ({
     visible = true,
     isInteger,
     warningMessage,
+    className = '',
+    showLabel = true,
     rest,
 }) => {
     const [currentValue, setCurrentValue] = useState(value)
@@ -75,8 +78,8 @@ const Input = ({
             type={isInteger ? 'text' : type}
             id={id}
             name={name}
-            className={classes.input}
-            label={label}
+            className={classNames(classes.input, className)}
+            label={showLabel ? label : ''}
             variant={variant}
             value={currentValue}
             InputProps={{

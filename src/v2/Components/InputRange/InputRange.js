@@ -10,6 +10,7 @@ import { createAuthorizedProps } from '../utils/createAuthorizedProps'
 
 // Styles
 import useStyles from './InputRange.styles'
+import classNames from 'classnames'
 
 const InputRange = ({
     type,
@@ -32,6 +33,7 @@ const InputRange = ({
     width,
     relaxed,
     isLabelRequired = true,
+    classes = {},
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -40,7 +42,17 @@ const InputRange = ({
     const [currentValue, setCurrentValue] = useState(value)
     const [showWarning, setShowWarning] = useState(false)
     const [isUserInput, setIsUserInput] = useState(false)
-    const classes = useStyles()
+    const {
+        inputContainer,
+        input,
+        inputFocused,
+        inputError,
+        inputNotchedOutline,
+        adornment,
+        dropdownButton,
+        helperTextStyle,
+    } = useStyles()
+    const { container, inputRoot } = classes
     const authorizedProps = createAuthorizedProps(TextField, rest)
     // overriding onChange is forbidden
     delete authorizedProps.onChange
@@ -115,12 +127,12 @@ const InputRange = ({
         return <></>
     } //return nothing if VISIBLE subprop = FALSE : CJT
     return (
-        <Box key={id} className={`${classes.inputContainer}`}>
+        <Box key={id} className={classNames(inputContainer, container)}>
             <TextField
                 type={type}
                 key={id}
                 id={id}
-                className={classes.input}
+                className={classNames(input, inputRoot)}
                 label={isLabelRequired ? label : ''}
                 variant={variant}
                 min={min}
@@ -130,16 +142,16 @@ const InputRange = ({
                 InputLabelProps={isLabelRequired ? null : { shrink: true }}
                 InputProps={{
                     classes: {
-                        focused: classes.inputFocused,
-                        error: classes.inputError,
-                        notchedOutline: classes.inputNotchedOutline,
+                        focused: inputFocused,
+                        error: inputError,
+                        notchedOutline: inputNotchedOutline,
                     },
                     endAdornment: unit ? (
-                        <InputAdornment position='end' className={`${classes.adornment} ${disabled ? 'disabled' : ''}`}>
+                        <InputAdornment position='end' className={`${adornment} ${disabled ? 'disabled' : ''}`}>
                             {units && units.length > 1 && (
                                 <>
                                     <Button
-                                        className={classes.dropdownButton}
+                                        className={dropdownButton}
                                         variant='text'
                                         onClick={openDropdown}
                                         endIcon={<ArrowDropDownIcon />}>
@@ -170,7 +182,7 @@ const InputRange = ({
                     ),
                 }}
                 helperText={touched && (showWarning ? 'Please enter only integer values' : helperText)}
-                FormHelperTextProps={{ classes: { root: classes.helperText } }}
+                FormHelperTextProps={{ classes: { root: helperTextStyle } }}
                 onChange={valueChange}
                 onFocus={() => setTouched(true)}
                 onBlur={handleBlur}
