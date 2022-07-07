@@ -33,7 +33,8 @@ const InputRange = ({
     width,
     relaxed,
     isLabelRequired = true,
-    classes = {},
+    container,
+    inputRoot,
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -52,7 +53,6 @@ const InputRange = ({
         dropdownButton,
         helperTextStyle,
     } = useStyles()
-    const { container, inputRoot } = classes
     const authorizedProps = createAuthorizedProps(TextField, rest)
     // overriding onChange is forbidden
     delete authorizedProps.onChange
