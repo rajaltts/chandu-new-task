@@ -58,7 +58,7 @@ const ColumnPickerDialog = (props) => {
         return (
             <List className={checkboxSection}>
                 {searchColumns(columnOptions).map((headCell, index) => {
-                    const { name, displayName, isSelected } = headCell
+                    const { name, displayName, isSelected, disabled = false } = headCell
                     return (
                         <FormControlLabel
                             key={index}
@@ -77,6 +77,7 @@ const ColumnPickerDialog = (props) => {
                                         root: checkboxRoot,
                                     }}
                                     checked={isSelected}
+                                    disabled={disabled}
                                 />
                             }
                             label={displayName}
