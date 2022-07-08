@@ -33,8 +33,11 @@ const InputRange = ({
     width,
     relaxed,
     isLabelRequired = true,
-    container,
-    inputRoot,
+    container = {},
+    inputRoot = {},
+    inputNotch = {},
+    inputOutlined = {},
+    inputOutlinedRoot = {},
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -144,7 +147,9 @@ const InputRange = ({
                     classes: {
                         focused: inputFocused,
                         error: inputError,
-                        notchedOutline: inputNotchedOutline,
+                        notchedOutline: classNames(inputNotchedOutline, inputNotch),
+                        input: inputOutlined,
+                        root: inputOutlinedRoot,
                     },
                     endAdornment: unit ? (
                         <InputAdornment position='end' className={`${adornment} ${disabled ? 'disabled' : ''}`}>
