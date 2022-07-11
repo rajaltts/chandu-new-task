@@ -13,6 +13,30 @@ Under `src/v2/Components` folder, you'll find components that :
   - contains a ReadMe page
   - are unit-tested
   
+# Process for Updating this library
+
+Please keep all of the below guidelines in mind when developing changes to this library!
+
+Depending on the changes being proposed, you may or may not need to get alignment from the other regions, as this codebase is common, your changes will most likely affect all regions.
+
+Changes requiring alignment MUST NOT be merged until alignment is reached between regions
+
+### Changes requiring global alignment
+  
+  - Introduction of a new component. 
+  - Modifications to existing components, functions, etc. 
+  - Style Changes -> we want eCAT to look and feel the same across regions. 
+
+Please request and wait for review from:
+  - Jake Thurnau: Carl.Thurnau2@carrier.com
+  - Farid Boukerche: Farid.Boukerche@carrier.com
+  - Wei Li: Wei.Li2@carrier.com
+
+### Changes not requiring global alignment
+
+  - Bug or Defect fixes
+  - Additions of constants (NOTE: Modifications to constants should be reviewed)
+
 # Guidelines
 
 If you want to add your components in this package, you need to consider some quality attributes that we want to enforce.
@@ -21,15 +45,23 @@ If you want to add your components in this package, you need to consider some qu
 First of all, components in this package aim to be reusable easily with minimum to no hassle.
 It match the functionality, look and feel that are showed in figma mock-ups (see: https://www.figma.com/file/finpxtXXwpFN5enafZjGJt/0---eCAT---Library-1.0?node-id=3048%3A10)
 
+Code should be written generically, i.e. not tightly coupled to any single product
+
+## Documentation
+Code changes should be well documented, using both in-line comments as well as method/function documentation 
+
 ## Component Scope
 Components should not interact with any rules output, all attributes that define the behavior, look and feel of the component need to be passed as React props. You can either use control components to do so, or use a React hook that will define what props should be based on the rules output. (TODO: add an example)
 
 Components should not try to translate or call react-intl, it's up to developers to inject the correct translated string to avoid any collision with other regions.
+
 ## Extensibility
 If a component encapsulate another standard component (from MUI for example), then make sure that any developer can also handle the behavior, look and feel of the subcomponent if it makes sense.
 
 ## Tested
 Components should contain unit tests (using Jest) that validate the behavior, look and feel. It will help us to be sure that nothing has been broken for everyone when a change is made.
+
+TODO: UPDATE GUIDELINES FOR WRITING TESTS
 
 ## React MUI friendly
 Components should try to use the default theme as much as possible and leverage makeStyle to define the standard and some variant of look and feel.
