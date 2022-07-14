@@ -32,6 +32,7 @@
         "@babel/preset-env": "^7.10.4",
         "@babel/preset-react": "^7.10.4",
         "@carrier/workflowui-globalfunctions": "3.36.86-0",
+        "@carrier/ngecat-unitsconversion": "3.37.13-0",
         "@fortawesome/fontawesome-svg-core": "1.2.19",
         "@fortawesome/free-regular-svg-icons": "5.10.1",
         "@fortawesome/free-solid-svg-icons": "5.9.0",
