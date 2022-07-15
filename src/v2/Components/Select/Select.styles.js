@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
             justifyContent: 'space-between',
             height: '36px',
             minHeight: '36px',
-            padding: theme.spacing(0, 4, 0, 2),
+            padding: theme.spacing(0, 5, 0, 2),
             boxSizing: 'border-box',
             fontSize: 14,
             [theme.breakpoints.up('md')]: {
