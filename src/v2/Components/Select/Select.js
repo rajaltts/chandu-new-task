@@ -114,7 +114,9 @@ const Select = ({
                                 <Box className={classes.menuItemContainer}>
                                     <Typography color={!v.feasible ? 'error' : 'inherit'}>{v.label}</Typography>
                                     <Box className={classes.adornments}>
-                                        <Typography className={classes.priceMlp} color={!v.feasible ? 'error' : 'inherit'}>
+                                        <Typography
+                                            className={classes.priceMlp}
+                                            color={!v.feasible ? 'error' : 'inherit'}>
                                             {v.attributes?.MLP ? '$ ' + v.attributes?.MLP : null}
                                         </Typography>
                                         {!v.feasible && (
