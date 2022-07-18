@@ -46,6 +46,9 @@ export default {
                     description: '50FC 020-093',
                     feasible: false,
                     enable: true,
+                    attributes: {
+                        MLP: '5',
+                    },
                 },
                 {
                     value: '50FC 100-280',
