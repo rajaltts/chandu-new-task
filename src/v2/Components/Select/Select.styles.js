@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
             justifyContent: 'space-between',
             height: '36px',
             minHeight: '36px',
-            padding: theme.spacing(0, 4, 0, 2),
+            padding: theme.spacing(0, 5, 0, 2),
             boxSizing: 'border-box',
             fontSize: 14,
             [theme.breakpoints.up('md')]: {
@@ -108,6 +108,12 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         width: '100%',
     },
+    adornments: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        justifyContent: 'flex-end',
+        width: '100%',
+    },
     optionItem: {
         '& .MuiSvgIcon-root': {
             fontSize: 20,
@@ -127,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     priceMlp: {
-        marginRight: '10px',
+        paddingRight: '5px',
     },
 }))
 
