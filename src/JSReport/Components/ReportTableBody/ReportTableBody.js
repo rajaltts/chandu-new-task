@@ -46,8 +46,10 @@ const ReportTableBody = ({ rowData }) => {
                 const style = item.style ? item.style : {}
                 const headerType = item.headerType ? item.headerType : {}
                 const positionType = item.positionType ? item.positionType : 'left'
+                const id = item.id ? item.id : index
                 return (
                     <td
+                        id={id}
                         key={index}
                         colSpan={colSpan}
                         rowSpan={rowSpan}
