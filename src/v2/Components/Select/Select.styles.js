@@ -2,13 +2,9 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        margin: theme.spacing(1, 0, 0),
         display: 'flex',
         flex: 1,
         width: '100%',
-        [theme.breakpoints.up('md')]: {
-            margin: theme.spacing(1, 1, 0),
-        },
         '& .MuiInputBase-root': {
             height: '36px',
         },
