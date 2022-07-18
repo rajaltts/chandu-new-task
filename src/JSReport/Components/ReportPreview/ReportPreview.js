@@ -90,7 +90,9 @@ const ReportPreview = ({
                                 <span className={classes.pageTitle}>{translation('Page')}</span>
                                 <span className={classes.pageIndexValue}>
                                     <b>{reportCurrentPreviewIndex + 1} </b>
-                                    <span className={classes.pageIndexValueSecondary}>/ {pageList.length}</span>
+                                    <span id='ReportPreviewTotalPages' className={classes.pageIndexValueSecondary}>
+                                        / {pageList.length}
+                                    </span>
                                 </span>
                             </span>
                             {reportCurrentPreviewIndex >= 0 &&

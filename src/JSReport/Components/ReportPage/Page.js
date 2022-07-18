@@ -39,10 +39,12 @@ const Page = ({
 }) => {
     const date = creationDate ? new Date(creationDate) : new Date()
 
+    const pageContainerRef = useRef(null)
     const pageRef = useRef(null)
     const mainRef = useRef(null)
     const headerRef = useRef(null)
     const footerRef = useRef(null)
+
     const PAGE_BODY = 890
     const translateYAxis = PAGE_BODY * (checkForOverflow ? overFlowIndex : 0)
     const translateYAxisStyle = {
@@ -101,7 +103,8 @@ const Page = ({
                         ) {
                             if (setOverflow)
                                 setOverflow({
-                                    overFlowPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
+                                    pageContainerRef,
+                                    overFlowTotalPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
                                     overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
                                     minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
                                 })
@@ -118,10 +121,20 @@ const Page = ({
         observer.observe(targetNode, config)
     }, [])
 
+    /*     useEffect(()=> {
+        const totalPagesElement = document.getElementById('ReportPreviewTotalPages');
+        const totalPages = document.getElementsByClassName('jsreport-page-main-wrapper');
+        console.log("totalPagesElement", totalPagesElement)
+        console.log("totalPages", totalPages);
+        if (totalPagesElement && !!totalPages.length) {
+            console.log("Change Total Pages")
+        }
+    })
+ */
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
-            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
+            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper} ref={pageContainerRef}>
                 <div style={reportStyles.page} ref={pageRef}>
                     {!hideHeader && (
                         <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
@@ -191,6 +204,7 @@ const Page = ({
                         <div style={reportStyles.hideOverFlow}>
                             <div
                                 id={overflowDivId}
+                                className='pageOverflowContainer'
                                 style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>
                                 {children}
                             </div>
