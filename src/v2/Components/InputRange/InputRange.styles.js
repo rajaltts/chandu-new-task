@@ -2,16 +2,16 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     inputContainer: {
+        margin: theme.spacing(0.5, 0, 0),
         position: 'relative',
         alignItems: 'center',
         display: 'flex',
-        padding: '5px 0px 5px 5px',
         '&.invisible': {
             opacity: 0.4,
             pointerEvents: 'none',
         },
-        [theme.breakpoints.down('sm')]: {
-            padding: '10px 0px 10px 10px',
+        [theme.breakpoints.up('md')]: {
+            margin: theme.spacing(0.5, 0, 0),
         },
     },
     input: {
