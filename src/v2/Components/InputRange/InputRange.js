@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 // Material
-import { Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
+import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
@@ -33,6 +33,7 @@ const InputRange = ({
     width,
     relaxed,
     isLabelRequired = true,
+    container = {},
     inputRoot = {},
     inputNotch = {},
     inputOutlined = {},
@@ -45,8 +46,16 @@ const InputRange = ({
     const [currentValue, setCurrentValue] = useState(value)
     const [showWarning, setShowWarning] = useState(false)
     const [isUserInput, setIsUserInput] = useState(false)
-    const { input, inputFocused, inputError, inputNotchedOutline, adornment, dropdownButton, helperTextStyle } =
-        useStyles()
+    const {
+        inputContainer,
+        input,
+        inputFocused,
+        inputError,
+        inputNotchedOutline,
+        adornment,
+        dropdownButton,
+        helperTextStyle,
+    } = useStyles()
     const authorizedProps = createAuthorizedProps(TextField, rest)
     // overriding onChange is forbidden
     delete authorizedProps.onChange
@@ -121,7 +130,7 @@ const InputRange = ({
         return <></>
     } //return nothing if VISIBLE subprop = FALSE : CJT
     return (
-        <>
+        <Box key={id} className={classNames(inputContainer, container)}>
             <TextField
                 type={type}
                 key={id}
@@ -186,7 +195,7 @@ const InputRange = ({
                 disabled={disabled}
                 {...authorizedProps}
             />
-        </>
+        </Box>
     )
 }
 
