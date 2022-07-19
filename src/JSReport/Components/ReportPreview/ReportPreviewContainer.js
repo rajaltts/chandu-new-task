@@ -24,7 +24,7 @@ const ReportPreviewContainer = ({
     const [isReportDownloadable, setReportDownloadable] = useState(reportDownloadable)
     const [errorMessage, setErrorMessage] = useState(null)
     const [reportCurrentPreviewIndex, setReportCurrentPreviewIndex] = useState(0)
-    const [pageList, setPageList] = useState([])
+    const [pageList, setPageList] = useState([1])
     const [isLoading, setLoading] = useState(loading)
 
     const popupRef = useRef()

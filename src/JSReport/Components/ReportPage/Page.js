@@ -121,16 +121,17 @@ const Page = ({
         observer.observe(targetNode, config)
     }, [])
 
-    /*     useEffect(()=> {
-        const totalPagesElement = document.getElementById('ReportPreviewTotalPages');
-        const totalPages = document.getElementsByClassName('jsreport-page-main-wrapper');
-        console.log("totalPagesElement", totalPagesElement)
-        console.log("totalPages", totalPages);
-        if (totalPagesElement && !!totalPages.length) {
-            console.log("Change Total Pages")
+    useEffect(() => {
+        const totalPagesElement = document.getElementById('ReportPreviewTotalPages')
+        const totalPages = document.getElementsByClassName('jsreport-page-main-wrapper')
+        const totalTextContent = totalPagesElement ? totalPagesElement.textContent.split(' ') : [0, 1]
+        const totalNumber = totalTextContent[1] ? Number(totalTextContent[1]) : Number(1)
+        if (totalNumber && !!totalPages.length) {
+            if (totalNumber === Number(totalPages.length)) return
+            totalPagesElement.textContent = `/ ${totalPages.length}`
         }
     })
- */
+
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
