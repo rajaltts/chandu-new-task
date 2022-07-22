@@ -17,7 +17,7 @@ const defaultCleanup = (input) => (typeof input === 'string' ? input.replace(/[^
  * @param {string} {fileName} Name of the file (can contain special characters - will be cleaned up)
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
 
-const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCleanup }) =>
+const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCleanup, isWordReport }) =>
     new Promise((resolve, reject) => {
         try {
             const renderingDoc = document.createElement('html')
@@ -45,27 +45,49 @@ const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCle
 
             renderingDoc.appendChild(head)
             renderingDoc.appendChild(body)
-
-            ApiService(
-                `${jsReportApi}api/report`,
-                'POST',
-                JSON.stringify({
-                    template: {
-                        shortid: 'l1DbOPsN5',
-                        content: renderingDoc.outerHTML,
-                        recipe: 'chrome-pdf',
-                        engine: 'handlebars',
-                        chrome: {
-                            width: '793px',
-                            height: '1122px',
+            if (isWordReport === true) {
+                const wordDownloadUrl = `https://apim-carrier-qa.azure-api.net/ptq/api/Project/JsReportToWord`
+                ApiService(
+                    wordDownloadUrl,
+                    'POST',
+                    JSON.stringify({
+                        template: {
+                            shortid: 'l1DbOPsN5',
+                            content: renderingDoc.outerHTML,
+                            recipe: 'chrome-pdf',
+                            engine: 'handlebars',
+                            chrome: {
+                                width: '793px',
+                                height: '1122px',
+                            },
                         },
-                    },
-                }),
-                'blob'
-            ).then((jsReportReponse) => {
-                FileSaver.saveAs(jsReportReponse.data, `${cleanup(fileName)}.pdf`)
-                resolve()
-            })
+                    })
+                ).then((wordReponse) => {
+                    FileSaver.saveAs(wordReponse.data, `${fileName}.docx`)
+                    resolve()
+                })
+            } else {
+                ApiService(
+                    `${jsReportApi}api/report`,
+                    'POST',
+                    JSON.stringify({
+                        template: {
+                            shortid: 'l1DbOPsN5',
+                            content: renderingDoc.outerHTML,
+                            recipe: 'chrome-pdf',
+                            engine: 'handlebars',
+                            chrome: {
+                                width: '793px',
+                                height: '1122px',
+                            },
+                        },
+                    }),
+                    'blob'
+                ).then((jsReportReponse) => {
+                    FileSaver.saveAs(jsReportReponse.data, `${cleanup(fileName)}.pdf`)
+                    resolve()
+                })
+            }
         } catch (err) {
             console.error(err)
             reject()

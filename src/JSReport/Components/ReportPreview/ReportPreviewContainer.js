@@ -105,15 +105,20 @@ const ReportPreviewContainer = ({
         if (closeReportPreview) closeReportPreview()
     }
 
-    const downloadPdf = async () => {
+    const downloadPdf = async (isWordReport = false) => {
         setLoading(true)
         await pdfDownload({
             reportConfig,
             jsReportApi,
             fileName,
             cleanup,
+            isWordReport,
         })
         setLoading(false)
+    }
+
+    const downloadWord = () => {
+        downloadPdf(true)
     }
 
     return (
@@ -135,6 +140,7 @@ const ReportPreviewContainer = ({
                 popupRef,
                 topBarRef,
                 topActionsContainerRef,
+                downloadWord,
             }}>
             {children}
         </ReportPreview>

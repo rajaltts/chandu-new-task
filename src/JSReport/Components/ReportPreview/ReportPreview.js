@@ -142,9 +142,13 @@ const ReportPreview = ({
                                         </IconButton>
                                     </Tooltip>
                                     {downloadWord ? (
-                                        <IconButton onClick={downloadWord}>
-                                            <FontAwesomeIcon className={classes.actionIcons} icon={faFileWord} />
-                                        </IconButton>
+                                        <Tooltip
+                                            title={translation('DownloadAsWord', 'Download as Word')}
+                                            PopperProps={{ container: topBarRef.current }}>
+                                            <IconButton onClick={downloadWord}>
+                                                <FontAwesomeIcon className={classes.actionIcons} icon={faFileWord} />
+                                            </IconButton>
+                                        </Tooltip>
                                     ) : (
                                         <FontAwesomeIcon
                                             className={`${classes.actionIcons} disable`}
