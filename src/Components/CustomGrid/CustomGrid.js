@@ -22,7 +22,6 @@ function CustomGrid(props) {
         rows = [],
         headCells,
         rowsPerPageOptions,
-        labelRowsPerPage,
         config = {},
         showCheckbox,
         rowsToShowPerPage,
@@ -456,7 +455,6 @@ function CustomGrid(props) {
 
                     {!hidePagination && (
                         <CustomGridPagination
-                            labelRowsPerPage={labelRowsPerPage}
                             rowsPerPageOptions={rowsPerPageOptions}
                             isAllPaginationSelected={isAllPaginationSelected}
                             component='div'
