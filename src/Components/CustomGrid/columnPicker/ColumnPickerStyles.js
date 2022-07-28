@@ -47,6 +47,9 @@ const columnPickerStyles = makeStyles(() => ({
     checkboxRoot: {
         padding: '0px 2px 1px 0px !important',
         color: '#1891F6 !important',
+        '&.Mui-disabled': {
+            opacity: '0.3',
+        }
     },
     labelRoot: {
         margin: '0px',

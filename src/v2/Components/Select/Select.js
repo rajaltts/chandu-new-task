@@ -92,6 +92,9 @@ const Select = ({
                             paper: classes.menuWrapper,
                             list: classes.menu,
                         },
+                        style: {
+                            zIndex: 9999999,
+                        },
                         anchorOrigin: {
                             vertical: 'bottom',
                             horizontal: 'left',

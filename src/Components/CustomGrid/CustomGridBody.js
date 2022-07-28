@@ -139,6 +139,7 @@ function CustomGridBody(props) {
                             {headCells.map((head) => {
                                 const configItem = config[head.name] || {}
                                 const lookUpKey = configItem.lookUpKey || head.name
+                                const isCellHighlightEnabled = configItem.isCellHighlightEnabled || false
                                 const isHeaderSelectedForDisplay = columnPicker
                                     ? (head.isSelected && !columnPickerFilterError) || false
                                     : true
@@ -147,7 +148,7 @@ function CustomGridBody(props) {
                                         ? isCellSelected(getValueForDynamicKey(row, uniqueKey), lookUpKey)
                                         : false
                                 const cellHighlightStyle =
-                                    editModeEnabled && editModeHighlight && isCellHighlighted
+                                    editModeEnabled && editModeHighlight && isCellHighlighted && isCellHighlightEnabled
                                         ? 'editModeCellHighlight'
                                         : ''
                                 return isHeaderSelectedForDisplay ? (
@@ -164,7 +165,7 @@ function CustomGridBody(props) {
                                                     row,
                                                     lookUpKey,
                                                     getValueForDynamicKey(row, uniqueKey),
-                                                    configItem.isCellHighlightEnabled || true
+                                                    isCellHighlightEnabled
                                                 )
                                             }>
                                             <FormBuilderField
