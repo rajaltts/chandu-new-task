@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 // Material
-import { Box, Menu, MenuItem, TextField, InputAdornment, Button } from '@material-ui/core'
+import { Box, Menu, MenuItem, TextField, InputAdornment, Button, Tooltip } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 import { createAuthorizedProps } from '../utils/createAuthorizedProps'
@@ -38,6 +38,7 @@ const InputRange = ({
     inputNotch = {},
     inputOutlined = {},
     inputOutlinedRoot = {},
+    toolTipText = '',
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -76,7 +77,8 @@ const InputRange = ({
 
     const valueIsCorrect = (v) => {
         return !disabled
-            ? (parseFloat(v) >= MIN || MIN === undefined) && (parseFloat(v) <= MAX || MAX === undefined)
+            ? (parseFloat(v) >= MIN || MIN === undefined || isNaN(MIN)) &&
+                  (parseFloat(v) <= MAX || MAX === undefined || isNaN(MAX))
             : true
     }
 
@@ -131,70 +133,72 @@ const InputRange = ({
     } //return nothing if VISIBLE subprop = FALSE : CJT
     return (
         <Box key={id} className={classNames(inputContainer, container)}>
-            <TextField
-                type={type}
-                key={id}
-                id={id}
-                className={classNames(input, inputRoot)}
-                label={isLabelRequired ? label : ''}
-                variant={variant}
-                min={min}
-                max={max}
-                value={currentValue}
-                style={{ width: width }}
-                InputLabelProps={isLabelRequired ? null : { shrink: true }}
-                InputProps={{
-                    classes: {
-                        focused: inputFocused,
-                        error: inputError,
-                        notchedOutline: classNames(inputNotchedOutline, inputNotch),
-                        input: inputOutlined,
-                        root: inputOutlinedRoot,
-                    },
-                    endAdornment: unit ? (
-                        <InputAdornment position='end' className={`${adornment} ${disabled ? 'disabled' : ''}`}>
-                            {units && units.length > 1 && (
-                                <>
-                                    <Button
-                                        className={dropdownButton}
-                                        variant='text'
-                                        onClick={openDropdown}
-                                        endIcon={<ArrowDropDownIcon />}>
-                                        {unit}
-                                    </Button>
-                                    <Menu
-                                        id={`menu-${id}`}
-                                        anchorEl={anchorEl}
-                                        open={Boolean(anchorEl)}
-                                        onClose={closeMenu}>
-                                        {units.map((option) => {
-                                            return (
-                                                <MenuItem
-                                                    key={option}
-                                                    selected={unit === option}
-                                                    onClick={() => handleMenuItemClick(option)}>
-                                                    {option}
-                                                </MenuItem>
-                                            )
-                                        })}
-                                    </Menu>
-                                </>
-                            )}
-                            {(units === null || units.length === 1) && unit ? unit : ''}
-                        </InputAdornment>
-                    ) : (
-                        ''
-                    ),
-                }}
-                helperText={touched && (showWarning ? 'Please enter only integer values' : helperText)}
-                FormHelperTextProps={{ classes: { root: helperTextStyle } }}
-                onChange={valueChange}
-                onFocus={() => setTouched(true)}
-                onBlur={handleBlur}
-                error={error}
-                disabled={disabled}
-                {...authorizedProps}
-            />
+            <Tooltip placement='right' title={disabled ? '' : isNaN(MIN) && isNaN(MAX) ? toolTipText : ''} arrow>
+                <TextField
+                    type={type}
+                    key={id}
+                    id={id}
+                    className={classNames(input, inputRoot)}
+                    label={isLabelRequired ? label : ''}
+                    variant={variant}
+                    min={min}
+                    max={max}
+                    value={currentValue}
+                    style={{ width: width }}
+                    InputLabelProps={isLabelRequired ? null : { shrink: true }}
+                    InputProps={{
+                        classes: {
+                            focused: inputFocused,
+                            error: inputError,
+                            notchedOutline: classNames(inputNotchedOutline, inputNotch),
+                            input: inputOutlined,
+                            root: inputOutlinedRoot,
+                        },
+                        endAdornment: unit ? (
+                            <InputAdornment position='end' className={`${adornment} ${disabled ? 'disabled' : ''}`}>
+                                {units && units.length > 1 && (
+                                    <>
+                                        <Button
+                                            className={dropdownButton}
+                                            variant='text'
+                                            onClick={openDropdown}
+                                            endIcon={<ArrowDropDownIcon />}>
+                                            {unit}
+                                        </Button>
+                                        <Menu
+                                            id={`menu-${id}`}
+                                            anchorEl={anchorEl}
+                                            open={Boolean(anchorEl)}
+                                            onClose={closeMenu}>
+                                            {units.map((option) => {
+                                                return (
+                                                    <MenuItem
+                                                        key={option}
+                                                        selected={unit === option}
+                                                        onClick={() => handleMenuItemClick(option)}>
+                                                        {option}
+                                                    </MenuItem>
+                                                )
+                                            })}
+                                        </Menu>
+                                    </>
+                                )}
+                                {(units === null || units.length === 1) && unit ? unit : ''}
+                            </InputAdornment>
+                        ) : (
+                            ''
+                        ),
+                    }}
+                    helperText={touched && (showWarning ? 'Please enter only integer values' : helperText)}
+                    FormHelperTextProps={{ classes: { root: helperTextStyle } }}
+                    onChange={valueChange}
+                    onFocus={() => setTouched(true)}
+                    onBlur={handleBlur}
+                    error={error}
+                    disabled={disabled}
+                    {...authorizedProps}
+                />
+            </Tooltip>
         </Box>
     )
 }
