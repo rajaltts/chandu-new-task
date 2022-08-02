@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from 'react'
+import React, { useEffect, useState, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import { Format } from './Format'
 import translation from '../../../Components/Translation'
@@ -15,42 +15,31 @@ import reportStyles from '../../../JSReport/Components/reportStyles'
  * @param {Function} {projectName} Name of current project, if exists
  * @param {Function} {tagName} Name of current tag, if exists
  */
-const Page = ({
-    setOverflow,
-    checkForOverflow = false,
-    title = 'Report',
-    children,
-    modelBrandLogo = 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/carrier.webp',
-    fullName = '',
-    creationDate,
-    model,
-    projectNameLabel,
-    projectName,
-    tagNameLabel,
-    tagName,
-    modelBrand = 'carrier',
-    footNotes,
-    builderInfo,
-    hideHeader = false,
-    hideFooter = false,
-    hideDate = false,
-    overFlowIndex = 0,
-    waterMarkSVGProps,
-}) => {
+const Page = (props) => {
+    const {
+        checkForOverflow = true,
+        title = 'Report',
+        children,
+        modelBrandLogo = 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/carrier.webp',
+        fullName = '',
+        creationDate,
+        model,
+        projectNameLabel,
+        projectName,
+        tagNameLabel,
+        tagName,
+        modelBrand = 'carrier',
+        footNotes,
+        builderInfo,
+        hideHeader = false,
+        hideFooter = false,
+        hideDate = false,
+        waterMarkSVGProps,
+    } = props
+
     const date = creationDate ? new Date(creationDate) : new Date()
 
-    const pageContainerRef = useRef(null)
-    const pageRef = useRef(null)
-    const mainRef = useRef(null)
-    const headerRef = useRef(null)
-    const footerRef = useRef(null)
-
     const PAGE_BODY = 890
-    const translateYAxis = PAGE_BODY * (checkForOverflow ? overFlowIndex : 0)
-    const translateYAxisStyle = {
-        transform: `translateY(-${translateYAxis}px)`,
-    }
-    const overflowDivId = `overflowCheck${title}${overFlowIndex}`
     const waterMarkSVGPropsDefault = {
         height: '100px',
         width: '100px',
@@ -67,60 +56,6 @@ const Page = ({
         backgroundImage: `url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='${waterMarkSVG.height}' width='${waterMarkSVG.width}'><text transform='${waterMarkSVG.transform}' fill='${waterMarkSVG.fill}' font-size='${waterMarkSVG.fontSize}'>${waterMarkSVG.label}</text></svg>")`,
     }
 
-    // Tracks overflows after each new rendering, using React refs of page, header, content and footer
-    useEffect(() => {
-        // Select the node that will be observed for mutations
-        const targetNode = document.getElementById(overflowDivId)
-
-        // Options for the observer (which mutations to observe)
-        const config = {
-            attributes: true,
-            characterData: true,
-            childList: true,
-            subtree: true,
-            attributeOldValue: true,
-            characterDataOldValue: true,
-        }
-
-        // Callback function to execute when mutations are observed
-        const callback = function (mutationList) {
-            // Use traditional 'for loops' for IE 11
-            for (const mutation of mutationList) {
-                if (mutation.type === 'childList') {
-                    if (mainRef.current && pageRef.current && headerRef.current && footerRef.current) {
-                        const pageBottom = pageRef.current.getBoundingClientRect().bottom
-                        const footerBottom = footerRef.current.getBoundingClientRect().bottom
-                        const maxChildrenHeight =
-                            pageRef.current.clientHeight -
-                            (headerRef.current.clientHeight + footerRef.current.clientHeight) +
-                            1
-                        const overflowDiv = document.getElementById(overflowDivId)
-                        const overflowScrollHeight = overflowDiv ? overflowDiv.scrollHeight : 0
-                        if (
-                            footerBottom > pageBottom ||
-                            mainRef.current.clientHeight > maxChildrenHeight ||
-                            overflowScrollHeight > PAGE_BODY
-                        ) {
-                            if (setOverflow)
-                                setOverflow({
-                                    pageContainerRef,
-                                    overFlowTotalPagesCount: Math.ceil(overflowScrollHeight / PAGE_BODY),
-                                    overflowingHeight: mainRef.current.clientHeight - maxChildrenHeight,
-                                    minimalY: footerRef?.current.clientHeight + 50, // The 50 additional pixels represent all the vertical margin between header, content and footer components
-                                })
-                        }
-                    }
-                }
-            }
-        }
-
-        // Create an observer instance linked to the callback function
-        const observer = new MutationObserver(callback)
-
-        // Start observing the target node for configured mutations
-        observer.observe(targetNode, config)
-    }, [])
-
     useEffect(() => {
         const totalPagesElement = document.getElementById('ReportPreviewTotalPages')
         const totalPages = document.getElementsByClassName('jsreport-page-main-wrapper')
@@ -132,13 +67,74 @@ const Page = ({
         }
     })
 
+    const [dimensions, setDimensions] = useState(new Array(children.length))
+    const maxPageContentHeight = PAGE_BODY
+
+    let cumulativeHeight = 0
+    const pageChildren = []
+    let unrenderedChildren = []
+
+    const [loaded, setStatus] = useState(document.readyState === 'complete')
+
+    useEffect(() => {
+        if (!loaded) {
+            document.onreadystatechange = () => {
+                setStatus(document.readyState === 'complete')
+            }
+        }
+    }, [loaded])
+
+    const ComponentWithDimensions = ({ onHeightChange, children }) => {
+        const targetRef = useRef()
+
+        useEffect(() => {
+            if (targetRef.current) {
+                onHeightChange(targetRef.current.scrollHeight)
+            }
+        }, [targetRef, children])
+
+        return <div ref={targetRef}>{children}</div>
+    }
+
+    const createComponentWithDimensions = (index) =>
+        pageChildren.push(
+            <ComponentWithDimensions
+                key={index}
+                onHeightChange={(height) => {
+                    dimensions[index] = height
+                    setDimensions(dimensions)
+                }}>
+                {children[index]}
+            </ComponentWithDimensions>
+        )
+
+    if (loaded && checkForOverflow) {
+        if (dimensions.findIndex((x) => x === undefined) !== -1) {
+            children.forEach((_, index) => createComponentWithDimensions(index))
+        } else {
+            for (let i = 0; i < children.length; i++) {
+                cumulativeHeight += dimensions[i]
+
+                if (
+                    pageChildren.length > 0 &&
+                    maxPageContentHeight !== null &&
+                    cumulativeHeight > maxPageContentHeight
+                ) {
+                    unrenderedChildren = children.slice(i)
+                    break
+                }
+                createComponentWithDimensions(i)
+            }
+        }
+    }
+
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
-            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper} ref={pageContainerRef}>
-                <div style={reportStyles.page} ref={pageRef}>
+            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
+                <div style={reportStyles.page}>
                     {!hideHeader && (
-                        <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }} ref={headerRef}>
+                        <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }}>
                             <div
                                 style={{
                                     ...reportStyles.pageHeaderLeftArea,
@@ -200,21 +196,13 @@ const Page = ({
                             ...reportStyles.pageMain,
                             ...reportStyles.roundBorder,
                             ...(waterMarkSVG?.label ? waterMarkStyle : ''),
-                        }}
-                        ref={mainRef}>
-                        <div style={reportStyles.hideOverFlow}>
-                            <div
-                                id={overflowDivId}
-                                className='pageOverflowContainer'
-                                style={checkForOverflow ? translateYAxisStyle : reportStyles.hideOverFlow}>
-                                {children}
-                            </div>
-                        </div>
+                        }}>
+                        <div style={reportStyles.hideOverFlow}>{checkForOverflow ? pageChildren : children}</div>
                     </div>
                     {!hideFooter && (
-                        <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }} ref={footerRef}>
+                        <div style={{ ...reportStyles.pageFooter, ...reportStyles.roundBorder }}>
                             <div style={reportStyles.pageFooterLeftArea}>
-                                {footNotes.descriptions && footNotes.descriptions.length > 0 && (
+                                {footNotes && footNotes.descriptions && footNotes.descriptions.length > 0 && (
                                     <div style={reportStyles.pageFooterLeftAreaFootNote}>
                                         {footNotes.image && (
                                             <img
@@ -244,6 +232,7 @@ const Page = ({
                     )}
                 </div>
             </div>
+            {checkForOverflow && unrenderedChildren.length > 0 ? <Page {...props}>{unrenderedChildren}</Page> : null}
         </>
     )
 }

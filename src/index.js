@@ -120,7 +120,6 @@ import ContentTable from './JSReport/Components/ContentsTable/ContentTable'
 import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes'
 import ReportContainer from './JSReport/Components/ReportContainer/ReportContainer'
 import ReportItemContainer from './JSReport/Components/ReportItemContainer/ReportItemContainer'
-import PageOverflow from './JSReport/Components/ReportPageOverflow/PageOverflow'
 import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon'
 
 import Chart from './Chart/Chart'
@@ -239,7 +238,6 @@ export {
     FabWithBadge,
     Section,
     DocxToHtml,
-    PageOverflow,
     RenderHtml,
     Loading,
     LoadingIcon,
