@@ -6,6 +6,8 @@ const cartStyles = makeStyles((theme) => ({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
+        height: '500px',
+        overflowY: 'auto',
         [theme.breakpoints.only('xs')]: {
             width: '100%',
             overflow: 'hidden',
