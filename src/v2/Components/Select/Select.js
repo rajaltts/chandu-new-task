@@ -29,6 +29,7 @@ const Select = ({
     label,
     value,
     values,
+    renderValue = null,
     handleChange,
     visible = true,
     disabled,
@@ -110,7 +111,8 @@ const Select = ({
                     label={showLabel ? label : ''}
                     className={classNames(classes.selectRoot, selectRootClassName)}
                     onChange={(event) => handleChange && handleChange(event.target.value)}
-                    value={value}>
+                    value={value}
+                    renderValue={renderValue}>
                     {values &&
                         values.map((v) => {
                             const box = (

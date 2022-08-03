@@ -49,7 +49,7 @@ const columnPickerStyles = makeStyles(() => ({
         color: '#1891F6 !important',
         '&.Mui-disabled': {
             opacity: '0.3',
-        }
+        },
     },
     labelRoot: {
         margin: '0px',
