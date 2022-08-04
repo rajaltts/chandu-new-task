@@ -38,6 +38,7 @@ const InputRange = ({
     inputNotch = {},
     inputOutlined = {},
     inputOutlinedRoot = {},
+    unitMenu = '',
     toolTipText = '',
     ...rest
 }) => {
@@ -168,6 +169,7 @@ const InputRange = ({
                                         <Menu
                                             id={`menu-${id}`}
                                             anchorEl={anchorEl}
+                                            className={unitMenu}
                                             open={Boolean(anchorEl)}
                                             onClose={closeMenu}>
                                             {units.map((option) => {
