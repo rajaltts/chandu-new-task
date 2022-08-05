@@ -12,10 +12,10 @@ const reportStyles = {
     jsreportPageWrapper: {
         width: '793px',
         height: '1120px',
-        'max-width': '793px',
-        'max-height': '1120px',
-        'background-color': 'white',
-        'page-break-after': 'always',
+        maxWidth: '793px',
+        maxHeight: '1120px',
+        backgroundColor: 'white',
+        pageBreakAfter: 'always',
         overflow: 'hidden',
         fontFamily: 'Roboto, Times New Roman',
     },
@@ -32,9 +32,9 @@ const reportStyles = {
         alignContent: 'center',
     },
     roundBorder: {
-        'border-radius': '10px',
-        'background-color': '#ffffff',
-        'box-shadow': '0px 0px 4px #dedede',
+        borderRadius: '10px',
+        backgroundColor: '#ffffff',
+        boxShadow: '0px 0px 4px #dedede',
     },
     pageHeader: {
         ...flexRow,
