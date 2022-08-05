@@ -67,11 +67,11 @@ const Page = (props) => {
         }
     })
 
-    const [dimensions, setDimensions] = useState(new Array(children.length))
+    const [dimensions, setDimensions] = useState(new Array(children?.length ?? 0))
     const maxPageContentHeight = PAGE_BODY
 
     let cumulativeHeight = 0
-    const pageChildren = []
+    const pageChildren = children?.length ? [] : [children]
     let unrenderedChildren = []
 
     const [loaded, setStatus] = useState(document.readyState === 'complete')
@@ -108,7 +108,7 @@ const Page = (props) => {
             </ComponentWithDimensions>
         )
 
-    if (loaded && checkForOverflow) {
+    if (loaded && checkForOverflow && children?.length) {
         if (dimensions.findIndex((x) => x === undefined) !== -1) {
             children.forEach((_, index) => createComponentWithDimensions(index))
         } else {
