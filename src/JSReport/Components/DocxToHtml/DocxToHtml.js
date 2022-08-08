@@ -5,15 +5,19 @@ import { getExternalFileContentAsBlob } from '@carrier/workflowui-globalfunction
 const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
     const ref = useRef()
 
-    const convertDocx = async () => {
-        if (
+    const checkforFileType = (allowedFileType = []) => {
+        return (
             filePath &&
             typeof filePath === 'string' &&
-            filePath.slice(((filePath.lastIndexOf('.') - 1) >>> 0) + 2) === 'docx' &&
+            allowedFileType.includes(filePath.slice(((filePath.lastIndexOf('.') - 1) >>> 0) + 2)) &&
             containerName &&
             apiUrl
-        ) {
-            try {
+        )
+    }
+
+    const convertDocx = async () => {
+        try {
+            if (checkforFileType(['docx'])) {
                 const response = await getExternalFileContentAsBlob({
                     apiUrl,
                     containerName,
@@ -35,9 +39,13 @@ const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
                     }
                     fileReader.readAsArrayBuffer(response)
                 }
-            } catch (error) {
-                ref.current.innerHTML = ''
+            } else if (checkforFileType(['htm', 'html'])) {
+                const response = await fetch(`${apiUrl}${containerName}/${filePath}`)
+                const text = await response.text()
+                ref.current.innerHTML = text
             }
+        } catch (error) {
+            ref.current.innerHTML = ''
         }
     }
 
