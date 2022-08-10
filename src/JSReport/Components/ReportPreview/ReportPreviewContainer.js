@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
 import ReportPreview from './ReportPreview.js'
 import pdfDownload from './pdfDownload.js'
+import { connect } from 'react-redux'
 
 /**
  * @category Reports Preview 👁️
@@ -18,6 +19,8 @@ const ReportPreviewContainer = ({
     jsReportApi = '',
     cleanup = undefined,
     hideFooterPageInfo = false,
+    isWordReportEnabled = false,
+    api,
 }) => {
     const { title, fileName = 'Test' } = reportConfig.options ?? {}
 
@@ -113,6 +116,7 @@ const ReportPreviewContainer = ({
             fileName,
             cleanup,
             isWordReport,
+            api,
         })
         setLoading(false)
     }
@@ -141,10 +145,14 @@ const ReportPreviewContainer = ({
                 topBarRef,
                 topActionsContainerRef,
                 downloadWord,
+                isWordReportEnabled,
             }}>
             {children}
         </ReportPreview>
     )
 }
 
-export default memo(injectIntl(ReportPreviewContainer))
+const mapStateToProps = (state) => ({
+    api: state.api.eCatApimAppService,
+})
+export default memo(injectIntl(connect(mapStateToProps, null)(ReportPreviewContainer)))

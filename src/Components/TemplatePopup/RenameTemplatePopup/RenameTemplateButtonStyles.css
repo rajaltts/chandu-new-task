@@ -1,0 +1,35 @@
+
+
+
+.eButtonPrimary {
+    background-color:#152c73;
+    color: #ffffff;
+    margin-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #152c73;
+    cursor: pointer;
+}
+
+    .eButtonPrimary.hover {
+        background-color: #2041ac;
+        border-color: #2041ac;
+        color: #ffffff;
+        
+    }
+    .eButtonPrimary.hover.caret {
+        border-top-color: #ffffff;
+    }
+   .eButtonPrimary:focus {
+        outline: none;
+    }
+    svg {
+        font-size: 16px;
+        display: inline-block;
+        margin-right: 8px;
+    }
+    .caret {
+        border-top-color: #152c73;
+    }

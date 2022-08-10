@@ -5,11 +5,13 @@ import Zoom from '@material-ui/core/Zoom'
 import DescriptionIcon from '@material-ui/icons/Description'
 import Tooltip from '@material-ui/core/Tooltip'
 import { IconButton } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal'
 import translation from '../../../Components/Translation'
 
 import useReportPreviewStyles, { BorderLinearProgress } from './ReportPreview.styles'
+import { HasPermission } from '@carrier/workflowui-globalfunctions'
 
 /** Preview a report
  * Navigation between pages / download
@@ -61,8 +63,11 @@ const ReportPreview = ({
     popupRef,
     topActionsContainerRef,
     topBarRef,
+    isWordReportEnabled,
+    PlatformPermissions,
 }) => {
     const classes = useReportPreviewStyles()
+    const hasPermission = HasPermission('Platform Permissions/Word Report', PlatformPermissions)
 
     return isOpen ? (
         <div className={`${classes.reportBack} report-back`}>
@@ -141,7 +146,7 @@ const ReportPreview = ({
                                             <FontAwesomeIcon className={classes.actionIcons} icon={faFilePdf} />
                                         </IconButton>
                                     </Tooltip>
-                                    {downloadWord ? (
+                                    {downloadWord && (isWordReportEnabled || hasPermission) ? (
                                         <Tooltip
                                             title={translation('DownloadAsWord', 'Download as Word')}
                                             PopperProps={{ container: topBarRef.current }}>
@@ -150,10 +155,7 @@ const ReportPreview = ({
                                             </IconButton>
                                         </Tooltip>
                                     ) : (
-                                        <FontAwesomeIcon
-                                            className={`${classes.actionIcons} disable`}
-                                            icon={faFileWord}
-                                        />
+                                        <></>
                                     )}
                                 </div>
                             )}
@@ -209,4 +211,8 @@ const ReportPreview = ({
     )
 }
 
-export default memo(ReportPreview)
+const mapStateToProps = (state) => ({
+    PlatformPermissions: state.userProfile.permissions,
+})
+
+export default connect(mapStateToProps, {})(memo(ReportPreview))

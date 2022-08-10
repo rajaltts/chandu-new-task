@@ -1,5 +1,6 @@
 import React from 'react'
-import CustomGrid from './CustomGrid'
+import CustomGrid from '../CustomGrid'
+import './ColumnPickerULStyles.css'
 
 export default {
     title: 'Component/CustomGrid',
@@ -53,7 +54,11 @@ const CustomGridTemplate = ({ ...args }) => {
 }
 
 const CustomGridForSelectionsTemplate = ({ ...args }) => {
-    return <CustomGrid {...args}></CustomGrid>
+    return (
+        <div className={'checkboxSection'}>
+            <CustomGrid {...args}></CustomGrid>
+        </div>
+    )
 }
 
 const CustomGridForSearchTemplate = ({ ...args }) => {

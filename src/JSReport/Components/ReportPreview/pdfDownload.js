@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver'
-import { ApiService } from '@carrier/workflowui-globalfunctions'
+import { ApiService, endPoints } from '@carrier/workflowui-globalfunctions'
 
 // Default file name cleanup
 const defaultCleanup = (input) => (typeof input === 'string' ? input.replace(/[^a-zA-Z0-9]+/g, ' ').trim() : '')
@@ -17,7 +17,7 @@ const defaultCleanup = (input) => (typeof input === 'string' ? input.replace(/[^
  * @param {string} {fileName} Name of the file (can contain special characters - will be cleaned up)
  * @param {function} {cleanup} Optional, formatting function of downloaded file name */
 
-const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCleanup, isWordReport }) =>
+const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCleanup, isWordReport, api }) =>
     new Promise((resolve, reject) => {
         try {
             const renderingDoc = document.createElement('html')
@@ -46,9 +46,8 @@ const pdfDownload = ({ reportConfig, jsReportApi, fileName, cleanup = defaultCle
             renderingDoc.appendChild(head)
             renderingDoc.appendChild(body)
             if (isWordReport === true) {
-                const wordDownloadUrl = `https://apim-carrier-qa.azure-api.net/ptq/api/Project/JsReportToWord`
                 ApiService(
-                    wordDownloadUrl,
+                    `${api}${endPoints.POST_PDF_TO_WORD}`,
                     'POST',
                     JSON.stringify({
                         template: {
