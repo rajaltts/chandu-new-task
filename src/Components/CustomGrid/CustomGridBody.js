@@ -33,6 +33,7 @@ function CustomGridBody(props) {
         columnPicker,
         columnPickerFilterError,
         handleEditModeCellSelection,
+        isKeyBoardAccessible,
     } = props
     let timer, cellTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
@@ -88,7 +89,32 @@ function CustomGridBody(props) {
     }
 
     const keyCodeHandler = (event) => {
-        if (editModeEnabled) eventData.current.keyCode = event.keyCode
+        if (editModeEnabled) {
+            eventData.current.keyCode = event.keyCode
+            if (isKeyBoardAccessible && !event.altKey && !event.shiftKey) {
+                if (event.ctrlKey && event.keyCode === 67) {
+                    document.dispatchEvent(new Event('copy'))
+                }
+                if (event.ctrlKey && event.keyCode === 86) {
+                    document.dispatchEvent(new Event('paste'))
+                }
+                if (!event.ctrlKey && event.keyCode === 13) {
+                    if (event.target) {
+                        const id = event.target.getAttribute('data-id')
+                        const name = event.target.getAttribute('data-name')
+                        document.dispatchEvent(new CustomEvent('enter', { detail: { id, name } }))
+                    }
+                }
+            }
+        }
+    }
+
+    const onFocusOutHandler = (event) => {
+        if (event.target && editModeEnabled && isKeyBoardAccessible) {
+            const id = event.target.getAttribute('data-id')
+            const name = event.target.getAttribute('data-name')
+            document.dispatchEvent(new CustomEvent('blur', { detail: { id, name } }))
+        }
     }
 
     const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
@@ -124,7 +150,7 @@ function CustomGridBody(props) {
                         <TableRow
                             role='checkbox'
                             aria-checked={isItemSelected}
-                            tabIndex={-1}
+                            tabIndex={isKeyBoardAccessible ? 2 : -1}
                             key={index}
                             className={classNames(
                                 editModeEnabled && editModeHighlight && isItemSelected ? 'editModeRowHighlight' : '',
@@ -156,6 +182,10 @@ function CustomGridBody(props) {
                                         id={cellHighlightStyle}
                                         key={head.name}
                                         align={row.textAlign || 'left'}
+                                        tabIndex={isKeyBoardAccessible ? 2 : -1}
+                                        data-name={head.name}
+                                        data-id={row[uniqueKey]}
+                                        onFocusOut={onFocusOutHandler}
                                         className={row.className || configItem.cellClassName || ''}>
                                         <div
                                             onKeyDown={keyCodeHandler}

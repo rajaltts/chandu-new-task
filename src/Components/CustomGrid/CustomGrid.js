@@ -58,6 +58,7 @@ function CustomGrid(props) {
         showDivider = false,
         reset = false,
         hideHeader = false,
+        isKeyBoardAccessible = false
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -378,7 +379,7 @@ function CustomGrid(props) {
             {!hideSearch && <CustomGridSearch onSearch={onSearchHandler} />}
             <div id={`${id}_root`} className={`root ${gridClassName || ''}`}>
                 <Paper className='paper'>
-                    {columnPicker && (
+                    {columnPicker && !hideHeader && (
                         <ColumnPicker
                             headCells={headCells}
                             saveColumnHandler={saveColumnHandler}
@@ -436,6 +437,7 @@ function CustomGrid(props) {
                                     handleEditModeCellSelection={handleEditModeCellSelection}
                                     isCellSelected={isCellSelected}
                                     showDivider={showDivider}
+                                    isKeyBoardAccessible={isKeyBoardAccessible}
                                 />
                             )}
                         </Table>
