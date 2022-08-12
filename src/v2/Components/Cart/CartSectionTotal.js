@@ -25,8 +25,8 @@ const CartSectionTotal = ({ headingVariant = 'body2', intl, key = '', labelId = 
 
             {/* Total Price, right aligned. */}
             <Grid item xs={10} container>
-                <Grid item sm={9}></Grid>
-                <Grid item sm={3} style={{ textAlign: 'center' }}>
+                <Grid item sm={9} xs={9}></Grid>
+                <Grid item sm={3} xs={3} style={{ textAlign: 'center' }}>
                     <Typography align='right' variant='body2' color='secondary'>
                         {price}
                     </Typography>

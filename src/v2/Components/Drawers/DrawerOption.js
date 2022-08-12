@@ -133,6 +133,7 @@ const DrawerOption = ({
                             <Grid
                                 item
                                 sm={col.columnWidth}
+                                xs={col.columnWidth}
                                 key={col.key}
                                 style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='subtitle1' color='secondary'>

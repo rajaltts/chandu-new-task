@@ -6,11 +6,11 @@ const cartStyles = makeStyles((theme) => ({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: '500px',
+        height:'calc(100vh - 260px)',
         overflowY: 'auto',
         [theme.breakpoints.only('xs')]: {
             width: '100%',
-            overflow: 'hidden',
+            height:'75vh',
         },
         '& .options-wrapper': {
             margin: theme.spacing(0, 0, 3),

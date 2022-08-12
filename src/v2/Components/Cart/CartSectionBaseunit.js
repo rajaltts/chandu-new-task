@@ -30,6 +30,7 @@ const CartSectionBaseunit = ({ cartSectionConfig = {}, getPriceString = () => {}
                             <Grid
                                 item
                                 sm={columnWidth}
+                                xs={columnWidth}
                                 key={key}
                                 style={priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 {isEditable ? (
