@@ -31,6 +31,7 @@ const CartSectionColumns = ({ intl, columnList = [], headerId = '' }) => {
                                 key={label}
                                 item
                                 sm={columnWidth}
+                                xs={columnWidth}
                                 className={priceItem}
                                 style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 <Typography variant='caption' className={legend}>
