@@ -14,6 +14,8 @@ const Checkbox = ({
     valid = true,
     visible = true,
     tooltipTitle,
+    showLabel = true,
+    checkboxClassName = '',
     ...rest
 }) => {
     const classes = useStyles()
@@ -24,6 +26,9 @@ const Checkbox = ({
     }, [disabled, visible, valid, relaxed])
 
     const Label = () => {
+        if (!showLabel) {
+            return <></>
+        }
         return (
             <>
                 {error ? (
@@ -49,7 +54,7 @@ const Checkbox = ({
             aria-label={label}
             control={
                 <MaterialCheckbox
-                    className={classes.root}
+                    className={`${checkboxClassName} ${classes.root}`}
                     checked={value}
                     onChange={handleChange}
                     name={label}
