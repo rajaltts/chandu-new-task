@@ -210,13 +210,12 @@ function TextBoxWithDropdownList(props) {
                         {UnitProp.Values.map((unit, index) => {
                             if (unit?.Attributes?.VISIBLE?.toUpperCase() === 'FALSE') {
                                 return null
-                            } else {
-                                return (
-                                    <option key={index} className='TBWLAI-SelectOption' value={unit.Value}>
-                                        {unit?.Attributes?.Description}
-                                    </option>
-                                )
                             }
+                            return (
+                                <option key={index} className='TBWLAI-SelectOption' value={unit.Value}>
+                                    {unit?.Attributes?.Description}
+                                </option>
+                            )
                         })}
                     </select>
                 )

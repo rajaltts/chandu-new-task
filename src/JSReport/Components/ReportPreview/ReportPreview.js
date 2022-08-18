@@ -146,7 +146,7 @@ const ReportPreview = ({
                                             <FontAwesomeIcon className={classes.actionIcons} icon={faFilePdf} />
                                         </IconButton>
                                     </Tooltip>
-                                    {downloadWord && (isWordReportEnabled || hasPermission) ? (
+                                    {downloadWord && isWordReportEnabled && hasPermission ? (
                                         <Tooltip
                                             title={translation('DownloadAsWord', 'Download as Word')}
                                             PopperProps={{ container: topBarRef.current }}>
