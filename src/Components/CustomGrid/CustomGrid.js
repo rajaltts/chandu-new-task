@@ -58,7 +58,8 @@ function CustomGrid(props) {
         showDivider = false,
         reset = false,
         hideHeader = false,
-        isKeyBoardAccessible = false
+        isKeyBoardAccessible = false,
+        showCellError = null
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -438,6 +439,7 @@ function CustomGrid(props) {
                                     isCellSelected={isCellSelected}
                                     showDivider={showDivider}
                                     isKeyBoardAccessible={isKeyBoardAccessible}
+                                    showCellError={showCellError}
                                 />
                             )}
                         </Table>

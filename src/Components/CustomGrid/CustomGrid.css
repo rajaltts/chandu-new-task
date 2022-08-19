@@ -193,6 +193,11 @@
         border: 2px solid #1891F6 !important;
     }
     
+    .customGrid .showErrorBackground {
+        background-color: #F773874D !important;
+        color: #FF2A2A !important
+    }
+    
     .customGrid .editModeRowHighlight td {
         border-bottom: none !important
     }

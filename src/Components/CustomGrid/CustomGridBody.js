@@ -34,6 +34,7 @@ function CustomGridBody(props) {
         columnPickerFilterError,
         handleEditModeCellSelection,
         isKeyBoardAccessible,
+        showCellError,
     } = props
     let timer, cellTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
@@ -177,6 +178,9 @@ function CustomGridBody(props) {
                                     editModeEnabled && editModeHighlight && isCellHighlighted && isCellHighlightEnabled
                                         ? 'editModeCellHighlight'
                                         : ''
+                                const showErrorBackground = showCellError
+                                    ? showCellError(row, configItem.lookUpKey)
+                                    : false
                                 return isHeaderSelectedForDisplay ? (
                                     <TableCell
                                         id={cellHighlightStyle}
@@ -186,7 +190,9 @@ function CustomGridBody(props) {
                                         data-name={head.name}
                                         data-id={row[uniqueKey]}
                                         onFocusOut={onFocusOutHandler}
-                                        className={row.className || configItem.cellClassName || ''}>
+                                        className={`${showErrorBackground ? 'showErrorBackground' : ''} ${
+                                            row.className || configItem.cellClassName || ''
+                                        }`}>
                                         <div
                                             onKeyDown={keyCodeHandler}
                                             onClick={(event) =>
