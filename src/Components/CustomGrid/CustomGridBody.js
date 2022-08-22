@@ -36,7 +36,7 @@ function CustomGridBody(props) {
         isKeyBoardAccessible,
         showCellError,
     } = props
-    let timer, cellTimer
+    let timer, cellTimer, focusCellTimer, focusRowTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
     const [enableRowClick, setEnableRowClick] = useState(true)
@@ -72,6 +72,7 @@ function CustomGridBody(props) {
             if (editModeEnabled) {
                 eventData.current.ctrlKey = event.ctrlKey
                 eventData.current.button = event.button
+                eventData.current.tabbing = false
             }
             timer = setTimeout(() => {
                 if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
@@ -86,6 +87,7 @@ function CustomGridBody(props) {
                         handleEditModeRowSelection([], 0, false, true)
                     }
                     eventData.current = defaultEventData
+                    eventData.current.tabbing = false
                 }
             }, 300)
         }
@@ -181,6 +183,7 @@ function CustomGridBody(props) {
             if (event.detail === 1) {
                 eventData.current.ctrlKey = event.ctrlKey
                 eventData.current.button = event.button
+                eventData.current.tabbing = false
                 cellTimer = setTimeout(() => {
                     const { ctrlKey, button, keyCode } = eventData.current
                     if (ctrlKey && button === 0 && keyCode === 17) {
@@ -191,6 +194,7 @@ function CustomGridBody(props) {
                         handleEditModeCellSelection([], '', '', false, true)
                     }
                     eventData.current = defaultEventData
+                    eventData.current.tabbing = false
                 }, 300)
             }
         }
@@ -198,28 +202,40 @@ function CustomGridBody(props) {
 
     const onFocusHandlerRow = (row, index, event) => {
         event.stopPropagation()
-        if (event.target.localName === 'tr' && eventData.current.tabbing) {
-            const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+        if (event.target.localName === 'tr') {
+            eventData.current.tabbing = true
+            clearTimeout(focusRowTimer)
             document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
-            handleEditModeCellSelection([], '', '', false, true)
-            handleEditModeRowSelection(row, index, !isShiftPressed)
+            focusRowTimer = setTimeout(() => {
+                if (eventData.current.tabbing) {
+                    const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+                    handleEditModeCellSelection([], '', '', false, true)
+                    handleEditModeRowSelection(row, index, !isShiftPressed)
+                }
+            }, 400)
         }
     }
 
     const onFocusHandlerCell = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (isCellHighlightEnabled && editModeEnabled && eventData.current.tabbing) {
+        if (isCellHighlightEnabled && editModeEnabled) {
             if (event.target.localName === 'td') {
-                const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
-                const isShiftTabKeyCodePressed = eventData.current.keyCode === 9
+                eventData.current.tabbing = true
+                clearTimeout(focusCellTimer)
                 document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
-                handleEditModeRowSelection([], 0, false, true)
-                handleEditModeCellSelection(
-                    row,
-                    columnName,
-                    uniqueKeyValue,
-                    !(!isShiftTabKeyCodePressed && isShiftPressed)
-                )
+                focusCellTimer = setTimeout(() => {
+                    if (eventData.current.tabbing) {
+                        const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+                        const isShiftTabKeyCodePressed = eventData.current.keyCode === 9
+                        handleEditModeRowSelection([], 0, false, true)
+                        handleEditModeCellSelection(
+                            row,
+                            columnName,
+                            uniqueKeyValue,
+                            !(!isShiftTabKeyCodePressed && isShiftPressed)
+                        )
+                    }
+                }, 400)
             }
         }
     }
