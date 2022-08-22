@@ -44,6 +44,7 @@ function CustomGridBody(props) {
         keyCode: null,
         ctrlKey: null,
         button: null,
+        shiftKey: null,
     }
     const eventData = useRef(defaultEventData)
 
@@ -92,29 +93,81 @@ function CustomGridBody(props) {
     const keyCodeHandler = (event) => {
         if (editModeEnabled) {
             eventData.current.keyCode = event.keyCode
-            if (isKeyBoardAccessible && !event.altKey && !event.shiftKey) {
-                if (event.ctrlKey && event.keyCode === 67) {
-                    document.dispatchEvent(new Event('copy'))
+            if (isKeyBoardAccessible && !event.altKey) {
+                if (!event.shiftKey) {
+                    if (event.ctrlKey && event.keyCode === 67) {
+                        document.dispatchEvent(new Event('copy'))
+                    }
+                    if (event.ctrlKey && event.keyCode === 86) {
+                        document.dispatchEvent(new Event('paste'))
+                    }
+                    if (!event.ctrlKey && event.keyCode === 13) {
+                        if (event.target) {
+                            const id = event.target.getAttribute('data-id')
+                            const name = event.target.getAttribute('data-name')
+                            document.dispatchEvent(new CustomEvent('enter', { detail: { id, name } }))
+                        }
+                    }
                 }
-                if (event.ctrlKey && event.keyCode === 86) {
-                    document.dispatchEvent(new Event('paste'))
-                }
-                if (!event.ctrlKey && event.keyCode === 13) {
-                    if (event.target) {
-                        const id = event.target.getAttribute('data-id')
-                        const name = event.target.getAttribute('data-name')
-                        document.dispatchEvent(new CustomEvent('enter', { detail: { id, name } }))
+                if (!event.ctrlKey) {
+                    eventData.current.shiftKey = event.shiftKey
+                    const type = event.target.getAttribute('data-type')
+                    const index = event.target.getAttribute('data-index')
+                    const tableBody = document.getElementsByTagName('tbody')[0]
+                    const cellIndex = event.target.getAttribute('data-cellIndex')
+                    if (event.keyCode === 38 && index - 1 >= 0) {
+                        event.view.event.preventDefault()
+                        if (type === 'row') {
+                            tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) - 1}"]`).focus()
+                        } else if (type === 'cell') {
+                            tableBody
+                                .querySelector(
+                                    `[data-key="${type}_${parseInt(index, 10) - 1}_${parseInt(cellIndex, 10)}"]`
+                                )
+                                .focus()
+                        }
+                    } else if (event.keyCode === 40 && index + 1 < rows.length) {
+                        event.view.event.preventDefault()
+                        if (type === 'row') {
+                            tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) + 1}"]`).focus()
+                        } else if (type === 'cell') {
+                            tableBody
+                                .querySelector(
+                                    `[data-key="${type}_${parseInt(index, 10) + 1}_${parseInt(cellIndex, 10)}"]`
+                                )
+                                .focus()
+                        }
+                    } else if (event.keyCode === 37) {
+                        if (type === 'cell') {
+                            focusCellElement('previous', tableBody)
+                        }
+                    } else if (event.keyCode === 39) {
+                        if (type === 'cell') {
+                            focusCellElement('next', tableBody)
+                        }
                     }
                 }
             }
         }
     }
 
-    const onFocusOutHandler = (event) => {
-        if (event.target && editModeEnabled && isKeyBoardAccessible) {
-            const id = event.target.getAttribute('data-id')
-            const name = event.target.getAttribute('data-name')
-            document.dispatchEvent(new CustomEvent('blur', { detail: { id, name } }))
+    const focusCellElement = (type, elementParent) => {
+        let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('td[tabindex="2"]'), (element) => {
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+        })
+        let index = focussable.indexOf(document.activeElement)
+        if (index > -1) {
+            if (type === 'previous') {
+                if (index - 1 >= 0) {
+                    let previousElement = focussable[index - 1]
+                    previousElement.focus()
+                }
+            } else {
+                if (index + 1 < focussable.length) {
+                    let nextElement = focussable[index + 1]
+                    nextElement.focus()
+                }
+            }
         }
     }
 
@@ -141,6 +194,26 @@ function CustomGridBody(props) {
         }
     }
 
+    const onFocusHandlerRow = (row, index, event) => {
+        event.stopPropagation()
+        if (event.target.localName === 'tr') {
+            const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+            handleEditModeCellSelection([], '', '', false, true)
+            handleEditModeRowSelection(row, index, !isControlPressed)
+        }
+    }
+
+    const onFocusHandlerCell = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
+        event.stopPropagation()
+        if (isCellHighlightEnabled && editModeEnabled) {
+            if (event.target.localName === 'td') {
+                const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+                handleEditModeRowSelection([], 0, false, true)
+                handleEditModeCellSelection(row, columnName, uniqueKeyValue, !isControlPressed)
+            }
+        }
+    }
+
     return (
         <TableBody>
             {rows.map((row, index) => {
@@ -159,11 +232,15 @@ function CustomGridBody(props) {
                                 rowClassName
                             )}
                             onClick={(event) => handleOnClick(row, index, event)}
-                            onKeyDown={keyCodeHandler}>
+                            onKeyDown={keyCodeHandler}
+                            onFocus={(event) => onFocusHandlerRow(row, index, event)}
+                            data-key={`row_${index}`}
+                            data-type='row'
+                            data-index={index}>
                             {showCheckbox &&
                                 !columnPickerFilterError &&
                                 showSelectionCell(isItemSelected, row, index, selectionType)}
-                            {headCells.map((head) => {
+                            {headCells.map((head, cellIndex) => {
                                 const configItem = config[head.name] || {}
                                 const lookUpKey = configItem.lookUpKey || head.name
                                 const isCellHighlightEnabled = configItem.isCellHighlightEnabled || false
@@ -186,13 +263,25 @@ function CustomGridBody(props) {
                                         id={cellHighlightStyle}
                                         key={head.name}
                                         align={row.textAlign || 'left'}
-                                        tabIndex={isKeyBoardAccessible ? 2 : -1}
+                                        tabIndex={isKeyBoardAccessible && isCellHighlightEnabled ? 2 : -1}
                                         data-name={head.name}
                                         data-id={row[uniqueKey]}
-                                        onFocusOut={onFocusOutHandler}
+                                        data-key={`cell_${index}_${cellIndex}`}
+                                        data-type='cell'
+                                        data-index={index}
+                                        data-cellIndex={cellIndex}
                                         className={`${showErrorBackground ? 'showErrorBackground' : ''} ${
                                             row.className || configItem.cellClassName || ''
-                                        }`}>
+                                        }`}
+                                        onFocus={(event) =>
+                                            onFocusHandlerCell(
+                                                event,
+                                                row,
+                                                lookUpKey,
+                                                getValueForDynamicKey(row, uniqueKey),
+                                                isCellHighlightEnabled
+                                            )
+                                        }>
                                         <div
                                             onKeyDown={keyCodeHandler}
                                             onClick={(event) =>
