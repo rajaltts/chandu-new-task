@@ -199,9 +199,10 @@ function CustomGridBody(props) {
     const onFocusHandlerRow = (row, index, event) => {
         event.stopPropagation()
         if (event.target.localName === 'tr' && eventData.current.tabbing) {
-            const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+            const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+            document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
             handleEditModeCellSelection([], '', '', false, true)
-            handleEditModeRowSelection(row, index, !isControlPressed)
+            handleEditModeRowSelection(row, index, !isShiftPressed)
         }
     }
 
@@ -209,9 +210,16 @@ function CustomGridBody(props) {
         event.stopPropagation()
         if (isCellHighlightEnabled && editModeEnabled && eventData.current.tabbing) {
             if (event.target.localName === 'td') {
-                const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+                const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
+                const isShiftTabKeyCodePressed = eventData.current.keyCode === 9
+                document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
                 handleEditModeRowSelection([], 0, false, true)
-                handleEditModeCellSelection(row, columnName, uniqueKeyValue, !isControlPressed)
+                handleEditModeCellSelection(
+                    row,
+                    columnName,
+                    uniqueKeyValue,
+                    !(!isShiftTabKeyCodePressed && isShiftPressed)
+                )
             }
         }
     }
