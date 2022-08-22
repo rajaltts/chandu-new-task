@@ -45,6 +45,7 @@ function CustomGridBody(props) {
         ctrlKey: null,
         button: null,
         shiftKey: null,
+        tabbing: false,
     }
     const eventData = useRef(defaultEventData)
 
@@ -93,6 +94,7 @@ function CustomGridBody(props) {
     const keyCodeHandler = (event) => {
         if (editModeEnabled) {
             eventData.current.keyCode = event.keyCode
+            eventData.current.tabbing = true
             if (isKeyBoardAccessible && !event.altKey) {
                 if (!event.shiftKey) {
                     if (event.ctrlKey && event.keyCode === 67) {
@@ -196,7 +198,7 @@ function CustomGridBody(props) {
 
     const onFocusHandlerRow = (row, index, event) => {
         event.stopPropagation()
-        if (event.target.localName === 'tr') {
+        if (event.target.localName === 'tr' && eventData.current.tabbing) {
             const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
             handleEditModeCellSelection([], '', '', false, true)
             handleEditModeRowSelection(row, index, !isControlPressed)
@@ -205,7 +207,7 @@ function CustomGridBody(props) {
 
     const onFocusHandlerCell = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (isCellHighlightEnabled && editModeEnabled) {
+        if (isCellHighlightEnabled && editModeEnabled && eventData.current.tabbing) {
             if (event.target.localName === 'td') {
                 const isControlPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
                 handleEditModeRowSelection([], 0, false, true)
