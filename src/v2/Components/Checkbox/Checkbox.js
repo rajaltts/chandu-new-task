@@ -16,6 +16,7 @@ const Checkbox = ({
     tooltipTitle,
     showLabel = true,
     checkboxClassName = '',
+    isKeyBoardAccessible,
     ...rest
 }) => {
     const classes = useStyles()
@@ -60,6 +61,7 @@ const Checkbox = ({
                     name={label}
                     color={color}
                     disabled={disabled}
+                    autoFocus={isKeyBoardAccessible}
                     {...rest}
                 />
             }

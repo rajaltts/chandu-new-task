@@ -28,6 +28,7 @@ const Input = ({
     warningMessage,
     className = '',
     showLabel = true,
+    isKeyBoardAccessible,
     rest,
 }) => {
     const [currentValue, setCurrentValue] = useState(value)
@@ -82,6 +83,7 @@ const Input = ({
             label={showLabel ? label : ''}
             variant={variant}
             value={currentValue}
+            autoFocus={isKeyBoardAccessible}
             InputProps={{
                 classes: {
                     focused: classes.inputFocused,

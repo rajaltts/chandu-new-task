@@ -40,6 +40,7 @@ const InputRange = ({
     inputOutlinedRoot = {},
     unitMenu = '',
     toolTipText = '',
+    isKeyBoardAccessible,
     ...rest
 }) => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -146,6 +147,7 @@ const InputRange = ({
                     max={max}
                     value={currentValue || ''}
                     style={{ width: width }}
+                    autoFocus={isKeyBoardAccessible}
                     InputLabelProps={isLabelRequired ? null : { shrink: true }}
                     InputProps={{
                         classes: {
@@ -171,6 +173,7 @@ const InputRange = ({
                                             anchorEl={anchorEl}
                                             className={unitMenu}
                                             open={Boolean(anchorEl)}
+                                            autoFocus={isKeyBoardAccessible}
                                             onClose={closeMenu}>
                                             {units.map((option) => {
                                                 return (

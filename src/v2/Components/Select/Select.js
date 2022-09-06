@@ -46,6 +46,7 @@ const Select = ({
     showLabel = true,
     selectRootClassName = '',
     formControlClassName = '',
+    isKeyBoardAccessible,
     ...rest
 }) => {
     const inputLabel = useRef(null)
@@ -88,6 +89,7 @@ const Select = ({
                 <MaterialSelect
                     id={`Select_${label}`}
                     input={<OutlinedInput notched labelWidth={labelWidth} {...inputProps} />}
+                    autoFocus={isKeyBoardAccessible}
                     MenuProps={{
                         classes: {
                             paper: classes.menuWrapper,
