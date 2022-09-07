@@ -8,6 +8,7 @@ import FormBuilderField from '../formBuilder/FormBuilderField'
 import classNames from 'classnames'
 import { getValueForDynamicKey } from './CustomGridUtils'
 import './CustomGrid.css'
+import CustomTranslation from './CustomTranslation'
 
 function CustomGridBody(props) {
     const {
@@ -35,9 +36,11 @@ function CustomGridBody(props) {
         handleEditModeCellSelection,
         isKeyBoardAccessible,
         showCellError,
+        customTranslations,
     } = props
     let timer, cellTimer, focusCellTimer, focusRowTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
+    const { translations = null, translationsUniqueKey = '', lang, messages } = customTranslations
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
     const [enableRowClick, setEnableRowClick] = useState(true)
     const defaultEventData = {
@@ -247,71 +250,71 @@ function CustomGridBody(props) {
                 const rowHighlight = clickOnRowHighlight && uniqueKey && row[uniqueKey] === clickedRow[uniqueKey]
                 return (
                     <>
-                        <TableRow
-                            role='checkbox'
-                            aria-checked={isItemSelected}
-                            tabIndex={isKeyBoardAccessible ? 2 : -1}
-                            key={index}
-                            className={classNames(
-                                editModeEnabled && editModeHighlight && isItemSelected ? 'editModeRowHighlight' : '',
-                                rowHighlight ? rowHighlightClassName || 'rowHighlight' : '',
-                                rowClassName
-                            )}
-                            onClick={(event) => handleOnClick(row, index, event)}
-                            onKeyDown={keyCodeHandler}
-                            onFocus={(event) => onFocusHandlerRow(row, index, event)}
-                            data-key={`row_${index}`}
-                            data-type='row'
-                            data-index={index}>
-                            {showCheckbox &&
-                                !columnPickerFilterError &&
-                                showSelectionCell(isItemSelected, row, index, selectionType)}
-                            {headCells.map((head, cellIndex) => {
-                                const configItem = config[head.name] || {}
-                                const lookUpKey = configItem.lookUpKey || head.name
-                                const isCellHighlightEnabled = configItem.isCellHighlightEnabled || false
-                                const isHeaderSelectedForDisplay = columnPicker
-                                    ? (head.isSelected && !columnPickerFilterError) || false
-                                    : true
-                                const isCellHighlighted =
-                                    editModeEnabled && editModeHighlight
-                                        ? isCellSelected(getValueForDynamicKey(row, uniqueKey), lookUpKey)
+                        <CustomTranslation
+                            translations={translations}
+                            translationsUniqueKey={translationsUniqueKey}
+                            lang={lang}
+                            messages={messages}
+                            row={row}>
+                            <TableRow
+                                role='checkbox'
+                                aria-checked={isItemSelected}
+                                tabIndex={isKeyBoardAccessible ? 2 : -1}
+                                key={index}
+                                className={classNames(
+                                    editModeEnabled && editModeHighlight && isItemSelected
+                                        ? 'editModeRowHighlight'
+                                        : '',
+                                    rowHighlight ? rowHighlightClassName || 'rowHighlight' : '',
+                                    rowClassName
+                                )}
+                                onClick={(event) => handleOnClick(row, index, event)}
+                                onKeyDown={keyCodeHandler}
+                                onFocus={(event) => onFocusHandlerRow(row, index, event)}
+                                data-key={`row_${index}`}
+                                data-type='row'
+                                data-index={index}>
+                                {showCheckbox &&
+                                    !columnPickerFilterError &&
+                                    showSelectionCell(isItemSelected, row, index, selectionType)}
+                                {headCells.map((head, cellIndex) => {
+                                    const configItem = config[head.name] || {}
+                                    const lookUpKey = configItem.lookUpKey || head.name
+                                    const isCellHighlightEnabled = configItem.isCellHighlightEnabled || false
+                                    const isHeaderSelectedForDisplay = columnPicker
+                                        ? (head.isSelected && !columnPickerFilterError) || false
+                                        : true
+                                    const isCellHighlighted =
+                                        editModeEnabled && editModeHighlight
+                                            ? isCellSelected(getValueForDynamicKey(row, uniqueKey), lookUpKey)
+                                            : false
+                                    const cellHighlightStyle =
+                                        editModeEnabled &&
+                                        editModeHighlight &&
+                                        isCellHighlighted &&
+                                        isCellHighlightEnabled
+                                            ? 'editModeCellHighlight'
+                                            : ''
+                                    const showErrorBackground = showCellError
+                                        ? showCellError(row, configItem.lookUpKey)
                                         : false
-                                const cellHighlightStyle =
-                                    editModeEnabled && editModeHighlight && isCellHighlighted && isCellHighlightEnabled
-                                        ? 'editModeCellHighlight'
-                                        : ''
-                                const showErrorBackground = showCellError
-                                    ? showCellError(row, configItem.lookUpKey)
-                                    : false
-                                return isHeaderSelectedForDisplay ? (
-                                    <TableCell
-                                        id={cellHighlightStyle}
-                                        key={head.name}
-                                        align={row.textAlign || 'left'}
-                                        tabIndex={isKeyBoardAccessible && isCellHighlightEnabled ? 2 : -1}
-                                        data-name={head.name}
-                                        data-id={row[uniqueKey]}
-                                        data-key={`cell_${index}_${cellIndex}`}
-                                        data-type='cell'
-                                        data-index={index}
-                                        data-cellIndex={cellIndex}
-                                        className={`${showErrorBackground ? 'showErrorBackground' : ''} ${
-                                            row.className || configItem.cellClassName || ''
-                                        }`}
-                                        onFocus={(event) =>
-                                            onFocusHandlerCell(
-                                                event,
-                                                row,
-                                                lookUpKey,
-                                                getValueForDynamicKey(row, uniqueKey),
-                                                isCellHighlightEnabled
-                                            )
-                                        }>
-                                        <div
-                                            onKeyDown={keyCodeHandler}
-                                            onClick={(event) =>
-                                                onCellClick(
+                                    return isHeaderSelectedForDisplay ? (
+                                        <TableCell
+                                            id={cellHighlightStyle}
+                                            key={head.name}
+                                            align={row.textAlign || 'left'}
+                                            tabIndex={isKeyBoardAccessible && isCellHighlightEnabled ? 2 : -1}
+                                            data-name={head.name}
+                                            data-id={row[uniqueKey]}
+                                            data-key={`cell_${index}_${cellIndex}`}
+                                            data-type='cell'
+                                            data-index={index}
+                                            data-cellIndex={cellIndex}
+                                            className={`${showErrorBackground ? 'showErrorBackground' : ''} ${
+                                                row.className || configItem.cellClassName || ''
+                                            }`}
+                                            onFocus={(event) =>
+                                                onFocusHandlerCell(
                                                     event,
                                                     row,
                                                     lookUpKey,
@@ -319,19 +322,31 @@ function CustomGridBody(props) {
                                                     isCellHighlightEnabled
                                                 )
                                             }>
-                                            <FormBuilderField
-                                                doNotTranslate={doNotTranslate}
-                                                rowData={row}
-                                                rowIndex={index}
-                                                config={configItem}
-                                                value={getValueForDynamicKey(row, lookUpKey)}
-                                                setEnableRowClick={setEnableRowClick}
-                                            />
-                                        </div>
-                                    </TableCell>
-                                ) : null
-                            })}
-                        </TableRow>
+                                            <div
+                                                onKeyDown={keyCodeHandler}
+                                                onClick={(event) =>
+                                                    onCellClick(
+                                                        event,
+                                                        row,
+                                                        lookUpKey,
+                                                        getValueForDynamicKey(row, uniqueKey),
+                                                        isCellHighlightEnabled
+                                                    )
+                                                }>
+                                                <FormBuilderField
+                                                    doNotTranslate={doNotTranslate}
+                                                    rowData={row}
+                                                    rowIndex={index}
+                                                    config={configItem}
+                                                    value={getValueForDynamicKey(row, lookUpKey)}
+                                                    setEnableRowClick={setEnableRowClick}
+                                                />
+                                            </div>
+                                        </TableCell>
+                                    ) : null
+                                })}
+                            </TableRow>
+                        </CustomTranslation>
                         {showDivider ? <div className='customGridTdDivider' /> : null}
                     </>
                 )

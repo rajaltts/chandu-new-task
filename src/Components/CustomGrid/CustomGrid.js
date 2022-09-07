@@ -59,7 +59,8 @@ function CustomGrid(props) {
         reset = false,
         hideHeader = false,
         isKeyBoardAccessible = false,
-        showCellError = null
+        showCellError = null,
+        customTranslations = {}
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -440,6 +441,7 @@ function CustomGrid(props) {
                                     showDivider={showDivider}
                                     isKeyBoardAccessible={isKeyBoardAccessible}
                                     showCellError={showCellError}
+                                    customTranslations={customTranslations}
                                 />
                             )}
                         </Table>
