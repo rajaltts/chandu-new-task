@@ -70,15 +70,7 @@ const Select = ({
     return (
         <>
             <FormControl
-                classes={{
-                    root: classNames(
-                        classes.formControl,
-                        {
-                            [classes.disabled]: disabled,
-                        },
-                        formControlClassName
-                    ),
-                }}
+                classes={{ root: classes.formControl }}
                 variant='outlined'
                 disabled={disabled}
                 error={error}
