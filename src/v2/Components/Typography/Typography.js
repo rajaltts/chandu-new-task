@@ -1,7 +1,10 @@
 import { Typography as MaterialTypography } from '@material-ui/core'
-import useTypographyStyles from './Typography.style'
-import React from 'react'
+
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+
+import useTypographyStyles from './Typography.style'
 
 const Typography = ({ bold, uppercase, className, ...rest }) => {
     const classes = useTypographyStyles()
@@ -15,6 +18,30 @@ const Typography = ({ bold, uppercase, className, ...rest }) => {
             {...rest}
         />
     )
+}
+
+Typography.propTypes = {
+    bold: PropTypes.bool,
+    uppercase: PropTypes.bool,
+    color: PropTypes.oneOf(['initial', 'inherit', 'primary', 'secondary', 'textPrimary', 'textSecondary', 'error']),
+    align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
+    variant: PropTypes.oneOf([
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'subtitle1',
+        'subtitle2',
+        'body1',
+        'body2',
+        'caption',
+        'button',
+        'overline',
+        'srOnly',
+        'inherit',
+    ]),
 }
 
 export default Typography
