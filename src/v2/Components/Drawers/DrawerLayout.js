@@ -23,7 +23,8 @@ const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
             open={isOpen}
             onClose={onClose}
             anchor={anchor}
-            BackdropProps={{ invisible: true }}>
+            BackdropProps={{ invisible: true }}
+        >
             <div className={classes.drawerContent}>{children}</div>
         </Drawer>
     )

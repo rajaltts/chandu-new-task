@@ -74,7 +74,8 @@ const Select = ({
                 variant='outlined'
                 disabled={disabled}
                 error={error}
-                {...formControlProps}>
+                {...formControlProps}
+            >
                 <InputLabel shrink={showLabel} {...inputLabelProps} ref={inputLabel}>
                     {showLabel ? label : ''}
                 </InputLabel>
@@ -106,7 +107,8 @@ const Select = ({
                     className={classNames(classes.selectRoot, selectRootClassName)}
                     onChange={(event) => handleChange && handleChange(event.target.value)}
                     value={value}
-                    renderValue={renderValue}>
+                    renderValue={renderValue}
+                >
                     {values &&
                         values.map((v) => {
                             const box = (
@@ -115,7 +117,8 @@ const Select = ({
                                     <Box className={classes.adornments}>
                                         <Typography
                                             className={classes.priceMlp}
-                                            color={!v.feasible ? 'error' : 'inherit'}>
+                                            color={!v.feasible ? 'error' : 'inherit'}
+                                        >
                                             {v.attributes?.MLP ? '$ ' + v.attributes?.MLP : null}
                                         </Typography>
                                         {!v.feasible && (
