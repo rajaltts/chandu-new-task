@@ -41,8 +41,10 @@ const RadioGroup = ({
                 data-error={`${name}__${relaxed}`}
                 data-value={`${name}__${value}`}
                 row={row}
-                {...restRadioGroup}>
+                {...restRadioGroup}
+            >
                 {values.map((radio) => {
+                    const disabledValue = disabled || radio.feasible === false || radio.enable === false
                     return (
                         <FormControlLabel
                             key={radio.value}
@@ -51,7 +53,7 @@ const RadioGroup = ({
                                 <MaterialRadio
                                     id={`Radio_${name}_${radio.value}`}
                                     className={
-                                        disabled
+                                        disabledValue
                                             ? {
                                                   root: classes.radioButtonInternalSVG_Disabled,
                                                   checked: classes.radioChecked,
@@ -59,15 +61,15 @@ const RadioGroup = ({
                                             : classes.root
                                     }
                                     // className={classes.input}
-                                    data-Disabled={`${name}__${disabled}`}
+                                    data-Disabled={`${name}__${disabledValue}`}
                                     color={color}
-                                    disabled={disabled}
+                                    disabled={disabledValue}
                                     data-label={radio.label}
                                     {...restRadio}
                                 />
                             }
                             label={radio.label}
-                            data-disabled={`${name}__${disabled}`}
+                            data-disabled={`${name}__${disabledValue}`}
                             data-error={`${name}__${relaxed}`}
                             data-value={`${name}__${radio.value}`}
                             data-label={`${name}__${radio.label}`}
