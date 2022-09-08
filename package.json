@@ -13,6 +13,7 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
         "prettier": "prettier --write \"src/**/*.js\"",
+        "prettierV2": "prettier --write \"src/v2/**/*.js\"",
         "lint": "eslint -c eslintconfig.js src/",
         "lint:fix": "eslint -c eslintconfig.js --fix src/"
     },

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import MaterialSwitch from '@material-ui/core/Switch'
+import { FormControlLabel, Switch as MaterialSwitch } from '@material-ui/core'
 
 const Switch = ({ value, handleChange, label, color, disabled, size, className, rest }) => {
     return (

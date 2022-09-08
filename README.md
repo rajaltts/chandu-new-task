@@ -89,5 +89,17 @@ In order to do that, i'll need to link this repository localy with your builder,
   - In this repository local folder, run `npm link`
   - In your builder repository run `npm link @carrier/ngecat-reactcomponents`
   - Then, run `npm run build` in this repository local folder each time tou need to refresh your changes in your builder.
-  - If you have a mismatch between React version, you can link the React version of the framework to this repository easily by doing the same thing. 
-You can use `npm i` to reset your dependencies`
+
+### React version mismatch
+  - If you have a mismatch between React version, you can link the React version of the framework to this repository easily by doing the same thing.
+  - In ***NGECAT-Reactjs-UI*** repository, run `cd node_modules/react` and `npm link`
+  - In this repository local folder, run `npm link react`
+
+### Theme mismatch
+  - In ***NGECAT-Reactjs-UI*** repository, run `cd node_modules/@material-ui/styles/` and `npm link`
+  - In ***NGECAT-Reactjs-UI*** repository, run `cd node_modules/@material-ui/core/` and `npm link`
+  - In this repository local folder, run `npm link @material-ui/styles`
+  - In this repository local folder, run `npm link @material-ui/core`
+
+### Reset dependencies
+You can use `npm i` to reset your dependencies

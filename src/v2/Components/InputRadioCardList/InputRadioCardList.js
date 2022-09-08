@@ -64,7 +64,8 @@ const InputRadioCard = ({
             } ${loading ? 'loading' : ''} ${!feasible ? 'unfeasible' : ''} ${!hasMedia ? 'no-media' : ''} ${
                 className || ''
             } color-${color}`}
-            elevation={elevation}>
+            elevation={elevation}
+        >
             <input
                 className={classes.cardInput}
                 type='radio'
@@ -147,7 +148,8 @@ export const InputRadioCardList = ({
                             key={id}
                             item
                             xs={12 / nbItemsPerRowMobile}
-                            sm={nbItemsPerRow === 5 ? 3 : 12 / nbItemsPerRow}>
+                            sm={nbItemsPerRow === 5 ? 3 : 12 / nbItemsPerRow}
+                        >
                             <InputRadioCard
                                 id={id}
                                 name={name}

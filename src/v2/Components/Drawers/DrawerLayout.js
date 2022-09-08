@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Drawer from '@material-ui/core/Drawer'
+import { Drawer } from '@material-ui/core'
 import { useStyles } from './DrawerLayout.styles'
 
 const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
@@ -23,7 +23,8 @@ const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
             open={isOpen}
             onClose={onClose}
             anchor={anchor}
-            BackdropProps={{ invisible: true }}>
+            BackdropProps={{ invisible: true }}
+        >
             <div className={classes.drawerContent}>{children}</div>
         </Drawer>
     )

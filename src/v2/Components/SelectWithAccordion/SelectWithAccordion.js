@@ -51,7 +51,8 @@ const SelectWithAccordion = (props) => {
             defaultExpanded={defaultExpanded}
             expanded={keepDetailsOpen ? keepDetailsOpen : isOpen}
             onChange={(e, expanded) => accordionChange(e, expanded, hasDetails)}
-            elevation={0}>
+            elevation={0}
+        >
             <AccordionSummary expandIcon={<ArrowDropDown />}>
                 <Grid container>
                     <Select {...props} />
@@ -66,7 +67,8 @@ const SelectWithAccordion = (props) => {
                                     <Typography
                                         variant='body1'
                                         color='textPrimary'
-                                        className={classes.optionDescrTitle}>
+                                        className={classes.optionDescrTitle}
+                                    >
                                         {injectIntlTranslation(intl, 'Description')}
                                     </Typography>
                                     <Typography variant='body1' color='textPrimary'>
@@ -79,7 +81,8 @@ const SelectWithAccordion = (props) => {
                                     <Typography
                                         variant='body1'
                                         color='textPrimary'
-                                        className={classes.optionDescrTitle}>
+                                        className={classes.optionDescrTitle}
+                                    >
                                         {injectIntlTranslation(intl, 'Related Properties')}
                                     </Typography>
                                     {childProps}

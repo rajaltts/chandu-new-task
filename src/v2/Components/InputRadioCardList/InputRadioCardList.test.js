@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 const Intl = jest.genMockFromModule('react-intl')
 
-import { ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/core'
 import Theme from '../../../themes'
 
 import { InputRadioCardList } from './InputRadioCardList'
