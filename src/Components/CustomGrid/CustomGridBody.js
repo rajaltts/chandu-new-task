@@ -92,7 +92,7 @@ function CustomGridBody(props) {
                     eventData.current = defaultEventData
                     eventData.current.tabbing = false
                 }
-            }, 300)
+            }, 70)
         }
     }
 
@@ -122,7 +122,7 @@ function CustomGridBody(props) {
                     const index = event.target.getAttribute('data-index')
                     const tableBody = document.getElementsByTagName('tbody')[0]
                     const cellIndex = event.target.getAttribute('data-cellIndex')
-                    if (event.keyCode === 38 && index - 1 >= 0) {
+                    if (event.keyCode === 38 && parseInt(index, 10) - 1 >= 0) {
                         event.view.event.preventDefault()
                         if (type === 'row') {
                             tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) - 1}"]`).focus()
@@ -133,7 +133,7 @@ function CustomGridBody(props) {
                                 )
                                 .focus()
                         }
-                    } else if (event.keyCode === 40 && index + 1 < rows.length) {
+                    } else if (event.keyCode === 40 && parseInt(index, 10) + 1 < rows.length) {
                         event.view.event.preventDefault()
                         if (type === 'row') {
                             tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) + 1}"]`).focus()
@@ -198,7 +198,7 @@ function CustomGridBody(props) {
                     }
                     eventData.current = defaultEventData
                     eventData.current.tabbing = false
-                }, 300)
+                }, 70)
             }
         }
     }
@@ -215,14 +215,14 @@ function CustomGridBody(props) {
                     handleEditModeCellSelection([], '', '', false, true)
                     handleEditModeRowSelection(row, index, !isShiftPressed)
                 }
-            }, 400)
+            }, 120)
         }
     }
 
     const onFocusHandlerCell = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
         event.stopPropagation()
         if (isCellHighlightEnabled && editModeEnabled) {
-            if (event.target.localName === 'td') {
+            if (event.target.localName === 'td' && eventData.current.tabbing) {
                 eventData.current.tabbing = true
                 clearTimeout(focusCellTimer)
                 document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
@@ -238,7 +238,7 @@ function CustomGridBody(props) {
                             !(!isShiftTabKeyCodePressed && isShiftPressed)
                         )
                     }
-                }, 400)
+                }, 120)
             }
         }
     }
