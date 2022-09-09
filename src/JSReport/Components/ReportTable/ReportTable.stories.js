@@ -618,6 +618,15 @@ const loadLineData = [
     ],
 ]
 
+const TwoLine = () => {
+    const firstLine = `<Component/> display on`
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span>{firstLine}</span>
+            <span>two lines</span>
+        </div>
+    )
+}
 const operatingConditionsData = [
     [
         {
@@ -640,9 +649,7 @@ const operatingConditionsData = [
     ],
     [
         {
-            primaryText: {
-                value: 'Water heat exchanger',
-            },
+            component: TwoLine,
             colSpan: 2,
             headerType: 'h6',
         },

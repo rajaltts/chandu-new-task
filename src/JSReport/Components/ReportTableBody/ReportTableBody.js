@@ -16,6 +16,8 @@ const ReportTableBody = ({ rowData }) => {
 
     const showTableElements = (text, textData, item) => {
         const textStyle = textData['style'] || {}
+        if (text === 'component') // to have more possibilities on Cell content (than just a value)
+            return textData()
         return (
             <span style={{ ...paddingLeftRight, ...textStyle, ...(text === 'secondaryText' ? whiteSpace : {}) }}>
                 {tableTdData(textData, item)}
@@ -68,6 +70,7 @@ const ReportTableBody = ({ rowData }) => {
                                     ? justifyend
                                     : justifycenter),
                             }}>
+                            {item.component ? showTableElements('component', item.component, item) : ''}
                             {item.primaryText ? showTableElements('primaryText', item.primaryText, item) : ''}
                             {item.secondaryText ? showTableElements('secondaryText', item.secondaryText, item) : ''}
                         </div>
