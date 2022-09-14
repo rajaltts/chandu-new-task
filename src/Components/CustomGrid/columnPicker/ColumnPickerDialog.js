@@ -58,7 +58,10 @@ const ColumnPickerDialog = (props) => {
         return (
             <List className={checkboxSection}>
                 {searchColumns(columnOptions).map((headCell, index) => {
-                    const { name, displayName, isSelected, disabled = false } = headCell
+                    const { name, displayName, isSelected, disabled = false, shouldDisplayInPicker = true } = headCell
+                    if (!shouldDisplayInPicker && disabled) {
+                        return null
+                    }
                     return (
                         <FormControlLabel
                             key={index}
