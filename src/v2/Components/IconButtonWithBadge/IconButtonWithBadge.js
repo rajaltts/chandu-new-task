@@ -11,8 +11,7 @@ const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeCol
             className={`${classes.iconButtonWithBadge} ${className}`}
             disabled={disabled}
             color={color}
-            onClick={onClick}
-        >
+            onClick={onClick}>
             <Badge badgeContent={badgeContent} color={badgeColor}>
                 {icon}
             </Badge>

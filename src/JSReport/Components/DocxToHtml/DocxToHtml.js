@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from 'react'
 import mammoth from 'mammoth'
-import { getExternalFileContentAsBlob } from '@carrier/workflowui-globalfunctions'
+import { getExternalFileContentAsBlob, ApiService, endPoints } from '@carrier/workflowui-globalfunctions'
+import withExtraProps from '../../../HOC/withExtraProps'
 
-const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
+const DocxToHtml = ({ containerName = '', filePath = '', baseApi = {} }) => {
+    const { eCatAppService, sapService } = baseApi
     const ref = useRef()
 
     const checkforFileType = (allowedFileType = []) => {
@@ -10,8 +12,7 @@ const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
             filePath &&
             typeof filePath === 'string' &&
             allowedFileType.includes(filePath.slice(((filePath.lastIndexOf('.') - 1) >>> 0) + 2)) &&
-            containerName &&
-            apiUrl
+            containerName
         )
     }
 
@@ -19,7 +20,7 @@ const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
         try {
             if (checkforFileType(['docx'])) {
                 const response = await getExternalFileContentAsBlob({
-                    apiUrl,
+                    eCatAppService,
                     containerName,
                     filePath,
                     blobType: 'application/msword',
@@ -40,9 +41,9 @@ const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
                     fileReader.readAsArrayBuffer(response)
                 }
             } else if (checkforFileType(['htm', 'html'])) {
-                const response = await fetch(`${apiUrl}${containerName}/${filePath}`)
-                const text = await response.text()
-                ref.current.innerHTML = text
+                const url = `${sapService}${endPoints.GET_HTMDOCUMENT_CONTENT_MS}?container=${containerName}&fileName=${filePath}`
+                const { data } = await ApiService(url, null, null, null)
+                ref.current.innerHTML = data
             }
         } catch (error) {
             ref.current.innerHTML = ''
@@ -56,4 +57,4 @@ const DocxToHtml = ({ apiUrl = '', containerName = '', filePath = '' }) => {
     return <div ref={ref} />
 }
 
-export default DocxToHtml
+export default withExtraProps(DocxToHtml)

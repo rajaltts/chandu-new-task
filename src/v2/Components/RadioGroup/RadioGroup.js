@@ -41,8 +41,7 @@ const RadioGroup = ({
                 data-error={`${name}__${relaxed}`}
                 data-value={`${name}__${value}`}
                 row={row}
-                {...restRadioGroup}
-            >
+                {...restRadioGroup}>
                 {values.map((radio) => {
                     const disabledValue = disabled || radio.feasible === false || radio.enable === false
                     return (

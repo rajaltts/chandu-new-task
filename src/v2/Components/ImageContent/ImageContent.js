@@ -19,8 +19,7 @@ const ImageContent = ({ className, value, label, disabled, name, visible = true,
                 {relaxed ? (
                     <Tooltip
                         data-WarningText={`${name}__CONTROL_SELECTION_WARNING`}
-                        title={translation('CONTROL_SELECTION_WARNING')}
-                    >
+                        title={translation('CONTROL_SELECTION_WARNING')}>
                         <span>{translation(label)}</span>
                     </Tooltip>
                 ) : (
@@ -44,8 +43,7 @@ const ImageContent = ({ className, value, label, disabled, name, visible = true,
                     }}
                     className={`${className || ''} ${relaxed ? classes.relaxed : ''}`}
                     aria-label={label}
-                    disabled={disabled}
-                >
+                    disabled={disabled}>
                     <CardContent>
                         <Typography className={classes.title} color='textSecondary' gutterBottom>
                             <Label data-Label={`${name}__${label}`} />
@@ -55,8 +53,7 @@ const ImageContent = ({ className, value, label, disabled, name, visible = true,
                             className={clsx({
                                 [classes.pictureTagDisabled]: disabled,
                                 [classes.pictureTagEnabled]: !disabled,
-                            })}
-                        >
+                            })}>
                             {/* Picture tag accepts different of src image formats. 
                             To improve image load performance we can use new next gen image formats. 
                             Example given as below */}

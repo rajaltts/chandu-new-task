@@ -66,7 +66,6 @@ import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/Progr
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
 import Page from './JSReport/Components/ReportPage/Page'
 import DocxToHtml from './JSReport/Components/DocxToHtml/DocxToHtml'
-import RenderHtml from './JSReport/Components/RenderHtml/RenderHtml'
 
 import Select from './v2/Components/Select/Select'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
@@ -238,7 +237,6 @@ export {
     FabWithBadge,
     Section,
     DocxToHtml,
-    RenderHtml,
     Loading,
     LoadingIcon,
     OptionAccordion,

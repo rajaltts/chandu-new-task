@@ -16,7 +16,8 @@ const ReportTableBody = ({ rowData }) => {
 
     const showTableElements = (text, textData, item) => {
         const textStyle = textData['style'] || {}
-        if (text === 'component') // to have more possibilities on Cell content (than just a value)
+        if (text === 'component')
+            // to have more possibilities on Cell content (than just a value)
             return textData()
         return (
             <span style={{ ...paddingLeftRight, ...textStyle, ...(text === 'secondaryText' ? whiteSpace : {}) }}>
