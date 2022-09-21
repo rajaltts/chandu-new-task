@@ -2,41 +2,18 @@
 import React, { useState } from 'react'
 
 // Material
-import { Grid, makeStyles } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 // Local
 import CandidateCard from './CandidateCard'
 import CandidateCardDetails from './CandidateCardDetails'
 import ConfirmModal from '../../../../Components/ConfirmModal/ConfirmModal'
 
-const useStyles = makeStyles((theme) => ({
-    mainGrid: {
-        marginBottom: theme.spacing(10),
-        [theme.breakpoints.up('sm')]: {
-            marginBottom: theme.spacing(11),
-        },
-        [theme.breakpoints.up('md')]: {
-            marginBottom: theme.spacing(11),
-        },
-    },
-    candidateCardDetailsModal: {
-        '& .customModalHeader': {
-            '& > img': {
-                maxHeight: '70px',
-                paddingRight: theme.spacing(2),
-            },
-            '& > span': {
-                color: theme.palette.secondary.main,
-            },
-            '& > button': {
-                alignSelf: 'flex-start',
-            },
-        },
-    },
-}))
+// Styles
+import { useCandidateCardListStyles } from './CandidateCardList.styles'
 
 const CandidateCardList = ({ cardConfig, candidateImage, selected, onSelected, initialData }) => {
-    const classes = useStyles()
+    const classes = useCandidateCardListStyles()
     const [isModalOpen, setIsModalOpen] = useState(-1)
 
     const CandidateImageCompo = () => <img src={candidateImage} />

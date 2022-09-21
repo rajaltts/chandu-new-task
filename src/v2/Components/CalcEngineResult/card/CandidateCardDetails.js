@@ -2,38 +2,16 @@
 import React, { useCallback } from 'react'
 
 // Material
-import { Table, TableBody, TableCell, TableContainer, TableRow, makeStyles } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core'
 
 // Libs
 import classnames from 'classnames'
 
-const useStyles = makeStyles((theme) => {
-    const border = `1px solid ${theme.palette.secondary.main}`
-    return {
-        coolingCell: {
-            backgroundColor: 'rgba(0, 118, 244, 0.1)',
-        },
-        heatingCell: {
-            backgroundColor: 'rgba(211, 19, 54, 0.1)',
-        },
-        tableCell: {
-            padding: theme.spacing(1),
-        },
-        tableCellHighlighted: {
-            borderLeft: border,
-            borderRight: border,
-        },
-        tableCellHighlightedTop: {
-            borderTop: border,
-        },
-        tableCellHighlightedBottom: {
-            borderBottom: border,
-        },
-    }
-})
+// Styles
+import { useCandidateCardDetailsStyles } from './CandidateCardDetails.styles'
 
 const CandidateCardDetails = ({ detailsData }) => {
-    const classes = useStyles()
+    const classes = useCandidateCardDetailsStyles()
 
     const createLine = useCallback(
         (title, unit, values, highlightedIndex, borderPos, isCooling, isHeating) => {

@@ -2,34 +2,18 @@
 import React from 'react'
 
 // Material
-import { IconButton, makeStyles } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 
 // Local
 import Typography from '../../Typography/Typography'
 import MediaCard from '../../MediaCard/MediaCard'
 
-const useStyles = makeStyles((theme) => ({
-    content: {
-        padding: theme.spacing(2),
-    },
-    table: {
-        marginTop: theme.spacing(2),
-        width: '100%',
-    },
-    rightAlign: {
-        textAlign: 'right',
-        whiteSpace: 'nowrap',
-    },
-    visibilityButton: {
-        position: 'absolute',
-        right: 0,
-        top: 0,
-    },
-}))
+// Styles
+import { useCandidateCardStyles } from './CandidateCard.styles'
 
 const CandidateCard = ({ details, index, openPopupCallback, ...mediaCardProps }) => {
-    const classes = useStyles()
+    const classes = useCandidateCardStyles()
 
     const handleVisibilityButtonClick = (event) => {
         event.preventDefault()
