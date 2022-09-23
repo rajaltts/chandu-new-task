@@ -128,9 +128,8 @@ const reportStyles = {
     },
     pageFooterLeftArea: {
         ...flexColumn,
-        height: '100%',
+        height: '1.65cm',
         justifyContent: 'space-around',
-        width: '100%',
     },
     pageFooterLeftAreaFootNote: {
         ...flexColumn,
@@ -144,7 +143,7 @@ const reportStyles = {
         maxWidth: '20%',
     },
     pageFooterLeftAreaFootNoteDescription: {
-        fontSize: '8px',
+        fontSize: 9,
         maxWidth: 'calc(80% - 5px)',
     },
     pageFooterLeftAreaPackageVersion: {},
@@ -155,7 +154,7 @@ const reportStyles = {
         fontSize: '11px',
         height: '100%',
         marginBottom: '6px',
-        marginRight: '6px',
+        marginRight: '8px',
     },
     tableReport: {
         width: '100%',

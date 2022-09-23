@@ -47,7 +47,16 @@ export const CarrierPageComponent = PageTemplate.bind({})
 CarrierPageComponent.args = {
     title: 'Customer Report',
     fullName: 'Customer Report',
-    footNotes: { descriptions: ['Engineering Selection'] },
+    footNotes: {
+        descriptions: [
+            `Carrier participates in the ECP program for Rooftop.
+            The selected unit with selected options is outside of the scope of certification programme for Rooftop (RT)
+            but is rated in accordance with Technical Certification Rules for RT.`,
+            `Check ongoing validity of certificate: www.eurovent-certification.com`,
+        ],
+        descriptionsStyle: { marginLeft: 10 },
+        image: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/EuroventLogo1.webp',
+    },
     builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
 }
 

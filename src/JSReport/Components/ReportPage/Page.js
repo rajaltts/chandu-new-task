@@ -211,13 +211,15 @@ const Page = (props) => {
                                                 alt='Certification image'
                                             />
                                         )}
-                                        {footNotes.descriptions.map((description, i) => (
-                                            <div
-                                                style={reportStyles.pageFooterLeftAreaFootNoteDescription}
-                                                key={`footnote-description-${i}`}>
-                                                {description}
-                                            </div>
-                                        ))}
+                                            <div style={footNotes.descriptionsStyle}>
+                                            {footNotes.descriptions.map((description, i) => (
+                                                <div
+                                                    style={reportStyles.pageFooterLeftAreaFootNoteDescription}
+                                                    key={`footnote-description-${i}`}>
+                                                    {description}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 )}
                             </div>
