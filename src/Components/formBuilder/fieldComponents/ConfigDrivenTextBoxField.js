@@ -167,7 +167,7 @@ const ConfigDrivenTextBoxField = (props) => {
                         autoFocus
                         margin={'none'}
                         size={'small'}
-                        onKeyUp={enterKeyPressHandler}
+                        onKeyDown={enterKeyPressHandler}
                         onChange={onChangeHandler}
                         onBlur={updateValue}
                         onClick={handleTextBoxOnClick}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField'
 import { keyboard, formatValue } from '@carrier/workflowui-globalfunctions'
@@ -8,7 +8,15 @@ import '../formBuilder.css'
 import { inputStyles } from '../formBuilderStyles'
 
 const ConfigDrivenNumberField = (props) => {
-    const { rowData = {}, rowIndex, config = {}, value = 0, doNotTranslate, setEnableRowClick = null } = props
+    const {
+        rowData = {},
+        rowIndex,
+        config = {},
+        value = 0,
+        doNotTranslate,
+        setEnableRowClick = null,
+        uniqueKey,
+    } = props
     const {
         step = '1',
         min = '-99999999',
@@ -36,6 +44,20 @@ const ConfigDrivenNumberField = (props) => {
     const [containerWidth, setContainerWidth] = useState({ width: '100%' })
     const { InputRoot } = inputStyles(containerWidth)
     const ref1 = useRef(null)
+
+    const onkeyBoardEnterClick = (event) => {
+        const { id, name } = event.detail
+        if (id === rowData[uniqueKey] && name === config.lookUpKey) {
+            setNumberField()
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('enter', onkeyBoardEnterClick)
+        return () => {
+            document.removeEventListener('enter', onkeyBoardEnterClick)
+        }
+    }, [])
 
     const onClickHandler = () => {
         if (onClick) {
@@ -133,7 +155,7 @@ const ConfigDrivenNumberField = (props) => {
                 autoFocus
                 margin='none'
                 size='small'
-                onKeyUp={enterKeyPressHandler}
+                onKeyDown={enterKeyPressHandler}
                 onChange={onChangeHandler}
                 onBlur={updateValue}
                 onClick={handleNumberOnClick}

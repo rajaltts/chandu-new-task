@@ -343,6 +343,7 @@ function CustomGridBody(props) {
                                                     config={configItem}
                                                     value={getValueForDynamicKey(row, lookUpKey)}
                                                     setEnableRowClick={setEnableRowClick}
+                                                    uniqueKey={uniqueKey}
                                                 />
                                             </div>
                                         </TableCell>
