@@ -38,7 +38,7 @@ function CustomGridBody(props) {
         showCellError,
         customTranslations,
     } = props
-    let timer, cellTimer, focusCellTimer, focusRowTimer
+    let timer, cellTimer, focusCellTimer, focusRowTimer, rowClickTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
     const { translations = null, translationsUniqueKey = '', lang, messages } = customTranslations
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
@@ -71,6 +71,7 @@ function CustomGridBody(props) {
     const handleOnClick = (row, index, event) => {
         if (clickOnRowHighlight) setClickedRow(row)
         clearTimeout(timer)
+        clearTimeout(rowClickTimer)
         if (event.detail === 1) {
             if (editModeEnabled) {
                 eventData.current.ctrlKey = event.ctrlKey
@@ -78,7 +79,6 @@ function CustomGridBody(props) {
                 eventData.current.tabbing = false
             }
             timer = setTimeout(() => {
-                if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
                 if (editModeEnabled) {
                     handleEditModeCellSelection([], '', '', false, true)
                     const { ctrlKey, button, keyCode } = eventData.current
@@ -93,6 +93,9 @@ function CustomGridBody(props) {
                     eventData.current.tabbing = false
                 }
             }, 70)
+            rowClickTimer = setTimeout(() => {
+                if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
+            }, 300)
         }
     }
 
