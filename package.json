@@ -1,6 +1,6 @@
 {
     "name": "@carrier/ngecat-reactcomponents",
-    "version": "3.39.268",
+    "version": "3.39.269",
     "description": "React components library used for NGECAT workflow UI apps",
     "main": "dist/ngecat-reactcomponents.min.js",
     "publishConfig": {
@@ -10,6 +10,7 @@
         "prepare": "husky install",
         "test": "jest",
         "build": "rollup -c -o dist/ngecat-reactcomponents.min.js",
+        "dev": "rollup -c -o dist/ngecat-reactcomponents.min.js -w",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
         "prettier": "prettier --write \"src/**/*.js\"",
