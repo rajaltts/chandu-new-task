@@ -1,0 +1,21 @@
+#!/bin/sh
+
+echo "Creating permanent links within nodejs"
+cd ../NGECAT-Reactjs-UI
+npm link @carrier/ngecat-reactcomponents
+
+cd node_modules/react & npm link
+pwd
+cd node_modules/@material-ui/styles/ & npm link
+pwd
+cd node_modules/@material-ui/core/ & npm link
+
+echo "Check links if required by running:"
+echo "ls -laR 'C:\Program Files\nodejs\node_modules\' |grep '>'"
+ls -laR 'C:\Program Files\nodejs\node_modules\' |grep '>'
+
+echo "You can now run .localLink/localLink (or npm run localLink) everytime you need to use ReactComponent locally"
+echo "Also to use the latest version of your local version, run 'npm run build'"
+
+
+

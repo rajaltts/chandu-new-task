@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo 'This script enable ReactUi to use the local ReactComponent build (created with "npm run build" or "npm run dev" if available)'
+echo 'Rather than the ReactComponent version define in the package.json within ReactUI'
+
+npm link
+npm link react
+npm link @material-ui/styles
+npm link @material-ui/core
+
+echo 'You can now re-run "npm run dev" on ReactUI to use ReactComponents build'
+echo 'To cancel these links, just run "npm i" under ReactUi (and re"npm run dev")'
+
+
+
