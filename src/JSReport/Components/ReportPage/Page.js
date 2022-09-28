@@ -211,7 +211,7 @@ const Page = (props) => {
                                                 alt='Certification image'
                                             />
                                         )}
-                                            <div style={footNotes.descriptionsStyle}>
+                                        <div style={footNotes.descriptionsStyle}>
                                             {footNotes.descriptions.map((description, i) => (
                                                 <div
                                                     style={reportStyles.pageFooterLeftAreaFootNoteDescription}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, memo } from 'react'
 import { injectIntl } from 'react-intl'
-import ReportPreview from './ReportPreview.js'
+import { ReportPreview } from './ReportPreview.js'
 import pdfDownload from './pdfDownload.js'
 import { connect } from 'react-redux'
 
@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
  * @component
  * @description Logic part of report preview. Manage scroll to pages, download, preview exit.
  */
-const ReportPreviewContainer = ({
+export const ReportPreviewContainer = ({
     isOpen,
     closeReportPreview,
     children,
@@ -21,6 +21,7 @@ const ReportPreviewContainer = ({
     hideFooterPageInfo = false,
     isWordReportEnabled = false,
     api,
+    zoomIn,
 }) => {
     const { title, fileName = 'Test' } = reportConfig.options ?? {}
 
@@ -146,6 +147,7 @@ const ReportPreviewContainer = ({
                 topActionsContainerRef,
                 downloadWord,
                 isWordReportEnabled,
+                zoomIn,
             }}>
             {children}
         </ReportPreview>
@@ -155,4 +157,5 @@ const ReportPreviewContainer = ({
 const mapStateToProps = (state) => ({
     api: state.api.eCatApimAppService,
 })
+
 export default memo(injectIntl(connect(mapStateToProps, null)(ReportPreviewContainer)))

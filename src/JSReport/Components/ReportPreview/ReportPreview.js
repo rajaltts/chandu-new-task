@@ -1,4 +1,4 @@
-import React, { cloneElement, memo, Suspense } from 'react'
+import React, { cloneElement, memo, Suspense, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faFilePdf, faFileWord, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Zoom from '@material-ui/core/Zoom'
@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal'
 import translation from '../../../Components/Translation'
 
-import useReportPreviewStyles, { BorderLinearProgress } from './ReportPreview.styles'
+import useReportPreviewStyles, { BorderLinearProgress, TOOLBAR } from './ReportPreview.styles'
 import { HasPermission } from '@carrier/workflowui-globalfunctions'
 
 /** Preview a report
@@ -65,9 +65,25 @@ const ReportPreview = ({
     topBarRef,
     isWordReportEnabled,
     PlatformPermissions,
+    zoomIn, // if true, get a better view on the report content
 }) => {
     const classes = useReportPreviewStyles()
     const hasPermission = HasPermission('Platform Permissions/Word Report', PlatformPermissions)
+
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    if (event.clientY > TOOLBAR.HEIGHT) onClose()
+                }
+            }
+            document.addEventListener('mousedown', handleClickOutside)
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside)
+            }
+        }, [ref])
+    }
+    useOutsideAlerter(popupRef)
 
     return isOpen ? (
         <div className={`${classes.reportBack} report-back`}>
@@ -182,9 +198,9 @@ const ReportPreview = ({
             <Zoom in={true}>
                 <div
                     id='jsReportAllContent'
-                    className={`pdf-download-root-main ${classes.reportPopup} main ${
+                    className={`pdf-download-root-main ${zoomIn && classes.zoomIn} ${classes.reportPopup} main ${
                         errorMessage ? 'popup-error' : ''
-                    }`}
+                    } `}
                     ref={popupRef}>
                     <Suspense fallback={<></>}>
                         {cloneElement(children, {
@@ -216,3 +232,4 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {})(memo(ReportPreview))
+export { ReportPreview } // disconnected component, for storybook & rooftop builder

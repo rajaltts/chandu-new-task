@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReportPreviewContainer from './ReportPreviewContainer'
+import { ReportPreviewContainer } from './ReportPreviewContainer'
 import Page from '../ReportPage/Page'
 
 export default {
@@ -24,7 +24,7 @@ const page1 = {
             `Check ongoing validity of certificate: www.eurovent-certification.com`,
         ],
         descriptionsStyle: { marginLeft: 10 },
-        image: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/EuroventLogo1.webp'
+        image: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/EuroventLogo1.webp',
     },
     builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
 }
@@ -72,6 +72,25 @@ Basic.args = {
             fileName: 'CustomerReport',
         },
     },
+    children: <>This is Js Report</>, //React.createElement('div',{}),
+    loading: false,
+    reportDownloadable: true,
+    cleanup: function test() {},
+    hideFooterPageInfo: false,
+    jsReportApi: 'https://apim-carrier-qa.azure-api.net/',
+}
+
+export const ZoomIn = ReportPreviewContainerTemplate.bind({})
+ZoomIn.args = {
+    isOpen: true,
+    intl: {},
+    reportConfig: {
+        key: 'CustomerReport',
+        options: {
+            fileName: 'CustomerReport',
+        },
+    },
+    zoomIn: true,
     children: <>This is Js Report</>, //React.createElement('div',{}),
     loading: false,
     reportDownloadable: true,

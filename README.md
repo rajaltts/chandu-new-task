@@ -86,9 +86,9 @@ These tests are always run by the pipeline, if a test fail, the pipeline will fa
 ## Working locally
 If you need to work on a legacy component which does not have a story, you'll need to test your changes in your builder before merging your work and creating a new tag.
 In order to do that, i'll need to link this repository localy with your builder, so your builder will use your local version of NGECAT-ReactComponents instead of the one on the npm repository.
-  - In this repository local folder, run `npm link`
-  - In your builder repository run `npm link @carrier/ngecat-reactcomponents`
-  - Then, run `npm run build` in this repository local folder each time tou need to refresh your changes in your builder.
+  - In this repository local folder (in ReactComponent), run `npm link`
+  - In ***NGECAT-Reactjs-UI*** repository, run `npm link @carrier/ngecat-reactcomponents`
+  - Then, run `npm run build` in this repository local folder each time you need to refresh your changes in your builder.
 
 ### React version mismatch
   - If you have a mismatch between React version, you can link the React version of the framework to this repository easily by doing the same thing.
@@ -102,4 +102,6 @@ In order to do that, i'll need to link this repository localy with your builder,
   - In this repository local folder, run `npm link @material-ui/core`
 
 ### Reset dependencies
-You can use `npm i` to reset your dependencies
+* You can use `npm i` in Reactjs-UI to reset your dependencies (cancel commands like `npm link xxx`)
+* The commands like `npm link` are persistent and can be listed thanks to `ls -alR 'C:\Program Files\nodejs\node_modules\' | grep ">"`
+There is no need to remove them to disconnect local builder/reactUI from ReactComponent (but you can undo it with the command `npm unlink' in the right directory)

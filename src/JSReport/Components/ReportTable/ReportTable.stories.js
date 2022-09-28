@@ -1364,7 +1364,15 @@ LoadLineData.args = {
     TableData: loadLineData,
     titleInformation: {
         title: 'Load Line',
-        bgType: 'tableTitle',
+    },
+}
+
+export const LoadLineDataCiat = ReportTableTemplate.bind({})
+LoadLineDataCiat.args = {
+    TableData: loadLineData,
+    titleInformation: {
+        title: 'Load Line (Ciat)',
+        style: { background: 'linear-gradient(353deg, #5e5e5e 0%, #8b8b8b 45%, #7a7a7a 100%)' },
     },
 }
 
