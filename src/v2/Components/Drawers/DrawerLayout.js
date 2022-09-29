@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Drawer } from '@material-ui/core'
+import classnames from 'classnames'
+
 import { useStyles } from './DrawerLayout.styles'
 
-const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
+const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation, variant, drawerContentProps }) => {
     const classes = useStyles()
+
+    const drawerContentClass = classnames(classes.drawerContent, drawerContentProps?.className)
 
     useEffect(() => {
         setTimeout(() => {
@@ -23,8 +27,11 @@ const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation }) => {
             open={isOpen}
             onClose={onClose}
             anchor={anchor}
-            BackdropProps={{ invisible: true }}>
-            <div className={classes.drawerContent}>{children}</div>
+            BackdropProps={{ invisible: true }}
+            variant={variant}>
+            <div className={drawerContentClass}>
+                {children}
+            </div>
         </Drawer>
     )
 }
