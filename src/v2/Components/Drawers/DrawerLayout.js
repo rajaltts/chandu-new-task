@@ -42,9 +42,12 @@ DrawerLayout.defaultProps = {
 }
 
 DrawerLayout.propTypes = {
+    anchor: PropTypes.oneOf(['bottom', 'left', 'right', 'top']),
     children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    elevation: PropTypes.number,
     isOpen: PropTypes.bool,
     onClose: PropTypes.func,
+    variant: PropTypes.oneOf(['permanent', 'persistent', 'temporary']),
 }
 
 export default DrawerLayout
