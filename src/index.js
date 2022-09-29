@@ -65,6 +65,7 @@ import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager'
 import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
 import Page from './JSReport/Components/ReportPage/Page'
+import PageOverflow from './JSReport/Components/ReportPageOverflow/PageOverflow.js'
 import DocxToHtml from './JSReport/Components/DocxToHtml/DocxToHtml'
 
 import Select from './v2/Components/Select/Select'
@@ -217,6 +218,7 @@ export {
     CartSectionTotal,
     ReportImage,
     Page,
+    PageOverflow,
     Typography,
     MediaCard,
     RadioCard,
