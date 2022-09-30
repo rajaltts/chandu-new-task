@@ -10,7 +10,6 @@ const umd = {
     format: 'umd',
     name: 'ngecat-reactcomponents',
     file: "dist/ngecat-reactcomponents.min.js",
-    sourceMap: true,
     globals: {
         react: "React"
     }
@@ -20,7 +19,7 @@ const esm = {
     format: 'esm',
     name: 'ngecat-reactcomponents',
     file: "dist/ngecat-reactcomponents.min.js",
-    sourceMap: true,
+    sourcemap: true,
     globals: {
         react: "React"
     }

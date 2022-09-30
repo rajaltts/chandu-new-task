@@ -9,11 +9,25 @@ const flexRow = {
 }
 
 const reportStyles = {
+    jsreportPageWrapperLandscape: {
+        width: '1115px',
+        height: '775px',
+        maxWidth: '1115px',
+        maxHeight: '775px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'white',
+        pageBreakAfter: 'always',
+        overflow: 'hidden',
+        fontFamily: 'Roboto, Times New Roman',
+    },
     jsreportPageWrapper: {
         width: '793px',
-        height: '1120px',
+        height: '1115px',
         maxWidth: '793px',
-        maxHeight: '1120px',
+        maxHeight: '1115px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         backgroundColor: 'white',
         pageBreakAfter: 'always',
         overflow: 'hidden',

@@ -9,8 +9,8 @@
     "scripts": {
         "prepare": "husky install",
         "test": "jest",
-        "build": "rollup -m -c -o dist/ngecat-reactcomponents.min.js",
-        "dev": "rollup -m -c -o dist/ngecat-reactcomponents.min.js -w",
+        "build": "rollup -c -o dist/ngecat-reactcomponents.min.js",
+        "dev": "rollup -c -o dist/ngecat-reactcomponents.min.js -w",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
         "prettier": "prettier --write \"src/**/*.js\"",
@@ -73,6 +73,7 @@
         "jest": "^26.6.3",
         "mammoth": "1.4.21",
         "moment": "^2.24.0",
+        "pdf-merger-js": "^4.1.1",
         "postcss-modules": "^1.1.0",
         "prettier": "^2.7.0",
         "react": "16.9.0",
