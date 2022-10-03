@@ -73,6 +73,7 @@
         "jest": "^26.6.3",
         "mammoth": "1.4.21",
         "moment": "^2.24.0",
+        "pdf-merger-js": "^4.1.1",
         "postcss-modules": "^1.1.0",
         "prettier": "^2.7.0",
         "react": "16.9.0",

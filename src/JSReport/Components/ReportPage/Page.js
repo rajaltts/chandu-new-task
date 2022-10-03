@@ -8,16 +8,32 @@ import reportStyles from '../../../JSReport/Components/reportStyles'
  * @category Customer Reports 📁
  * @component
  * @description Page element (header and footer)
- * Can identify overflows and alert the parent, using the setOverflow callback
+ * Can identify overflows and move automatically component to the next page.
+ * Can display a page in portrait or landscape
+ * @param {string} {title} Page title (default: 'Report')
  * @param {JSX.Element} {children} Page content
+ * @param {string} {modelBrandLogo} url to an image to display in the header (default: carrier image)
+ * @param {string} {fullName} Author of the page
+ * @param {string|number|Date} {creationDate} Date to display in the report header and footer (default: current date)
+ * @param {string} {model} Model name to display
+ * @param {string} {projectNameLabel} Label of the project name
+ * @param {string} {projectName} Project name
+ * @param {string} {tagNameLabel} Label of the tag name
+ * @param {string} {tagName} Tag name
+ * @param {string} {modelBrand} Name of the brand to apply a style automatically (default: 'carrier')
+ * @param {object} {footNotes} Footnotes to display in the footer (ie AHRI, Eurovent...)
+ * @param {string} {builderInfo} Specific information to display in the footer
  * @param {object} {global} Report meta-data
- * @param {Function} {setOverflow} Callback, to update the overflow value of the parent state
  * @param {Function} {projectName} Name of current project, if exists
  * @param {Function} {tagName} Name of current tag, if exists
+ * @param {boolean} {checkForOverflow} Whether or not to check for an overflow (default: true)
+ * @param {boolean} {hideHeader} Hide the header (default: false)
+ * @param {boolean} {hideFooter} Hide the footer (default: false)
+ * @param {boolean} {hideDate} Hide the date (default: false)
+ * @param {boolean} {landscape} Put the page in landscape mode (default: false)
  */
 const Page = (props) => {
     const {
-        checkForOverflow = true,
         title = 'Report',
         children,
         modelBrandLogo = 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/carrier.webp',
@@ -31,15 +47,20 @@ const Page = (props) => {
         modelBrand = 'carrier',
         footNotes,
         builderInfo,
+        waterMarkSVGProps,
+        checkForOverflow = true,
         hideHeader = false,
         hideFooter = false,
         hideDate = false,
-        waterMarkSVGProps,
+        landscape = false,
     } = props
 
     const date = creationDate ? new Date(creationDate) : new Date()
 
-    const PAGE_BODY = 890
+    // This constant will help to detect a page overflow,
+    //   * in landscape we will fix a height of 540 (whole height minus header, footer, margin etc...)
+    //   * in portrait, it will be 890 (whole height minus header, footer, margin etc...)
+    const PAGE_BODY = landscape ? 540 : 890
     const waterMarkSVGPropsDefault = {
         height: '100px',
         width: '100px',
@@ -131,7 +152,10 @@ const Page = (props) => {
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
-            <div className='jsreport-page-main-wrapper' style={reportStyles.jsreportPageWrapper}>
+            <div
+                id={landscape ? 'landscape' : 'portrait'}
+                className='jsreport-page-main-wrapper'
+                style={landscape ? reportStyles.jsreportPageWrapperLandscape : reportStyles.jsreportPageWrapper}>
                 <div style={reportStyles.page}>
                     {!hideHeader && (
                         <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }}>

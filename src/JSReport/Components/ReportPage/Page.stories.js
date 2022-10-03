@@ -60,6 +60,15 @@ CarrierPageComponent.args = {
     builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
 }
 
+export const CarrierPageComponentLandscape = PageTemplate.bind({})
+CarrierPageComponentLandscape.args = {
+    title: 'Customer Report',
+    fullName: 'Customer Report',
+    footNotes: { descriptions: ['Engineering Selection'] },
+    builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
+    landscape: true,
+}
+
 export const CiatPageComponent = PageTemplate.bind({})
 CiatPageComponent.args = {
     title: 'Customer Report',
