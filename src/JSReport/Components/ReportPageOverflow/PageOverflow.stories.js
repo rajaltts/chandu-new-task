@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Page from '../ReportPage/Page'
-import ReportPreviewContainer from '../ReportPreview/ReportPreviewContainer'
+import { ReportPreviewContainer } from '../ReportPreview/ReportPreviewContainer'
 
 export default {
     title: 'Report/PageOverflow',

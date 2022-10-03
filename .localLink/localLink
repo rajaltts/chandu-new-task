@@ -1,0 +1,25 @@
+#!/bin/sh
+
+echo 'This script enable ReactUi to use the local ReactComponent build (created with "npm run build" or "npm run dev" if available)'
+echo 'Rather than the ReactComponent version define in the package.json within ReactUI'
+
+echo 'Creating a link'
+npm link
+echo 'Linking Reactjs-ui with framework'
+cd ../NGECAT-Reactjs-UI
+npm link @carrier/ngecat-reactcomponents
+echo 'Creating links for react, material-ui packages'
+cd node_modules/react && npm link
+cd ../\@material-ui/core && npm link
+cd ../styles && npm link
+echo 'Linking react, material-ui packages with local version'
+pwd
+cd ../../../../NGECAT-ReactComponents
+npm link react
+npm link @material-ui/core
+
+echo 'You can now re-run "npm run dev" on ReactUI to use ReactComponents build'
+echo 'To cancel these links, just run "npm i" under ReactUi (and re"npm run dev")'
+
+
+
