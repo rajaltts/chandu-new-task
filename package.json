@@ -15,8 +15,9 @@
         "build-storybook": "build-storybook -o docs",
         "prettier": "prettier --write \"src/**/*.js\"",
         "prettierV2": "prettier --write \"src/v2/**/*.js\"",
-        "lint": "eslint -c eslintconfig.js src/",
-        "lint:fix": "eslint -c eslintconfig.js --fix src/"
+        "lint": "eslint -c eslintconfig.js src/v2",
+        "lint:fix": "eslint -c eslintconfig.js --fix src/v2",
+        "link": "bash -c .localLink/localLink"
     },
     "repository": {
         "type": "git",
