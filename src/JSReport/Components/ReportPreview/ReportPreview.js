@@ -138,10 +138,12 @@ const ReportPreview = ({
                                             className={`${classes.actionIcons} disable`}
                                             icon={faFilePdf}
                                         />
-                                        <FontAwesomeIcon
-                                            className={`${classes.actionIcons} disable`}
-                                            icon={faFileWord}
-                                        />
+                                        {isWordReportEnabled && hasPermission ? (
+                                            <FontAwesomeIcon
+                                                className={`${classes.actionIcons} disable`}
+                                                icon={faFileWord}
+                                            />
+                                        ) : null}
                                     </div>
                                     <div className={classes.downloadContainerTitle}>
                                         {errorMessage?.title ??

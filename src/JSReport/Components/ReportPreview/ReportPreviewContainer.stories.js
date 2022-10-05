@@ -75,6 +75,7 @@ Basic.args = {
     children: <>This is Js Report</>, //React.createElement('div',{}),
     loading: false,
     reportDownloadable: true,
+    isWordReportEnabled: false,
     cleanup: function test() {},
     hideFooterPageInfo: false,
     jsReportApi: 'https://apim-carrier-qa.azure-api.net/',
@@ -82,19 +83,6 @@ Basic.args = {
 
 export const ZoomIn = ReportPreviewContainerTemplate.bind({})
 ZoomIn.args = {
-    isOpen: true,
-    intl: {},
-    reportConfig: {
-        key: 'CustomerReport',
-        options: {
-            fileName: 'CustomerReport',
-        },
-    },
+    ...Basic.args,
     zoomIn: true,
-    children: <>This is Js Report</>, //React.createElement('div',{}),
-    loading: false,
-    reportDownloadable: true,
-    cleanup: function test() {},
-    hideFooterPageInfo: false,
-    jsReportApi: 'https://apim-carrier-qa.azure-api.net/',
 }
