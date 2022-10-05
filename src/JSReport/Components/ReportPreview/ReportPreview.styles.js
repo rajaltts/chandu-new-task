@@ -23,7 +23,6 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress)
 
 const useReportPreviewStyles = makeStyles((theme) => ({
-    width: '100%',
     height: '100%',
     position: 'absolute',
     top: 0,
@@ -56,7 +55,6 @@ const useReportPreviewStyles = makeStyles((theme) => ({
     reportPopup: {
         position: 'absolute',
         top: TOOLBAR.HEIGHT + 15,
-        width: '100%',
         height: '100%',
         zIndex: 1400,
         '& > *': {
