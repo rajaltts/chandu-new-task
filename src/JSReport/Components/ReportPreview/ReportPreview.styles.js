@@ -1,7 +1,7 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-const TOOLBAR = {
+export const TOOLBAR = {
     HEIGHT: 60,
 }
 const REPORT = {
@@ -23,7 +23,6 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress)
 
 const useReportPreviewStyles = makeStyles((theme) => ({
-    width: '100%',
     height: '100%',
     position: 'absolute',
     top: 0,
@@ -49,16 +48,15 @@ const useReportPreviewStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
     },
-
+    zoomIn: {
+        transform: 'scale(1.2) !important',
+        top: '200px !important',
+    },
     reportPopup: {
         position: 'absolute',
         top: TOOLBAR.HEIGHT + 15,
-        width: REPORT.WIDTH,
         height: '100%',
         zIndex: 1400,
-        boxShadow:
-            '0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12)',
-
         '& > *': {
             marginBottom: 20,
         },

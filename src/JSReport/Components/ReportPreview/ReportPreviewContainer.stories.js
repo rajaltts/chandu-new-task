@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReportPreviewContainer from './ReportPreviewContainer'
+import { ReportPreviewContainer } from './ReportPreviewContainer'
 import Page from '../ReportPage/Page'
 
 export default {
@@ -17,7 +17,15 @@ export default {
 const page1 = {
     title: 'Customer Report',
     fullName: 'Customer Report',
-    footNotes: { descriptions: ['Engineering Selection'] },
+    footNotes: {
+        descriptions: [
+            `Carrier participates in the ECP program for Rooftop.`,
+            'The selected unit with selected options is outside of the scope of certification programme for Rooftop (RT) but is rated in accordance with Technical Certification Rules for RT.',
+            `Check ongoing validity of certificate: www.eurovent-certification.com`,
+        ],
+        descriptionsStyle: { marginLeft: 10 },
+        image: 'https://stecatbuildersdev.blob.core.windows.net/ecatui/ecatimages/EuroventLogo1.webp',
+    },
     builderInfo: `Test Builder V1.0.0 (date: ${new Date().toLocaleDateString()})`,
 }
 
@@ -67,7 +75,14 @@ Basic.args = {
     children: <>This is Js Report</>, //React.createElement('div',{}),
     loading: false,
     reportDownloadable: true,
+    isWordReportEnabled: false,
     cleanup: function test() {},
     hideFooterPageInfo: false,
     jsReportApi: 'https://apim-carrier-qa.azure-api.net/',
+}
+
+export const ZoomIn = ReportPreviewContainerTemplate.bind({})
+ZoomIn.args = {
+    ...Basic.args,
+    zoomIn: true,
 }
