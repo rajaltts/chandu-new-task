@@ -1,18 +1,9 @@
 // React
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 // Material
-import {
-    FormControl,
-    InputLabel,
-    Select as MaterialSelect,
-    MenuItem,
-    FormHelperText,
-    Tooltip,
-    OutlinedInput,
-    Box,
-} from '@material-ui/core'
+import { MenuItem, Tooltip, TextField, Divider } from '@material-ui/core'
 
 import WarningIcon from '@material-ui/icons/Warning'
 
@@ -40,7 +31,6 @@ const Select = ({
     info,
     tooltipErrorLabel,
     notCompatibleLabel,
-    formControlProps,
     inputLabelProps,
     inputProps,
     showLabel = true,
@@ -48,76 +38,61 @@ const Select = ({
     isKeyBoardAccessible,
     ...rest
 }) => {
-    const inputLabel = useRef(null)
-    const [labelWidth, setLabelWidth] = useState(0)
     const [error, setError] = useState(false)
     const classes = useStyles()
 
-    const authorizedProps = createAuthorizedProps(MaterialSelect, rest)
-
-    useEffect(() => {
-        setLabelWidth(visible ? inputLabel.current.offsetWidth : 0)
-    }, [])
+    const authorizedProps = createAuthorizedProps(TextField, rest)
 
     useEffect(() => {
         setError(disabled || !visible ? false : !valid || relaxed)
     }, [disabled, visible, valid, relaxed])
 
     if (!visible) {
-        return <></>
+        return null
     }
     return (
         <>
-            <FormControl
-                classes={{ root: classes.formControl }}
+            <TextField
+                id={`Select_${label}`}
+                select
                 variant='outlined'
+                size='small'
                 disabled={disabled}
                 error={error}
-                {...formControlProps}
+                helperText={relaxed && notCompatibleLabel}
+                InputProps={inputProps}
+                autoFocus={isKeyBoardAccessible}
+                InputLabelProps={inputLabelProps}
+                MenuProps={{
+                    style: {
+                        zIndex: 9999999,
+                    },
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                    transformOrigin: {
+                        vertical: 'top',
+                        horizontal: 'left',
+                    },
+                    getContentAnchorEl: null,
+                    ...authorizedProps?.MenuProps,
+                }}
+                {...authorizedProps}
+                label={showLabel ? label : ''}
+                className={classNames(classes.selectRoot, selectRootClassName)}
+                onChange={(event) => handleChange && handleChange(event.target.value)}
+                value={value}
+                renderValue={renderValue}
             >
-                <InputLabel shrink={showLabel} {...inputLabelProps} ref={inputLabel}>
-                    {showLabel ? label : ''}
-                </InputLabel>
-                <MaterialSelect
-                    id={`Select_${label}`}
-                    input={<OutlinedInput notched labelWidth={labelWidth} {...inputProps} />}
-                    autoFocus={isKeyBoardAccessible}
-                    MenuProps={{
-                        classes: {
-                            paper: classes.menuWrapper,
-                            list: classes.menu,
-                        },
-                        style: {
-                            zIndex: 9999999,
-                        },
-                        anchorOrigin: {
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        },
-                        transformOrigin: {
-                            vertical: 'top',
-                            horizontal: 'left',
-                        },
-                        getContentAnchorEl: null,
-                        ...authorizedProps?.MenuProps,
-                    }}
-                    {...authorizedProps}
-                    label={showLabel ? label : ''}
-                    className={classNames(classes.selectRoot, selectRootClassName)}
-                    onChange={(event) => handleChange && handleChange(event.target.value)}
-                    value={value}
-                    renderValue={renderValue}
-                >
-                    {values &&
-                        values.map((v) => {
+                {values &&
+                    values
+                        .map((v) => {
                             const box = (
-                                <Box className={classes.menuItemContainer}>
-                                    <Typography color={!v.feasible ? 'error' : 'inherit'}>{v.label}</Typography>
-                                    <Box className={classes.adornments}>
-                                        <Typography
-                                            className={classes.priceMlp}
-                                            color={!v.feasible ? 'error' : 'inherit'}
-                                        >
+                                <>
+                                    <Typography noWrap>{v.label}</Typography>
+                                    <span className={classes.adornments}>
+                                        <Typography className={classes.priceMlp}>
                                             {v.attributes?.MLP ? '$ ' + v.attributes?.MLP : null}
                                         </Typography>
                                         {!v.feasible && (
@@ -125,20 +100,27 @@ const Select = ({
                                                 <WarningIcon fontSize='small' color='error' />
                                             </Tooltip>
                                         )}
-                                    </Box>
-                                </Box>
+                                        {/* FIXME: Check usage */}
+                                        {optionAction && excludeActionOption !== v.value && optionAction}
+                                    </span>
+                                </>
                             )
 
                             return (
-                                <MenuItem id={`MenuItem_${v.value}`} key={v.value} value={v.value}>
+                                <MenuItem
+                                    id={`MenuItem_${v.value}`}
+                                    className={classNames(classes.menuItem, !v.feasible && 'unfeasible')}
+                                    key={v.value}
+                                    value={v.value}
+                                    dense
+                                >
                                     {v.secondaryLabel ? <Tooltip title={v.secondaryLabel}>{box}</Tooltip> : box}
-                                    {optionAction && excludeActionOption !== v.value && optionAction}
                                 </MenuItem>
                             )
-                        })}
-                </MaterialSelect>
-                {relaxed && <FormHelperText>{notCompatibleLabel}</FormHelperText>}
-            </FormControl>
+                        })
+                        // Add dividers
+                        .flatMap((item, i, array) => (array.length - 1 !== i ? [item, <Divider key={i} />] : item))}
+            </TextField>
             {info && (
                 <div className={classes.infoContainer}>
                     <WarningIcon />
