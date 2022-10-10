@@ -28,6 +28,7 @@ const Select = ({
     relaxed,
     optionAction,
     excludeActionOption,
+    adornments,
     info,
     tooltipErrorLabel,
     notCompatibleLabel,
@@ -100,6 +101,11 @@ const Select = ({
                                                 <WarningIcon fontSize='small' color='error' />
                                             </Tooltip>
                                         )}
+                                        {adornments !== undefined
+                                            ? typeof adornments === 'function'
+                                                ? adornments(v)
+                                                : adornments
+                                            : null}
                                         {/* FIXME: Check usage */}
                                         {optionAction && excludeActionOption !== v.value && optionAction}
                                     </span>
@@ -147,6 +153,7 @@ Select.propTypes = {
     relaxed: PropTypes.bool,
     optionAction: PropTypes.any,
     excludeActionOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    adornments: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     handleChange: PropTypes.func,
     info: PropTypes.string,
     tooltipErrorLabel: PropTypes.string,
