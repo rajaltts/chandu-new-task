@@ -1,6 +1,5 @@
 import React from 'react'
 import CustomGrid from '../CustomGrid'
-import './ColumnPickerULStyles.css'
 
 export default {
     title: 'Component/CustomGrid',
