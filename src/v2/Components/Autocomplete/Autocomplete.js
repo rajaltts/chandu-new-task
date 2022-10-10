@@ -87,7 +87,8 @@ const Autocomplete = ({ className, label, values, value, handleChange, allowNewV
                                 key={v.value}
                                 className={classes.listItem}
                                 onClick={() => listItemHandleClick(v)}
-                                selected={currentValue === v.label}>
+                                selected={currentValue === v.label}
+                            >
                                 {<ListItemText primary={v.label} />}
                             </ListItem>
                         )

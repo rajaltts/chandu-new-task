@@ -165,7 +165,8 @@ const InputRange = ({
                                             className={dropdownButton}
                                             variant='text'
                                             onClick={openDropdown}
-                                            endIcon={<ArrowDropDownIcon />}>
+                                            endIcon={<ArrowDropDownIcon />}
+                                        >
                                             {unit}
                                         </Button>
                                         <Menu
@@ -174,13 +175,15 @@ const InputRange = ({
                                             className={unitMenu}
                                             open={Boolean(anchorEl)}
                                             autoFocus={isKeyBoardAccessible}
-                                            onClose={closeMenu}>
+                                            onClose={closeMenu}
+                                        >
                                             {units.map((option) => {
                                                 return (
                                                     <MenuItem
                                                         key={option}
                                                         selected={unit === option}
-                                                        onClick={() => handleMenuItemClick(option)}>
+                                                        onClick={() => handleMenuItemClick(option)}
+                                                    >
                                                         {option}
                                                     </MenuItem>
                                                 )

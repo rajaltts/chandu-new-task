@@ -96,7 +96,8 @@ const DrawerOption = ({
                 className={`${classes.option} ${isDragging ? 'is-dragging' : ''} ${defaultOption ? 'is-default' : ''}`}
                 ref={draggable ? drag : null}
                 style={{ opacity: isDragging ? 0.5 : 1 }}
-                onDoubleClick={() => moveOption(name)}>
+                onDoubleClick={() => moveOption(name)}
+            >
                 <Grid container>
                     <Grid item xs={12}>
                         <Box className={classes.topLine} display='flex'>
@@ -106,7 +107,8 @@ const DrawerOption = ({
                                 className={`${classes.optionName} ${defaultOption ? 'bold' : ''} ${
                                     anchor ? 'link' : ''
                                 }`}
-                                onClick={handleLinkClick}>
+                                onClick={handleLinkClick}
+                            >
                                 {currentLabel}
                             </Typography>
 
@@ -135,7 +137,8 @@ const DrawerOption = ({
                                 sm={col.columnWidth}
                                 xs={col.columnWidth}
                                 key={col.key}
-                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
+                                style={col.priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}
+                            >
                                 <Typography variant='subtitle1' color='secondary'>
                                     {col.priceUnit ? getPriceString(col.priceUnit, col.value) : col.value}
                                 </Typography>

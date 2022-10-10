@@ -74,7 +74,8 @@ const OptionAccordion = ({
                 {error ? (
                     <Tooltip
                         data-WarningText={`${name}__CONTROL_SELECTION_WARNING`}
-                        title={injectIntlTranslation(intl, 'CONTROL_SELECTION_WARNING')}>
+                        title={injectIntlTranslation(intl, 'CONTROL_SELECTION_WARNING')}
+                    >
                         {optionLabel}
                     </Tooltip>
                 ) : (
@@ -91,7 +92,8 @@ const OptionAccordion = ({
             defaultExpanded={defaultExpanded}
             expanded={keepDetailsOpen ? keepDetailsOpen : isOpen}
             onChange={(e, expanded) => accordionChange(e, expanded, hasDetails)}
-            elevation={0}>
+            elevation={0}
+        >
             <AccordionSummary expandIcon={<ArrowDropDown />}>
                 <Grid container>
                     {alwaysSelected ? (
@@ -149,7 +151,8 @@ const OptionAccordion = ({
                                     <Typography
                                         variant='body1'
                                         color='textPrimary'
-                                        className={classes.optionDescrTitle}>
+                                        className={classes.optionDescrTitle}
+                                    >
                                         {injectIntlTranslation(intl, 'Description')}
                                     </Typography>
                                     <Typography variant='body1' color='textPrimary'>
@@ -162,7 +165,8 @@ const OptionAccordion = ({
                                     <Typography
                                         variant='body1'
                                         color='textPrimary'
-                                        className={!disabled ? classes.optionDescrTitle : classes.optionDisabled}>
+                                        className={!disabled ? classes.optionDescrTitle : classes.optionDisabled}
+                                    >
                                         {injectIntlTranslation(intl, 'Related Properties')}
                                     </Typography>
                                     {childProps}
