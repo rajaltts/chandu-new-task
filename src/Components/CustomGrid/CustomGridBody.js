@@ -37,29 +37,45 @@ function CustomGridBody(props) {
         isKeyBoardAccessible,
         showCellError,
         customTranslations,
+        checkBoxClassname,
+        handleEditCellRangeSelection
     } = props
-    let timer, cellTimer, focusCellTimer, focusRowTimer, rowClickTimer
+    let rowClickTimer
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
     const { translations = null, translationsUniqueKey = '', lang, messages } = customTranslations
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
     const [enableRowClick, setEnableRowClick] = useState(true)
     const defaultEventData = {
+        altKey: null,
         keyCode: null,
         ctrlKey: null,
         button: null,
         shiftKey: null,
         tabbing: false,
+        previousSelection: {
+            oldColumnName: null,
+            oldIndex: null,
+            oldSelectionId: null,
+            oldCellIndex: null
+        },
     }
     const eventData = useRef(defaultEventData)
+
+    const handleClickHandler = (event, row, index, type) => {
+        handleEditModeCellSelection([], '', '', false, true)
+        handleClick(event, row, index, type)
+    }
 
     const showSelectionCell = (isItemSelected, row, index, type) => {
         const selectionProps = {
             id: `customGridRow${index}_checkbox`,
             color: 'primary',
             checked: isItemSelected,
-            onChange: (event) => handleClick(event, row, index, type),
+            onChange: (event) => handleClickHandler(event, row, index, type),
             onClick: (event) => handleSelectOnClick(event),
             inputProps: { 'aria-label': 'select this row' },
+            className: checkBoxClassname,
+            tabIndex: isKeyBoardAccessible ? 2 : -1
         }
         return (
             <TableCell padding='checkbox'>
@@ -70,39 +86,62 @@ function CustomGridBody(props) {
 
     const handleOnClick = (row, index, event) => {
         if (clickOnRowHighlight) setClickedRow(row)
-        clearTimeout(timer)
         clearTimeout(rowClickTimer)
-        if (event.detail === 1) {
-            if (editModeEnabled) {
-                eventData.current.ctrlKey = event.ctrlKey
-                eventData.current.button = event.button
-                eventData.current.tabbing = false
+        rowClickTimer = setTimeout(() => {
+            if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
+        }, 300)
+    }
+
+    const getElementToFocus = (element, rowData, columnName, isShiftkeyPressed, shouldFocus = true) => {
+        if (element && rowData) {
+            const isCellHighlightEnabled = element.getAttribute('data-isCellHighlightEnabled')
+            if (isCellHighlightEnabled) {
+                handleEditModeCellSelection(rowData, columnName, getValueForDynamicKey(rowData, uniqueKey), !isShiftkeyPressed)
             }
-            timer = setTimeout(() => {
-                if (editModeEnabled) {
+            else {
+                if (!isShiftkeyPressed) {
                     handleEditModeCellSelection([], '', '', false, true)
-                    const { ctrlKey, button, keyCode } = eventData.current
-                    if (ctrlKey && button === 0 && keyCode === 17) {
-                        handleEditModeRowSelection(row, index)
-                    } else if (button === 0 && !ctrlKey && keyCode === null) {
-                        handleEditModeRowSelection(row, index, true)
-                    } else {
-                        handleEditModeRowSelection([], 0, false, true)
-                    }
-                    eventData.current = defaultEventData
-                    eventData.current.tabbing = false
                 }
-            }, 70)
-            rowClickTimer = setTimeout(() => {
-                if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
-            }, 300)
+            }
+            shouldFocus && element.focus()
         }
     }
 
-    const keyCodeHandler = (event) => {
+    const getElementToFocusOnUpDownArrow = (tableBody, query, index, columnName, isShiftkeyPressed) => {
+        const element = tableBody.querySelector(query)
+        const rowData = rows[index]
+        getElementToFocus(element, rowData, columnName, isShiftkeyPressed)
+    }
+
+    const getFocusableCells = (elementParent) => {
+        let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('td[tabindex="2"]'), (element) => {
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+        })
+        let index = focussable.indexOf(document.activeElement)
+        return { focussable, index }
+    }
+
+    const getElementToFocusOnLeftRightArrow = (type, elementParent, row, isShiftkeyPressed, shouldFocus = true) => {
+        const { focussable, index } = getFocusableCells(elementParent)
+        let element
+        if (index > -1) {
+            if (type === 'previous') {
+                if (index - 1 >= 0) {
+                    element = focussable[index - 1]
+                }
+            } else {
+                if (index + 1 < focussable.length) {
+                    element = focussable[index + 1]
+                }
+            }
+            const cellColumnName = element.getAttribute('data-name')
+            getElementToFocus(element, row, cellColumnName, isShiftkeyPressed, shouldFocus)
+        }
+    }
+
+    const keyCodeHandler = (event, row, columnName) => {
         if (editModeEnabled) {
-            eventData.current.keyCode = event.keyCode
-            eventData.current.tabbing = true
+            eventData.current = { ...eventData.current, tabbing: true, keyCode: event.keyCode, shiftKey: event.shiftKey, ctrlKey: event.ctrlKey, altKey: event.altKey }
             if (isKeyBoardAccessible && !event.altKey) {
                 if (!event.shiftKey) {
                     if (event.ctrlKey && event.keyCode === 67) {
@@ -120,128 +159,105 @@ function CustomGridBody(props) {
                     }
                 }
                 if (!event.ctrlKey) {
-                    eventData.current.shiftKey = event.shiftKey
                     const type = event.target.getAttribute('data-type')
                     const index = event.target.getAttribute('data-index')
                     const tableBody = document.getElementsByTagName('tbody')[0]
                     const cellIndex = event.target.getAttribute('data-cellIndex')
-                    if (event.keyCode === 38 && parseInt(index, 10) - 1 >= 0) {
+                    if (event.keyCode === 38 && parseInt(index, 10) - 1 >= 0  && type === 'cell') {
+                        //up arrow
                         event.view.event.preventDefault()
-                        if (type === 'row') {
-                            tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) - 1}"]`).focus()
-                        } else if (type === 'cell') {
-                            tableBody
-                                .querySelector(
-                                    `[data-key="${type}_${parseInt(index, 10) - 1}_${parseInt(cellIndex, 10)}"]`
-                                )
-                                .focus()
-                        }
-                    } else if (event.keyCode === 40 && parseInt(index, 10) + 1 < rows.length) {
+                        const newIndex = parseInt(index, 10) - 1
+                        getElementToFocusOnUpDownArrow(tableBody, `[data-key="${type}_${newIndex}_${parseInt(cellIndex, 10)}"]`, newIndex, columnName, event.shiftKey)
+                    } else if (event.keyCode === 40 && parseInt(index, 10) + 1 < rows.length && type === 'cell') {
+                        //down arrow
                         event.view.event.preventDefault()
-                        if (type === 'row') {
-                            tableBody.querySelector(`[data-key="${type}_${parseInt(index, 10) + 1}"]`).focus()
-                        } else if (type === 'cell') {
-                            tableBody
-                                .querySelector(
-                                    `[data-key="${type}_${parseInt(index, 10) + 1}_${parseInt(cellIndex, 10)}"]`
-                                )
-                                .focus()
-                        }
-                    } else if (event.keyCode === 37) {
-                        if (type === 'cell') {
-                            focusCellElement('previous', tableBody)
-                        }
-                    } else if (event.keyCode === 39) {
-                        if (type === 'cell') {
-                            focusCellElement('next', tableBody)
-                        }
+                        const newIndex = parseInt(index, 10) + 1
+                        getElementToFocusOnUpDownArrow(tableBody, `[data-key="${type}_${newIndex}_${parseInt(cellIndex, 10)}"]`, newIndex, columnName, event.shiftKey)
+                    } else if (event.keyCode === 9 && type === 'cell') {
+                        //Shift + Tab or Tab
+                        //document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
+                        getElementToFocusOnLeftRightArrow(event.shiftKey ? 'previous' : 'next', tableBody, row, false, false)
+                    } else if (event.keyCode === 37 && type === 'cell') {
+                        //left arrow
+                        getElementToFocusOnLeftRightArrow('previous', tableBody, row, event.shiftKey)
+                    } else if (event.keyCode === 39 && type === 'cell') {
+                        //right arrow
+                        getElementToFocusOnLeftRightArrow('next', tableBody, row, event.shiftKey)
                     }
                 }
             }
         }
     }
 
-    const focusCellElement = (type, elementParent) => {
-        let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('td[tabindex="2"]'), (element) => {
-            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
-        })
-        let index = focussable.indexOf(document.activeElement)
-        if (index > -1) {
-            if (type === 'previous') {
-                if (index - 1 >= 0) {
-                    let previousElement = focussable[index - 1]
-                    previousElement.focus()
-                }
-            } else {
-                if (index + 1 < focussable.length) {
-                    let nextElement = focussable[index + 1]
-                    nextElement.focus()
-                }
-            }
+    const onFocusHandlerCell = (event, isCellHighlightEnabled) => {
+        event.stopPropagation()
+        if (isCellHighlightEnabled && editModeEnabled && event.target.localName === 'td' && eventData.current.tabbing && eventData.current.keyCode === 9) {
+            document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
         }
     }
 
-    const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
+    const updatePrevSelection = (previousSelection, columnName, index, cellIndex, row) => {
+        previousSelection.oldColumnName = columnName
+        previousSelection.oldIndex = index
+        previousSelection.oldCellIndex = cellIndex
+        previousSelection.oldSelectionId = getValueForDynamicKey(row, uniqueKey)
+    }
+
+    const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled, index, cellIndex) => {
         if (isCellHighlightEnabled && editModeEnabled) {
             event.stopPropagation()
             handleEditModeRowSelection([], 0, false, true)
-            clearTimeout(cellTimer)
             if (event.detail === 1) {
-                eventData.current.ctrlKey = event.ctrlKey
-                eventData.current.button = event.button
-                eventData.current.tabbing = false
-                cellTimer = setTimeout(() => {
-                    const { ctrlKey, button, keyCode } = eventData.current
-                    if (ctrlKey && button === 0 && keyCode === 17) {
-                        handleEditModeCellSelection(row, columnName, uniqueKeyValue)
-                    } else if (button === 0 && !ctrlKey && keyCode === null) {
-                        handleEditModeCellSelection(row, columnName, uniqueKeyValue, true)
-                    } else {
-                        handleEditModeCellSelection([], '', '', false, true)
+                eventData.current = { ...eventData.current, tabbing: false, ctrlKey: event.ctrlKey, shiftKey: event.shiftKey, altKey: event.altKey, button: event.button }
+                let { altKey, shiftKey, ctrlKey, previousSelection } = eventData.current
+                let { oldColumnName, oldIndex = null, oldSelectionId, oldCellIndex } = previousSelection
+                if (!altKey) {
+                    if (!shiftKey) {
+                        const { ctrlKey, button, keyCode } = eventData.current
+                        if (ctrlKey && button === 0 && keyCode === 17) {
+                            handleEditModeCellSelection(row, columnName, uniqueKeyValue)
+                        } else if (button === 0 && !ctrlKey && keyCode === null) {
+                            handleEditModeCellSelection(row, columnName, uniqueKeyValue, true)
+                        } else {
+                            handleEditModeCellSelection([], '', '', false, true)
+                        }
+                        updatePrevSelection(previousSelection, columnName, index, cellIndex, row)
                     }
-                    eventData.current = defaultEventData
-                    eventData.current.tabbing = false
-                }, 70)
-            }
-        }
-    }
-
-    const onFocusHandlerRow = (row, index, event) => {
-        event.stopPropagation()
-        if (event.target.localName === 'tr') {
-            eventData.current.tabbing = true
-            clearTimeout(focusRowTimer)
-            document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
-            focusRowTimer = setTimeout(() => {
-                if (eventData.current.tabbing) {
-                    const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
-                    handleEditModeCellSelection([], '', '', false, true)
-                    handleEditModeRowSelection(row, index, !isShiftPressed)
-                }
-            }, 120)
-        }
-    }
-
-    const onFocusHandlerCell = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled) => {
-        event.stopPropagation()
-        if (isCellHighlightEnabled && editModeEnabled) {
-            if (event.target.localName === 'td' && eventData.current.tabbing) {
-                eventData.current.tabbing = true
-                clearTimeout(focusCellTimer)
-                document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
-                focusCellTimer = setTimeout(() => {
-                    if (eventData.current.tabbing) {
-                        const isShiftPressed = eventData.current.shiftKey === null ? false : eventData.current.shiftKey
-                        const isShiftTabKeyCodePressed = eventData.current.keyCode === 9
-                        handleEditModeRowSelection([], 0, false, true)
-                        handleEditModeCellSelection(
-                            row,
-                            columnName,
-                            uniqueKeyValue,
-                            !(!isShiftTabKeyCodePressed && isShiftPressed)
-                        )
+                    if (shiftKey && !ctrlKey) {
+                        if (oldSelectionId === getValueForDynamicKey(row, uniqueKey) && oldColumnName !== columnName && oldCellIndex !== null) {
+                            let startIndex = oldCellIndex + 1
+                            let endIndex = cellIndex
+                            let columnNames = []
+                            if (startIndex > cellIndex) {
+                                startIndex = cellIndex
+                                endIndex = oldCellIndex - 1
+                            }
+                            const tableBody = document.getElementsByTagName('tbody')[0]
+                            for (let i = startIndex; i <= endIndex; i++) {
+                                const element = tableBody.querySelector(`[data-key="cell_${index}_${parseInt(i, 10)}"]`)
+                                if (element) {
+                                    const columnName = element.getAttribute('data-name')
+                                    columnNames.push(columnName)
+                                }
+                            }
+                            handleEditCellRangeSelection(rows, index, index, [...columnNames])
+                        }
+                        else if (oldColumnName === columnName) {
+                            let startIndex = oldIndex + 1
+                            let endIndex = index
+                            if (startIndex > index) {
+                                startIndex = index + 1
+                                endIndex = oldIndex
+                            }
+                            handleEditCellRangeSelection(rows, startIndex, endIndex, [columnName])
+                        }
+                        else {
+                            handleEditCellRangeSelection(rows, index, index, [columnName])
+                            updatePrevSelection(previousSelection, columnName, index, cellIndex, row)
+                        }
                     }
-                }, 120)
+                    eventData.current = { ...eventData.current, ...defaultEventData, tabbing: false, previousSelection: { ...previousSelection} }
+                }     
             }
         }
     }
@@ -271,12 +287,7 @@ function CustomGridBody(props) {
                                     rowHighlight ? rowHighlightClassName || 'rowHighlight' : '',
                                     rowClassName
                                 )}
-                                onClick={(event) => handleOnClick(row, index, event)}
-                                onKeyDown={keyCodeHandler}
-                                onFocus={(event) => onFocusHandlerRow(row, index, event)}
-                                data-key={`row_${index}`}
-                                data-type='row'
-                                data-index={index}>
+                                onClick={(event) => handleOnClick(row, index, event)}>
                                 {showCheckbox &&
                                     !columnPickerFilterError &&
                                     showSelectionCell(isItemSelected, row, index, selectionType)}
@@ -313,39 +324,44 @@ function CustomGridBody(props) {
                                             data-type='cell'
                                             data-index={index}
                                             data-cellIndex={cellIndex}
+                                            data-isCellHighlightEnabled={isCellHighlightEnabled}
                                             className={`${showErrorBackground ? 'showErrorBackground' : ''} ${
                                                 row.className || configItem.cellClassName || ''
                                             }`}
+                                            onKeyDown={(event) =>
+                                                keyCodeHandler(
+                                                    event,
+                                                    row,
+                                                    lookUpKey,
+                                                    uniqueKey
+                                                )
+                                            }
                                             onFocus={(event) =>
                                                 onFocusHandlerCell(
+                                                    event,
+                                                    isCellHighlightEnabled
+                                                )
+                                            }
+                                            onClick={(event) =>
+                                                onCellClick(
                                                     event,
                                                     row,
                                                     lookUpKey,
                                                     getValueForDynamicKey(row, uniqueKey),
-                                                    isCellHighlightEnabled
+                                                    isCellHighlightEnabled,
+                                                    index,
+                                                    cellIndex
                                                 )
                                             }>
-                                            <div
-                                                onKeyDown={keyCodeHandler}
-                                                onClick={(event) =>
-                                                    onCellClick(
-                                                        event,
-                                                        row,
-                                                        lookUpKey,
-                                                        getValueForDynamicKey(row, uniqueKey),
-                                                        isCellHighlightEnabled
-                                                    )
-                                                }>
-                                                <FormBuilderField
-                                                    doNotTranslate={doNotTranslate}
-                                                    rowData={row}
-                                                    rowIndex={index}
-                                                    config={configItem}
-                                                    value={getValueForDynamicKey(row, lookUpKey)}
-                                                    setEnableRowClick={setEnableRowClick}
-                                                    uniqueKey={uniqueKey}
-                                                />
-                                            </div>
+                                            <FormBuilderField
+                                                doNotTranslate={doNotTranslate}
+                                                rowData={row}
+                                                rowIndex={index}
+                                                config={configItem}
+                                                value={getValueForDynamicKey(row, lookUpKey)}
+                                                setEnableRowClick={setEnableRowClick}
+                                                uniqueKey={uniqueKey}
+                                            />
                                         </TableCell>
                                     ) : null
                                 })}

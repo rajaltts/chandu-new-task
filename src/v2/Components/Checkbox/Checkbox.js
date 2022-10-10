@@ -61,6 +61,7 @@ const Checkbox = ({
                     name={label}
                     color={color}
                     disabled={disabled}
+                    tabIndex={isKeyBoardAccessible ? 2 : 1}
                     autoFocus={isKeyBoardAccessible}
                     {...rest}
                 />

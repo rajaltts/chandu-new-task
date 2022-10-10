@@ -60,7 +60,8 @@ function CustomGrid(props) {
         hideHeader = false,
         isKeyBoardAccessible = false,
         showCellError = null,
-        customTranslations = {}
+        customTranslations = {},
+        checkBoxClassname
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -139,6 +140,11 @@ function CustomGrid(props) {
         const isAsc = orderBy === property && order === ascending
         setOrder(isAsc ? descending : ascending)
         setOrderBy(property)
+    }
+
+    const handleSelectAllClickHandler = (event) => {
+        setSelectedCells({})
+        handleSelectAllClick(event)
     }
 
     const handleSelectAllClick = ({ target: { checked } }) => {
@@ -223,6 +229,41 @@ function CustomGrid(props) {
             } else {
                 handleMultiSelectClick(isUnChecked, row, index, selectedIndex)
             }
+        }
+    }
+
+    const handleEditCellRangeSelection = (rows, startIndex, endIndex, columnNames) => {
+        handleSelectAllClick({ target: { checked: false } })
+        let updatedCells = { ...selectedCells }
+        for (let i = startIndex; i <= endIndex; i++) {
+            const id = getValueForDynamicKey(rows[i], uniqueKey)
+            const isContainsKey = updatedCells.hasOwnProperty(id)
+            if (isContainsKey) {
+                columnNames.forEach(columnName => {
+                    const index = updatedCells[id].columnNames.indexOf(columnName)
+                    if (index > -1) {
+                        updatedCells[id].columnNames = updatedCells[id].columnNames.filter((column) => column !== columnName)
+                    }
+                    else {
+                        updatedCells[id].columnNames.push(columnName)
+                    }
+                })
+                if (!updatedCells[id].columnNames.length) {
+                    delete updatedCells[id]
+                }
+            }
+            else {
+                let updateInfo = {
+                    [id]: {
+                        rowData: rows[i],
+                        columnNames: [...columnNames],
+                    }
+                }
+                updatedCells = { ...updatedCells, ...updateInfo }
+            }
+            setSelectedCells(updatedCells)
+            editModeSelectionsHandler &&
+                editModeSelectionsHandler({ selectedRows: [], selectedColumns: updatedCells })
         }
     }
 
@@ -404,13 +445,14 @@ function CustomGrid(props) {
                                     rowCount={sortedRows.length}
                                     showCheckbox={showCheckbox}
                                     singleSelectGrid={singleSelectGrid}
-                                    onSelectAllClick={handleSelectAllClick}
+                                    onSelectAllClick={handleSelectAllClickHandler}
                                     onRequestSort={handleRequestSort}
                                     doNotTranslate={doNotTranslate}
                                     columnPickerFilterError={columnPickerFilterError}
                                     paginationClass={paginationClass}
                                     columnGrouping={columnGrouping}
                                     columnGroupConfig={columnGroupConfig}
+                                    checkBoxClassname={checkBoxClassname}
                                 />
                             )}
                             {!!getRowLength() && (
@@ -437,11 +479,13 @@ function CustomGrid(props) {
                                     editMode={editMode}
                                     handleEditModeRowSelection={handleEditModeRowSelection}
                                     handleEditModeCellSelection={handleEditModeCellSelection}
+                                    handleEditCellRangeSelection={handleEditCellRangeSelection}
                                     isCellSelected={isCellSelected}
                                     showDivider={showDivider}
                                     isKeyBoardAccessible={isKeyBoardAccessible}
                                     showCellError={showCellError}
                                     customTranslations={customTranslations}
+                                    checkBoxClassname={checkBoxClassname}
                                 />
                             )}
                         </Table>

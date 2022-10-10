@@ -90,6 +90,7 @@ const Input = ({
                     error: classes.inputError,
                     notchedOutline: classes.inputNotchedOutline,
                 },
+                tabIndex: isKeyBoardAccessible ? '2' : '-1',
                 ...InputProps,
             }}
             InputLabelProps={{

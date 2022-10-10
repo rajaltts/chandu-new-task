@@ -35,7 +35,7 @@ const columnPickerStyles = makeStyles(() => ({
         cursor: 'pointer',
         position: 'absolute',
         marginRight: '19px',
-        marginTop: '2px',
+        marginTop: '-3px',
         zIndex: '9',
         display: 'flex',
         alignItems: 'center',

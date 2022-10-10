@@ -150,6 +150,7 @@ const InputRange = ({
                     autoFocus={isKeyBoardAccessible}
                     InputLabelProps={isLabelRequired ? null : { shrink: true }}
                     InputProps={{
+                        tabIndex: isKeyBoardAccessible ? '2' : '-1',
                         classes: {
                             focused: inputFocused,
                             error: inputError,

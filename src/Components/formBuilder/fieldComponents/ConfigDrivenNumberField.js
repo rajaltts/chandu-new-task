@@ -95,7 +95,7 @@ const ConfigDrivenNumberField = (props) => {
             return false
         }
         if (validations.validation) {
-            const message = validations.validation(editedValue)
+            const message = validations.validation(editedValue, rowData, config)
             if (message) {
                 setValidationMessage(message)
                 setIsValid(false)

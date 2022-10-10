@@ -36,6 +36,7 @@ const CustomGridHead = (props) => {
         columnPickerFilterError,
         columnGrouping,
         columnGroupConfig,
+        checkBoxClassname
     } = props
 
     const createSortHandler = (property) => (event) => {
@@ -55,6 +56,7 @@ const CustomGridHead = (props) => {
                             onChange={(event) => {
                                 if (cell.onChange) cell.onChange(event.target.checked, cell)
                             }}
+                            className={checkBoxClassname}
                             inputProps={{ 'aria-label': 'select this column' }}
                         />
                     )}
@@ -73,6 +75,7 @@ const CustomGridHead = (props) => {
                         color='primary'
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
+                        className={checkBoxClassname}
                         inputProps={{ 'aria-label': 'select all rows' }}
                     />
                 )}
