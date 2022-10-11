@@ -64,28 +64,29 @@ const Select = ({
                 InputProps={inputProps}
                 autoFocus={isKeyBoardAccessible}
                 InputLabelProps={inputLabelProps}
-                MenuProps={{
-                    style: {
-                        zIndex: 9999999,
+                SelectProps={{
+                    MenuProps: {
+                        style: {
+                            zIndex: 9999999,
+                        },
+                        anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        },
+                        transformOrigin: {
+                            vertical: 'top',
+                            horizontal: 'left',
+                        },
+                        getContentAnchorEl: null,
+                        ...authorizedProps?.MenuProps,
                     },
-                    anchorOrigin: {
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    },
-                    transformOrigin: {
-                        vertical: 'top',
-                        horizontal: 'left',
-                    },
-                    getContentAnchorEl: null,
-                    ...authorizedProps?.MenuProps,
                 }}
                 {...authorizedProps}
                 label={showLabel ? label : ''}
                 className={classNames(classes.selectRoot, selectRootClassName)}
                 onChange={(event) => handleChange && handleChange(event.target.value)}
                 value={value}
-                renderValue={renderValue}
-            >
+                renderValue={renderValue}>
                 {values &&
                     values
                         .map((v) => {
@@ -118,8 +119,7 @@ const Select = ({
                                     className={classNames(classes.menuItem, !v.feasible && 'unfeasible')}
                                     key={v.value}
                                     value={v.value}
-                                    dense
-                                >
+                                    dense>
                                     {v.secondaryLabel ? <Tooltip title={v.secondaryLabel}>{box}</Tooltip> : box}
                                 </MenuItem>
                             )
