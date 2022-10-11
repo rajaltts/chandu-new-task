@@ -123,6 +123,7 @@ import FilterList from './v2/Components/CalcEngineResult/filter/FilterList'
 import CandidateCard from './v2/Components/CalcEngineResult/card/CandidateCard'
 import CandidateCardDetails from './v2/Components/CalcEngineResult/card/CandidateCardDetails'
 import CandidateCardList from './v2/Components/CalcEngineResult/card/CandidateCardList'
+import CandidateTable from './v2/Components/CalcEngineResult/table/CandidateTable'
 
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
@@ -275,4 +276,5 @@ export {
     CandidateCard,
     CandidateCardDetails,
     CandidateCardList,
+    CandidateTable,
 }
