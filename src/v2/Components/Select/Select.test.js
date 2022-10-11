@@ -99,31 +99,38 @@ it('should not be relaxed', () => {
         )
     })
     const input = container.querySelector('.MuiInputBase-root')
-    const label = container.querySelector('.MuiFormLabel-root')
+    const elementLabel = container.querySelector('.MuiFormLabel-root')
     const helperText = container.querySelector('.MuiFormHelperText-root')
     expect(input).not.toBeNull()
-    expect(label).not.toBeNull()
+    expect(elementLabel).not.toBeNull()
     expect(helperText).toBeNull()
     expect(input.classList.contains('Mui-error')).toBe(false)
-    expect(label.classList.contains('Mui-error')).toBe(false)
+    expect(elementLabel.classList.contains('Mui-error')).toBe(false)
 })
 
 it('should be relaxed', () => {
     act(() => {
         render(
             <MockIntl>
-                <Select values={values} value={value} label={label} relaxed={true} onChange={() => {}} />
+                <Select
+                    values={values}
+                    value={value}
+                    label={label}
+                    relaxed={true}
+                    notCompatibleLabel={'Invalid'}
+                    onChange={() => {}}
+                />
             </MockIntl>,
             container
         )
     })
     const input = container.querySelector('.MuiInputBase-root')
-    const label = container.querySelector('.MuiFormLabel-root')
+    const elementLabel = container.querySelector('.MuiFormLabel-root')
     const helperText = container.querySelector('.MuiFormHelperText-root')
     expect(input).not.toBeNull()
-    expect(label).not.toBeNull()
+    expect(elementLabel).not.toBeNull()
     expect(helperText).not.toBeNull()
     expect(input.classList.contains('Mui-error')).toBe(true)
-    expect(label.classList.contains('Mui-error')).toBe(true)
+    expect(elementLabel.classList.contains('Mui-error')).toBe(true)
     expect(helperText.classList.contains('Mui-error')).toBe(true)
 })
