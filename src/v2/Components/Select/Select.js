@@ -34,6 +34,8 @@ const Select = ({
     notCompatibleLabel,
     inputLabelProps,
     inputProps,
+    selectProps,
+    menuProps,
     showLabel = true,
     selectRootClassName = '',
     isKeyBoardAccessible,
@@ -78,15 +80,16 @@ const Select = ({
                             horizontal: 'left',
                         },
                         getContentAnchorEl: null,
-                        ...authorizedProps?.MenuProps,
+                        ...menuProps,
                     },
+                    renderValue,
+                    ...selectProps,
                 }}
                 {...authorizedProps}
                 label={showLabel ? label : ''}
                 className={classNames(classes.selectRoot, selectRootClassName)}
                 onChange={(event) => handleChange && handleChange(event.target.value)}
-                value={value}
-                renderValue={renderValue}>
+                value={value}>
                 {values &&
                     values
                         .map((v) => {
