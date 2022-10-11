@@ -28,7 +28,8 @@ const CandidateCard = ({ details, index, openPopupCallback, ...mediaCardProps })
             imgProps={{ height: 140 }}
             contentProps={{ className: classes.content }}
             color='secondary'
-            {...mediaCardProps}>
+            {...mediaCardProps}
+        >
             <>
                 <IconButton className={classes.visibilityButton} onClick={handleVisibilityButtonClick}>
                     <VisibilityIcon />

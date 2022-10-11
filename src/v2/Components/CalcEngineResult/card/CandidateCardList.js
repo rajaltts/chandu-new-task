@@ -28,7 +28,8 @@ const CandidateCardList = ({ cardConfig, candidateImage, selected, onSelected, i
                 fullWidth
                 dialogClassName={classes.candidateCardDetailsModal}
                 headerIcon={CandidateImageCompo}
-                onClose={() => setIsModalOpen(-1)}>
+                onClose={() => setIsModalOpen(-1)}
+            >
                 <CandidateCardDetails detailsData={isModalOpen >= 0 && cardConfig[isModalOpen]?.getCardDetails()} />
             </ConfirmModal>
             <Grid className={classes.mainGrid} container spacing={2}>
