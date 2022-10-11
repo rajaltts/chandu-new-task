@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import Typography from '../Typography/Typography'
 import Select from './Select'
+import BookIcon from '@material-ui/icons/Book'
 
 export default {
     title: 'InputComponent/Select',
@@ -68,6 +70,7 @@ export default {
         valueNotCompatibleText: {
             defaultValue: 'Invalid selection',
         },
+        adornments: (v) => (v.attributes ? 'MLP' : null),
     },
 }
 
@@ -86,4 +89,19 @@ Disabled.args = {
 export const Relaxed = SelectTemplate.bind({})
 Relaxed.args = {
     relaxed: true,
+}
+
+export const Adornments = SelectTemplate.bind({})
+Adornments.args = {
+    adornments: [
+        <BookIcon key={1} />,
+        <Typography key={2} style={{ marginLeft: 4, marginRight: 4 }}>
+            E
+        </Typography>,
+    ],
+}
+
+export const ConditionalAdornments = SelectTemplate.bind({})
+ConditionalAdornments.args = {
+    adornments: (v) => (v.attributes ? <Typography style={{ marginRight: 4 }}>MLP</Typography> : null),
 }
