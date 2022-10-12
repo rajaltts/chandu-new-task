@@ -124,6 +124,7 @@ import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/Simp
 
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
+import { RulesContext } from './Components/context'
 
 export {
     Autocomplete,
@@ -248,4 +249,5 @@ export {
     RangeWithUnit,
     Input,
     ImageContent,
+    RulesContext,
 }
