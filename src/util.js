@@ -152,4 +152,12 @@ let defaultTheme = {
     },
 }
 
-export { pxToRem, defaultTheme }
+const getFocusableCells = (elementParent) => {
+    let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('[tabindex="2"]'), (element) => {
+        return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+    })
+    let index = focussable.indexOf(document.activeElement)
+    return { focussable, index }
+}
+
+export { pxToRem, defaultTheme, getFocusableCells }

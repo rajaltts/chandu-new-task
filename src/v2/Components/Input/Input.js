@@ -17,6 +17,7 @@ const Input = ({
     variant,
     value,
     loading,
+    trigger,
     InputProps,
     handleChange,
     required,
@@ -66,7 +67,18 @@ const Input = ({
         setTouched(false)
         if (showWarning) setShowWarning(false)
 
-        if (e.target.value !== value) {
+        if (trigger === 'blur' && e.target.value !== value) {
+            handleChange(e.target.value)
+        }
+    }
+
+    const handleKeyDownHandler = (e) => {
+        e.stopPropagation()
+        setIsUserInput(false)
+        setTouched(false)
+        if (showWarning) setShowWarning(false)
+
+        if (trigger === 'enter' && e.target.value !== value && e.key === 'Enter' && e.target.localName === 'input') {
             handleChange(e.target.value)
         }
     }
@@ -90,7 +102,7 @@ const Input = ({
                     error: classes.inputError,
                     notchedOutline: classes.inputNotchedOutline,
                 },
-                tabIndex: isKeyBoardAccessible ? '2' : '-1',
+                inputProps: { tabIndex: isKeyBoardAccessible ? '2' : '-1' },
                 ...InputProps,
             }}
             InputLabelProps={{
@@ -106,6 +118,7 @@ const Input = ({
             onChange={valueChange}
             onBlur={handleBlur}
             onFocus={() => setTouched(true)}
+            onKeyDown={handleKeyDownHandler}
             required={required}
             disabled={disabled}
             error={error}
@@ -118,6 +131,7 @@ Input.defaultProps = {
     type: 'text',
     variant: 'outlined',
     warningMessage: 'Please enter only integer values',
+    trigger: 'blur'
 }
 
 Input.propTypes = {
@@ -132,6 +146,7 @@ Input.propTypes = {
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     rest: PropTypes.object,
+    trigger: PropTypes.oneOf(['blur', 'enter']),
 }
 
 export default Input

@@ -36,7 +36,8 @@ const CustomGridHead = (props) => {
         columnPickerFilterError,
         columnGrouping,
         columnGroupConfig,
-        checkBoxClassname
+        checkBoxClassname,
+        isKeyBoardAccessible
     } = props
 
     const createSortHandler = (property) => (event) => {
@@ -56,6 +57,7 @@ const CustomGridHead = (props) => {
                             onChange={(event) => {
                                 if (cell.onChange) cell.onChange(event.target.checked, cell)
                             }}
+                            tabIndex={isKeyBoardAccessible ? 2 : -1}
                             className={checkBoxClassname}
                             inputProps={{ 'aria-label': 'select this column' }}
                         />
@@ -77,6 +79,7 @@ const CustomGridHead = (props) => {
                         onChange={onSelectAllClick}
                         className={checkBoxClassname}
                         inputProps={{ 'aria-label': 'select all rows' }}
+                        tabIndex = {isKeyBoardAccessible ? 2 : -1}
                     />
                 )}
             </TableCell>

@@ -453,6 +453,7 @@ function CustomGrid(props) {
                                     columnGrouping={columnGrouping}
                                     columnGroupConfig={columnGroupConfig}
                                     checkBoxClassname={checkBoxClassname}
+                                    isKeyBoardAccessible={isKeyBoardAccessible}
                                 />
                             )}
                             {!!getRowLength() && (

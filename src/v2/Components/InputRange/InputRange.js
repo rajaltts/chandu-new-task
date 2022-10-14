@@ -129,6 +129,17 @@ const InputRange = ({
             handleChange(e.target.value)
         }
     }
+    
+    const handleKeyDownHandler = (e) => {
+        e.stopPropagation()
+        setIsUserInput(false)
+        setTouched(false)
+        if (showWarning) setShowWarning(false)
+
+        if (e.target.value !== value && e.key === 'Enter' && e.target.localName === 'input') {
+            handleChange(e.target.value)
+        }
+    }
 
     if (!visible) {
         return <></>
@@ -150,7 +161,7 @@ const InputRange = ({
                     autoFocus={isKeyBoardAccessible}
                     InputLabelProps={isLabelRequired ? null : { shrink: true }}
                     InputProps={{
-                        tabIndex: isKeyBoardAccessible ? '2' : '-1',
+                        inputProps: { tabIndex: isKeyBoardAccessible ? '2' : '-1' },
                         classes: {
                             focused: inputFocused,
                             error: inputError,
@@ -166,6 +177,7 @@ const InputRange = ({
                                             className={dropdownButton}
                                             variant='text'
                                             onClick={openDropdown}
+                                            tabIndex={isKeyBoardAccessible ? '2' : '1'}
                                             endIcon={<ArrowDropDownIcon />}
                                         >
                                             {unit}
@@ -203,6 +215,7 @@ const InputRange = ({
                     onChange={valueChange}
                     onFocus={() => setTouched(true)}
                     onBlur={handleBlur}
+                    onKeyDown={handleKeyDownHandler}
                     error={error}
                     disabled={disabled}
                     {...authorizedProps}

@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import { getValueForDynamicKey } from './CustomGridUtils'
 import './CustomGrid.css'
 import CustomTranslation from './CustomTranslation'
+import { getFocusableCells } from "../../util"
 
 function CustomGridBody(props) {
     const {
@@ -34,7 +35,7 @@ function CustomGridBody(props) {
         columnPicker,
         columnPickerFilterError,
         handleEditModeCellSelection,
-        isKeyBoardAccessible,
+        isKeyBoardAccessible = false,
         showCellError,
         customTranslations,
         checkBoxClassname,
@@ -113,14 +114,6 @@ function CustomGridBody(props) {
         getElementToFocus(element, rowData, columnName, isShiftkeyPressed)
     }
 
-    const getFocusableCells = (elementParent) => {
-        let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('td[tabindex="2"]'), (element) => {
-            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
-        })
-        let index = focussable.indexOf(document.activeElement)
-        return { focussable, index }
-    }
-
     const getElementToFocusOnLeftRightArrow = (type, elementParent, row, isShiftkeyPressed, shouldFocus = true) => {
         const { focussable, index } = getFocusableCells(elementParent)
         let element
@@ -140,24 +133,10 @@ function CustomGridBody(props) {
     }
 
     const keyCodeHandler = (event, row, columnName) => {
+        event.stopPropagation()
         if (editModeEnabled) {
             eventData.current = { ...eventData.current, tabbing: true, keyCode: event.keyCode, shiftKey: event.shiftKey, ctrlKey: event.ctrlKey, altKey: event.altKey }
             if (isKeyBoardAccessible && !event.altKey) {
-                if (!event.shiftKey) {
-                    if (event.ctrlKey && event.keyCode === 67) {
-                        document.dispatchEvent(new Event('copy'))
-                    }
-                    if (event.ctrlKey && event.keyCode === 86) {
-                        document.dispatchEvent(new Event('paste'))
-                    }
-                    if (!event.ctrlKey && event.keyCode === 13) {
-                        if (event.target) {
-                            const id = event.target.getAttribute('data-id')
-                            const name = event.target.getAttribute('data-name')
-                            document.dispatchEvent(new CustomEvent('enter', { detail: { id, name } }))
-                        }
-                    }
-                }
                 if (!event.ctrlKey) {
                     const type = event.target.getAttribute('data-type')
                     const index = event.target.getAttribute('data-index')
@@ -173,9 +152,8 @@ function CustomGridBody(props) {
                         event.view.event.preventDefault()
                         const newIndex = parseInt(index, 10) + 1
                         getElementToFocusOnUpDownArrow(tableBody, `[data-key="${type}_${newIndex}_${parseInt(cellIndex, 10)}"]`, newIndex, columnName, event.shiftKey)
-                    } else if (event.keyCode === 9 && type === 'cell') {
+                    } else if (event.keyCode === 9) {
                         //Shift + Tab or Tab
-                        //document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
                         getElementToFocusOnLeftRightArrow(event.shiftKey ? 'previous' : 'next', tableBody, row, false, false)
                     } else if (event.keyCode === 37 && type === 'cell') {
                         //left arrow
@@ -185,14 +163,29 @@ function CustomGridBody(props) {
                         getElementToFocusOnLeftRightArrow('next', tableBody, row, event.shiftKey)
                     }
                 }
+                if (!event.shiftKey) {
+                    if (event.ctrlKey && event.keyCode === 67) {
+                        document.dispatchEvent(new Event('copy'))
+                    }
+                    if (event.ctrlKey && event.keyCode === 86) {
+                        document.dispatchEvent(new Event('paste'))
+                    }
+                    if (!event.ctrlKey && event.keyCode === 13) {
+                        if (event.target) {
+                            const id = event.target.getAttribute('data-id')
+                            const name = event.target.getAttribute('data-name')
+                            document.dispatchEvent(new CustomEvent('enter', { detail: { id, name, target: event.target } }))
+                        }
+                    }
+                }
             }
         }
     }
 
     const onFocusHandlerCell = (event, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (isCellHighlightEnabled && editModeEnabled && event.target.localName === 'td' && eventData.current.tabbing && eventData.current.keyCode === 9) {
-            document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.target } }))
+        if (isCellHighlightEnabled && editModeEnabled && isKeyBoardAccessible && event.currentTarget.localName === 'td' && eventData.current.tabbing && eventData.current.keyCode === 9) {
+            document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.currentTarget } }))
         }
     }
 
@@ -361,6 +354,7 @@ function CustomGridBody(props) {
                                                 value={getValueForDynamicKey(row, lookUpKey)}
                                                 setEnableRowClick={setEnableRowClick}
                                                 uniqueKey={uniqueKey}
+                                                isKeyBoardAccessible={isKeyBoardAccessible}
                                             />
                                         </TableCell>
                                     ) : null

@@ -16,6 +16,7 @@ const ConfigDrivenNumberField = (props) => {
         doNotTranslate,
         setEnableRowClick = null,
         uniqueKey,
+        isKeyBoardAccessible = false
     } = props
     const {
         step = '1',
@@ -150,6 +151,7 @@ const ConfigDrivenNumberField = (props) => {
                     classes: {
                         input: InputRoot,
                     },
+                    inputProps: { tabIndex: isKeyBoardAccessible ? '2' : '-1' },
                 }}
                 value={editedValue}
                 autoFocus
