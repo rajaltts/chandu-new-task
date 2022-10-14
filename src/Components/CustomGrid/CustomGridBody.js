@@ -45,7 +45,6 @@ function CustomGridBody(props) {
     const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
     const { translations = null, translationsUniqueKey = '', lang, messages } = customTranslations
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
-    const [enableRowClick, setEnableRowClick] = useState(true)
     const defaultEventData = {
         altKey: null,
         keyCode: null,
@@ -61,6 +60,11 @@ function CustomGridBody(props) {
         },
     }
     const eventData = useRef(defaultEventData)
+    const enableRowClick = useRef(true)
+
+    const setEnableRowClick = (isEnable) => {
+        enableRowClick.current = isEnable
+    }
 
     const handleClickHandler = (event, row, index, type) => {
         handleEditModeCellSelection([], '', '', false, true)
@@ -89,7 +93,7 @@ function CustomGridBody(props) {
         if (clickOnRowHighlight) setClickedRow(row)
         clearTimeout(rowClickTimer)
         rowClickTimer = setTimeout(() => {
-            if (enableRowClick && rowOnclickHandler) rowOnclickHandler(row, index, event)
+            if (enableRowClick.current && rowOnclickHandler) rowOnclickHandler(row, index, event)
         }, 300)
     }
 

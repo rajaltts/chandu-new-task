@@ -74,7 +74,6 @@ const Input = ({
 
     const handleKeyDownHandler = (e) => {
         e.stopPropagation()
-        setIsUserInput(false)
         setTouched(false)
         if (showWarning) setShowWarning(false)
 
