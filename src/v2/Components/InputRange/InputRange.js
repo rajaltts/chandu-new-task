@@ -122,21 +122,23 @@ const InputRange = ({
     const handleBlur = (e) => {
         e.stopPropagation()
         setIsUserInput(false)
-        setTouched(false)
-        if (showWarning) setShowWarning(false)
+        if (!(e.target.localName === 'input') || !(e.target.localName === 'button')) {
+            setTouched(false)
+            if (showWarning) setShowWarning(false)
+        }
 
         if (trigger === 'blur' && e.target.value !== value) {
             handleChange(e.target.value)
         }
     }
-    
+
     const handleKeyDownHandler = (e) => {
         e.stopPropagation()
-        setIsUserInput(false)
-        setTouched(false)
-        if (showWarning) setShowWarning(false)
 
         if (e.target.value !== value && e.key === 'Enter' && e.target.localName === 'input') {
+            setIsUserInput(false)
+            setTouched(false)
+            if (showWarning) setShowWarning(false)
             handleChange(e.target.value)
         }
     }
@@ -178,8 +180,7 @@ const InputRange = ({
                                             variant='text'
                                             onClick={openDropdown}
                                             tabIndex={isKeyBoardAccessible ? '2' : '1'}
-                                            endIcon={<ArrowDropDownIcon />}
-                                        >
+                                            endIcon={<ArrowDropDownIcon />}>
                                             {unit}
                                         </Button>
                                         <Menu
@@ -188,15 +189,13 @@ const InputRange = ({
                                             className={unitMenu}
                                             open={Boolean(anchorEl)}
                                             autoFocus={isKeyBoardAccessible}
-                                            onClose={closeMenu}
-                                        >
+                                            onClose={closeMenu}>
                                             {units.map((option) => {
                                                 return (
                                                     <MenuItem
                                                         key={option}
                                                         selected={unit === option}
-                                                        onClick={() => handleMenuItemClick(option)}
-                                                    >
+                                                        onClick={() => handleMenuItemClick(option)}>
                                                         {option}
                                                     </MenuItem>
                                                 )

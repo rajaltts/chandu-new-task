@@ -32,8 +32,7 @@ const CartSectionBaseunit = ({ cartSectionConfig = {}, getPriceString = () => {}
                                 sm={columnWidth}
                                 xs={columnWidth}
                                 key={key}
-                                style={priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}
-                            >
+                                style={priceUnit ? { textAlign: 'right' } : { textAlign: 'center' }}>
                                 {isEditable ? (
                                     <ConfigDrivenNumberField
                                         config={{ isEditable, onClick }}

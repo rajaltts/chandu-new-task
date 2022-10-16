@@ -32,8 +32,7 @@ const Section = ({
                 paragraph
                 variant='h2'
                 className={`titleTypo ${classes.typography}`}
-                {...typographyProps}
-            >
+                {...typographyProps}>
                 {title}
             </Typography>
             {children}

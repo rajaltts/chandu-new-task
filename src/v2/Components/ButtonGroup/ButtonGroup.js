@@ -14,8 +14,7 @@ const ButtonGroup = ({ name, value, values = [], onChange, buttonProps, ...rest 
                     selected={item.value === value}
                     disabled={!item.feasible || authorizedProps?.disabled}
                     onClick={() => onChange(item.value)}
-                    {...(buttonProps ? buttonProps(item, index) : {})}
-                >
+                    {...(buttonProps ? buttonProps(item, index) : {})}>
                     {item.label}
                 </Button>
             ))}

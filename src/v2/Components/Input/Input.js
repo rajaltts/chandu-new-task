@@ -74,10 +74,10 @@ const Input = ({
 
     const handleKeyDownHandler = (e) => {
         e.stopPropagation()
-        setTouched(false)
-        if (showWarning) setShowWarning(false)
 
         if (trigger === 'enter' && e.target.value !== value && e.key === 'Enter' && e.target.localName === 'input') {
+            setTouched(false)
+            if (showWarning) setShowWarning(false)
             handleChange(e.target.value)
         }
     }
@@ -130,7 +130,7 @@ Input.defaultProps = {
     type: 'text',
     variant: 'outlined',
     warningMessage: 'Please enter only integer values',
-    trigger: 'blur'
+    trigger: 'blur',
 }
 
 Input.propTypes = {

@@ -28,8 +28,7 @@ const DrawerLayout = ({ children, isOpen, onClose, anchor, elevation, variant, d
             onClose={onClose}
             anchor={anchor}
             BackdropProps={{ invisible: true }}
-            variant={variant}
-        >
+            variant={variant}>
             <div className={drawerContentClass}>{children}</div>
         </Drawer>
     )

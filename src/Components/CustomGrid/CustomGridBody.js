@@ -275,7 +275,6 @@ function CustomGridBody(props) {
                             <TableRow
                                 role='checkbox'
                                 aria-checked={isItemSelected}
-                                tabIndex={isKeyBoardAccessible ? 2 : -1}
                                 key={index}
                                 className={classNames(
                                     editModeEnabled && editModeHighlight && isItemSelected
