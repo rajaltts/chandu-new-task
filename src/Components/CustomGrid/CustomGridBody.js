@@ -78,6 +78,7 @@ function CustomGridBody(props) {
             checked: isItemSelected,
             onChange: (event) => handleClickHandler(event, row, index, type),
             onClick: (event) => handleSelectOnClick(event),
+            onKeyDown: (event) => keyCodeHandler(event, row),
             inputProps: { 'aria-label': 'select this row' },
             className: checkBoxClassname,
             tabIndex: isKeyBoardAccessible ? 2 : -1
@@ -328,8 +329,7 @@ function CustomGridBody(props) {
                                                 keyCodeHandler(
                                                     event,
                                                     row,
-                                                    lookUpKey,
-                                                    uniqueKey
+                                                    lookUpKey
                                                 )
                                             }
                                             onFocus={(event) =>
