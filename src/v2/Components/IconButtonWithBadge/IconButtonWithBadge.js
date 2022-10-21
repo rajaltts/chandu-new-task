@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { IconButton, Badge } from '@material-ui/core'
 import useStyles from './IconButtonWithBadge.styles'
 
-const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon, disabled }) => {
+const IconButtonWithBadge = ({ className, onClick, color, badgeContent, badgeColor, icon, disabled, id }) => {
     const classes = useStyles()
 
     return (
         <IconButton
+            id={id ? id : ''}
             className={`${classes.iconButtonWithBadge} ${className}`}
             disabled={disabled}
             color={color}

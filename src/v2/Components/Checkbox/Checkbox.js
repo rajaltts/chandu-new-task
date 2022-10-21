@@ -4,6 +4,7 @@ import { Tooltip, Checkbox as MaterialCheckbox, FormControlLabel } from '@materi
 import useStyles from './Checkbox.styles'
 
 const Checkbox = ({
+    id,
     className,
     value,
     handleChange,
@@ -48,6 +49,7 @@ const Checkbox = ({
     }
     return (
         <FormControlLabel
+            id={id ? `FormControlLabel_${id}` : ''}
             classes={{
                 label: classes.label,
             }}
@@ -55,6 +57,7 @@ const Checkbox = ({
             aria-label={label}
             control={
                 <MaterialCheckbox
+                    id={id ? id : ''}
                     className={`${checkboxClassName} ${classes.root}`}
                     checked={value}
                     onChange={handleChange}

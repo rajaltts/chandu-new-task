@@ -111,6 +111,7 @@ const RangeWithUnit = ({
             valid,
             className: className,
             relaxed,
+            id: name,
         })
     })
 

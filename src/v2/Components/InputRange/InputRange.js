@@ -176,6 +176,7 @@ const InputRange = ({
                                 {units && units.length > 1 && (
                                     <>
                                         <Button
+                                            id={id ? `button_${id}` : ''}
                                             className={dropdownButton}
                                             variant='text'
                                             onClick={openDropdown}
@@ -184,7 +185,7 @@ const InputRange = ({
                                             {unit}
                                         </Button>
                                         <Menu
-                                            id={`menu-${id}`}
+                                            id={id ? `menu_${id}` : ''}
                                             anchorEl={anchorEl}
                                             className={unitMenu}
                                             open={Boolean(anchorEl)}

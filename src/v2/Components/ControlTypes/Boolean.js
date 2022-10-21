@@ -77,6 +77,7 @@ const Boolean = ({
             relaxed,
             valid,
             visible,
+            id: name,
         })
     })
 

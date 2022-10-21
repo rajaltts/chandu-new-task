@@ -182,7 +182,7 @@ const ReportPreview = ({
                             <Tooltip
                                 title={translation('ClosePreview', 'Close preview')}
                                 PopperProps={{ container: topBarRef.current }}>
-                                <IconButton onClick={onClose}>
+                                <IconButton id={'closeReportPreview'} onClick={onClose}>
                                     <FontAwesomeIcon className={classes.actionIcons} icon={faTimes} />
                                 </IconButton>
                             </Tooltip>
