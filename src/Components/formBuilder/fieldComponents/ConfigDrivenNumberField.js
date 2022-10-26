@@ -58,7 +58,7 @@ const ConfigDrivenNumberField = (props) => {
         return () => {
             document.removeEventListener('enter', onkeyBoardEnterClick)
         }
-    }, [props.rowData])
+    }, [props.rowData, value])
 
     const onClickHandler = () => {
         if (onClick) {
