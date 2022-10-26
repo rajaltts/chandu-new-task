@@ -79,6 +79,7 @@ function CustomGridBody(props) {
             onChange: (event) => handleClickHandler(event, row, index, type),
             onClick: (event) => handleSelectOnClick(event),
             onKeyDown: (event) => keyCodeHandler(event, row),
+            onFocus: (event) => onFocusHandlerSelectionCell(event, true),
             inputProps: { 'aria-label': 'select this row' },
             className: checkBoxClassname,
             tabIndex: isKeyBoardAccessible ? 2 : -1
@@ -119,8 +120,8 @@ function CustomGridBody(props) {
         getElementToFocus(element, rowData, columnName, isShiftkeyPressed)
     }
 
-    const getElementToFocusOnLeftRightArrow = (type, elementParent, row, isShiftkeyPressed, shouldFocus = true) => {
-        const { focussable, index } = getFocusableCells(elementParent)
+    const getElementToFocusOnLeftRightArrow = (type, elementParent, query, isShiftkeyPressed, shouldFocus = true) => {
+        const { focussable, index } = getFocusableCells(elementParent, query)
         let element
         if (index > -1) {
             if (type === 'previous') {
@@ -133,7 +134,8 @@ function CustomGridBody(props) {
                 }
             }
             const cellColumnName = element.getAttribute('data-name')
-            getElementToFocus(element, row, cellColumnName, isShiftkeyPressed, shouldFocus)
+            const rowIndex = element.getAttribute('data-index')
+            getElementToFocus(element, rows[rowIndex], cellColumnName, isShiftkeyPressed, shouldFocus)
         }
     }
 
@@ -159,13 +161,13 @@ function CustomGridBody(props) {
                         getElementToFocusOnUpDownArrow(tableBody, `[data-key="${type}_${newIndex}_${parseInt(cellIndex, 10)}"]`, newIndex, columnName, event.shiftKey)
                     } else if (event.keyCode === 9) {
                         //Shift + Tab or Tab
-                        getElementToFocusOnLeftRightArrow(event.shiftKey ? 'previous' : 'next', tableBody, row, false, false)
-                    } else if (event.keyCode === 37 && type === 'cell') {
+                        getElementToFocusOnLeftRightArrow(event.shiftKey ? 'previous' : 'next', tableBody, undefined, false, false)
+                    } else if (event.keyCode === 37) {
                         //left arrow
-                        getElementToFocusOnLeftRightArrow('previous', tableBody, row, event.shiftKey)
-                    } else if (event.keyCode === 39 && type === 'cell') {
+                        getElementToFocusOnLeftRightArrow('previous', tableBody, 'td[tabindex="2"]', event.shiftKey)
+                    } else if (event.keyCode === 39) {
                         //right arrow
-                        getElementToFocusOnLeftRightArrow('next', tableBody, row, event.shiftKey)
+                        getElementToFocusOnLeftRightArrow('next', tableBody, 'td[tabindex="2"]', event.shiftKey)
                     }
                 }
                 if (!event.shiftKey) {
@@ -189,7 +191,21 @@ function CustomGridBody(props) {
 
     const onFocusHandlerCell = (event, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (isCellHighlightEnabled && editModeEnabled && isKeyBoardAccessible && event.currentTarget.localName === 'td' && eventData.current.tabbing && eventData.current.keyCode === 9) {
+        if (event.currentTarget.localName === 'td') {
+            onFocusCell(event, isCellHighlightEnabled)
+        }
+    }
+    
+    const onFocusHandlerSelectionCell = (event, isCellHighlightEnabled) => {
+        event.stopPropagation()
+        if (eventData.current.keyCode === 9) {
+            handleEditModeCellSelection([], '', '', false, true)
+            onFocusCell(event, isCellHighlightEnabled)
+        }        
+    }
+    
+    const onFocusCell = (event, isCellHighlightEnabled) => {
+        if (isCellHighlightEnabled && editModeEnabled && isKeyBoardAccessible && eventData.current.tabbing && eventData.current.keyCode === 9) {
             document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.currentTarget } }))
         }
     }
@@ -199,6 +215,19 @@ function CustomGridBody(props) {
         previousSelection.oldIndex = index
         previousSelection.oldCellIndex = cellIndex
         previousSelection.oldSelectionId = getValueForDynamicKey(row, uniqueKey)
+    }
+
+    const getColumns = (index, startIndex, endIndex) => {
+        let columnNames = []
+        const tableBody = document.getElementsByTagName('tbody')[0]
+        for (let i = startIndex; i <= endIndex; i++) {
+            const element = tableBody.querySelector(`[data-key="cell_${index}_${parseInt(i, 10)}"]`)
+            if (element) {
+                const columnName = element.getAttribute('data-name')
+                columnNames.push(columnName)
+            }
+        }
+        return columnNames
     }
 
     const onCellClick = (event, row, columnName, uniqueKeyValue, isCellHighlightEnabled, index, cellIndex) => {
@@ -222,29 +251,33 @@ function CustomGridBody(props) {
                         updatePrevSelection(previousSelection, columnName, index, cellIndex, row)
                     }
                     if (shiftKey && !ctrlKey) {
-                        if (oldSelectionId === getValueForDynamicKey(row, uniqueKey) && oldColumnName !== columnName && oldCellIndex !== null) {
-                            let startIndex = oldCellIndex + 1
+                        if (oldColumnName !== columnName && oldCellIndex !== null) {
+                            let startIndex = oldCellIndex
                             let endIndex = cellIndex
-                            let columnNames = []
                             if (startIndex > cellIndex) {
                                 startIndex = cellIndex
-                                endIndex = oldCellIndex - 1
+                                endIndex = oldCellIndex
                             }
-                            const tableBody = document.getElementsByTagName('tbody')[0]
-                            for (let i = startIndex; i <= endIndex; i++) {
-                                const element = tableBody.querySelector(`[data-key="cell_${index}_${parseInt(i, 10)}"]`)
-                                if (element) {
-                                    const columnName = element.getAttribute('data-name')
-                                    columnNames.push(columnName)
+                            if (oldSelectionId === getValueForDynamicKey(row, uniqueKey)) {
+                                const columnNames = getColumns(index, startIndex, endIndex)
+                                handleEditCellRangeSelection(rows, index, index, [...columnNames])
+                            }
+                            else {
+                                let startRowIndex = oldIndex
+                                let endRowIndex = index
+                                if (startRowIndex > endRowIndex) {
+                                    startRowIndex = index
+                                    endRowIndex = oldIndex
                                 }
+                                const columnNames = getColumns(startRowIndex, startIndex, endIndex)
+                                handleEditCellRangeSelection(rows, startRowIndex, endRowIndex, [...columnNames])
                             }
-                            handleEditCellRangeSelection(rows, index, index, [...columnNames])
                         }
                         else if (oldColumnName === columnName) {
-                            let startIndex = oldIndex + 1
+                            let startIndex = oldIndex
                             let endIndex = index
                             if (startIndex > index) {
-                                startIndex = index + 1
+                                startIndex = index
                                 endIndex = oldIndex
                             }
                             handleEditCellRangeSelection(rows, startIndex, endIndex, [columnName])

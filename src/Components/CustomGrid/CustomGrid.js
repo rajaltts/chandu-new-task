@@ -234,17 +234,14 @@ function CustomGrid(props) {
 
     const handleEditCellRangeSelection = (rows, startIndex, endIndex, columnNames) => {
         handleSelectAllClick({ target: { checked: false } })
-        let updatedCells = { ...selectedCells }
+        let updatedCells = {}
         for (let i = startIndex; i <= endIndex; i++) {
             const id = getValueForDynamicKey(rows[i], uniqueKey)
             const isContainsKey = updatedCells.hasOwnProperty(id)
             if (isContainsKey) {
                 columnNames.forEach(columnName => {
                     const index = updatedCells[id].columnNames.indexOf(columnName)
-                    if (index > -1) {
-                        updatedCells[id].columnNames = updatedCells[id].columnNames.filter((column) => column !== columnName)
-                    }
-                    else {
+                    if (index <= -1) {
                         updatedCells[id].columnNames.push(columnName)
                     }
                 })

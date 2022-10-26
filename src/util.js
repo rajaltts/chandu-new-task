@@ -152,8 +152,8 @@ let defaultTheme = {
     },
 }
 
-const getFocusableCells = (elementParent) => {
-    let focussable = Array.prototype.filter.call(elementParent.querySelectorAll('[tabindex="2"]'), (element) => {
+const getFocusableCells = (elementParent, query) => {
+    let focussable = Array.prototype.filter.call(elementParent.querySelectorAll(query || '[tabindex="2"]'), (element) => {
         return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
     })
     let index = focussable.indexOf(document.activeElement)
