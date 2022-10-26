@@ -125,6 +125,8 @@ import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/Simp
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
 import { RulesContext } from './Components/context'
+import ScrollStepper from './v2/Components/layout/ScrollStepper'
+import globalStyles from './v2/Components/styles/globalStyles'
 
 export {
     Autocomplete,
@@ -250,4 +252,6 @@ export {
     Input,
     ImageContent,
     RulesContext,
+    ScrollStepper, 
+    globalStyles
 }
