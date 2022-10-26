@@ -127,6 +127,7 @@ import ReactCharts from './Chart/ReactCharts'
 import { RulesContext } from './Components/context'
 import ScrollStepper from './v2/Components/layout/ScrollStepper'
 import globalStyles from './v2/Components/styles/globalStyles'
+import VerticalIcons from './v2/Components/VerticalIcons'
 
 export {
     Autocomplete,
@@ -253,5 +254,6 @@ export {
     ImageContent,
     RulesContext,
     ScrollStepper, 
-    globalStyles
+    globalStyles,
+    VerticalIcons,
 }
