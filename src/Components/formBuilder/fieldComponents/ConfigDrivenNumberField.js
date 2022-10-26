@@ -137,7 +137,7 @@ const ConfigDrivenNumberField = (props) => {
     const classes = classNames(className, onClick || onDoubleClick ? 'formBuilderActive' : 'formBuilderNormal')
 
     if (!isEditable) {
-        return getFormatedValue()
+        return <div id="numberField">{getFormatedValue()}</div>
     }
 
     return editable ? (
@@ -168,7 +168,7 @@ const ConfigDrivenNumberField = (props) => {
         </React.Fragment>
     ) : (
         <Tooltip ref={ref1} title={title} arrow>
-            <div className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>
+            <div id="numberField" className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>
                 {getFormatedValue()}
             </div>
         </Tooltip>

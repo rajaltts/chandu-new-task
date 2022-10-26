@@ -148,7 +148,7 @@ const ConfigDrivenTextBoxField = (props) => {
     )
 
     if (!isEditable) {
-        return getFormatedValue()
+        return <span id="textField">{getFormatedValue()}</span>
     }
 
     return (
@@ -180,7 +180,7 @@ const ConfigDrivenTextBoxField = (props) => {
                 </React.Fragment>
             ) : (
                 <Tooltip title={title} arrow>
-                    <span className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>
+                    <span id="textField" className={classes} onClick={onClickHandler} onDoubleClick={onDoubleClickHandler}>
                         {getFormatedValue()}
                     </span>
                 </Tooltip>

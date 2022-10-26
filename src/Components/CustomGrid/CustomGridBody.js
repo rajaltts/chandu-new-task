@@ -42,7 +42,7 @@ function CustomGridBody(props) {
         handleEditCellRangeSelection
     } = props
     let rowClickTimer
-    const { enable: editModeEnabled = false, editModeHighlight = false } = editMode
+    const { enable: editModeEnabled = false, editModeHighlight = false, copyAction, pasteAction } = editMode
     const { translations = null, translationsUniqueKey = '', lang, messages } = customTranslations
     const [clickedRow, setClickedRow] = useState(highlightedRowByDefault)
     const defaultEventData = {
@@ -170,10 +170,10 @@ function CustomGridBody(props) {
                 }
                 if (!event.shiftKey) {
                     if (event.ctrlKey && event.keyCode === 67) {
-                        document.dispatchEvent(new Event('copy'))
+                        copyAction && copyAction()
                     }
                     if (event.ctrlKey && event.keyCode === 86) {
-                        document.dispatchEvent(new Event('paste'))
+                        pasteAction && pasteAction()
                     }
                     if (!event.ctrlKey && event.keyCode === 13) {
                         if (event.target) {
