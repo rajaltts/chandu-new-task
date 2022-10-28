@@ -10,8 +10,6 @@ import { getValueForDynamicKey } from './CustomGridUtils'
 import './CustomGrid.css'
 import CustomTranslation from './CustomTranslation'
 import { getFocusableCells } from "../../util"
-import { withStyles } from "@material-ui/core/styles";
-import { chooseAColor } from "./ColorCheckBoxGrid"
 
 function CustomGridBody(props) {
     const {
@@ -41,8 +39,7 @@ function CustomGridBody(props) {
         showCellError,
         customTranslations,
         checkBoxClassname,
-        handleEditCellRangeSelection,
-        showColorcheckbox,
+        handleEditCellRangeSelection
     } = props
     let rowClickTimer
     const { enable: editModeEnabled = false, editModeHighlight = false, copyAction, pasteAction } = editMode
@@ -87,17 +84,9 @@ function CustomGridBody(props) {
             className: checkBoxClassname,
             tabIndex: isKeyBoardAccessible ? 2 : -1
         }
-        const CustomCheckbox = withStyles({
-            root: {
-              "&$checked": {
-                color: chooseAColor(index)
-              }
-            },
-            checked: {}
-          })((props) => <Checkbox color="default" {...props} />);
         return (
             <TableCell padding='checkbox'>
-                {type ? <Radio {...selectionProps} /> : showColorcheckbox ? <CustomCheckbox {...selectionProps} /> : <Checkbox {...selectionProps} />}
+                {type ? <Radio {...selectionProps} /> : <Checkbox {...selectionProps} />}
             </TableCell>
         )
     }
