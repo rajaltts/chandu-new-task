@@ -61,7 +61,8 @@ function CustomGrid(props) {
         isKeyBoardAccessible = false,
         showCellError = null,
         customTranslations = {},
-        checkBoxClassname
+        checkBoxClassname,
+        showColorcheckbox=true,
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -455,6 +456,7 @@ function CustomGrid(props) {
                             )}
                             {!!getRowLength() && (
                                 <CustomGridBody
+                                showColorcheckbox={showColorcheckbox}
                                     isLoading={isLoading}
                                     gridClassName={gridClassName}
                                     headCells={headCells}
