@@ -28,6 +28,7 @@ const Boolean = ({
     } = extractDataFromRules(rulesJson, name, intl)
 
     const handleChange = (event) => {
+        event.stopPropagation()
         const value = event.target.checked ? 'TRUE' : 'FALSE'
 
         if (customHandleChange) {

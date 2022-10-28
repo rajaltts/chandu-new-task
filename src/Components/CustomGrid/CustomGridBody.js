@@ -10,6 +10,7 @@ import { getValueForDynamicKey } from './CustomGridUtils'
 import './CustomGrid.css'
 import CustomTranslation from './CustomTranslation'
 import { getFocusableCells } from "../../util"
+import { getBooleanValue } from '@carrier/workflowui-globalfunctions'
 
 function CustomGridBody(props) {
     const {
@@ -80,7 +81,16 @@ function CustomGridBody(props) {
             onClick: (event) => handleSelectOnClick(event),
             onKeyDown: (event) => keyCodeHandler(event, row),
             onFocus: (event) => onFocusHandlerSelectionCell(event, true),
-            inputProps: { 'aria-label': 'select this row' },
+            inputProps: {
+                'aria-label': 'select this row',
+                "data-id": row[uniqueKey],
+                "data-key": `cell_${index}_${-1}`,
+                "data-type": 'cell',
+                "data-index": index,
+                "data-name": "selectionCell",
+                "data-cellIndex": -1,
+                "data-isCellHighlightEnabled": false
+            },
             className: checkBoxClassname,
             tabIndex: isKeyBoardAccessible ? 2 : -1
         }
@@ -101,7 +111,7 @@ function CustomGridBody(props) {
 
     const getElementToFocus = (element, rowData, columnName, isShiftkeyPressed, shouldFocus = true) => {
         if (element && rowData) {
-            const isCellHighlightEnabled = element.getAttribute('data-isCellHighlightEnabled')
+            const isCellHighlightEnabled = getBooleanValue(element.getAttribute('data-isCellHighlightEnabled'))
             if (isCellHighlightEnabled) {
                 handleEditModeCellSelection(rowData, columnName, getValueForDynamicKey(rowData, uniqueKey), !isShiftkeyPressed)
             }
@@ -133,9 +143,12 @@ function CustomGridBody(props) {
                     element = focussable[index + 1]
                 }
             }
-            const cellColumnName = element.getAttribute('data-name')
-            const rowIndex = element.getAttribute('data-index')
-            getElementToFocus(element, rows[rowIndex], cellColumnName, isShiftkeyPressed, shouldFocus)
+
+            if (element) {
+                const cellColumnName = element.getAttribute('data-name')
+                const rowIndex = element.getAttribute('data-index')
+                getElementToFocus(element, rows[rowIndex], cellColumnName, isShiftkeyPressed, shouldFocus)   
+            }
         }
     }
 
@@ -189,23 +202,24 @@ function CustomGridBody(props) {
         }
     }
 
-    const onFocusHandlerCell = (event, isCellHighlightEnabled) => {
+    const onFocusHandlerCell = (event, rowData, columnName, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (event.currentTarget.localName === 'td') {
+        if (event.currentTarget.localName === 'td' && (eventData.current.keyCode === 9 || eventData.current.keyCode === 13)) {
+            if (!isCellSelected(getValueForDynamicKey(rowData, uniqueKey), columnName)) {
+                handleEditModeCellSelection(rowData, columnName, getValueForDynamicKey(rowData, uniqueKey), true)
+            }
             onFocusCell(event, isCellHighlightEnabled)
         }
     }
     
     const onFocusHandlerSelectionCell = (event, isCellHighlightEnabled) => {
         event.stopPropagation()
-        if (eventData.current.keyCode === 9) {
-            handleEditModeCellSelection([], '', '', false, true)
-            onFocusCell(event, isCellHighlightEnabled)
-        }        
+        handleEditModeCellSelection([], '', '', false, true)
+        onFocusCell(event, isCellHighlightEnabled)        
     }
     
     const onFocusCell = (event, isCellHighlightEnabled) => {
-        if (isCellHighlightEnabled && editModeEnabled && isKeyBoardAccessible && eventData.current.tabbing && eventData.current.keyCode === 9) {
+        if (isCellHighlightEnabled && editModeEnabled && isKeyBoardAccessible && eventData.current.tabbing) {
             document.dispatchEvent(new CustomEvent('removeFocus', { detail: { element: event.currentTarget } }))
         }
     }
@@ -368,6 +382,8 @@ function CustomGridBody(props) {
                                             onFocus={(event) =>
                                                 onFocusHandlerCell(
                                                     event,
+                                                    row,
+                                                    lookUpKey,
                                                     isCellHighlightEnabled
                                                 )
                                             }
