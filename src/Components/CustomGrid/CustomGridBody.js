@@ -68,7 +68,7 @@ function CustomGridBody(props) {
     }
 
     const handleClickHandler = (event, row, index, type) => {
-        handleEditModeCellSelection([], '', '', false, true)
+        handleEditModeCellSelection([], '', '', false, true, false)
         handleClick(event, row, index, type)
     }
 
@@ -214,7 +214,7 @@ function CustomGridBody(props) {
     
     const onFocusHandlerSelectionCell = (event, isCellHighlightEnabled) => {
         event.stopPropagation()
-        handleEditModeCellSelection([], '', '', false, true)
+        handleEditModeCellSelection([], '', '', false, true, false)
         onFocusCell(event, isCellHighlightEnabled)        
     }
     

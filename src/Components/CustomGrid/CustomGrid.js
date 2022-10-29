@@ -264,8 +264,8 @@ function CustomGrid(props) {
         }
     }
 
-    const handleEditModeCellSelection = (row, columnName, id, isSingleSelect = false, clearSelections = false) => {
-        handleSelectAllClick({ target: { checked: false } })
+    const handleEditModeCellSelection = (row, columnName, id, isSingleSelect = false, clearSelections = false, runSelectAllClick = true) => {
+        runSelectAllClick && handleSelectAllClick({ target: { checked: false } })
         if (clearSelections) {
             setSelectedCells({})
             editModeSelectionsHandler && editModeSelectionsHandler({ selectedRows: [], selectedColumns: {} })
