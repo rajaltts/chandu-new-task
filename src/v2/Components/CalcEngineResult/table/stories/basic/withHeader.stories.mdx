@@ -1,0 +1,29 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+
+<Meta
+    title="Layout/CandidateTable/(1) Basic"
+    component={CandidateTable}
+/>
+
+Simple data **with** header
+
+<Canvas withSource='open'>
+    <Story
+        args={{tableConfig: createBasicConfig(4, 6)}}
+        argTypes={{tableConfig: { control: "object" }}}
+        name="With Heeader"
+        parameters={{
+            ...createViewMode('docs'),
+            options: { showToolbar: true },
+            order: 2,
+        }}
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>
+
+

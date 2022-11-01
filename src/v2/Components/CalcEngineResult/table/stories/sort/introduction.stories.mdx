@@ -1,0 +1,253 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable } from '../helpers/components/Sort'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(4) Sort'
+    component={CandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 1,
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="Sorting" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Introduction"/>
+
+<h2 id="simpleSort">Simple sort</h2>
+
+You can activate **column sorting** by adding a "**dataKey**" field in the header of each column you want to sort
+
+> <div style={{background: '#FFA502', color: 'black', display: 'inline', padding: '.5em 0'}}>
+&nbsp;Each <strong>dataKey</strong> fields must be <strong>unique</strong>&nbsp;
+</div>
+
+export const simpleSortConfig = createBasicConfig(2, 3, { addFakeData: true, sort: [0] })
+
+<Source
+    language='json'
+    format={true}
+    code={JSON.stringify(simpleSortConfig.header, undefined, ' ')}
+/>
+
+This field automatically adds an **arrow** next to the text of your header
+
+<Canvas withSource='none'>
+    <CandidateTable tableConfig={simpleSortConfig} />
+</Canvas>
+
+<h2 id="multipleSort">Multiple sort</h2>
+
+You can add this field to **several headers** to have **multiple sorting**
+
+export const multipleSortConfig = createBasicConfig(2, 3, { addFakeData: true, sort: [0, 1, 2] })
+
+<Source
+    language='json'
+    format={true}
+    code={JSON.stringify(multipleSortConfig.header, undefined, ' ')}
+/>
+
+<Canvas withSource='none'>
+    <CandidateTable tableConfig={multipleSortConfig} />
+</Canvas>
+
+<h2 id="orderby">OrderBy</h2>
+
+As you can see in the previous examples, no columns are activated by default for sorting, and when you change columns, this one is not activated either.
+
+To select the column you want to sort, you can add the "**orderBy**" field to your component, with the value of the corresponding "**dataKey**" field
+
+### OrderBy first column
+
+export const sortFirstColumnConfig = createBasicConfig(2, 3, { addFakeData: true, sort: [0] })
+
+```jsx
+<CandidateTable
+    tableConfig={{...}}
+    orderBy='name'
+/>
+```
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='json'
+        format={true}
+        code={JSON.stringify(sortFirstColumnConfig, null, 2)}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={sortFirstColumnConfig}
+        orderBy='name'
+    />
+</Canvas>
+
+### OrderBy last column
+
+export const sortLastColumnConfig = createBasicConfig(2, 3, { addFakeData: true, sort: [2] })
+
+```jsx
+<CandidateTable
+    tableConfig={{...}}
+    orderBy='numericDesc'
+/>
+```
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='json'
+        format={true}
+        code={JSON.stringify(sortLastColumnConfig, null, 2)}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={sortLastColumnConfig}
+        orderBy='numericDesc'
+    />
+</Canvas>
+
+<h2 id="sort">Sorting</h2>
+
+To choose the sort order, you can add the "**order**" parameter to your component, with either the value "**asc**" or "**desc**"
+
+This field must be combined with the "**orderBy**" field, to activate the column before sorting it
+
+Default **order** value is **asc**
+
+### Sort asc
+
+```jsx
+<CandidateTable
+    tableConfig={{...}}
+    orderBy='name'
+    order='asc'
+/>
+```
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='json'
+        format={true}
+        code={JSON.stringify(sortFirstColumnConfig, null, 2)}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={sortFirstColumnConfig}
+        orderBy='name'
+        order='asc'
+    />
+</Canvas>
+
+### Sort desc
+
+```jsx
+<CandidateTable
+    tableConfig={{...}}
+    orderBy='name'
+    order='desc'
+/>
+```
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='json'
+        format={true}
+        code={JSON.stringify(sortFirstColumnConfig, null, 2)}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={sortFirstColumnConfig}
+        orderBy='name'
+        order='desc'
+    />
+</Canvas>
+
+<h2 id="sortCallback">Callback</h2>
+
+It is your responsibility to organize your JSON according to the sorting criteria
+
+To do this, you can add the "**requestSortCallback**" parameter to your component
+
+This parameter must contain a function with two input parameters, "newOrderBy" and "newOrder"
+
+```js
+const requestSortCallback = (newOrderBy, newOrder) => {}
+```
+
+This function is called once when the component is loaded, then each time you click on a column or an arrow in the header, to modify the sorted column, or the sort order of the column
+
+You can therefore manage on your side, different states to transmit to the **CandidateTable** component, like this for example
+
+```jsx
+export const MyComponent = ({ configFile }) => {
+    const [config, setConfig] = React.useState(configFile)
+    const [order, setOrder] = React.useState('asc')
+    const [orderBy, setOrderBy] = React.useState('numericAsc')
+
+    useEffect(() => {
+        // Organize your new config file here, with order and orderBy state
+        setConfig({...})
+    }, [order, orderBy])
+
+    const handleRequestSort = (newOrderBy, newOrder) => {
+        setOrderBy(newOrderBy)
+        setOrder(newOrder)
+    }
+
+    return (
+        <CandidateTable
+            tableConfig={config}
+            order={order}
+            orderBy={orderBy}
+            requestSortCallback={handleRequestSort}
+        />
+    )
+}
+````
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='json'
+        format={true}
+        code={JSON.stringify(multipleSortConfig, null, 2)}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={multipleSortConfig}
+        orderBy='numericAsc'
+        order='asc'
+        requestSortCallback={() => {}}
+    />
+</Canvas>

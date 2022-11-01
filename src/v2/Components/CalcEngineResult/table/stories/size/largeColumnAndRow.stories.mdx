@@ -1,0 +1,27 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+
+import { largeRowSize, largeColumnSize } from './config'
+
+<Meta
+    title="Layout/CandidateTable/(2) Size"
+    component={CandidateTable}
+/>
+
+<Canvas withSource='close'>
+    <Story
+        args={{tableConfig: createBasicConfig(largeRowSize, largeColumnSize)}}
+        argTypes={{tableConfig: { control: "object" }}}
+        name="Large Row & Column"
+        parameters={{
+            ...createViewMode('story', true, true),
+            options: { showToolbar: true },
+            order: 3,
+        }}
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>

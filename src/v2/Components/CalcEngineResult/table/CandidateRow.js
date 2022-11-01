@@ -2,7 +2,7 @@
 import React from 'react'
 
 // Material
-import { IconButton, makeStyles, Radio, TableCell, TableRow, Tooltip } from '@material-ui/core'
+import { IconButton, Radio, TableCell, TableRow, Tooltip } from '@material-ui/core'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import ErrorIcon from '@material-ui/icons/Error'
@@ -11,55 +11,12 @@ import DoneIcon from '@material-ui/icons/Done'
 // Libs
 import classnames from 'classnames'
 
-const useStyles = makeStyles((theme) => ({
-    row: {
-        cursor: 'pointer',
-        '&:hover': {
-            '& .subGroupRow': {
-                backgroundColor: theme.palette.grey['450'],
-            },
-        },
-    },
-    rowError: {
-        cursor: 'not-allowed',
-    },
-    rowHighlighted: {
-        border: `1px solid ${theme.palette.secondary.main}`,
-    },
-    rowHighlightedIcon: {
-        color: theme.palette.secondary.main,
-    },
-    coolingCell: {
-        backgroundColor: 'rgba(0, 118, 244, 0.1) !important',
-    },
-    heatingCell: {
-        backgroundColor: 'rgba(211, 19, 54, 0.1) !important',
-    },
-    rowCell: {
-        borderBottom: 'none',
-        cursor: 'inherit',
-        padding: theme.spacing(0.2, 0, 0.2, 0),
-    },
-    subRowCell: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: theme.spacing(0, 0.5),
-        height: 40,
-    },
-    subRowSelectableCell: {
-        backgroundColor: 'white',
-    },
-    subGroupRowCell: {
-        backgroundColor: '#E5E7ED',
-    },
-    errorCell: {
-        color: theme.palette.text.disabled,
-    },
-}))
+// Styles
+import { useCandidateRowStyles } from './CandidateRow.styles'
 
 const CandidateRow = ({
-    selected = null,
+    id,
+    selected = false,
     onOpen = null,
     isSelectable = false,
     isSubGroupRow = false,
@@ -70,9 +27,8 @@ const CandidateRow = ({
     onClick,
     hasGroupWithOverridedHighlight = false,
     isOverrideHighlight = false,
-    ...tableRowProps
 }) => {
-    const classes = useStyles()
+    const classes = useCandidateRowStyles()
     const rowClass = classnames(classes.row, {
         [classes.rowHighlighted]:
             ((isHighlighted && !hasGroupWithOverridedHighlight) || isOverrideHighlight) && !isError,
@@ -80,7 +36,6 @@ const CandidateRow = ({
     })
 
     const subRowCellClass = classnames(classes.subRowCell, {
-        [classes.subRowSelectableCell]: isSelectable,
         [classes.subGroupRowCell]: isSubGroupRow,
         ['subGroupRow']: isSubGroupRow && !isError,
         [classes.errorCell]: isError,
@@ -89,17 +44,14 @@ const CandidateRow = ({
     const subRowCellHeatingClass = classnames(subRowCellClass, { [classes.heatingCell]: isHighlighted })
 
     const handleClick = () => {
-        if (!isError && onClick) onClick()
+        if (!isError && onClick && (isSelectable || isSubGroupRow)) onClick(id, !selected)
     }
 
     return (
-        <TableRow {...tableRowProps} className={rowClass} onClick={handleClick}>
+        <TableRow className={rowClass} onClick={handleClick}>
             {rowContent &&
                 rowContent.map((v, i) => {
                     const content = []
-
-                    console.log(v.id, 'hasGroupWithOverridedHighlight', hasGroupWithOverridedHighlight)
-                    console.log(v.id, 'isOverrideHighlight', isOverrideHighlight)
 
                     if (v.isGroupRowExpander) {
                         content.push(
@@ -108,7 +60,7 @@ const CandidateRow = ({
                                 size='small'
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    onOpen(!isOpen)
+                                    if (onOpen) onOpen(id, !isOpen)
                                 }}
                             >
                                 {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -121,7 +73,7 @@ const CandidateRow = ({
                         }
                         if (((isHighlighted && !hasGroupWithOverridedHighlight) || isOverrideHighlight) && !isError) {
                             content.push(
-                                <div className={subRowCellClass} key={`DoneIcon_${v.id}`}>
+                                <div key={`DoneIcon_${v.id}`}>
                                     <DoneIcon className={classes.rowHighlightedIcon} />
                                 </div>
                             )
@@ -150,13 +102,15 @@ const CandidateRow = ({
                     return (
                         <TableCell className={tableCellClassName} key={`tableCell_${i}`}>
                             <div
-                                className={
-                                    v.hasCooling
-                                        ? subRowCellCoolingClass
-                                        : v.hasHeating
-                                        ? subRowCellHeatingClass
-                                        : subRowCellClass
-                                }
+                                className={`
+                                    ${
+                                        v.hasCooling
+                                            ? subRowCellCoolingClass
+                                            : v.hasHeating
+                                            ? subRowCellHeatingClass
+                                            : subRowCellClass
+                                    } 
+                                    ${v.isInfoZone ? classes.subRowCellInfoZone : ''}`}
                             >
                                 {content}
                             </div>

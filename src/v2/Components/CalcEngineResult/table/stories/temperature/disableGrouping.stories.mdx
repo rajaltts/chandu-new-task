@@ -1,0 +1,42 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(3) Temperature'
+    component={CandidateTable}
+/>
+
+If you don't want to see "**cooling**" or "**heating**" **grouping in the header**, you can add the "**headerGroupDisabled**" prop to your component
+
+```jsx
+<CandidateTable
+    headerGroupDisabled
+    tableConfig={...} />
+```
+
+
+<Canvas withSource='close'>
+    <Story
+        args={{
+            tableConfig: createBasicConfig(15, 11, { cooling: [2, 3, 4], heating: [5, 6, 7] }),
+            headerGroupDisabled: true,
+        }}
+        argTypes={{
+            tableConfig: { control: "object" },
+            headerGroupDisabled: { control: "boolean" }
+        }}
+        parameters={{
+            ...createViewMode('docs'),
+            options: { showToolbar: true },
+            order: 4,
+        }}
+        decorators={[createScrollDecorator]}
+        name='Disable Grouping'
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>

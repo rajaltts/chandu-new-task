@@ -1,0 +1,31 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(3) Temperature'
+    component={CandidateTable}
+/>
+
+If you want, you can separate the columns of "**heating**" and "**cooling**", and intercalate it between them
+
+For example, if you want columns **1, 2 and 8** to represent cooling values, and columns **4, 5, 7, 9 and 10** to represent heating values
+
+<Canvas withSource='close'>
+    <Story
+        args={{tableConfig: createBasicConfig(15, 11, { cooling: [0, 1, 7], heating: [3, 4, 6, 8, 9] })}}
+        argTypes={{tableConfig: { control: "object" }}}
+        parameters={{
+            ...createViewMode('docs'),
+            options: { showToolbar: true },
+            order: 4,
+        }}
+        decorators={[createScrollDecorator]}
+        name='Mix'
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>

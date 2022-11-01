@@ -1,0 +1,322 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable } from '../helpers/components/Sort'
+import { CandidateTable as CandidateTableSimpleSelect } from '../helpers/components/SimpleSelect'
+import { CandidateTable as CandidateTableMultipleSelect } from '../helpers/components/MultipleSelect'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(5) Line State && Info Zone'
+    component={CandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 2,
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="Row select" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Select"/>
+
+<h2 id="selectable">Selectable</h2>
+
+Each line can be declared as "selectable" to add a radio selection button in the InfoZone
+
+To do this, you must add the "**isSelectable**" field to each line that you want to make selectable
+
+Like this :
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ],
+      "isSelectable": true
+    }
+    ...
+]
+```
+
+export const selectableAllInfoZone = createBasicConfig(3, 2, {
+    selectableRow: [0, 1, 2],
+    infoZone: [0]
+})
+
+### Example with all rows as **Selectable**
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(selectableAllInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={selectableAllInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+export const selectableSomeInfoZone = createBasicConfig(4, 2, {
+    selectableRow: [0, 2],
+    infoZone: [0]
+})
+
+### Example with some rows as **Selectable**
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(selectableSomeInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={selectableSomeInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="select">Select</h2>
+
+Once a line is declared as "**selectable**", you can define whether the radio button is checked or not, by adding the "**selected**" field for each line concerned
+
+Like this :
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ],
+      "isSelectable": true,
+      "selected": true
+    }
+    ...
+]
+```
+
+export const selectedAllInfoZone = createBasicConfig(3, 2, {
+    selectableRow: [0, 1, 2],
+    selectedRow: [0, 1, 2],
+    infoZone: [0]
+})
+
+### Example with all rows **Selected**
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(selectedAllInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={selectedAllInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+export const selectedSomeInfoZone = createBasicConfig(4, 2, {
+    selectableRow: [0, 1, 2, 3],
+    selectedRow: [0, 2],
+    infoZone: [0]
+})
+
+### Example with some rows **Selected**
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(selectedSomeInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={selectedSomeInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="click">onClick</h2>
+
+To change the "**select**" status of a line by clicking on it, you can add the "**onClick**" field for each line you want to control
+
+With this definition, where "**id**" parameter corresponding to your line "id" field, and "**selected**" parameter is a **boolean**:
+
+```jsx
+const onClick = (id, selected) => {}
+```
+
+You must therefore manage a "state" yourself to know which line(s) is/are selected
+
+### Simple select
+
+```jsx
+export const MyComponent = ({ configFile }) => {
+    const [selectedId, setSelectedId] = React.useState(0)
+    const [config, setConfig] = React.useState({})
+
+    useEffect(() => {
+        setConfig({
+            "header": [
+                {},
+                {"label": "Header 1"},
+                {"label": "Header 2"}
+            ],
+            "content": [
+                {
+                    "id": 0,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 1/1"},
+                        {"label": "Row 1/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedId === 0,
+                    "onClick": (id, selected) => setSelectedId(id)
+                },
+                {
+                    "id": 1,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 2/1"},
+                        {"label": "Row 2/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedId === 1,
+                    "onClick": (id, selected) => setSelectedId(id)
+                },
+                {
+                    "id": 2,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 3/1"},
+                        {"label": "Row 3/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedId === 2,
+                    "onClick": (id, selected) => setSelectedId(id)
+                }
+            ]
+        })
+    }, [selectedId])
+
+    return <CandidateTable tableConfig={config} />
+}
+```
+
+<Canvas withSource='none'>
+    <CandidateTableSimpleSelect tableConfig={selectableAllInfoZone} />
+</Canvas>
+
+### Multiple select
+
+```jsx
+export const MyComponent = ({ configFile }) => {
+    const [selectedIds, setSelectedIds] = React.useState([0])
+    const [config, setConfig] = React.useState({})
+
+    const onClick = (id, selected) => {
+        if (selected) setSelectedIds((oldValue) => [...oldValue, id])
+        else setSelectedIds((oldValue) => oldValue.filter((v) => v !== id))
+    }
+
+    useEffect(() => {
+        setConfig({
+            "header": [
+                {},
+                {"label": "Header 1"},
+                {"label": "Header 2"}
+            ],
+            "content": [
+                {
+                    "id": 0,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 1/1"},
+                        {"label": "Row 1/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedIds.includes(0),
+                    "onClick": onClick
+                },
+                {
+                    "id": 1,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 2/1"},
+                        {"label": "Row 2/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedIds.includes(1),
+                    "onClick": onClick
+                },
+                {
+                    "id": 2,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 3/1"},
+                        {"label": "Row 3/2"}
+                    ],
+                    "isSelectable": true,
+                    "selected": selectedIds.includes(2),
+                    "onClick": onClick
+                }
+            ]
+        })
+    }, [selectedId])
+
+    return <CandidateTable tableConfig={config} />
+}
+```
+
+<Canvas withSource='none'>
+    <CandidateTableMultipleSelect tableConfig={selectableAllInfoZone} />
+</Canvas>

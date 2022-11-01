@@ -7,7 +7,6 @@ import { injectIntlTranslation } from '@carrier/workflowui-globalfunctions'
 
 // Material
 import {
-    makeStyles,
     Table as MuiTable,
     TableBody,
     TableCell,
@@ -20,55 +19,41 @@ import {
 // Libs
 import classnames from 'classnames'
 
+// Local
 import CandidateRow from './CandidateRow'
 
-const useStyles = makeStyles((theme) => ({
-    tableContainer: {
-        height: '100%',
-    },
-    table: {
-        marginBottom: theme.spacing(10),
-        [theme.breakpoints.up('sm')]: {
-            marginBottom: theme.spacing(11),
-        },
-        [theme.breakpoints.up('md')]: {
-            marginBottom: theme.spacing(11),
-        },
-    },
-    tableHead: {
-        background: '#f0f0f4',
-        position: 'sticky',
-        top: '0px',
-        zIndex: 100,
-    },
-    container: {
-        background: 'transparent',
-    },
-    coolingCell: {
-        backgroundColor: 'rgba(0, 118, 244, 0.1)',
-    },
-    heatingCell: {
-        backgroundColor: 'rgba(211, 19, 54, 0.1)',
-    },
-    headerCell: {
-        verticalAlign: 'bottom',
-        borderBottom: 'none',
-        padding: theme.spacing(0.5),
-        color: theme.palette.grey[700],
-        textAlign: 'center',
-    },
-    sectionCell: {
-        fontWeight: 'bold',
-        paddingBottom: theme.spacing(0.5),
-    },
-}))
+// Styles
+import { useCandidateTableStyles } from './CandidateTable.styles'
 
-const CandidateTable = ({ tableConfig, requestSortCallback, order, orderBy, intl }) => {
-    const classes = useStyles()
+const CandidateTable = ({
+    tableConfig,
+    requestSortCallback,
+    order,
+    orderBy,
+    intl,
+    headerGroupDisabled,
+    overridedClasses,
+}) => {
+    const classes = useCandidateTableStyles()
 
     const createHeaderGroup = useCallback(() => {
+        if (!tableConfig) return false
+
         const { header } = tableConfig
         let headerGroupCompo = false
+
+        const createStandardHeader = (colSpan, isCooling = false, isHeating = false) => (
+            <TableCell
+                colSpan={colSpan}
+                className={`${classes.headerCell} ${isCooling || isHeating ? classes.sectionCell : ''}`}
+            >
+                {isCooling
+                    ? injectIntlTranslation(intl, 'Cooling', 'Cooling')
+                    : isHeating
+                    ? injectIntlTranslation(intl, 'Heating', 'Heating')
+                    : ''}
+            </TableCell>
+        )
 
         if (header?.find((v) => v.isCooling) || header?.find((v) => v.isHeating)) {
             const tableRowContent = []
@@ -84,45 +69,26 @@ const CandidateTable = ({ tableConfig, requestSortCallback, order, orderBy, intl
                 }
 
                 if (i > startColSpan?.index) {
-                    let deltaIndex = i === header?.length - 1 ? 1 : 0
+                    const lastItem = i === header?.length - 1
 
                     switch (startColSpan?.type) {
                         case 'standard':
-                            if (configLine.isCooling || configLine.isHeating || i === header?.length - 1) {
-                                tableRowContent.push(
-                                    <TableCell
-                                        colSpan={i - startColSpan?.index + deltaIndex}
-                                        className={classes.headerCell}
-                                    />
-                                )
+                            if (configLine.isCooling || configLine.isHeating || lastItem) {
+                                tableRowContent.push(createStandardHeader(i - startColSpan?.index))
                                 if (configLine.isCooling) startColSpan = { type: 'cooling', index: i }
                                 else if (configLine.isHeating) startColSpan = { type: 'heating', index: i }
                             }
                             break
                         case 'cooling':
-                            if (!configLine.isCooling || i === header?.length - 1) {
-                                tableRowContent.push(
-                                    <TableCell
-                                        colSpan={i - startColSpan?.index + deltaIndex}
-                                        className={classnames(classes.sectionCell, classes.headerCell)}
-                                    >
-                                        {injectIntlTranslation(intl, 'Cooling', 'Cooling')}
-                                    </TableCell>
-                                )
+                            if (!configLine.isCooling || lastItem) {
+                                tableRowContent.push(createStandardHeader(i - startColSpan?.index, true))
                                 if (configLine.isHeating) startColSpan = { type: 'heating', index: i }
                                 else startColSpan = { type: 'standard', index: i }
                             }
                             break
                         case 'heating':
-                            if (!configLine.isHeating || i === header?.length - 1) {
-                                tableRowContent.push(
-                                    <TableCell
-                                        colSpan={i - startColSpan?.index + deltaIndex}
-                                        className={classnames(classes.sectionCell, classes.headerCell)}
-                                    >
-                                        {injectIntlTranslation(intl, 'Heating', 'Heating')}
-                                    </TableCell>
-                                )
+                            if (!configLine.isHeating || lastItem) {
+                                tableRowContent.push(createStandardHeader(i - startColSpan?.index, false, true))
                                 if (configLine.isCooling) startColSpan = { type: 'cooling', index: i }
                                 else startColSpan = { type: 'standard', index: i }
                             }
@@ -130,67 +96,62 @@ const CandidateTable = ({ tableConfig, requestSortCallback, order, orderBy, intl
                         default:
                             break
                     }
+
+                    if (lastItem) {
+                        if (configLine.isCooling) tableRowContent.push(createStandardHeader(1, true))
+                        else if (configLine.isHeating) tableRowContent.push(createStandardHeader(1, false, true))
+                        else tableRowContent.push(createStandardHeader(1))
+                    }
                 }
             }
             return <TableRow>{tableRowContent}</TableRow>
         }
 
         return headerGroupCompo
-    }, [tableConfig])
+    }, [classes, tableConfig])
 
-    const createHeaderCells = useCallback(
-        () =>
-            tableConfig?.header?.map((v, i) => (
-                <TableCell
-                    key={v.dataKey || `header_cell_${i}`}
-                    className={
-                        v.isCooling ? headerCellCoolingClass : v.isHeating ? headerCellHeatingClass : headerCellClass
-                    }
-                >
-                    {v.dataKey ? (
-                        <TableSortLabel
-                            active={orderBy === v.dataKey}
-                            direction={orderBy === v.dataKey ? order : 'asc'}
-                            onClick={(event) => requestSortCallback && requestSortCallback(event, v.dataKey)}
-                        >
-                            {v.label}
-                        </TableSortLabel>
-                    ) : (
-                        v.label
-                    )}
-                </TableCell>
-            )),
-        [tableConfig, order, orderBy]
-    )
+    const createHeaderCells = useCallback(() => {
+        const headerCellClass = classes.headerCell
+        const headerCellCoolingClass = classnames(classes.coolingCell, classes.headerCell)
+        const headerCellHeatingClass = classnames(classes.heatingCell, classes.headerCell)
 
-    const headerCellClass = classes.headerCell
-    const headerCellCoolingClass = classnames(classes.coolingCell, classes.headerCell)
-    const headerCellHeatingClass = classnames(classes.heatingCell, classes.headerCell)
+        return tableConfig?.header?.map((v, i) => (
+            <TableCell
+                key={v.dataKey || `header_cell_${i}`}
+                className={
+                    v.isCooling ? headerCellCoolingClass : v.isHeating ? headerCellHeatingClass : headerCellClass
+                }
+            >
+                {v.dataKey ? (
+                    <TableSortLabel
+                        active={orderBy === v.dataKey}
+                        className={`${classes.headerCellSortLabel} ${
+                            orderBy === v.dataKey ? classes.headerCellSortLabelActive : ''
+                        }`}
+                        direction={orderBy === v.dataKey ? order : 'asc'}
+                        onClick={(event) =>
+                            requestSortCallback && requestSortCallback(v.dataKey, order === 'asc' ? 'desc' : 'asc')
+                        }
+                    >
+                        {v.label}
+                    </TableSortLabel>
+                ) : (
+                    v.label
+                )}
+            </TableCell>
+        ))
+    }, [tableConfig?.header, order, orderBy, classes])
 
     return (
-        <TableContainer className={classes.tableContainer}>
+        <TableContainer className={`candidateTable ${classes.tableContainer} ${overridedClasses || ''}`}>
             <MuiTable className={classes.table} id='CandidateTable'>
                 <TableHead className={classes.tableHead} id='CandidateTable_head'>
-                    {createHeaderGroup()}
+                    {!headerGroupDisabled && createHeaderGroup()}
                     <TableRow>{createHeaderCells()}</TableRow>
                 </TableHead>
                 <TableBody id='CandidateTable_body'>
-                    {tableConfig.content.map((row) => (
-                        <CandidateRow
-                            id={row.id}
-                            key={row.id}
-                            onClick={row.onClick}
-                            rowContent={row.rowContent}
-                            isSelectable={row.isSelectable}
-                            selected={row.selected}
-                            onOpen={row.onOpen}
-                            isSubGroupRow={row.isSubGroupRow}
-                            isHighlighted={row.isHighlighted}
-                            isError={row.isError}
-                            isOpen={row.isOpen}
-                            hasGroupWithOverridedHighlight={row.hasGroupWithOverridedHighlight}
-                            isOverrideHighlight={row.isOverrideHighlight}
-                        />
+                    {tableConfig?.content?.map((row) => (
+                        <CandidateRow {...row} key={row.id} />
                     ))}
                 </TableBody>
             </MuiTable>

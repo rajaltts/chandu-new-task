@@ -1,0 +1,51 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(3) Temperature'
+    component={CandidateTable}
+/>
+
+You can point out that columns are used for **heating**
+
+For the header, you must add the "**isHeating**" field (boolean)
+
+The header **automatically groups the heating columns**, and adds the text "**Heating**" above
+
+```json
+{
+    isHeating: true,
+    label: "Header 6"
+}
+```
+
+And for the content you must add the "**hasHeating**" field (boolean) for each line
+
+```json
+{
+    hasHeating: true,
+    label: "Row 1/6"
+}
+```
+
+For example, if you want columns **6, 7 and 8** to represent heating values
+
+<Canvas withSource='close'>
+    <Story
+        args={{tableConfig: createBasicConfig(15, 11, { heating: [5, 6, 7] })}}
+        argTypes={{tableConfig: { control: "object" }}}
+        parameters={{
+            ...createViewMode('docs'),
+            options: { showToolbar: true },
+            order: 2,
+        }}
+        decorators={[createScrollDecorator]}
+        name='Heating'
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>
