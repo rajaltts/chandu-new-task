@@ -128,6 +128,7 @@ import { RulesContext } from './Components/context'
 import ScrollStepper from './v2/Components/layout/ScrollStepper'
 import globalStyles from './v2/Components/styles/globalStyles'
 import VerticalIcons from './v2/Components/VerticalIcons'
+import BottomActions from './v2/Components/BottomActions'
 
 export {
     Autocomplete,
@@ -256,4 +257,5 @@ export {
     ScrollStepper, 
     globalStyles,
     VerticalIcons,
+    BottomActions,
 }
