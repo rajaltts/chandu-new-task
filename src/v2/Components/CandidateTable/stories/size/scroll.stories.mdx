@@ -1,0 +1,39 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { CandidateTable } from '../helpers/components/Base'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title="Layout/CandidateTable/(2) Size"
+    component={CandidateTable}
+/>
+
+If you limit the size of the parent container of your table, then it will automatically scroll
+
+With something like that
+
+```jsx
+<div style={{ border: '1px solid black', height: '400px' }}>
+    <CandidateTable ... />
+</div>
+```
+
+When your table scrolls, **the header remains fixed**, only the **content lines will scroll**
+
+<Canvas withSource='close'>
+    <Story
+        args={{tableConfig: createBasicConfig(15, 11)}}
+        argTypes={{tableConfig: { control: "object" }}}
+        parameters={{
+            ...createViewMode('docs'),
+            options: { showToolbar: true },
+            order: 4,
+        }}
+        decorators={[createScrollDecorator]}
+        name='Scroll'
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>

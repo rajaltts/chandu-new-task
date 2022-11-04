@@ -1,0 +1,150 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable } from './helpers/components/Base'
+import { createBasicConfig } from './helpers/utils/createBasicConfig'
+import { createViewMode } from './helpers/utils/createViewMode'
+
+export const configWithtHeader = createBasicConfig(2, 2)
+
+<Meta
+    title="Layout/CandidateTable"
+    component={CandidateTable}
+/>
+
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="CandidateTable" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Introduction" />
+
+# CandidateTable
+
+<h2 id="introduction">Introduction</h2>
+
+With this component you can generate this kind of table
+
+<Canvas withSource='open'>
+    <CandidateTable tableConfig={configWithtHeader} />
+</Canvas>
+
+<br/>
+<details>
+    <summary>With this JSON</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const configWithtHeader = ${JSON.stringify(configWithtHeader, null, 2)}`}
+    />
+</details>
+<br/>
+
+<h2 id="json">JSON</h2>
+
+The JSON is composed of two parts, **header** (optional) and **content** (required)
+
+You must pass a json of this type to have a complete configuration
+
+```json
+{
+    "header": {...},
+    "content": {...}
+}
+```
+
+> Example => [Table with headers](?path=/story/layout-candidatetable-1-basic--with-heeader)
+
+Or, if you just want a **content** whithout any **headers**
+
+```json
+{
+    "content": {...}
+}
+```
+
+> Example => [Table without headers](?path=/story/layout-candidatetable-1-basic--without-heeader)
+
+<h2 id="header">Header</h2>
+
+A complete header can be defined like this
+
+```json
+{
+    "dataKey": "keyForSort",
+    "isCooling": false,
+    "isHeating": false,
+    "label": "text to display",
+}
+```
+
+| Field      | Type    | Required | Desciption |
+| ---------- | ------- | -------- | ----------- |
+| dataKey    | string  | false    | key to transmit for ordering table |
+| isCooling  | boolean | false    | if true, the header is flagged as cooling header |
+| isHeating  | boolean | false    | if true, the header is flagged as heating header |
+| label      | string  | false    | text to display in header cell |
+
+<h2 id="content">Content</h2>
+
+A complete content can be defined like this
+
+```json
+{
+    "id": "1",
+    "isError": false,
+    "isOpen": false,
+    "isSelectable": false,
+    "selected": false,
+    "onClick": () => {},
+    "onOpen": (open) => {},
+    "rowContent": [{
+        "label": "myLabel",
+        "hasCooling": false,
+        "hasHeating": false,
+        "isGroupRowExpander": false,
+        "errorMessage": "ErrorMaeesage",
+        "id": "1",
+        "isInfoZone": false
+    }]
+}
+```
+
+| Field                          | Type                             | Required |
+| ------------------------------ | -------------------------------- | -------- |
+| id                             | string                           | **true** |
+| rowContent                     | Array[[rowContent](#rowContent)] | **true** |
+| isError                        | boolean                          | false    |
+| isOpen                         | boolean                          | false    |
+| isSelectable                   | boolean                          | false    |
+| selected                       | boolean                          | false    |
+| isHighlighted                  | boolean                          | false    |
+| onClick                        | () => {}                         | false    |
+| onOpen                         | (open: boolean) => {}            | false    |
+| isSubGroupRow                  | boolean                          | false    |
+| hasGroupWithOverridedHighlight | boolean                          | false    |
+
+<h3 id="rowContent">rowContent</h3>
+
+| Field              | Type                  | Required |
+| ------------------ | --------------------- | -------- |
+| label              | string                | false    |
+| hasCooling         | boolean               | false    |
+| hasHeating         | boolean               | false    |
+| isGroupRowExpander | boolean               | false    |
+| isInfoZone         | boolean               | false    |
+| errorMessage       | string                | false    |
+| id                 | string                | false    |

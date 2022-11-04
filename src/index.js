@@ -17,14 +17,12 @@ import SimpleTagDescription from './Components/SimpleTagDescription'
 import SimpleLabelWithCurrency from './Components/SimpleLabelWithCurrency/SimpleLabelWithCurrency'
 import MessageTextArea from './Components/MessageTextArea/MessageTextArea'
 import TableWithQuestionControl from './Components/TableWithQuestionControl/TableWithQuestionControl'
-
 import HorizontalCheckboxGroupWithImage from './Components/HorizontalCheckboxGroupWithImage/HorizontalCheckboxGroupWithImage'
 import HorizontalRadioGroupWithImage from './Components/HorizontalRadioGroupWithImage/HorizontalRadioGroupWithImage'
 import SimpleLabelWithImage from './Components/SimpleLabelWithImage/SimpleLabelWithImage'
 import SimpleRadioButtonWithCurrencyGroup from './Components/SimpleRadioButtonWithCurrencyGroup/SimpleRadioButtonWithCurrencyGroup'
 import SimpleHorizontalTabs from './Components/SimpleHorizontalTabs/SimpleHorizontalTabs'
 import SimpleRuleButton from './Components/SimpleRuleButton'
-
 import Button from './Components/Button'
 import ProjectTagSelection from './Components/SaveTagComponents/ProjectTagSelection/projectTagSelection'
 import AutoComplete from './Components/SaveTagComponents/AutoComplete/autoComplete'
@@ -58,6 +56,10 @@ import InputWithAutoComplete from './Components/InputWithAutoComplete/InputWithA
 import RadaChart from './Components/RadarChart/RadaChart'
 import MinutesTimer from './Components/MinutesTimer'
 import SelectionRadar from './Components/selectionRadar/SelectionRadar'
+import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
+import QuoteSelectionProgressDialog from './Components/QuoteSelections/QuoteSelectionProgressDialog'
+import QuoteSelection from './Components/QuoteSelections/QuoteSelection'
+import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon'
 
 import ReportPreview from './JSReport/Components/ReportPreview/ReportPreview'
 import ReportPreviewContainer from './JSReport/Components/ReportPreview/ReportPreviewContainer'
@@ -67,6 +69,14 @@ import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
 import Page from './JSReport/Components/ReportPage/Page'
 import PageOverflow from './JSReport/Components/ReportPageOverflow/PageOverflow.js'
 import DocxToHtml from './JSReport/Components/DocxToHtml/DocxToHtml'
+import HyperLinks from './JSReport/Components/HyperLinks/HyperLinks'
+import ReportImage from './JSReport/Components/ReportImage/ReportImage'
+import ReportTable from './JSReport/Components/ReportTable/ReportTable'
+import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList'
+import ContentTable from './JSReport/Components/ContentsTable/ContentTable'
+import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes'
+import ReportContainer from './JSReport/Components/ReportContainer/ReportContainer'
+import ReportItemContainer from './JSReport/Components/ReportItemContainer/ReportItemContainer'
 
 import Select from './v2/Components/Select/Select'
 import Checkbox from './v2/Components/Checkbox/Checkbox'
@@ -103,24 +113,17 @@ import FabWithBadge from './v2/Components/FabWithBadge/FabWithBadge'
 import Loading from './v2/Components/Loading/Loading'
 import LoadingIcon from './v2/Components/Loading/LoadingIcon'
 import Autocomplete from './v2/Components/Autocomplete/Autocomplete'
-import theme from './themes'
-import { pxToRem, defaultTheme } from './util'
-import QuoteSelectionSuccessDialog from './Components/QuoteSelections/QuoteSelectionSuccessDialog'
-import QuoteSelectionProgressDialog from './Components/QuoteSelections/QuoteSelectionProgressDialog'
-import QuoteSelection from './Components/QuoteSelections/QuoteSelection'
-import HyperLinks from './JSReport/Components/HyperLinks/HyperLinks'
-import ReportImage from './JSReport/Components/ReportImage/ReportImage'
 import CartSection from './v2/Components/Cart/CartSection'
 import CartSectionBaseunit from './v2/Components/Cart/CartSectionBaseunit'
 import CartSectionColumns from './v2/Components/Cart/CartSectionColumns'
 import CartSectionTotal from './v2/Components/Cart/CartSectionTotal'
-import ReportTable from './JSReport/Components/ReportTable/ReportTable'
-import ContentList from './JSReport/Components/ContentsTable/ContentList/ContentList'
-import ContentTable from './JSReport/Components/ContentsTable/ContentTable'
-import ReportNotes from './JSReport/Components/ContentsTable/ReportNotes/ReportNotes'
-import ReportContainer from './JSReport/Components/ReportContainer/ReportContainer'
-import ReportItemContainer from './JSReport/Components/ReportItemContainer/ReportItemContainer'
-import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/SimpleLabelWithImageWarnIcon/SimpleLabelWithImageWarnIcon'
+import FilterItem from './v2/Components/Filter/FilterItem'
+import FilterRange from './v2/Components/Filter/FilterRange'
+import FilterList from './v2/Components/Filter/FilterList'
+import CandidateCard from './v2/Components/CandidateCard/CandidateCard'
+import CandidateCardDetails from './v2/Components/CandidateCard/CandidateCardDetails'
+import CandidateCardList from './v2/Components/CandidateCard/CandidateCardList'
+import CandidateTable from './v2/Components/CandidateTable/CandidateTable'
 
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
@@ -132,6 +135,9 @@ import BottomActions from './v2/Components/BottomActions'
 import Stepper from './v2/Components/layout/Stepper'
 import ChildProps from './v2/Components/CustomChildProps/ChildProps'
 import CustomComponent_ERV from './v2/Components/CustomComponent_ERV/CustomComponent_ERV'
+
+import theme from './themes'
+import { pxToRem, defaultTheme } from './util'
 
 export {
     Autocomplete,
@@ -263,5 +269,12 @@ export {
     BottomActions,
     Stepper,
     ChildProps,
-    CustomComponent_ERV
+    CustomComponent_ERV,
+    FilterItem,
+    FilterRange,
+    FilterList,
+    CandidateCard,
+    CandidateCardDetails,
+    CandidateCardList,
+    CandidateTable,
 }

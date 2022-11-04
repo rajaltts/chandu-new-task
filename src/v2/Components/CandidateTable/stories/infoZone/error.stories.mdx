@@ -1,0 +1,173 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable } from '../helpers/components/SimpleSelect'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+
+<Meta
+    title='Layout/CandidateTable/(5) Line State && Info Zone'
+    component={CandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 4,
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="Error" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Error"/>
+
+<h2 id="error">Error</h2>
+
+If you want to signal that a line is in error, you can add the "**isError**" field for each line concerned
+
+As you could see, when the line is in error, it is **disabled**
+
+Like this:
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ],
+      "isError": true
+    }
+    ...
+]
+```
+
+export const errorInfoZone = createBasicConfig(3, 2, {
+    error: [
+        { index: 1 },
+    ],
+    infoZone: [0]
+})
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(errorInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={errorInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="message">Message</h2>
+
+You can also add an **error message**, visible in **hover** when you put your mouse over the error icon.
+
+To do this, on the column corresponding to the infoZone, in the "rowContent" field of the row, you can add the "**errorMessage**" field
+
+Like this:
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true,
+          "errorMessage": "My custom error message to signal an error"
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ],
+      "isError": true
+    }
+    ...
+]
+```
+
+export const errorMessageInfoZone = createBasicConfig(3, 2, {
+    error: [
+        { index: 1, errorMessage: "My custom error message to signal an error" },
+    ],
+    infoZone: [0]
+})
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(errorMessageInfoZone, null, 2)}`}
+    />
+</details>
+
+**Place your mouse over the error icon**
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={errorMessageInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="combination">Combination</h2>
+
+Of course, you can combine this field with the fields "isSelectable", "selected" and "isHighlighted"
+
+export const errorCombiantionInfoZone = createBasicConfig(7, 2, {
+    selectableRow: [0, 1, 2, 4, 6],
+    selectedRow: [1, 2, 4],
+    highlighted: [1, 3, 4],
+    error: [
+        { index: 2, errorMessage: "Error with isSelectable and selected fields" },
+        { index: 3, errorMessage: "Error with isHighlighted field" },
+        { index: 4, errorMessage: "Error with isSelectable, selected and isHighlighted fields" },
+        { index: 5, errorMessage: "Error without any other fields" },
+    ],
+    infoZone: [0]
+})
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(errorCombiantionInfoZone, null, 2)}`}
+    />
+</details>
+
+**Place your mouse over the error icons to see the description of the corresponding test**
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={errorCombiantionInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>

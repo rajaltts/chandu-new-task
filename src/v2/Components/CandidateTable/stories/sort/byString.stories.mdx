@@ -1,0 +1,52 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { action } from '@storybook/addon-actions';
+
+import { CandidateTable } from '../helpers/components/Sort'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(4) Sort'
+    component={CandidateTable}
+/>
+
+<Canvas withSource='close'>
+    <Story
+        args={{
+            tableConfig: createBasicConfig(15, 10, {
+                addFakeData: true,
+                cooling: [1, 2, 3],
+                heating: [4, 5, 6],
+                sort: [6],
+            }),
+            headerGroupDisabled: false,
+            order: 'asc',
+            orderBy: 'alphabetWord',
+        }}
+        argTypes={{
+            tableConfig: { control: "object" },
+            headerGroupDisabled: { control: "boolean" },
+            order: {
+                options: ['asc', 'desc'],
+                control: { type: 'radio' }
+            },
+            orderBy: {
+                options: ['alphabetWord'],
+                control: { type: 'radio' }
+            },
+            requestSortCallback: { action: 'requestSortCallback' },
+        }}
+        name="By string"
+        parameters={{
+            ...createViewMode('story'),
+            options: { showToolbar: true },
+            order: 3,
+        }}
+        decorators={[createScrollDecorator]}
+    >
+        {(args) => <CandidateTable {...args} />}
+    </Story>
+</Canvas>
+
+

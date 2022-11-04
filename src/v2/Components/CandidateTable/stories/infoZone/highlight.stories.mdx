@@ -1,0 +1,91 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+
+import { CandidateTable } from '../helpers/components/SimpleSelect'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+
+<Meta
+    title='Layout/CandidateTable/(5) Line State && Info Zone'
+    component={CandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 3,
+    }}
+    name="Highlight"/>
+
+To **highlight** certain results, you can add the "**isHighlighted**" field for the lines concerned
+
+This can be useful to highlight the results of the calculation engine for example
+
+Like this:
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ],
+      "isHighlighted": true
+    }
+    ...
+]
+```
+
+export const highlightInfoZone = createBasicConfig(3, 2, {
+    highlighted: [1],
+    infoZone: [0]
+})
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(highlightInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={highlightInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+Of course you can combine this field with "isSelectable" and "selected" fields
+
+export const highlightAndSelectInfoZone = createBasicConfig(6, 2, {
+    selectableRow: [0, 1, 2, 3, 4],
+    selectedRow: [0],
+    highlighted: [1, 3, 5],
+    infoZone: [0]
+})
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(highlightAndSelectInfoZone, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={highlightAndSelectInfoZone}
+        headerGroupDisabled={false}
+    />
+</Canvas>

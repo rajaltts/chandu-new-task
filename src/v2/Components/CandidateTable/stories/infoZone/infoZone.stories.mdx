@@ -1,0 +1,237 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable } from '../helpers/components/Sort'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+import { createScrollDecorator } from '../helpers/utils/decorators'
+
+<Meta
+    title='Layout/CandidateTable/(5) Line State && Info Zone'
+    component={CandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 1,
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="Info Zone" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Info Zone"/>
+
+<h2 id="introduction">Introduction</h2>
+
+Each line can have different states: "**selectable**", "**selected**", "**highlighted**", "**error**" (You will see in the following Stories how to configure these different states)
+
+Each state can display, on each line, a signaling icon
+
+For this icon to be visible, you must add an empty column to the "header" and a specific column to the "content"
+
+Of course you can have multiple infoZone if you want
+
+### Example
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(configExampleInfoZone, null, 2)}`}
+    />
+</details>
+
+export const configExampleInfoZone = createBasicConfig(3, 2, {
+    selectableRow: [0],
+    selectedRow: [0],
+    highlighted: [1],
+    error: [
+        { index: 2, errorMessage: 'Custom Error message' },
+    ],
+    infoZone: [0]
+})
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={configExampleInfoZone}
+        headerGroupDisabled={false}
+        order={'asc'}
+        orderBy={'numericAsc'}
+    />
+</Canvas>
+
+<h2 id="header">Header</h2>
+
+You must add an empty column "**{}**" in your header, at the position where you want to display the **infoZone**
+
+```json
+"header": [
+    {},
+    {
+      "label": "Header 1"
+    },
+    {
+      "label": "Header 2"
+    }
+]
+```
+
+<h2 id="content">Content</h2>
+
+For each line of content, in the "rowContent" field, you must add a new column containing "**{isInfoZone: true}**" field, at the position where you want to display the **infoZone**
+
+```json
+"content": [
+    {
+      "id": 0,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 1/1"
+        },
+        {
+          "label": "Row 1/2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "rowContent": [
+        {
+          "isInfoZone": true
+        },
+        {
+          "label": "Row 2/1"
+        },
+        {
+          "label": "Row 2/2"
+        }
+      ]
+    }
+  ]
+```
+
+export const baseConfig = {
+    addFakeData: true,
+    cooling: [1, 2, 3],
+    heating: [4, 5, 6],
+    sort: [0, 1, 2, 3, 6],
+    selectableRow: [0, 1, 3, 4],
+    selectedRow: [1, 4],
+    highlighted: [2, 3, 4],
+    error: [
+        { index: 5, errorMessage: 'Error message 1' },
+    ],
+}
+
+export const baseCandidateTableProps = {
+    headerGroupDisabled: false,
+    order: 'asc',
+    orderBy: 'numericAsc',
+    requestSortCallback: () => {}
+}
+
+export const tableConfigNoInfoZone = createBasicConfig(6, 10, { ...baseConfig })
+export const tableConfigInfoZoneFirst = createBasicConfig(6, 10, { ...baseConfig, infoZone: [0] })
+export const tableConfigInfoZoneMiddle = createBasicConfig(6, 10, { ...baseConfig, infoZone: [4] })
+export const tableConfigInfoZoneLast = createBasicConfig(6, 10, { ...baseConfig, infoZone: [10] })
+export const tableConfigInfoZoneFirstAndLast = createBasicConfig(6, 10, { ...baseConfig, infoZone: [0, 10] })
+
+<h2 id="infoZoneFirst">InfoZone first</h2>
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfigInfoZoneFirst, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfigInfoZoneFirst}
+        {...baseCandidateTableProps}
+    />
+</Canvas>
+
+<h2 id="infoZoneMiddle">InfoZone in the middle</h2>
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfigInfoZoneMiddle, null, 2)}`}
+    />
+</details>
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfigInfoZoneMiddle}
+        {...baseCandidateTableProps}
+    />
+</Canvas>
+
+<h2 id="infoZoneEnd">InfoZone at the end</h2>
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfigInfoZoneLast, null, 2)}`}
+    />
+</details>
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfigInfoZoneLast}
+        {...baseCandidateTableProps}
+    />
+</Canvas>
+
+<h2 id="infoZoneFirstLast">InfoZone first and last</h2>
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfigInfoZoneFirstAndLast, null, 2)}`}
+    />
+</details>
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfigInfoZoneFirstAndLast}
+        {...baseCandidateTableProps}
+    />
+</Canvas>
+
+<h2 id="noInfoZone">No InfoZone</h2>
+<br/>
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfigNoInfoZone, null, 2)}`}
+    />
+</details>
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfigNoInfoZone}
+        {...baseCandidateTableProps}
+    />
+</Canvas>

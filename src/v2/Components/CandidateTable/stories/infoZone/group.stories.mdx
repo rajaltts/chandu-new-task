@@ -1,0 +1,421 @@
+import { Meta, Canvas, Story, Source, DocsContainer } from '@storybook/addon-docs';
+import { BackToTop, TableOfContents, withTableOfContents } from 'storybook-docs-toc';
+
+import { CandidateTable as BaseCandidateTable } from '../helpers/components/Base'
+import { CandidateTable, groupInfoZone } from '../helpers/components/Group'
+import { createBasicConfig } from '../helpers/utils/createBasicConfig'
+import { createViewMode } from '../helpers/utils/createViewMode'
+
+<Meta
+    title='Layout/CandidateTable/(5) Line State && Info Zone'
+    component={BaseCandidateTable}
+/>
+
+<Story
+    parameters={{
+        ...createViewMode('docs', true, true),
+        options: { showToolbar: false },
+        order: 5,
+        ...withTableOfContents(),
+        docs: {
+            container: ({ children, ...rest }) => (
+                <React.Fragment>
+                    <DocsContainer {...rest}>
+                        <TableOfContents className="sbdocs sbdocs-toc--custom" title="Grouping" />
+                        {children}
+                        <BackToTop />
+                    </DocsContainer>
+                </React.Fragment>
+            ),
+        },
+    }}
+    name="Grouping"/>
+
+<h2 id="introduction">Introduction by example</h2>
+
+You can **group** rows together
+
+Example content:
+
+| line number | isGroupRow | isOpen | highlighted sub row index | error sub row index |
+| ----------- | ---------- | ------ | ------------------------- | ------------------- |
+| 1           | true       | true   | 1                         | undefined           |
+| 2           | true       | true   | 2                         | undefined           |
+| 3           | true       | false  | 3                         | undefined           |
+| 4           | true       | false  | undefined                 | 0                   |
+| 5           | true       | false  | undefined                 | 0, 1, 2             |
+| 6           | false      | N/A    | N/A                       | N/A                 |
+
+export const tableConfig = groupInfoZone([0, 1])
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(tableConfig, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={tableConfig}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="expandRow">Expanding row</h2>
+
+To add the icon to open or close a grouped row, you can add the "**isGroupRowExpander**" field to the desired location in the "rowContent" of the row concerned
+
+It's up to you to determine the location of the icon and what you want to put before or after
+
+Like this:
+
+export const expandingRowSample = {
+    "header": [
+        {},
+        {"label": "Header 1"},
+        {"label": "Header 2"},
+        {"label": "Header 3"},
+        {"label": "Header 4"},
+        {"label": "Header 5"}
+    ],
+    "content": [
+        {
+            "id": 0,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Row 1"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true
+        },
+        {
+            "id": 1,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Row 1"},
+                {"label": "Row 2"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true
+        },
+        {
+            "id": 2,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Row 1"},
+                {"label": "Row 2"},
+                {"label": "Row 3"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""}
+            ],
+            "isSelectable": true
+        },
+        {
+            "id": 3,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Row 1"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": "You can put something after"},
+                {"label": ""},
+                {"label": "Or here"}
+            ],
+            "isSelectable": true
+        },
+    ]
+}
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(expandingRowSample, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <BaseCandidateTable
+        tableConfig={expandingRowSample}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="openClose">Open / Close</h2>
+
+### Icon status
+
+You can change the direction of the icon to indicate that a line is open or not, by adding the "**isOpen**" field to the line concerned
+
+Like this:
+
+export const openClosegRowSample = {
+    "header": [
+        {},
+        {"label": "Header 1"},
+        {"label": "Header 2"},
+        {"label": "Header 3"},
+        {"label": "Header 4"},
+        {"label": "Header 5"}
+    ],
+    "content": [
+        {
+            "id": 0,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Close row"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true
+        },
+        {
+            "id": 1,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Open row"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true,
+            "isOpen": true
+        }
+    ]
+}
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(openClosegRowSample, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <BaseCandidateTable
+        tableConfig={openClosegRowSample}
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+### Callback
+
+To change the "open" status of a line by clicking on the icon, you can add the "onOpen" field for each line you want to control
+
+With this definition, where "id" parameter corresponding to your line "id" field, and "open" parameter is a boolean:
+
+```jsx
+const onOpen = (id, selected) => {}
+```
+
+You must therefore manage a "state" yourself to know which line(s) is/are open
+
+```jsx
+export const MyComponent = ({ configFile }) => {
+    const [openedIds, setOpenedIds] = React.useState([0])
+    const [config, setConfig] = React.useState({})
+
+    const onOpen = (id, open) => {
+        if (open) setOpenedIds((oldValue) => [...oldValue, id])
+        else setOpenedIds((oldValue) => oldValue.filter((v) => v !== id))
+    }
+
+    useEffect(() => {
+        setConfig({
+            "header": [
+                {},
+                {"label": "Header 1"},
+                {"label": "Header 2"}
+            ],
+            "content": [
+                {
+                    "id": 0,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 1/1"},
+                        {"label": "Row 1/2"}
+                    ],
+                    "isSelectable": true,
+                    "isOpen": openedIds.includes(0),
+                    "onOpen": onOpen
+                },
+                {
+                    "id": 1,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 2/1"},
+                        {"label": "Row 2/2"}
+                    ],
+                    "isSelectable": true,
+                    "isOpen": openedIds.includes(1),
+                    "onOpen": onOpen
+                },
+                {
+                    "id": 2,
+                    "rowContent": [
+                        {"isInfoZone": true},
+                        {"label": "Row 3/1"},
+                        {"label": "Row 3/2"}
+                    ],
+                    "isSelectable": true,
+                    "isOpen": openedIds.includes(2),
+                    "onOpen": onOpen
+                }
+            ]
+        })
+    }, [selectedId])
+
+    return <CandidateTable tableConfig={config} />
+}
+```
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(openClosegRowSample, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <CandidateTable
+        tableConfig={openClosegRowSample}
+        disableInternalData
+        headerGroupDisabled={false}
+    />
+</Canvas>
+
+<h2 id="subRow">Sub row</h2>
+
+To signal that a line is a subRow, you can add the "**isSubGroupRow**" field for the line concerned
+
+It is your responsibility to add subRows according to the status of the main line (open/close)
+
+export const subRowSample = {
+    "header": [
+        {},
+        {"label": "Header 1"},
+        {"label": "Header 2"},
+        {"label": "Header 3"},
+        {"label": "Header 4"},
+        {"label": "Header 5"}
+    ],
+    "content": [
+        {
+            "id": 0,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Close row"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true
+        },
+        {
+            "id": 1,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Open row"},
+                {
+                    "label": "",
+                    "isGroupRowExpander": true
+                },
+                {"label": ""},
+                {"label": ""},
+                {"label": ""}
+            ],
+            "isSelectable": true,
+            "isOpen": true
+        },
+        {
+            "id": 11,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Sub row 1/1"},
+                {"label": "Sub row 1/2"},
+                {"label": "Sub row 1/3"},
+                {"label": "Sub row 1/4"},
+                {"label": "Sub row 1/5"}
+            ],
+            "isSubGroupRow": true
+        },
+        {
+            "id": 12,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Sub row 2/1"},
+                {"label": "Sub row 2/2"},
+                {"label": "Sub row 2/3"},
+                {"label": "Sub row 2/4"},
+                {"label": "Sub row 2/5"}
+            ],
+            "isSubGroupRow": true
+        },
+        {
+            "id": 13,
+            "rowContent": [
+                {"isInfoZone": true},
+                {"label": "Sub row 3/1"},
+                {"label": "Sub row 3/2"},
+                {"label": "Sub row 3/3"},
+                {"label": "Sub row 3/4"},
+                {"label": "Sub row 3/5"}
+            ],
+            "isSubGroupRow": true
+        }
+    ]
+}
+
+<details>
+    <summary>With this tableConfig</summary>
+    <Source
+        language='js'
+        format={true}
+        code={`const tableConfig = ${JSON.stringify(subRowSample, null, 2)}`}
+    />
+</details>
+
+<Canvas withSource='none'>
+    <BaseCandidateTable
+        tableConfig={subRowSample}
+        disableInternalData
+        headerGroupDisabled={false}
+    />
+</Canvas>
