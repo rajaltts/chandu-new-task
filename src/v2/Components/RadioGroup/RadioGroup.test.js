@@ -73,6 +73,15 @@ it('should be displayed in row', () => {
     expect(radioGroup.classList.contains('MuiFormGroup-row')).toBe(true)
 })
 
+it('should be clickable even if it is infeasible', () => {
+    act(() => {
+        render(<RadioGroup name='RadioRuleProp' values={values} value={value} />, container)
+    })
+    const radioInput = container.querySelector(`#Radio_RadioRuleProp_${value}`)
+    expect(radioInput).not.toBeNull()
+    expect(radioInput.disabled).toBe(false)
+})
+
 it('should not be displayed in row', () => {
     act(() => {
         render(<RadioGroup values={values} value={value} row={false} />, container)
