@@ -6,8 +6,8 @@ import { IconButton } from '@material-ui/core'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 
 // Local
-import Typography from '../../Typography/Typography'
-import MediaCard from '../../MediaCard/MediaCard'
+import Typography from '../Typography/Typography'
+import MediaCard from '../MediaCard/MediaCard'
 
 // Styles
 import { useCandidateCardStyles } from './CandidateCard.styles'
@@ -28,8 +28,7 @@ const CandidateCard = ({ details, index, openPopupCallback, ...mediaCardProps })
             imgProps={{ height: 140 }}
             contentProps={{ className: classes.content }}
             color='secondary'
-            {...mediaCardProps}
-        >
+            {...mediaCardProps}>
             <>
                 <IconButton className={classes.visibilityButton} onClick={handleVisibilityButtonClick}>
                     <VisibilityIcon />

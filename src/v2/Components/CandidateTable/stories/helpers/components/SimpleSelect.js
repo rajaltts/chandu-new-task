@@ -11,7 +11,7 @@ export const CandidateTable = ({ tableConfig, ...restProps }) => {
 
     if (localContent) {
         localContent.forEach((line) => {
-            line.onClick = (id, value) => {
+            line.onClick = (id) => {
                 setSelectedId(id)
             }
             line.selected = line.id === selectedId

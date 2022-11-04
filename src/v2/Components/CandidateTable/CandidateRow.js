@@ -61,8 +61,7 @@ const CandidateRow = ({
                                 onClick={(e) => {
                                     e.stopPropagation()
                                     if (onOpen) onOpen(id, !isOpen)
-                                }}
-                            >
+                                }}>
                                 {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                             </IconButton>
                         )
@@ -84,8 +83,7 @@ const CandidateRow = ({
                                     <Tooltip
                                         disableHoverListener={v.errorMessage === undefined}
                                         placement='right'
-                                        title={v.errorMessage}
-                                    >
+                                        title={v.errorMessage}>
                                         <ErrorIcon color='error' />
                                     </Tooltip>
                                 </div>
@@ -110,8 +108,7 @@ const CandidateRow = ({
                                             ? subRowCellHeatingClass
                                             : subRowCellClass
                                     } 
-                                    ${v.isInfoZone ? classes.subRowCellInfoZone : ''}`}
-                            >
+                                    ${v.isInfoZone ? classes.subRowCellInfoZone : ''}`}>
                                 {content}
                             </div>
                         </TableCell>

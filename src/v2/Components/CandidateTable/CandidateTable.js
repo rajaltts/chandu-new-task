@@ -45,8 +45,7 @@ const CandidateTable = ({
         const createStandardHeader = (colSpan, isCooling = false, isHeating = false) => (
             <TableCell
                 colSpan={colSpan}
-                className={`${classes.headerCell} ${isCooling || isHeating ? classes.sectionCell : ''}`}
-            >
+                className={`${classes.headerCell} ${isCooling || isHeating ? classes.sectionCell : ''}`}>
                 {isCooling
                     ? injectIntlTranslation(intl, 'Cooling', 'Cooling')
                     : isHeating
@@ -120,8 +119,7 @@ const CandidateTable = ({
                 key={v.dataKey || `header_cell_${i}`}
                 className={
                     v.isCooling ? headerCellCoolingClass : v.isHeating ? headerCellHeatingClass : headerCellClass
-                }
-            >
+                }>
                 {v.dataKey ? (
                     <TableSortLabel
                         active={orderBy === v.dataKey}
@@ -129,10 +127,9 @@ const CandidateTable = ({
                             orderBy === v.dataKey ? classes.headerCellSortLabelActive : ''
                         }`}
                         direction={orderBy === v.dataKey ? order : 'asc'}
-                        onClick={(event) =>
+                        onClick={() =>
                             requestSortCallback && requestSortCallback(v.dataKey, order === 'asc' ? 'desc' : 'asc')
-                        }
-                    >
+                        }>
                         {v.label}
                     </TableSortLabel>
                 ) : (

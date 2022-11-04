@@ -43,7 +43,7 @@ const RadioGroup = ({
                 row={row}
                 {...restRadioGroup}>
                 {values.map((radio) => {
-                    const disabledValue = disabled || radio.feasible === false || radio.enable === false
+                    const disabledValue = disabled || radio.enable === false
                     return (
                         <FormControlLabel
                             key={radio.value}

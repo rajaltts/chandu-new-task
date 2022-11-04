@@ -31,7 +31,7 @@ export const config = [
     },
     {
         label: 'Numeric random',
-        getValue: (index) => Math.floor(Math.random() * (200 - 0 + 1) + 0),
+        getValue: () => Math.floor(Math.random() * (200 - 0 + 1) + 0),
         dataKey: 'numericRandom',
         dataKeyComparator: sortByNumberComparator,
     },

@@ -36,8 +36,7 @@ const CandidateCardDetails = ({ detailsData }) => {
                         className={`
                             ${classes.tableCell}
                             ${isCooling ? classes.coolingCell : ''}
-                            ${isHeating ? classes.heatingCell : ''}`}
-                    >
+                            ${isHeating ? classes.heatingCell : ''}`}>
                         {realTitle}
                     </TableCell>
                     {tableCellContainer}

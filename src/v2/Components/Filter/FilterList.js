@@ -5,7 +5,7 @@ import React from 'react'
 import { Card, List, ListItem, ListItemText, Box } from '@material-ui/core'
 
 // Local
-import Typography from '../../Typography/Typography'
+import Typography from '../Typography/Typography'
 
 // Styles
 import { useFilterListStyle } from './FilterList.styles'

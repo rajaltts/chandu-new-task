@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 // Material
 import { ThemeProvider } from '@material-ui/core'
-import theme from '../../../../../../../themes'
+import theme from '../../../../../../themes'
 
 // Local
 import LocalCandidateTable from '../../../CandidateTable'
