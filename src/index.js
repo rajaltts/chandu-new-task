@@ -130,6 +130,8 @@ import globalStyles from './v2/Components/styles/globalStyles'
 import VerticalIcons from './v2/Components/VerticalIcons'
 import BottomActions from './v2/Components/BottomActions'
 import Stepper from './v2/Components/layout/Stepper'
+import ChildProps from './v2/Components/CustomChildProps/ChildProps'
+import CustomComponent_ERV from './v2/Components/CustomComponent_ERV/CustomComponent_ERV'
 
 export {
     Autocomplete,
@@ -259,5 +261,7 @@ export {
     globalStyles,
     VerticalIcons,
     BottomActions,
-    Stepper
+    Stepper,
+    ChildProps,
+    CustomComponent_ERV
 }
