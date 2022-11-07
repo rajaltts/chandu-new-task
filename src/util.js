@@ -62,17 +62,17 @@ let defaultTheme = {
             fontSize: pxToRem(20),
             fontWeight: 600,
             lineHeight: '23px',
-            paddingBottom: '20px',
+            paddingBottom: pxToRem(2),
             '@media (min-width: 768px)': {
-                paddingBottom: '24px',
+                paddingBottom: pxToRem(6),
             },
         },
         h3: {
             fontSize: pxToRem(16),
             fontWeight: 600,
-            paddingBottom: '20px',
+            paddingBottom: 0,
             '@media (min-width: 768px)': {
-                paddingBottom: '24px',
+                paddingBottom: 0,
             },
         },
         body1: {
@@ -84,6 +84,7 @@ let defaultTheme = {
         },
         subtitle1: {
             fontSize: pxToRem(14),
+            fontWeight: 'bold',
             lineHeight: '16px',
         },
         subtitleBold: {
@@ -150,12 +151,23 @@ let defaultTheme = {
             flexDirection: 'column',
         },
     },
+    overrides: {
+        MuiButton: {
+            root: {
+                /* Use Button uppercase property to get uppercase characters */
+                textTransform: 'capitalize',
+            },
+        },
+    },
 }
 
 const getFocusableCells = (elementParent, query) => {
-    let focussable = Array.prototype.filter.call(elementParent.querySelectorAll(query || '[tabindex="2"]'), (element) => {
-        return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
-    })
+    let focussable = Array.prototype.filter.call(
+        elementParent.querySelectorAll(query || '[tabindex="2"]'),
+        (element) => {
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+        }
+    )
     let index = focussable.indexOf(document.activeElement)
     return { focussable, index }
 }
