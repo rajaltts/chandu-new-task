@@ -124,6 +124,17 @@ import CandidateCard from './v2/Components/CandidateCard/CandidateCard'
 import CandidateCardDetails from './v2/Components/CandidateCard/CandidateCardDetails'
 import CandidateCardList from './v2/Components/CandidateCard/CandidateCardList'
 import CandidateTable from './v2/Components/CandidateTable/CandidateTable'
+import { ReactComponent as AssemblySvg } from "./assets/images/svg/assembly.svg"
+import { ReactComponent as ComponentsSelectionSvg } from "./assets/images/svg/components_selection.svg"
+import { ReactComponent as DragHandleSvg } from "./assets/images/svg/drag-handle.svg"
+import { ReactComponent as HeatingSvg } from "./assets/images/svg/heating.svg"
+import { ReactComponent as LoadingSvg } from "./assets/images/svg/loading.svg"
+import { ReactComponent as OperatingSvg } from "./assets/images/svg/operating.svg"
+import { ReactComponent as SummarySvg } from "./assets/images/svg/summary.svg"
+import { ReactComponent as TemplateSvg } from "./assets/images/svg/template.svg"
+import { ReactComponent as UnitSizeSvg } from "./assets/images/svg/unit_size.svg"
+import {ReactComponent as UnitSvg } from "./assets/images/svg/unit.svg"
+import {ReactComponent as Vector } from "./assets/images/svg/vector.svg"
 
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
@@ -282,5 +293,16 @@ export {
     CandidateTable,
     CheckboxControl,
     SelectControl,
-    OptionTypes
+    OptionTypes,
+    AssemblySvg,
+    ComponentsSelectionSvg,
+    DragHandleSvg,
+    HeatingSvg,
+    LoadingSvg,
+    OperatingSvg,
+    SummarySvg,
+    TemplateSvg,
+    UnitSizeSvg,
+    UnitSvg,
+    Vector,
 }
