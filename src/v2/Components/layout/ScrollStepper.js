@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Stepper, Step, StepLabel, Link, makeStyles, Typography } from '@material-ui/core'
-import { RulesContext } from '@carrier/ngecat-reactcomponents'
 
 import {
     scrollTo,
@@ -97,9 +96,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const ScrollStepper = ({ steps, active, handlerClick }) => {
+const ScrollStepper = ({ steps, active, handlerClick, configurationData, properties, relaxed, currentStep }) => {
     const classes = useStyles()
-    const { configurationData, properties, relaxed, step: currentStep } = useContext(RulesContext)
 
     useEffect(() => {
         const handleScroll = () => {

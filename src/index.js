@@ -135,6 +135,9 @@ import BottomActions from './v2/Components/BottomActions'
 import Stepper from './v2/Components/layout/Stepper'
 import ChildProps from './v2/Components/CustomChildProps/ChildProps'
 import CustomComponent_ERV from './v2/Components/CustomComponent_ERV/CustomComponent_ERV'
+import CheckboxControl from './v2/Components/Tabs/Tab4/ControlType/CheckboxControl'
+import SelectControl from './v2/Components/Tabs/Tab4/ControlType/SelectControl'
+import { OptionTypes } from './v2/Components/Tabs/Tab4/OptionTypes'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -277,4 +280,7 @@ export {
     CandidateCardDetails,
     CandidateCardList,
     CandidateTable,
+    CheckboxControl,
+    SelectControl,
+    OptionTypes
 }
