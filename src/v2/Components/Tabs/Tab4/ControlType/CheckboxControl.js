@@ -4,6 +4,8 @@ import { injectIntl } from 'react-intl'
 import Boolean from '../../../ControlTypes/Boolean'
 import OptionAccordion from '../../../OptionAccordion/OptionAccordion'
 import ChildProps from '../../../CustomChildProps/ChildProps'
+import Discrete from '../../../ControlTypes/Discrete'
+import CUSTOMCOMPONENT_ERV from '../../../CustomComponent_ERV/CustomComponent_ERV'
 
 const CheckboxControl = (props) => {
     const {
@@ -26,6 +28,13 @@ const CheckboxControl = (props) => {
             return
         }
         setAccordionOpen(expanded)
+    }
+
+    const customControlType = {
+        CUSTOMCOMPONENT_ERV: {
+            controlElementType: Discrete,
+            customElement: CUSTOMCOMPONENT_ERV,
+        },
     }
 
     return (
@@ -52,6 +61,7 @@ const CheckboxControl = (props) => {
                             SECTION_NAMES={SECTION_NAMES}
                             configurationData={configurationData}
                             onChangeflagSelectionRulesDirty={onChangeflagSelectionRulesDirty}
+                            customControlType={customControlType}
                         />
                     )
                 }

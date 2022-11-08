@@ -13,7 +13,6 @@ import Checkbox from '../Checkbox/Checkbox'
 import RangeWithUnit from '../ControlTypes/RangeWithUnit'
 import InputRange from '../InputRange/InputRange'
 import ImageContent from '../ImageContent/ImageContent'
-import CustomComponent_ERV from '../CustomComponent_ERV/CustomComponent_ERV'
 
 const ChildProps = ({
     childData = [],
@@ -25,12 +24,13 @@ const ChildProps = ({
     SECTION_NAMES,
     configurationData,
     onChangeflagSelectionRulesDirty,
+    customControlType = {},
 }) => {
-    let DataControlElement
-    let DataFormElement
-
     const renderControls = () => {
         return childData.map((child, i) => {
+            let DataControlElement
+            let DataFormElement
+
             switch (child.Attributes.ControlType) {
                 case 'DROPDOWN':
                     DataControlElement = Discrete
@@ -57,13 +57,16 @@ const ChildProps = ({
                     DataFormElement = ImageContent
                     break
 
-                case 'CUSTOMCOMPONENT_ERV':
-                    DataControlElement = Discrete
-                    DataFormElement = CustomComponent_ERV
-                    break
-
                 default:
                     break
+            }
+
+            //check to see if child.Attributes.ControlType is customControlType(CUSTOMCOMPONENT_ERV), If so, render custom component
+            const customControlData = customControlType[child.Attributes.ControlType]
+            if (customControlData) {
+                const { controlElementType, customElement } = customControlData
+                DataControlElement = controlElementType
+                DataFormElement = customElement
             }
 
             //Check to see if we are missing info to render our child.  If so, show error about unknown control type.

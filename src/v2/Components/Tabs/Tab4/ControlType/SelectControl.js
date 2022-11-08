@@ -5,6 +5,7 @@ import { isEmptyArray } from '@carrier/workflowui-globalfunctions'
 import ChildProps from '../../../CustomChildProps/ChildProps'
 import Discrete from '../../../ControlTypes/Discrete'
 import SelectWithAccordion from '../../../SelectWithAccordion/SelectWithAccordion'
+import CustomComponent_ERV from '../../../CustomComponent_ERV/CustomComponent_ERV'
 
 const SelectControl = (props) => {
     const {
@@ -27,6 +28,13 @@ const SelectControl = (props) => {
             return
         }
         setAccordionOpen(expanded)
+    }
+
+    const customControlType = {
+        CUSTOMCOMPONENT_ERV: {
+            controlElementType: Discrete,
+            customElement: CustomComponent_ERV,
+        },
     }
 
     return (
@@ -54,6 +62,7 @@ const SelectControl = (props) => {
                                 SECTION_NAMES={SECTION_NAMES}
                                 configurationData={configurationData}
                                 onChangeflagSelectionRulesDirty={onChangeflagSelectionRulesDirty}
+                                customControlType={customControlType}
                             />
                         )
                     }
