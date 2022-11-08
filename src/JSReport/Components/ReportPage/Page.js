@@ -88,7 +88,7 @@ const Page = (props) => {
         }
     })
 
-    const [dimensions, setDimensions] = useState(new Array(children?.length ?? 0))
+    const dimensions = useRef(new Array(children?.length ?? 0))
     const maxPageContentHeight = PAGE_BODY
 
     let cumulativeHeight = 0
@@ -96,6 +96,7 @@ const Page = (props) => {
     let unrenderedChildren = []
 
     const [loaded, setStatus] = useState(document.readyState === 'complete')
+    const [overflow, setOverflow] = useState(false)
 
     useEffect(() => {
         if (!loaded) {
@@ -122,19 +123,19 @@ const Page = (props) => {
             <ComponentWithDimensions
                 key={index}
                 onHeightChange={(height) => {
-                    dimensions[index] = height
-                    setDimensions(dimensions)
+                    dimensions.current[index] = height
+                    setOverflow(true)
                 }}>
                 {children[index]}
             </ComponentWithDimensions>
         )
 
     if (loaded && checkForOverflow && children?.length) {
-        if (dimensions.findIndex((x) => x === undefined) !== -1) {
+        if (dimensions.current.findIndex((x) => x === undefined) !== -1) {
             children.forEach((_, index) => createComponentWithDimensions(index))
         } else {
             for (let i = 0; i < children.length; i++) {
-                cumulativeHeight += dimensions[i]
+                cumulativeHeight += dimensions.current[i]
 
                 if (
                     pageChildren.length > 0 &&
