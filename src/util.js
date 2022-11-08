@@ -55,6 +55,22 @@ let defaultTheme = {
         background: {
             white: 'white',
         },
+        ciat: {
+            primary: {
+                main: '#ff8080',
+            },
+            secondary: {
+                main: '#A7AFC3',
+            },
+        },
+        carrier: {
+            primary: {
+                main: '#071e62',
+            },
+            secondary: {
+                main: '#A7AFC3',
+            },
+        },
     },
     typography: {
         fontFamily: 'Roboto, sans-serif',
@@ -84,13 +100,12 @@ let defaultTheme = {
         },
         subtitle1: {
             fontSize: pxToRem(14),
-            fontWeight: 'bold',
             lineHeight: '16px',
         },
         subtitleBold: {
             fontSize: pxToRem(14),
             lineHeight: '16px',
-            fontWeight: 600,
+            fontWeight: 'bold',
         },
         caption: {
             fontSize: pxToRem(12),
