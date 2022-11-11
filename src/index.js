@@ -149,6 +149,7 @@ import CustomComponent_ERV from './v2/Components/CustomComponent_ERV/CustomCompo
 import CheckboxControl from './v2/Components/Tabs/Tab4/ControlType/CheckboxControl'
 import SelectControl from './v2/Components/Tabs/Tab4/ControlType/SelectControl'
 import { OptionTypes } from './v2/Components/Tabs/Tab4/OptionTypes'
+import Layout from './v2/Components/layout/Layout'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -305,4 +306,5 @@ export {
     UnitSizeSvg,
     UnitSvg,
     Vector,
+    Layout,
 }
