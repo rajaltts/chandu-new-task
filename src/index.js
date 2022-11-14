@@ -150,6 +150,30 @@ import TemplateSelection from './v2/Components/TemplateSelection/TemplateSelecti
 import CheckboxControl from './v2/Components/Tabs/Tab4/ControlType/CheckboxControl'
 import SelectControl from './v2/Components/Tabs/Tab4/ControlType/SelectControl'
 import { OptionTypes } from './v2/Components/Tabs/Tab4/OptionTypes'
+import AdvancedAcoustics from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcoustics'
+import AWeightedSoundPowerLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/AWeightedSoundPowerLevelsComponent'
+import AWeightedSoundPressureLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/AWeightedSoundPressureLevelsComponent'
+import SoundPowerLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/SoundPowerLevelsComponent'
+import SoundPressureLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/SoundPressureLevelsComponent'
+import AcousticsHelpMenu from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AcousticsHelpMenu'
+import { 
+    helpMenuContent,
+    SPECIFY_BARRIER_STARTX,
+    SPECIFY_BARRIER_STARTY,
+    SPECIFY_BARRIER_CANVASWIDTH, 
+    SPECIFY_BARRIER_CANVASHEIGHT, 
+    SPECIFY_REFLECTION_STARTX, 
+    SPECIFY_REFLECTION_STARTY, 
+    SPECIFY_REFLECTION_CANVASWIDTH, 
+    SPECIFY_REFLECTION_CANVASHEIGHT, 
+    INPUT_RANGE_TOOLTIP_TEXT
+} from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvanceAcousticsConstants'
+import CalculatedOutput from './v2/Components/Tabs/Tab4/AdvancedAcoustics/CalculatedOutput'
+import CustomCanvasBorder from './v2/Components/Tabs/Tab4/AdvancedAcoustics/CustomCanvasBorder'
+import ReferenceImage from './v2/Components/Tabs/Tab4/AdvancedAcoustics/ReferenceImage'
+import ShowAcousticsCalculationData from './v2/Components/Tabs/Tab4/AdvancedAcoustics/ShowAcousticsCalculationData'
+import SkeletonAnimation from './v2/Components/Tabs/Tab4/AdvancedAcoustics/SkeletonAnimation'
+import { AdvancedAcousticsStyles, specifyReflectionStyles, specifyBarrierStyles } from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsStyles'
 import Layout from './v2/Components/layout/Layout'
 
 import theme from './themes'
@@ -307,6 +331,31 @@ export {
     UnitSizeSvg,
     UnitSvg,
     Vector,
+    TemplateSelection,
+    AdvancedAcoustics, 
+    AWeightedSoundPowerLevelsComponent, 
+    AWeightedSoundPressureLevelsComponent, 
+    SoundPowerLevelsComponent,
+    SoundPressureLevelsComponent, 
+    AcousticsHelpMenu, 
+    helpMenuContent, 
+    SPECIFY_BARRIER_STARTX,
+    SPECIFY_BARRIER_STARTY,  
+    SPECIFY_BARRIER_CANVASWIDTH, 
+    SPECIFY_BARRIER_CANVASHEIGHT, 
+    SPECIFY_REFLECTION_STARTX, 
+    SPECIFY_REFLECTION_STARTY, 
+    SPECIFY_REFLECTION_CANVASWIDTH, 
+    SPECIFY_REFLECTION_CANVASHEIGHT, 
+    INPUT_RANGE_TOOLTIP_TEXT,
+    CalculatedOutput, 
+    CustomCanvasBorder,
+    ReferenceImage,
+    ShowAcousticsCalculationData,
+    SkeletonAnimation, 
+    specifyReflectionStyles,
+    specifyBarrierStyles,
+    AdvancedAcousticsStyles,
     Layout,
-    TemplateSelection
+    TemplateSelection,
 }
