@@ -357,5 +357,4 @@ export {
     specifyBarrierStyles,
     AdvancedAcousticsStyles,
     Layout,
-    TemplateSelection,
 }
