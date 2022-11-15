@@ -12,7 +12,7 @@ const OptionControls = (props) => {
         onChangeflagSelectionRulesDirty,
         propsThatMakeSelectionRulesDirty,
         step4,
-        SECTION_NAMES
+        SECTION_NAMES,
     } = props
     const [activeControls, setActiveControls] = useState([])
     useEffect(() => {
@@ -30,8 +30,8 @@ const OptionControls = (props) => {
         const visibleChildrenGroup =
             children !== undefined
                 ? children.map(({ Value }) => {
-                    return { name: Value, visible: configurationData[Value].visible }
-                })
+                      return { name: Value, visible: configurationData[Value].visible }
+                  })
                 : []
 
         const { CONTROLTYPE } = subprops
@@ -59,7 +59,7 @@ const OptionControls = (props) => {
             step4: step4,
             SECTION_NAMES: SECTION_NAMES,
             configurationData: configurationData,
-            onChangeflagSelectionRulesDirty: onChangeflagSelectionRulesDirty
+            onChangeflagSelectionRulesDirty: onChangeflagSelectionRulesDirty,
         }
         return <OptionTypes optionTypesData={optionTypesData} />
     }

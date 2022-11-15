@@ -5,7 +5,6 @@ import { injectIntlTranslation, extractDataFromRules, RULES_SUBPROPS } from '@ca
 import OptionControls from '../OptionControls'
 import TabsList from '../../../TabsList/TabsList'
 
-
 const OptionTabsList = (props) => {
     const {
         intl,
@@ -16,7 +15,7 @@ const OptionTabsList = (props) => {
         onChangeflagSelectionRulesDirty,
         propsThatMakeSelectionRulesDirty,
         step4,
-        SECTION_NAMES
+        SECTION_NAMES,
     } = props
     const [tabsList, setTabsList] = useState([])
     const [activeTab, setActiveTab] = useState(0)
