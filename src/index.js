@@ -175,6 +175,8 @@ import ShowAcousticsCalculationData from './v2/Components/Tabs/Tab4/AdvancedAcou
 import SkeletonAnimation from './v2/Components/Tabs/Tab4/AdvancedAcoustics/SkeletonAnimation'
 import { AdvancedAcousticsStyles, specifyReflectionStyles, specifyBarrierStyles } from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsStyles'
 import Layout from './v2/Components/layout/Layout'
+import OptionTabsList from './v2/Components/Tabs/Tab4/OptionTabsList/OptionTabsList'
+import OptionControls from './v2/Components/Tabs/Tab4/OptionControls'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -357,4 +359,6 @@ export {
     specifyBarrierStyles,
     AdvancedAcousticsStyles,
     Layout,
+    OptionTabsList, 
+    OptionControls,
 }
