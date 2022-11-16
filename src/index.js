@@ -177,6 +177,12 @@ import { AdvancedAcousticsStyles, specifyReflectionStyles, specifyBarrierStyles 
 import Layout from './v2/Components/layout/Layout'
 import OptionTabsList from './v2/Components/Tabs/Tab4/OptionTabsList/OptionTabsList'
 import OptionControls from './v2/Components/Tabs/Tab4/OptionControls'
+import Options from './v2/Components/Tabs/Tab4/Options'
+import PostalCode from './v2/Components/Tabs/Tab4/PostalCode/PostalCode'
+import QuoteControl from './v2/Components/Tabs/Tab4/QuoteControls/QuoteControl'
+import Acoustics from './v2/Components/Tabs/Tab4/Acoustics/Acoustics'
+import OptionTabListComponent from './v2/Components/Tabs/Tab4/OptionTabListComponent'
+import TabContent from './v2/Components/Tabs/TabContent'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -361,4 +367,10 @@ export {
     Layout,
     OptionTabsList, 
     OptionControls,
+    Options,
+    TabContent,
+    PostalCode,
+    QuoteControl,
+    OptionTabListComponent,
+    Acoustics
 }
