@@ -183,6 +183,7 @@ import QuoteControl from './v2/Components/Tabs/Tab4/QuoteControls/QuoteControl'
 import Acoustics from './v2/Components/Tabs/Tab4/Acoustics/Acoustics'
 import OptionTabListComponent from './v2/Components/Tabs/Tab4/OptionTabListComponent'
 import TabContent from './v2/Components/Tabs/TabContent'
+import ConfigurationFlow from './v2/Components/Configuration/ConfigurationFlow'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -372,5 +373,6 @@ export {
     PostalCode,
     QuoteControl,
     OptionTabListComponent,
-    Acoustics
+    Acoustics,
+    ConfigurationFlow,
 }
