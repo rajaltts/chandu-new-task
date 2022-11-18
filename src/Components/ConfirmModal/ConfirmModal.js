@@ -110,7 +110,7 @@ const ConfirmModal = (props) => {
             {!hideActions && (
                 <div className={footerClassName || 'customModalDialogFooter'}>
                     {errorMsg && (
-                        <div className='customModalDialogError'>
+                        <div className='customModalDialogError' id='customModalDialogError'>
                             <ErrorIcon fontSize='small' className='customModalCloseIcon customModalRightMargin' />
                             {errorMsg}
                         </div>
