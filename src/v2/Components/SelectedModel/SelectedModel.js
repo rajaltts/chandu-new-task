@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.subtitleBold,
         ...theme.typography.subtitleBold2,
         color: theme.palette.grey[750],
-        width: theme.rem[125],
+        width: theme.rem[150],
     },
     selectionNameSpan: {
         height: 'inherit',
