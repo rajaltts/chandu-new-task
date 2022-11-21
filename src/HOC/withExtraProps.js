@@ -9,6 +9,7 @@ export default function withExtraProps(ChildComponent, actions={}) {
         baseApi: state.api,
         workflowsConfig: state.getAllProductsReducer.builderList,
         templatesList: state.getTemplateList,
+        locale: state.locale,
     })
     return connect(mapStateToProps, { ...actions })(WrappedComponent)
 }
