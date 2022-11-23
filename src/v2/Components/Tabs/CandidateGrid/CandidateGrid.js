@@ -43,12 +43,12 @@ const CandidateGrid = (props) => {
         getHeaderData,
     } = props
     const { gridRoot, rowClassName, tdClassName, heater, cooler, pagination } = candidateGridStyles()
-    const {
-        Size
-    } = candidateListColumn
+    const { Size } = candidateListColumn
     const { Heating, Cooling, Default } = candidateGroupColumn
 
-    const [headCells, setHeadCells] = useState(getHeaderData({ intl, tdClassName, heater, cooler, unit, Heating, Cooling }))
+    const [headCells, setHeadCells] = useState(
+        getHeaderData({ intl, tdClassName, heater, cooler, unit, Heating, Cooling })
+    )
     const [errorMsg, setErrorMsg] = useState('')
     const [candidateUnit, setCandidateUnit] = useState(currentUnit)
     const [showGrid, setShowGrid] = useState(true)
