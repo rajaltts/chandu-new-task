@@ -4,8 +4,9 @@ import { DndProvider } from 'react-dnd'
 import { IntlProvider, injectIntl } from 'react-intl'
 import { ApiService } from '@carrier/workflowui-globalfunctions'
 import withExtraProps from '../../../HOC/withExtraProps'
+import ErrorBoundary from '../utils/errorAndCrashMitigation/ErrorBoundary'
 
-const ConfigurationFlow = ({ baseApi, locale, children, ErrorBoundary, TRANSLATION_API_PROJECT_ID }) => {
+const ConfigurationFlow = ({ baseApi, locale, children, TRANSLATION_API_PROJECT_ID }) => {
     const [translations, setTranslations] = useState({})
 
     // 1.e) Fetch translations depending on selected language
