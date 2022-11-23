@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { injectIntl } from 'react-intl'
 import { Box, Typography } from '@material-ui/core'
@@ -12,15 +11,14 @@ import {
 } from '@carrier/workflowui-globalfunctions'
 import CustomGrid from '../../../../Components/CustomGrid/CustomGrid'
 import candidateGridStyles from './CandidateGridStyles'
+import withExtraProps from '../../../../HOC/withExtraProps'
 
 const CandidateGrid = (props) => {
     const {
         intl,
-        lang,
-        rulesApi,
-        calcApi,
+        baseApi,
+        locale,
         showWarningNotification,
-        unit,
         selCalcResult,
         selectedCandidate,
         setSelectedCandidate,
@@ -42,6 +40,9 @@ const CandidateGrid = (props) => {
         candidateGroupColumn,
         getHeaderData,
     } = props
+    const { rulesEngineApi: rulesApi, calcEngine: calcApi } = baseApi
+    const { leafLocale: lang, unit } = locale
+
     const { gridRoot, rowClassName, tdClassName, heater, cooler, pagination } = candidateGridStyles()
     const { Size } = candidateListColumn
     const { Heating, Cooling, Default } = candidateGroupColumn
@@ -56,7 +57,7 @@ const CandidateGrid = (props) => {
 
     useEffect(() => {
         setHeadCells(getHeaderData({ intl, tdClassName, heater, cooler, unit, Heating, Cooling }))
-    }, [lang])
+    }, [intl, lang])
 
     useEffect(() => {
         if (currentUnit !== candidateUnit && !rulesLoading) {
@@ -179,11 +180,4 @@ const CandidateGrid = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    lang: state.locale.leafLocale,
-    rulesApi: state.api.rulesEngineApi,
-    calcApi: state.api.calcEngine,
-    unit: state.locale.unit,
-})
-
-export default injectIntl(withRouter(connect(mapStateToProps, { showWarningNotification })(CandidateGrid)))
+export default injectIntl(withRouter(withExtraProps(CandidateGrid, { showWarningNotification })))
