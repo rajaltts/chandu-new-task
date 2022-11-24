@@ -6,9 +6,14 @@ import { ApiService } from '@carrier/workflowui-globalfunctions'
 import withExtraProps from '../../../HOC/withExtraProps'
 import ErrorBoundary from '../utils/errorAndCrashMitigation/ErrorBoundary'
 
-const ConfigurationFlow = ({ baseApi, locale, children, TRANSLATION_API_PROJECT_ID }) => {
+const ConfigurationFlow = ({
+    baseApi,
+    locale,
+    children,
+    isErrorBoundaryNeeded = false,
+    TRANSLATION_API_PROJECT_ID,
+}) => {
     const [translations, setTranslations] = useState({})
-
     // 1.e) Fetch translations depending on selected language
     useEffect(() => {
         ApiService(
@@ -26,8 +31,8 @@ const ConfigurationFlow = ({ baseApi, locale, children, TRANSLATION_API_PROJECT_
             })
     }, [locale.transKey])
 
-    return (
-        <ErrorBoundary>
+    const getContent = () => {
+        return (
             <DndProvider
                 backend={TouchBackend}
                 options={{
@@ -37,8 +42,10 @@ const ConfigurationFlow = ({ baseApi, locale, children, TRANSLATION_API_PROJECT_
                     {children}
                 </IntlProvider>
             </DndProvider>
-        </ErrorBoundary>
-    )
+        )
+    }
+
+    return isErrorBoundaryNeeded ? <ErrorBoundary>{getContent()}</ErrorBoundary> : getContent()
 }
 
 export default injectIntl(withExtraProps(ConfigurationFlow))
