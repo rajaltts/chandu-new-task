@@ -185,6 +185,8 @@ import OptionTabListComponent from './v2/Components/Tabs/Tab4/OptionTabListCompo
 import TabContent from './v2/Components/Tabs/TabContent'
 import ConfigurationFlow from './v2/Components/Configuration/ConfigurationFlow'
 import CandidateGrid from './v2/Components/Tabs/CandidateGrid/CandidateGrid'
+import ErrorBoundary from './v2/Components/utils/errorAndCrashMitigation/ErrorBoundary'
+import { useErrorHandling } from './v2/Components/utils/errorAndCrashMitigation/ErrorBoundaryContext'
 
 import theme from './themes'
 import { pxToRem, defaultTheme } from './util'
@@ -377,4 +379,6 @@ export {
     Acoustics,
     ConfigurationFlow,
     CandidateGrid,
+    ErrorBoundary,
+    useErrorHandling,
 }
