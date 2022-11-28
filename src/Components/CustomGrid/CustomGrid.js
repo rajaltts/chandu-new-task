@@ -61,7 +61,9 @@ function CustomGrid(props) {
         isKeyBoardAccessible = false,
         showCellError = null,
         customTranslations = {},
-        checkBoxClassname
+        checkBoxClassname,
+        rowObjectForId = '',
+        gridName=''
     } = props
     const { enable: editModeEnabled = false, editModeSelectionsHandler = null } = editMode
     const [order, setOrder] = useState(sorting)
@@ -455,6 +457,7 @@ function CustomGrid(props) {
                             )}
                             {!!getRowLength() && (
                                 <CustomGridBody
+                                    gridName={gridName}
                                     isLoading={isLoading}
                                     gridClassName={gridClassName}
                                     headCells={headCells}
@@ -484,6 +487,7 @@ function CustomGrid(props) {
                                     showCellError={showCellError}
                                     customTranslations={customTranslations}
                                     checkBoxClassname={checkBoxClassname}
+                                    rowObjectForId={rowObjectForId}
                                 />
                             )}
                         </Table>

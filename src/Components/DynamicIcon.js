@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './formBuilder/formBuilder.css'
 
 const DynamicIcon = (props) => {
-    const { icon, className = '', style = {}, alt = '', onClick = null, rowData, rowIndex } = props
+    const { icon, className = '', style = {}, alt = '', onClick = null, rowData, rowIndex, id = '' } = props
+
+    const dynamicIconId = id ? `dynamicIconId_${ id }` : '';
+    const dynamicImgId = id ? `dynamicImgId_${ id }` : '';
 
     const onClickHandler = (event) => {
         if (onClick) {
@@ -16,10 +19,11 @@ const DynamicIcon = (props) => {
     }
 
     if (icon && icon.iconName) {
-        return <FontAwesomeIcon icon={icon} className={className} style={style} />
+        return <FontAwesomeIcon id={dynamicIconId} icon={icon} className={className} style={style} />
     }
     return (
         <img
+            id={dynamicImgId}
             src={icon}
             className={`${onClick ? 'formBuilderPointerCursor' : ''} ${className}`}
             style={style}

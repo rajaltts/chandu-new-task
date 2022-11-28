@@ -64,6 +64,8 @@ function CustomDropdown(props) {
         setOpen(false)
     }
 
+    const dropdownButtonId = props?.dropDownName?.split(' ').join('_') || ''
+
     return (
         <div
             id='SaveTagTemplateBtn'
@@ -75,6 +77,7 @@ function CustomDropdown(props) {
             </button>
             <button
                 title={props.dropDownName}
+                id={dropdownButtonId}
                 className={classnames('Wbtn', 'GroupBtn', props.conceptTemplate && tagTemplateName)}
                 onClick={onDropBtnClick}>
                 {props.dropDownName}
