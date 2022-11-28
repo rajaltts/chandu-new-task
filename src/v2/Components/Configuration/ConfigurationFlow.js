@@ -12,7 +12,7 @@ const ConfigurationFlow = ({
     children,
     isErrorBoundaryNeeded = false,
     TRANSLATION_API_PROJECT_ID,
-    storeName = ''
+    storeName = '',
 }) => {
     const [translations, setTranslations] = useState({})
 
@@ -23,12 +23,12 @@ const ConfigurationFlow = ({
                     ApiService,
                     [`${baseApi.translationApi}getAllFromLanguageID/${TRANSLATION_API_PROJECT_ID}/${locale.transKey}`],
                     { storeName, ttl: 60 * 60 * 24, saveArgs: true, maxItems: 10 }
-                );
-            } else {
-                return await ApiService(`${baseApi.translationApi}getAllFromLanguageID/${TRANSLATION_API_PROJECT_ID}/${locale.transKey}`)
+                )
             }
-        }
-        catch (error) {
+            return await ApiService(
+                `${baseApi.translationApi}getAllFromLanguageID/${TRANSLATION_API_PROJECT_ID}/${locale.transKey}`
+            )
+        } catch (error) {
             return { data: null }
         }
     }
@@ -36,14 +36,14 @@ const ConfigurationFlow = ({
     // 1.e) Fetch translations depending on selected language
     useEffect(() => {
         const getTranslations = async () => {
-            const { data } = await getTranslationData();
+            const { data } = await getTranslationData()
             if (data && data.status === 'success' && data.result) {
                 setTranslations(data.result)
-                return;
+                return
             }
-            setTranslations({});
+            setTranslations({})
         }
-        getTranslations();
+        getTranslations()
     }, [locale.transKey])
 
     const getContent = () => {
