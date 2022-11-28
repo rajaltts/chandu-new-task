@@ -82,8 +82,8 @@ const SearchDropdown = (props) => {
                         input: searchInputRoot,
                     },
                     startAdornment: (
-                        <InputAdornment position='start'>
-                            <SearchIcon className={searchIcon} id='ProjectSearchIcon' onClick={props.onSearchClick} />
+                        <InputAdornment position='start' id='ProjectSearchIcon'>
+                            <SearchIcon className={searchIcon} onClick={props.onSearchClick} />
                         </InputAdornment>
                     ),
                     endAdornment: (

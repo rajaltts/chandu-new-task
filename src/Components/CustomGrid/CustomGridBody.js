@@ -14,6 +14,7 @@ import { getBooleanValue } from '@carrier/workflowui-globalfunctions'
 
 function CustomGridBody(props) {
     const {
+        gridName = '',
         rows,
         config,
         headCells,
@@ -40,7 +41,8 @@ function CustomGridBody(props) {
         showCellError,
         customTranslations,
         checkBoxClassname,
-        handleEditCellRangeSelection
+        handleEditCellRangeSelection,
+        rowObjectForId = ''
     } = props
     let rowClickTimer
     const { enable: editModeEnabled = false, editModeHighlight = false, copyAction, pasteAction } = editMode
@@ -73,8 +75,10 @@ function CustomGridBody(props) {
     }
 
     const showSelectionCell = (isItemSelected, row, index, type) => {
+        const selectionName = row[rowObjectForId]?.replaceAll(' ','_') || '';
+
         const selectionProps = {
-            id: `customGridRow${index}_checkbox`,
+            id: gridName ? `${gridName}-${selectionName}` : `customGridRow${index}_checkbox`,
             color: 'primary',
             checked: isItemSelected,
             onChange: (event) => handleClickHandler(event, row, index, type),
@@ -356,6 +360,7 @@ function CustomGridBody(props) {
                                     const showErrorBackground = showCellError
                                         ? showCellError(row, configItem.lookUpKey)
                                         : false
+                                    const uniqueID = `${head?.name || ''}-cell_${index}_${cellIndex}`;
                                     return isHeaderSelectedForDisplay ? (
                                         <TableCell
                                             id={cellHighlightStyle}
@@ -399,6 +404,7 @@ function CustomGridBody(props) {
                                                 )
                                             }>
                                             <FormBuilderField
+                                                id={uniqueID}
                                                 doNotTranslate={doNotTranslate}
                                                 rowData={row}
                                                 rowIndex={index}
