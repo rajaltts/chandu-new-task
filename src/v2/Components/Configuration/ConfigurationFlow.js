@@ -22,7 +22,7 @@ const ConfigurationFlow = ({
                 return await cache(
                     ApiService,
                     [`${baseApi.translationApi}getAllFromLanguageID/${TRANSLATION_API_PROJECT_ID}/${locale.transKey}`],
-                    { storeName, ttl: 60 * 60 * 24, saveArgs: true, maxItems: 10 }
+                    { storeName, ttl: 60 * 60 * 24, saveArgs: true, maxItems: 15 }
                 )
             }
             return await ApiService(
