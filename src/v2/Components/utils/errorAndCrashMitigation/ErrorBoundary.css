@@ -1,0 +1,77 @@
+.error-boundary-parent-holder {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.restore-button-style {
+  margin-top: 10px;
+  margin-right: 15px;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: background 400ms;
+  transition: background 400ms;
+  color: #fff;
+  background-color: #3f51b5;
+  padding: 1em 2rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  outline: 0;
+  border: 1px solid #3f51b5;
+  border-radius: 0.25rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.reload-button-style {
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: background 400ms;
+  transition: background 400ms;
+  color: #3f51b5;
+  background-color: #fff;
+  padding: 1em 2rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  outline: 0;
+  border: 1px solid #3f51b5;
+  border-radius: 0.25rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.restore-ripple {
+  background-position: center;
+  -webkit-transition: background 0.8s;
+  transition: background 0.8s;
+}
+.restore-ripple:hover {
+  background: #3f51b5 radial-gradient(circle, transparent 1%, #3f51b5 1%)
+    center/15000%;
+}
+.restore-ripple:active {
+  background-color: #cfb2f9;
+  background-size: 100%;
+  -webkit-transition: background 0s;
+  transition: background 0s;
+}
+
+.reload-ripple {
+    background-position: center;
+    -webkit-transition: background 0.8s;
+    transition: background 0.8s;
+  }
+  .reload-ripple:hover {
+    background: #fff radial-gradient(circle, transparent 1%, #fff 1%)
+      center/15000%;
+  }
+  .reload-ripple:active {
+    background-color: #cfb2f9;
+    background-size: 100%;
+    -webkit-transition: background 0s;
+    transition: background 0s;
+  }
