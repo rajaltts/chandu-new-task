@@ -25,8 +25,8 @@ const Cart = (props) => {
         intl,
         closeCart,
         showBottomSpacer = true,
-        RULESET,
-        SECTION_NAMES,
+        ruleSet,
+        sectionNames,
         cartConfig,
         step1,
         onNewAssignment,
@@ -54,7 +54,7 @@ const Cart = (props) => {
     }
 
     const removeOptionFromCart = (propertyName, defaultValue) => {
-        onNewAssignment({ [propertyName]: defaultValue }, RULESET.SELECTION, null, null, null, true)
+        onNewAssignment({ [propertyName]: defaultValue }, ruleSet.SELECTION, null, null, null, true)
     }
 
     const baseQuantityHandler = (event, editedValue, rowData) => {
@@ -150,7 +150,7 @@ const Cart = (props) => {
 
     cartConfig[0].columns[1].isEditable = getRulesAssignmentValue(
         ConfigurationInputData,
-        step1[SECTION_NAMES.TAG].Tag_nQty.propName
+        step1[sectionNames.TAG].Tag_nQty.propName
     )
         ? true
         : false
