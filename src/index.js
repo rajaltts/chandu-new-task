@@ -63,6 +63,7 @@ import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/Simp
 
 import ReportPreview from './JSReport/Components/ReportPreview/ReportPreview'
 import ReportPreviewContainer from './JSReport/Components/ReportPreview/ReportPreviewContainer'
+import { ReportPreviewContainer as ReportPreviewContainerWithoutRedux } from './JSReport/Components/ReportPreview/ReportPreviewContainer'
 import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager'
 import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
@@ -259,6 +260,7 @@ export {
     SelectionRadar,
     ReportPreview,
     ReportPreviewContainer,
+    ReportPreviewContainerWithoutRedux,
     ReportsManager,
     ReportsCircularProgress,
     pdfDownload,
