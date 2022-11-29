@@ -84,7 +84,7 @@ export const ReportPreviewContainer = ({
         if (baseElem) {
             baseElem.addEventListener('scroll', handleScroll)
         }
-
+        handleScroll() // otheriwse no page on pdf (or user must scroll before downloading pdf to have pag number)
         return () => {
             document.removeEventListener('scroll', handleScroll)
         }
