@@ -231,7 +231,10 @@ const Page = (props) => {
                                     <div style={reportStyles.pageFooterLeftAreaFootNote}>
                                         {footNotes.image && (
                                             <img
-                                                style={reportStyles.pageFooterLeftAreaFootNoteImage}
+                                                style={
+                                                    footNotes.pageFooterLeftAreaFootNoteImage ||
+                                                    reportStyles.pageFooterLeftAreaFootNoteImage
+                                                }
                                                 src={footNotes.image}
                                                 alt='Certification image'
                                             />
