@@ -63,6 +63,7 @@ import SimpleLabelWithImageWarnIcon from './Components/SimpleLabelWithImage/Simp
 
 import ReportPreview from './JSReport/Components/ReportPreview/ReportPreview'
 import ReportPreviewContainer from './JSReport/Components/ReportPreview/ReportPreviewContainer'
+import { ReportPreviewContainer as ReportPreviewContainerWithoutRedux } from './JSReport/Components/ReportPreview/ReportPreviewContainer'
 import ReportsManager from './JSReport/Components/ReportsManager/ReportsManager'
 import ReportsCircularProgress from './JSReport/Components/ProgressSpinner/ProgressSpinner'
 import pdfDownload from './JSReport/Components/ReportPreview/pdfDownload'
@@ -125,17 +126,17 @@ import CandidateCard from './v2/Components/CandidateCard/CandidateCard'
 import CandidateCardDetails from './v2/Components/CandidateCard/CandidateCardDetails'
 import CandidateCardList from './v2/Components/CandidateCard/CandidateCardList'
 import CandidateTable from './v2/Components/CandidateTable/CandidateTable'
-import { ReactComponent as AssemblySvg } from "./assets/images/svg/assembly.svg"
-import { ReactComponent as ComponentsSelectionSvg } from "./assets/images/svg/components_selection.svg"
-import { ReactComponent as DragHandleSvg } from "./assets/images/svg/drag-handle.svg"
-import { ReactComponent as HeatingSvg } from "./assets/images/svg/heating.svg"
-import { ReactComponent as LoadingSvg } from "./assets/images/svg/loading.svg"
-import { ReactComponent as OperatingSvg } from "./assets/images/svg/operating.svg"
-import { ReactComponent as SummarySvg } from "./assets/images/svg/summary.svg"
-import { ReactComponent as TemplateSvg } from "./assets/images/svg/template.svg"
-import { ReactComponent as UnitSizeSvg } from "./assets/images/svg/unit_size.svg"
-import {ReactComponent as UnitSvg } from "./assets/images/svg/unit.svg"
-import {ReactComponent as Vector } from "./assets/images/svg/vector.svg"
+import { ReactComponent as AssemblySvg } from './assets/images/svg/assembly.svg'
+import { ReactComponent as ComponentsSelectionSvg } from './assets/images/svg/components_selection.svg'
+import { ReactComponent as DragHandleSvg } from './assets/images/svg/drag-handle.svg'
+import { ReactComponent as HeatingSvg } from './assets/images/svg/heating.svg'
+import { ReactComponent as LoadingSvg } from './assets/images/svg/loading.svg'
+import { ReactComponent as OperatingSvg } from './assets/images/svg/operating.svg'
+import { ReactComponent as SummarySvg } from './assets/images/svg/summary.svg'
+import { ReactComponent as TemplateSvg } from './assets/images/svg/template.svg'
+import { ReactComponent as UnitSizeSvg } from './assets/images/svg/unit_size.svg'
+import { ReactComponent as UnitSvg } from './assets/images/svg/unit.svg'
+import { ReactComponent as Vector } from './assets/images/svg/vector.svg'
 
 import Chart from './Chart/Chart'
 import ReactCharts from './Chart/ReactCharts'
@@ -157,24 +158,28 @@ import AWeightedSoundPressureLevelsComponent from './v2/Components/Tabs/Tab4/Adv
 import SoundPowerLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/SoundPowerLevelsComponent'
 import SoundPressureLevelsComponent from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsTablesComponents/SoundPressureLevelsComponent'
 import AcousticsHelpMenu from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AcousticsHelpMenu'
-import { 
+import {
     helpMenuContent,
     SPECIFY_BARRIER_STARTX,
     SPECIFY_BARRIER_STARTY,
-    SPECIFY_BARRIER_CANVASWIDTH, 
-    SPECIFY_BARRIER_CANVASHEIGHT, 
-    SPECIFY_REFLECTION_STARTX, 
-    SPECIFY_REFLECTION_STARTY, 
-    SPECIFY_REFLECTION_CANVASWIDTH, 
-    SPECIFY_REFLECTION_CANVASHEIGHT, 
-    INPUT_RANGE_TOOLTIP_TEXT
+    SPECIFY_BARRIER_CANVASWIDTH,
+    SPECIFY_BARRIER_CANVASHEIGHT,
+    SPECIFY_REFLECTION_STARTX,
+    SPECIFY_REFLECTION_STARTY,
+    SPECIFY_REFLECTION_CANVASWIDTH,
+    SPECIFY_REFLECTION_CANVASHEIGHT,
+    INPUT_RANGE_TOOLTIP_TEXT,
 } from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvanceAcousticsConstants'
 import CalculatedOutput from './v2/Components/Tabs/Tab4/AdvancedAcoustics/CalculatedOutput'
 import CustomCanvasBorder from './v2/Components/Tabs/Tab4/AdvancedAcoustics/CustomCanvasBorder'
 import ReferenceImage from './v2/Components/Tabs/Tab4/AdvancedAcoustics/ReferenceImage'
 import ShowAcousticsCalculationData from './v2/Components/Tabs/Tab4/AdvancedAcoustics/ShowAcousticsCalculationData'
 import SkeletonAnimation from './v2/Components/Tabs/Tab4/AdvancedAcoustics/SkeletonAnimation'
-import { AdvancedAcousticsStyles, specifyReflectionStyles, specifyBarrierStyles } from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsStyles'
+import {
+    AdvancedAcousticsStyles,
+    specifyReflectionStyles,
+    specifyBarrierStyles,
+} from './v2/Components/Tabs/Tab4/AdvancedAcoustics/AdvancedAcousticsStyles'
 import Layout from './v2/Components/layout/Layout'
 import OptionTabsList from './v2/Components/Tabs/Tab4/OptionTabsList/OptionTabsList'
 import OptionControls from './v2/Components/Tabs/Tab4/OptionControls'
@@ -263,6 +268,7 @@ export {
     SelectionRadar,
     ReportPreview,
     ReportPreviewContainer,
+    ReportPreviewContainerWithoutRedux,
     ReportsManager,
     ReportsCircularProgress,
     pdfDownload,
@@ -345,32 +351,32 @@ export {
     UnitSvg,
     Vector,
     TemplateSelection,
-    AdvancedAcoustics, 
-    AWeightedSoundPowerLevelsComponent, 
-    AWeightedSoundPressureLevelsComponent, 
+    AdvancedAcoustics,
+    AWeightedSoundPowerLevelsComponent,
+    AWeightedSoundPressureLevelsComponent,
     SoundPowerLevelsComponent,
-    SoundPressureLevelsComponent, 
-    AcousticsHelpMenu, 
-    helpMenuContent, 
+    SoundPressureLevelsComponent,
+    AcousticsHelpMenu,
+    helpMenuContent,
     SPECIFY_BARRIER_STARTX,
-    SPECIFY_BARRIER_STARTY,  
-    SPECIFY_BARRIER_CANVASWIDTH, 
-    SPECIFY_BARRIER_CANVASHEIGHT, 
-    SPECIFY_REFLECTION_STARTX, 
-    SPECIFY_REFLECTION_STARTY, 
-    SPECIFY_REFLECTION_CANVASWIDTH, 
-    SPECIFY_REFLECTION_CANVASHEIGHT, 
+    SPECIFY_BARRIER_STARTY,
+    SPECIFY_BARRIER_CANVASWIDTH,
+    SPECIFY_BARRIER_CANVASHEIGHT,
+    SPECIFY_REFLECTION_STARTX,
+    SPECIFY_REFLECTION_STARTY,
+    SPECIFY_REFLECTION_CANVASWIDTH,
+    SPECIFY_REFLECTION_CANVASHEIGHT,
     INPUT_RANGE_TOOLTIP_TEXT,
-    CalculatedOutput, 
+    CalculatedOutput,
     CustomCanvasBorder,
     ReferenceImage,
     ShowAcousticsCalculationData,
-    SkeletonAnimation, 
+    SkeletonAnimation,
     specifyReflectionStyles,
     specifyBarrierStyles,
     AdvancedAcousticsStyles,
     Layout,
-    OptionTabsList, 
+    OptionTabsList,
     OptionControls,
     Options,
     TabContent,
