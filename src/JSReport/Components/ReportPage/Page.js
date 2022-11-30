@@ -53,6 +53,7 @@ const Page = (props) => {
         hideFooter = false,
         hideDate = false,
         landscape = false,
+        fontFamily, // to overide pdf Report 'Roboto, Times New Roman' default fonts
     } = props
 
     const date = creationDate ? new Date(creationDate) : new Date()
@@ -149,14 +150,14 @@ const Page = (props) => {
             }
         }
     }
-
+    const jsreportPageWrapper = landscape ? reportStyles.jsreportPageWrapperLandscape : reportStyles.jsreportPageWrapper
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
             <div
                 id={landscape ? 'landscape' : 'portrait'}
                 className='jsreport-page-main-wrapper'
-                style={landscape ? reportStyles.jsreportPageWrapperLandscape : reportStyles.jsreportPageWrapper}>
+                style={{ ...jsreportPageWrapper, fontFamily: fontFamily }}>
                 <div style={reportStyles.page}>
                     {!hideHeader && (
                         <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }}>

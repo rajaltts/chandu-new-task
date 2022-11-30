@@ -19,7 +19,7 @@ const reportStyles = {
         backgroundColor: 'white',
         pageBreakAfter: 'always',
         overflow: 'hidden',
-        fontFamily: 'Helvetica, Arial',
+        fontFamily: 'Roboto, Times New Roman',
     },
     jsreportPageWrapper: {
         width: '793px',
@@ -31,7 +31,7 @@ const reportStyles = {
         backgroundColor: 'white',
         pageBreakAfter: 'always',
         overflow: 'hidden',
-        fontFamily: 'Helvetica, Arial',
+        fontFamily: 'Roboto, Times New Roman',
     },
     page: {
         ...flexColumn,
