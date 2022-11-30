@@ -117,6 +117,7 @@ import CartSection from './v2/Components/Cart/CartSection'
 import CartSectionBaseunit from './v2/Components/Cart/CartSectionBaseunit'
 import CartSectionColumns from './v2/Components/Cart/CartSectionColumns'
 import CartSectionTotal from './v2/Components/Cart/CartSectionTotal'
+import Cart from './v2/Components/Cart/Cart'
 import FilterItem from './v2/Components/Filter/FilterItem'
 import FilterRange from './v2/Components/Filter/FilterRange'
 import FilterList from './v2/Components/Filter/FilterList'
@@ -381,4 +382,5 @@ export {
     CandidateGrid,
     ErrorBoundary,
     useErrorHandling,
+    Cart,
 }

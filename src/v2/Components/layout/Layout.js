@@ -36,6 +36,7 @@ const Layout = ({
     setSaveTemplateModalOpen,
     step1,
     step2,
+    cartConfig,
 }) => {
     const classes = useStyles()
     const globalClasses = globalStyles()
@@ -79,7 +80,7 @@ const Layout = ({
             />
             <Hidden mdUp={showCartAsModal ? false : true}>
                 <DrawerLayout isOpen={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)}>
-                    <Cart closeCart={() => setCartDrawerOpen(false)} />
+                    <Cart cartConfig={cartConfig} closeCart={() => setCartDrawerOpen(false)} />
                 </DrawerLayout>
             </Hidden>
             <DrawerLayout isOpen={reportDrawerOpen} onClose={() => setReportDrawerOpen(false)}>
