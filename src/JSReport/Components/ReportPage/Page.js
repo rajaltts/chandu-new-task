@@ -151,13 +151,14 @@ const Page = (props) => {
         }
     }
     const jsreportPageWrapper = landscape ? reportStyles.jsreportPageWrapperLandscape : reportStyles.jsreportPageWrapper
+    const finalJsReportStyle = fontFamily ? { ...jsreportPageWrapper, fontFamily: fontFamily } : jsreportPageWrapper
     return (
         <>
             <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
             <div
                 id={landscape ? 'landscape' : 'portrait'}
                 className='jsreport-page-main-wrapper'
-                style={{ ...jsreportPageWrapper, fontFamily: fontFamily }}>
+                style={finalJsReportStyle}>
                 <div style={reportStyles.page}>
                     {!hideHeader && (
                         <div style={{ ...reportStyles.pageHeader, ...reportStyles.roundBorder }}>
