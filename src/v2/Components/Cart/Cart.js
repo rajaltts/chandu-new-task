@@ -34,6 +34,7 @@ const Cart = (props) => {
         ConfigurationInputData,
         getPrice = null,
         renderOptions = null,
+        getColumnData = null,
     } = props
 
     const [selectedOptions, setSelectedOptions] = useState([])
@@ -61,7 +62,10 @@ const Cart = (props) => {
         removeOptionFromCart(rowData.dataSource, editedValue)
     }
 
-    const getColumnData = (attributes, sectionColumns) => {
+    const getColumnDataHandler = (attributes, sectionColumns) => {
+        if (getColumnData) {
+            return getColumnData(attributes, sectionColumns, CART_DATASOURCETYPES)
+        }
         const columnDataArray = []
 
         if (!sectionColumns) return columnDataArray
@@ -117,7 +121,7 @@ const Cart = (props) => {
 
     const renderOptionsHandler = (config) => {
         if (renderOptions) {
-            return renderOptions(config)
+            return renderOptions(configurationData, config, intl)
         }
         const items = getCartItemList(configurationData, config.tagName, intl)
 
@@ -126,7 +130,7 @@ const Cart = (props) => {
                 key={item.label}
                 name={item.label}
                 label={item.label}
-                columnData={getColumnData(item.attributes, config.columns)}
+                columnData={getColumnDataHandler(item.attributes, config.columns)}
                 scrollTo={scrollTo}
                 scrollOffset={UI_SIZES.SCROLLOFFSET}
                 slugify={slugify}
